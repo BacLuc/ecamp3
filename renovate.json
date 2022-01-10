@@ -76,7 +76,10 @@
       "matchStrings": [
         "tools: composer:(?<currentValue>[0-9.]+)"
       ],
-      "depNameTemplate": "composer"
+      "depNameTemplate": "composer",
+      "lookupNameTemplate": "composer/composer",
+      "datasourceTemplate": "github-tags",
+      "versioningTemplate": "regex:^(?<major>\\d+)\\.(?<minor>\\d+)w+)?$"
     }
   ]
 }
