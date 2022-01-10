@@ -85,12 +85,10 @@
     },
     {
       "fileMatch": [
-        "^.github/workflows/.+\\.ya?ml$",
-        "^renovate.json$"
+        "^.github/workflows/.+\\.ya?ml$"
       ],
       "matchStrings": [
-        "node-version: '(?<currentValue>[^']+)'.*",
-        "^\"node\": \"= (?<currentValue>[0-9.]+)\",?$"
+        "node-version: '(?<currentValue>[^']+)'.*"
       ],
       "depNameTemplate": "node",
       "lookupNameTemplate": "nodejs/node",
