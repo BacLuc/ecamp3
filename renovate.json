@@ -59,7 +59,7 @@
     },
     {
       "fileMatch": [
-        "fileMatch": ["^.github/workflows/.+\\.ya?ml$"]
+        "^.github/workflows/.+\\.ya?ml$"
       ],
       "matchStrings": [
         "php-version: '(?<currentValue>[0-9.]+)'"
