@@ -79,7 +79,7 @@
       "depNameTemplate": "composer",
       "lookupNameTemplate": "composer/composer",
       "datasourceTemplate": "github-tags",
-      "versioningTemplate": "regex:^(?<major>\\d+)\\.(?<minor>\\d+)w+)?$"
+      "versioningTemplate": "regex:^(?<major>\\d+)\\.(?<minor>\\d+).*?$"
     }
   ]
 }
