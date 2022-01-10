@@ -80,6 +80,20 @@
       "lookupNameTemplate": "composer/composer",
       "datasourceTemplate": "github-tags",
       "versioningTemplate": "regex:^(?<major>\\d+)\\.(?<minor>\\d+).*?$"
+    },
+    {
+      "fileMatch": [
+        "^.github/workflows/.+\\.ya?ml$",
+        "^renovate.json$"
+      ],
+      "matchStrings": [
+        "node-version: '(?<currentValue>[^']+)'.*",
+        "\"node\": \"= (?<currentValue>[^']+)\""
+      ],
+      "depNameTemplate": "node",
+      "lookupNameTemplate": "nodejs/node",
+      "datasourceTemplate": "github-tags",
+      "versioningTemplate": "node"
     }
   ]
 }

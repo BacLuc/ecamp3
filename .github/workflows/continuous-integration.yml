@@ -82,6 +82,10 @@ jobs:
 
       - uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # renovate: tag=v2
 
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '16.13.1'
+
       - uses: actions/cache@937d24475381cd9c75ae6db12cb4e79714b926ed # renovate: tag=v2
         with:
           path: ~/.npm
@@ -89,9 +93,11 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
 
-      - run: ./docker-compose-run-as-entrypoint.sh frontend npm ci
+      - run: npm ci
+        working-directory: frontend
 
-      - run: ./docker-compose-run-as-entrypoint.sh frontend npm run lint-check
+      - run: npm run lint-check
+        working-directory: frontend
 
   print-eslint:
     name: "Lint: Print (ESLint)"
