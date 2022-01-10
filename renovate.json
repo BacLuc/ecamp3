@@ -90,7 +90,7 @@
       ],
       "matchStrings": [
         "node-version: '(?<currentValue>[^']+)'.*",
-        "\"node\": \"= (?<currentValue>+)\""
+        "\"node\": \"= (?<currentValue>[0-9.]+)\""
       ],
       "depNameTemplate": "node",
       "lookupNameTemplate": "nodejs/node",
