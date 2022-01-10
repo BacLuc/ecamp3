@@ -29,9 +29,6 @@
       "matchPackageNames": [
         "php"
       ],
-      "updateTypes": [
-        "minor"
-      ],
       "extractVersion": "^php-(?<version>.*)$",
       "automerge": false
     }
@@ -62,7 +59,7 @@
     },
     {
       "fileMatch": [
-        ".github/workflows/**.yml$"
+        "fileMatch": ["^.github/workflows/.+\\.ya?ml$"]
       ],
       "matchStrings": [
         "php-version: '(?<currentValue>[0-9.]+)'"
