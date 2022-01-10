@@ -221,6 +221,12 @@ jobs:
       - run: composer install --no-interaction --no-plugins --no-scripts --prefer-dist
         working-directory: api
 
+      - run: php bin/console doctrine:migrations:migrate --no-interaction
+        working-directory: api
+
+      - run: php bin/console hautelook:fixtures:load --quiet
+        working-directory: api
+
       - run: composer test
         working-directory: api
 
