@@ -68,6 +68,15 @@
       "lookupNameTemplate": "php/php-src",
       "datasourceTemplate": "github-tags",
       "versioningTemplate": "regex:^(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)(?<prerelease>\\w+)?$"
+    },
+    {
+      "fileMatch": [
+        "^.github/workflows/.+\\.ya?ml$"
+      ],
+      "matchStrings": [
+        "tools: composer:(?<currentValue>[0-9.]+)"
+      ],
+      "depNameTemplate": "composer"
     }
   ]
 }
