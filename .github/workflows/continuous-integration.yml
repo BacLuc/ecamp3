@@ -178,6 +178,8 @@ jobs:
   api-tests:
     name: "Tests: API"
     runs-on: ubuntu-latest
+    env:
+      DATABASE_URL: postgresql://ecamp3:ecamp3@localhost:5432/ecamp3dev?serverVersion=13&charset=utf8
 
     services:
       postgres:
