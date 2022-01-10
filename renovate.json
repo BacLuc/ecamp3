@@ -24,6 +24,16 @@
         "sass"
       ],
       "dependencyDashboardApproval": true
+    },
+    {
+      "matchPackageNames": [
+        "php"
+      ],
+      "updateTypes": [
+        "minor"
+      ],
+      "extractVersion": "^php-(?<version>.*)$",
+      "automerge": false
     }
   ],
   "ignorePaths": [
@@ -49,6 +59,18 @@
       ],
       "depNameTemplate": "phpunit/phpunit",
       "datasourceTemplate": "packagist"
+    },
+    {
+      "fileMatch": [
+        ".github/workflows/**.yml$"
+      ],
+      "matchStrings": [
+        "php-version: '(?<currentValue>[0-9.]+)'"
+      ],
+      "depNameTemplate": "php",
+      "lookupNameTemplate": "php/php-src",
+      "datasourceTemplate": "github-tags",
+      "versioningTemplate": "regex:^(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)(?<prerelease>\\w+)?$"
     }
   ]
 }

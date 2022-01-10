@@ -29,4 +29,10 @@ jobs:
 
       - uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # renovate: tag=v2
 
-      - run: ./docker-compose-run-as-entrypoint.sh php composer update --lock --no-interaction --no-plugins --no-scripts --prefer-dist
+      - uses: shivammathur/setup-php@v2.16.0
+        with:
+          php-version: '8.1'
+          coverage: xdebug
+
+      - run: composer update --lock --no-interaction --no-plugins --no-scripts --prefer-dist
+        working-directory: api
