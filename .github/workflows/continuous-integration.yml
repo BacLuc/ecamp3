@@ -274,7 +274,6 @@ jobs:
     name: "Finish coveralls report"
     needs:
       - api-tests
-      - backend-tests
       - frontend-tests
       - print-tests
     runs-on: ubuntu-latest
