@@ -24,6 +24,13 @@
         "sass"
       ],
       "dependencyDashboardApproval": true
+    },
+    {
+      "matchPackageNames": [
+        "php"
+      ],
+      "extractVersion": "^php-(?<version>.*)$",
+      "automerge": false
     }
   ],
   "ignorePaths": [
