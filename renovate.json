@@ -50,6 +50,18 @@
     },
     {
       "matchPackageNames": [
+        "composer"
+      ],
+      "groupName": "composer"
+    },
+    {
+      "matchPackageNames": [
+        "node"
+      ],
+      "groupName" : "node"
+    },
+    {
+      "matchPackageNames": [
         "eslint",
         "lint",
         "stylelint",
