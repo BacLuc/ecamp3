@@ -7,16 +7,16 @@
     "schedule:earlyMondays"
   ],
   "js": {
-    "managerBranchPrefix": "js-"
+    "managerBranchPrefix": "js-",
+    "commitMessageExtra": "all js dependencies"
   },
   "php" : {
-    "managerBranchPrefix": "php-"
+    "managerBranchPrefix": "php-",
+    "commitMessageExtra": "all php dependencies"
   },
   "docker": {
-    "managerBranchPrefix": "docker-"
-  },
-  "helmfile": {
-    "managerBranchPrefix": "helm-"
+    "managerBranchPrefix": "docker-",
+    "commitMessageExtra": "all docker tags"
   },
   "force": {
     "constraints": {
@@ -45,7 +45,8 @@
         "php"
       ],
       "extractVersion": "^php-(?<version>.*)$",
-      "automerge": false
+      "automerge": false,
+      "groupName": "php"
     },
     {
       "matchPackageNames": [
