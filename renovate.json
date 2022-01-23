@@ -2,9 +2,22 @@
   "extends": [
     "github>whitesource/merge-confidence:beta",
     "config:base",
-    "config:semverAllMonthly",
-    "docker:pinDigests"
+    "docker:pinDigests",
+    "group:all",
+    "schedule:earlyMondays"
   ],
+  "js": {
+    "managerBranchPrefix": "js-"
+  },
+  "php" : {
+    "managerBranchPrefix": "php-"
+  },
+  "docker": {
+    "managerBranchPrefix": "docker-"
+  },
+  "helmfile": {
+    "managerBranchPrefix": "helm"
+  },
   "force": {
     "constraints": {
       "node": "= 16.3.0",
@@ -33,6 +46,23 @@
       ],
       "extractVersion": "^php-(?<version>.*)$",
       "automerge": false
+    },
+    {
+      "matchPackageNames": [
+        "eslint",
+        "lint",
+        "stylelint",
+        "prettier"
+      ],
+      "groupName": "js-linter"
+    },
+    {
+      "matchPackageNames": [
+        "phpstan/phpstan",
+        "friendsofphp/php-cs-fixer",
+        "vimeo/psalm"
+      ],
+      "groupName": "php-linter"
     }
   ],
   "ignorePaths": [
