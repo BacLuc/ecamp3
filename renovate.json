@@ -8,15 +8,15 @@
   ],
   "js": {
     "managerBranchPrefix": "js-",
-    "commitMessageAction": "all js dependencies"
+    "commitMessageTopic": "all js dependencies"
   },
   "php" : {
     "managerBranchPrefix": "php-",
-    "commitMessageAction": "all php dependencies"
+    "commitMessageTopic": "all php dependencies"
   },
   "docker": {
     "managerBranchPrefix": "docker-",
-    "commitMessageAction": "all docker tags"
+    "commitMessageTopic": "all docker tags"
   },
   "force": {
     "constraints": {
