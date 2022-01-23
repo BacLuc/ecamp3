@@ -16,7 +16,7 @@
     "managerBranchPrefix": "docker-"
   },
   "helmfile": {
-    "managerBranchPrefix": "helm"
+    "managerBranchPrefix": "helm-"
   },
   "force": {
     "constraints": {
