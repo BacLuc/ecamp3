@@ -12,7 +12,7 @@ ARG PHP_IMAGE_VERSION=8.1.1-fpm-alpine
 ARG CADDY_IMAGE_VERSION=2.4.6-builder-alpine
 
 # "php" stage
-FROM php:${PHP_VERSION} AS api_platform_php
+FROM php:${PHP_IMAGE_VERSION} AS api_platform_php
 
 # persistent / runtime deps
 RUN apk add --no-cache \
@@ -128,7 +128,7 @@ CMD ["php-fpm"]
 
 # "caddy" stage
 # depends on the "php" stage above
-FROM caddy:${CADDY_VERSION} AS api_platform_caddy_builder
+FROM caddy:${CADDY_IMAGE_VERSION} AS api_platform_caddy_builder
 
 # install Mercure and Vulcain modules
 RUN xcaddy build \
