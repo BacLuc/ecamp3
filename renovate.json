@@ -99,10 +99,12 @@
     },
     {
       "fileMatch": [
-        "^.github/workflows/.+\\.ya?ml$"
+        "^.github/workflows/.+\\.ya?ml$",
+        "^api/Dockerfile"
       ],
       "matchStrings": [
-        "php-version: '(?<currentValue>[0-9.]+)'"
+        "php-version: '(?<currentValue>[0-9.]+)'",
+        "ARG PHP_VERSION=(?<currentValue>[0-9.]+)"
       ],
       "depNameTemplate": "php",
       "lookupNameTemplate": "php/php-src",
