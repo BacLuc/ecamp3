@@ -119,7 +119,6 @@
         "ARG PHP_VERSION=(?<currentValue>[0-9.]+)"
       ],
       "depNameTemplate": "php",
-      "lookupNameTemplate": "library/php",
       "datasourceTemplate": "docker",
       "versioningTemplate": "docker"
     },
