@@ -52,11 +52,13 @@
     },
     {
       "matchPackageNames": [
-        "postgres",
-        "mailhog/mailhog",
-        "qoomon/docker-host",
         "caddy",
-        "krakjoe/apcu"
+        "krakjoe/apcu",
+        "mailhog/mailhog",
+        "phpmyadmin/phpmyadmin",
+        "postgres",
+        "python",
+        "qoomon/docker-host"
       ],
       "groupName": "docker-images",
       "extends": [
