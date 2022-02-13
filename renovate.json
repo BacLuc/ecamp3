@@ -99,17 +99,27 @@
     },
     {
       "fileMatch": [
-        "^.github/workflows/.+\\.ya?ml$",
-        "^api/Dockerfile"
+        "^.github/workflows/.+\\.ya?ml$"
       ],
       "matchStrings": [
-        "php-version: '(?<currentValue>[0-9.]+)'",
-        "ARG PHP_VERSION=(?<currentValue>[0-9.]+)"
+        "php-version: '(?<currentValue>[0-9.]+)'"
       ],
       "depNameTemplate": "php",
       "lookupNameTemplate": "php/php-src",
       "datasourceTemplate": "github-tags",
       "versioningTemplate": "regex:^(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)(?<prerelease>\\w+)?$"
+    },
+    {
+      "fileMatch": [
+        "^api/Dockerfile"
+      ],
+      "matchStrings": [
+        "ARG PHP_VERSION=(?<currentValue>[0-9.]+)"
+      ],
+      "depNameTemplate": "php",
+      "lookupNameTemplate": "library/php",
+      "datasourceTemplate": "docker",
+      "versioningTemplate": "docker"
     },
     {
       "fileMatch": [
