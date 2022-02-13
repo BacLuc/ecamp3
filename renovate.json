@@ -58,7 +58,10 @@
         "caddy",
         "krakjoe/apcu"
       ],
-      "groupName": "docker-images"
+      "groupName": "docker-images",
+      "extends": [
+        "schedule:weekly"
+      ]
     }
   ],
   "ignorePaths": [
