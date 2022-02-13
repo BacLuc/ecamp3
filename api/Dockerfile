@@ -5,10 +5,10 @@
 
 # https://docs.docker.com/engine/reference/builder/#understand-how-arg-and-from-interact
 
-# renovate: datasource=docker depName=php versioning=regex:^(?<major>\d+)\.(?<minor>\d+)\.(?<patch>\d+)(?<prerelease>\w+)?$
+# renovate: datasource=docker depName=php versioning=docker
 ARG PHP_VERSION=8.1.1
 
-# renovate: datasource=docker depName=caddy
+# renovate: datasource=docker depName=caddy versioning=docker
 ARG CADDY_VERSION=2.4.6
 
 # "php" stage
@@ -29,7 +29,7 @@ RUN apk add --no-cache \
 # see https://github.com/docker-library/php/issues/240#issuecomment-763112749
 ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so
 
-# renovate: datasource=github-releases depName=krakjoe/apcu
+# renovate: datasource=github-releases depName=krakjoe/apcu versioning=regex:^(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)$
 ARG APCU_VERSION=5.1.21
 RUN set -eux; \
 	apk add --no-cache --virtual .build-deps \
@@ -152,7 +152,7 @@ COPY docker/caddy/Caddyfile.prod /etc/caddy/Caddyfile
 # Debug stage, for using XDebug
 FROM api_platform_php as api_platform_php_dev
 
-# renovate: datasource=github-tags depName=xdebug/xdebug
+# renovate: datasource=github-tags depName=xdebug/xdebug versioning=regex:^(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)(?<prerelease>\\w+)?$
 ARG XDEBUG_VERSION=3.1.2
 RUN set -eux; \
 	apk add --no-cache --virtual .build-deps $PHPIZE_DEPS; \
