@@ -65,7 +65,7 @@ jobs:
 
       - uses: actions/setup-node@v2
         with:
-          node-version: '16.13.1'
+          node-version: '16.14.0'
 
       - uses: actions/cache@937d24475381cd9c75ae6db12cb4e79714b926ed # renovate: tag=v2
         with:
@@ -89,7 +89,7 @@ jobs:
 
       - uses: actions/setup-node@v2
         with:
-          node-version: '16.13.1'
+          node-version: '16.14.0'
 
       - uses: actions/cache@937d24475381cd9c75ae6db12cb4e79714b926ed # renovate: tag=v2
         with:
@@ -190,7 +190,7 @@ jobs:
 
       - uses: actions/setup-node@v2
         with:
-          node-version: '16.13.1'
+          node-version: '16.14.0'
 
       - uses: actions/cache@937d24475381cd9c75ae6db12cb4e79714b926ed # renovate: tag=v2
         with:
@@ -227,7 +227,7 @@ jobs:
 
       - uses: actions/setup-node@v2
         with:
-          node-version: '16.13.1'
+          node-version: '16.14.0'
 
       - uses: actions/cache@937d24475381cd9c75ae6db12cb4e79714b926ed # renovate: tag=v2
         with:
