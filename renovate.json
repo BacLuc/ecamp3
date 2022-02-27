@@ -12,6 +12,9 @@
   "packageRules": [
     {
       "updateTypes": [
+        "pin",
+        "digest",
+        "lockFileMaintenance",
         "minor",
         "patch",
         "pin",
