@@ -33,11 +33,11 @@
       "automerge": false
     },
     {
-      "matchPackageNames": [
-        "eslint",
-        "lint",
-        "stylelint",
-        "prettier"
+      "matchPackagePatterns": [
+        ".*eslint.*",
+        ".*lint.*",
+        ".*stylelint.*",
+        ".*prettier.*"
       ],
       "groupName": "js-linter"
     },
