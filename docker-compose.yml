@@ -149,7 +149,7 @@ services:
       - db-data:/var/lib/mysql
 
   database:
-    image: postgres:14-alpine@sha256:578ca5c8452c08a4e0f5e65b55dce5e1812fe63c8fee40ea837641031598e51e
+    image: postgres:14-alpine@sha256:b62797756ca37cebdf08aa391b9826b74410a26a252580bd9d8deabc08e602d1
     environment:
       - POSTGRES_DB=ecamp3dev
       - POSTGRES_PASSWORD=ecamp3
@@ -165,7 +165,7 @@ services:
         protocol: tcp
 
   phpmyadmin:
-    image: phpmyadmin/phpmyadmin@sha256:90feab83dd4b831c0f69d9329ab205dab5fdd9c24b9b2e5a81dd9a482f02c8e4
+    image: phpmyadmin/phpmyadmin@sha256:1d3f6ec798a9faa201ada6678797f399202928e677dfccbb698ef0b511c798b0
     container_name: 'ecamp3-phpmyadmin'
     ports:
       - '3002:80'
@@ -179,7 +179,7 @@ services:
       - '3007:8025' # web UI
 
   docker-host:
-    image: qoomon/docker-host@sha256:e4c68999056cc870bb7003d5d97ba8badfeea933435d2af239d3a3a6c38163ff
+    image: qoomon/docker-host@sha256:fa24766ea43912d1eafb8c36813e9cdac7f492ac640e9916450b649af03181aa
     container_name: 'ecamp3-docker-host-forwarder'
     cap_add: [ 'NET_ADMIN', 'NET_RAW' ]
     restart: on-failure
