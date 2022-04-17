@@ -145,7 +145,7 @@
         "^.github/workflows/.+\\.ya?ml$"
       ],
       "matchStrings": [
-        "image:\\s+'(?<depName>[^@]*):(?<currentValue>.*)'\\s"
+        "image:\\s+'(?<depName>.*):(?<currentValue>.*)@(?<currentDigest>.*)'\\s"
       ],
       "datasourceTemplate": "docker"
     }
