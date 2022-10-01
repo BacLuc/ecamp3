@@ -5,7 +5,8 @@
   ],
   "force": {
     "constraints": {
-      "node": "18.10.0"
+      "node": "18.10.0",
+      "php": "8.1.10"
     }
   },
   "automergeType": "branch",
@@ -193,6 +194,19 @@
       "datasourceTemplate": "github-tags",
       "versioningTemplate": "regex:^(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+).*?$",
       "extractVersionTemplate": "^v(?<version>.*)$"
+    },
+    {
+      "fileMatch": [
+        "^renovate.json$"
+      ],
+      "matchStrings": [
+        "\"php\": \"(?<currentValue>[^\"]+).*\".*"
+      ],
+      "depNameTemplate": "php",
+      "lookupNameTemplate": "php/php-src",
+      "datasourceTemplate": "github-tags",
+      "versioningTemplate": "regex:^(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)(?<prerelease>\\w+)?$",
+      "extractVersionTemplate": "^php-(?<version>.*)$"
     },
     {
       "fileMatch": [
