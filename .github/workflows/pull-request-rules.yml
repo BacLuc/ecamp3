@@ -8,6 +8,7 @@ on:
       - 'renovate/**'
 
 jobs:
+  # test
   no-meeting-discuss-label:
     name: No "Meeting Discuss" label
     runs-on: ubuntu-latest
