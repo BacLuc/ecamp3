@@ -83,6 +83,7 @@
     },
     {
       "matchPackageNames": [
+        "browserless/chrome",
         "caddy",
         "krakjoe/apcu",
         "mailhog/mailhog",
@@ -96,6 +97,12 @@
         "after 10pm every sunday",
         "before 7am every monday"
       ]
+    },
+    {
+      "matchPackageNames": [
+        "browserless/chrome"
+      ],
+      "versioning": "loose"
     },
     {
       "matchPackageNames": [
@@ -138,6 +145,14 @@
         "datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\s(ENV|ARG) .*?_VERSION=(?<currentValue>.*)\\s"
       ],
       "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}"
+    },
+    {
+      "fileMatch": [
+        "^.helm/ecamp3/values.ya?ml$"
+      ],
+      "matchStrings": [
+        "datasource=(?<datasource>.*?) depName=(?<depName>.*?)?\\s.*tag: \"(?<currentValue>.*)\"\\s"
+      ]
     },
     {
       "fileMatch": [
