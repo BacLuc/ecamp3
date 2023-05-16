@@ -164,6 +164,19 @@
     },
     {
       "fileMatch": [
+        "^.github/workflows/.+\\.ya?ml$"
+      ],
+      "matchStrings": [
+        "php-version.*\\n\\W*extensions: .*intl-(?<currentValue>[0-9.]+).*"
+      ],
+      "depNameTemplate": "icu",
+      "lookupNameTemplate": "unicode-org/icu",
+      "datasourceTemplate": "github-releases",
+      "versioningTemplate": "regex:^(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)(?<prerelease>\\w+)?$",
+      "extractVersionTemplate": "^ICU (?<version>.*)$"
+    },
+    {
+      "fileMatch": [
         "^renovate.json$"
       ],
       "matchStrings": [
