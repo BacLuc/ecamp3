@@ -3,11 +3,11 @@ name: DB Restore for dev and feature branches
 on:
   workflow_dispatch:
     inputs:
-      sourceFile:
+      restoreSourceFile:
         type: string
         description: |
           The sourceFile of the backup in the bucket to restore, e.g.
-          ecamp-aws-setup-ecamp3devbucket58b42731-1kxz0xdiuxni8/dev/2023-07-17-12-55-33-dev.sql.gz.gpg
+          ecamp3-dev/2023-07-17-12-55-33-ecamp3-dev.sql.gz.gpg
         required: true
         default: latest
       pr_number:
@@ -24,7 +24,6 @@ on:
 
 jobs:
   build-and-push:
-    if: contains(github.event.pull_request.labels.*.name, 'deploy!')
     name: Build and push docker images
     uses: ./.github/workflows/reusable-build-and-push.yml
     with:
@@ -43,5 +42,5 @@ jobs:
       env: ${{ inputs.env }}
       pr_number: ${{ inputs.pr_number }}
       dropDBOnUninstall: ${{ inputs.pr_number != null }}
-      restoreSourceFile: ${{ inputs.sourceFile }}
+      restoreSourceFile: ${{ inputs.restoreSourceFile }}
     secrets: inherit
