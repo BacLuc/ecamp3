@@ -85,6 +85,7 @@ jobs:
             --set print.image.repository='docker.io/${{ vars.DOCKER_HUB_USERNAME }}/ecamp3-print' \
             --set php.image.repository='docker.io/${{ vars.DOCKER_HUB_USERNAME }}/ecamp3-api-php' \
             --set caddy.image.repository='docker.io/${{ vars.DOCKER_HUB_USERNAME }}/ecamp3-api-caddy' \
+            --set postgresql.dbBackupRestoreImage.repository='docker.io/${{ vars.DOCKER_HUB_USERNAME }}/ecamp3-db-backup-restore' \
             --set termsOfServiceLinkTemplate='https://ecamp3.ch/{lang}/tos' \
             --set domain=${{ inputs.name }}.${{ vars.DOMAIN }} \
             --set ingress.basicAuth.enabled=${{ vars.BASIC_AUTH_ENABLED || false  }} \
