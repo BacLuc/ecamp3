@@ -8,7 +8,7 @@ metadata:
   labels:
     {{- include "app.commonLabels" . | nindent 4 }}
 spec:
-  concurrencyPolicy: Forbid
+  concurrencyPolicy: Allow
   successfulJobsHistoryLimit: 1
   failedJobsHistoryLimit: 1
   jobTemplate:
@@ -71,6 +71,7 @@ spec:
                       name: {{ include "dbBackupJob.name" . }}
                       key: s3-access-key
 
-          restartPolicy: OnFailure
+          restartPolicy: Never
+      backoffLimit: 3
   schedule: {{ .Values.postgresql.backup.schedule | quote }}
 {{- end }}
