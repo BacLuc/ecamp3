@@ -1,6 +1,6 @@
 # hook_db_restore
 
-This folder contains the files used in the hook_db_restore.\
+This folder contains the files used in the hook_db_restore .\
 It also contains a docker-compose.yml file to easily test the [restore-backup.sh](restore-backup.sh) locally.
 
 1. Copy the [.env-example](.env-example) file to [.env](.env)
