@@ -37,7 +37,6 @@ spec:
           volumeMounts:
             - name: host-logs
               mountPath: /var/log
-              readOnly: true
             - name: container-logs
               mountPath: /var/lib/docker/containers
               readOnly: true
