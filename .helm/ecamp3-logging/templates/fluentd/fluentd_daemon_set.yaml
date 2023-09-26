@@ -25,7 +25,7 @@ spec:
           env:
             # TODO: maybe improve according to https://docs.fluentd.org/v1.0/articles/out_elasticsearch#hosts-(optional)
             - name: FLUENT_ELASTICSEARCH_HOST
-              value: "elasticsearch.kube-logging.svc.cluster.local"
+              value: "elasticsearch"
             - name: FLUENT_ELASTICSEARCH_PORT
               value: "9200"
             - name: FLUENT_ELASTICSEARCH_SCHEME
