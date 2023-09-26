@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: fluentd
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: fluentd
+spec:
+  selector:
+    matchLabels:
+      app: fluentd
+  template:
+    metadata:
+      labels:
+        app: fluentd
+    spec:
+      serviceAccountName: fluentd
+      tolerations:
+        - key: node-role.kubernetes.io/master
+          effect: NoSchedule
+      containers:
+        - name: fluentd
+          image: fluent/fluentd-kubernetes-daemonset:v1.16.2-debian-elasticsearch8-1.0
+          env:
+            # TODO: maybe improve according to https://docs.fluentd.org/v1.0/articles/out_elasticsearch#hosts-(optional)
+            - name: FLUENT_ELASTICSEARCH_HOST
+              value: "elasticsearch.kube-logging.svc.cluster.local"
+            - name: FLUENT_ELASTICSEARCH_PORT
+              value: "9200"
+            - name: FLUENT_ELASTICSEARCH_SCHEME
+              value: "http"
+            - name: FLUENTD_SYSTEMD_CONF
+              value: disable
+          resources:
+            {{- toYaml .Values.elasticsearch.elasticNode.resources | nindent 12 }}
+          volumeMounts:
+            - name: hostLogs
+              mountPath: /var/log
+              readOnly: true
+            - name: containerLogs
+              mountPath: /var/lib/docker/containers
+              readOnly: true
+      terminationGracePeriodSeconds: 30
+      volumes:
+        - name: hostLogs
+          hostPath:
+            path: /var/log
+        - name: containerLogs
+          hostPath:
+            path: /var/lib/docker/containers

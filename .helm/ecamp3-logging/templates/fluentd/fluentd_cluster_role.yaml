@@ -1,0 +1,19 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: fluentd
+  # ClusterRole is a non-namespaces resource
+  # see https://kubernetes.io/docs/reference/access-authn-authz/rbac/#role-and-clusterrole
+  labels:
+    app: fluentd
+rules:
+  - apiGroups:
+      # TODO: try to scope it to the api group
+      - ""
+    resources:
+      - pods
+      - namespaces
+    verbs:
+      - get
+      - list
+      - watch
