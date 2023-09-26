@@ -19,9 +19,6 @@ spec:
         {{- include "app.commonSelectorLabels" . | nindent 8 }}
     spec:
       serviceAccountName: fluentd
-      tolerations:
-        - key: node-role.kubernetes.io/master
-          effect: NoSchedule
       containers:
         - name: fluentd
           image: fluent/fluentd-kubernetes-daemonset:v1.16.2-debian-elasticsearch8-1.0
