@@ -21,11 +21,11 @@ kibana:
       cpu: 300m
       memory: 500Mi
 
-fluentd:
+filebeat:
   resources:
     requests:
       cpu: 100m
-      memory: 200Mi
+      memory: 100Mi
     limit:
-      cpu: 300m
-      memory: 300Mi
+      cpu: 200m
+      memory: 200Mi
