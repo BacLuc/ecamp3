@@ -2,12 +2,15 @@ kind: Service
 apiVersion: v1
 metadata:
   name: elasticsearch
-  namespace: {{ .Values.namespace }}
+  namespace: {{ .Release.Namespace }}
   labels:
     app: elasticsearch
+    {{- include "app.commonLabels" . | nindent 4 }}
+    {{- include "app.commonSelectorLabels" . | nindent 4 }}
 spec:
   selector:
     app: elasticsearch
+    {{- include "app.commonSelectorLabels" . | nindent 4 }}
   clusterIP: None
   ports:
     - port: 9200

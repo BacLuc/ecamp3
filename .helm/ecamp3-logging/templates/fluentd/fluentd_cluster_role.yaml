@@ -6,6 +6,8 @@ metadata:
   # see https://kubernetes.io/docs/reference/access-authn-authz/rbac/#role-and-clusterrole
   labels:
     app: fluentd
+    {{- include "app.commonLabels" . | nindent 4 }}
+    {{- include "app.commonSelectorLabels" . | nindent 4 }}
 rules:
   - apiGroups:
       # TODO: try to scope it to the api group

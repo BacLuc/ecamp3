@@ -2,18 +2,23 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: kibana
-  namespace: {{ .Values.namespace }}
+  namespace: {{ .Release.Namespace }}
   labels:
     app: kibana
+    {{- include "app.commonLabels" . | nindent 4 }}
+    {{- include "app.commonSelectorLabels" . | nindent 4 }}
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: kibana
+      {{- include "app.commonSelectorLabels" . | nindent 6 }}
   template:
     metadata:
       labels:
         app: kibana
+        {{- include "app.commonLabels" . | nindent 8 }}
+        {{- include "app.commonSelectorLabels" . | nindent 8 }}
     spec:
       containers:
         - name: kibana

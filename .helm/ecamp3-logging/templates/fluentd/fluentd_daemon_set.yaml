@@ -2,9 +2,11 @@ apiVersion: apps/v1
 kind: DaemonSet
 metadata:
   name: fluentd
-  namespace: {{ .Values.namespace }}
+  namespace: {{ .Release.Namespace }}
   labels:
     app: fluentd
+    {{- include "app.commonLabels" . | nindent 4 }}
+    {{- include "app.commonSelectorLabels" . | nindent 4 }}
 spec:
   selector:
     matchLabels:
@@ -13,6 +15,8 @@ spec:
     metadata:
       labels:
         app: fluentd
+        {{- include "app.commonLabels" . | nindent 8 }}
+        {{- include "app.commonSelectorLabels" . | nindent 8 }}
     spec:
       serviceAccountName: fluentd
       tolerations:
@@ -34,17 +38,17 @@ spec:
           resources:
             {{- toYaml .Values.elasticsearch.elasticNode.resources | nindent 12 }}
           volumeMounts:
-            - name: hostLogs
+            - name: host-logs
               mountPath: /var/log
               readOnly: true
-            - name: containerLogs
+            - name: container-logs
               mountPath: /var/lib/docker/containers
               readOnly: true
       terminationGracePeriodSeconds: 30
       volumes:
-        - name: hostLogs
+        - name: host-logs
           hostPath:
             path: /var/log
-        - name: containerLogs
+        - name: container-logs
           hostPath:
             path: /var/lib/docker/containers

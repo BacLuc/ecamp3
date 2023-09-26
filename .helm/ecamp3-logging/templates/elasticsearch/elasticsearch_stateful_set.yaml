@@ -5,17 +5,23 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: es-cluster
-  namespace: {{ .Values.namespace }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "app.commonLabels" . | nindent 4 }}
+    {{- include "app.commonSelectorLabels" . | nindent 4 }}
 spec:
   serviceName: elasticsearch
   replicas: 1
   selector:
     matchLabels:
       app: elasticsearch
+      {{- include "app.commonSelectorLabels" . | nindent 6 }}
   template:
     metadata:
       labels:
         app: elasticsearch
+        {{- include "app.commonLabels" . | nindent 8 }}
+        {{- include "app.commonSelectorLabels" . | nindent 8 }}
     spec:
       containers:
         - name: elasticsearch
@@ -64,13 +70,15 @@ spec:
           command: [ "sh", "-c", "ulimit -n 65536" ]
           securityContext:
             privileged: true
-      volumeClaimTemplates:
-        - metadata:
-            name: data
-            labels:
-              app: elasticsearch
-          spec:
-            accessModes: [ "ReadWriteOnce" ]
-            storageClassName: do-block-storage
-            resources:
-              {{- toYaml .Values.elasticsearch.persistence.resources | nindent 12 }}
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+        labels:
+          app: elasticsearch
+          {{- include "app.commonLabels" . | nindent 8 }}
+          {{- include "app.commonSelectorLabels" . | nindent 8 }}
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        storageClassName: do-block-storage
+        resources:
+          {{- toYaml .Values.elasticsearch.persistence.resources | nindent 10 }}
