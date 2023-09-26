@@ -1,5 +1,5 @@
-{{- $minHeapSpace := .Values.elasticsearch.resources.requests.memory | replace "Mi" "" }} -}}
-{{- $maxHeapSpace := .Values.elasticsearch.resources.requests.memory | replace "Mi" "" }} -}}
+{{- $minHeapSpace := .Values.elasticsearch.elasticNode.resources.requests.memory | replace "Mi" "" -}}
+{{- $maxHeapSpace := .Values.elasticsearch.elasticNode.resources.requests.memory | replace "Mi" "" -}}
 
 apiVersion: apps/v1
 kind: StatefulSet
