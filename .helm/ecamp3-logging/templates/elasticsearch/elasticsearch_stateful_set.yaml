@@ -41,12 +41,12 @@ spec:
           env:
             - name: cluster.name
               value: ecamp3-logs
+            - name: xpack.security.enabled
+              value: "false"
             - name: node.name
               valueFrom:
                 fieldRef:
                   fieldPath: metadata.name
-            - name: discovery.seed_hosts
-              value: "es-cluster-0.elasticsearch"
             - name: cluster.initial_master_nodes
               value: "es-cluster-0"
             - name: ES_JAVA_OPTS
