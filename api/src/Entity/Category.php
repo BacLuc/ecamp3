@@ -13,6 +13,7 @@ use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use App\InputFilter;
 use App\Repository\CategoryRepository;
+use App\Serializer\Normalizer\RelatedCollectionLink;
 use App\State\CategoryCreateProcessor;
 use App\State\CategoryRemoveProcessor;
 use App\Util\ClassInfoTrait;
@@ -166,6 +167,21 @@ class Category extends BaseEntity implements BelongsToCampInterface, CopyFromPro
     }
 
     /**
+     * All the content nodes that make up the tree of programme content.
+     *
+     * @return ContentNode[]
+     */
+    #[ApiProperty(example: '["/content_nodes/1a2b3c4d"]', writable: false, writableLink: false)]
+    #[SerializedName('contentNodes')]
+    #[RelatedCollectionLink(ContentNode::class, ['root' => 'rootContentNode'])]
+    #[Groups(['read', 'write'])]
+    public function getEmptyContentNodes() {
+        return [];
+    }
+
+    /**
+     * All the content nodes that make up the tree of programme content.
+     *
      * @return ContentNode[]
      */
     #[ApiProperty(readableLink: true)]

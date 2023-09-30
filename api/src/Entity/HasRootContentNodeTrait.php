@@ -4,7 +4,6 @@ namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiProperty;
 use App\Entity\ContentNode\ColumnLayout;
-use App\Serializer\Normalizer\RelatedCollectionLink;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -41,9 +40,7 @@ trait HasRootContentNodeTrait {
      *
      * @return ContentNode[]
      */
-    #[ApiProperty(example: '["/content_nodes/1a2b3c4d"]')]
-    #[Groups(['read'])]
-    #[RelatedCollectionLink(ContentNode::class, ['root' => 'rootContentNode'])]
+    #[ApiProperty(readable: false, writable: false)]
     public function getContentNodes(): array {
         return $this->rootContentNode?->getRootDescendants() ?? [];
     }

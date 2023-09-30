@@ -212,11 +212,8 @@
                         "readOnly": true
                     },
                     "contentNodes": {
-                        "description": "All the content nodes that make up the tree of programme content.",
-                        "example": "[\"\/content_nodes\/1a2b3c4d\"]",
                         "items": {
-                            "format": "iri-reference",
-                            "type": "string"
+                            "$ref": "#\/components\/schemas\/ContentNode-read_Activity.Category_Activity.ActivityProgressLabel_Activity.ActivityResponsibles_Activity.ScheduleEntries_Activity.ContentNodes"
                         },
                         "readOnly": true,
                         "type": "array"
@@ -375,6 +372,16 @@
                         "format": "iri-reference",
                         "type": "string"
                     },
+                    "contentNodes": {
+                        "description": "All the content nodes that make up the tree of programme content.",
+                        "example": "[\"\/content_nodes\/1a2b3c4d\"]",
+                        "items": {
+                            "format": "iri-reference",
+                            "type": "string"
+                        },
+                        "readOnly": true,
+                        "type": "array"
+                    },
                     "location": {
                         "description": "The physical location where this activity's programme will be carried out.",
                         "example": "Spielwiese",
@@ -411,6 +418,16 @@
                         "example": "\/categories\/1a2b3c4d",
                         "format": "iri-reference",
                         "type": "string"
+                    },
+                    "contentNodes": {
+                        "description": "All the content nodes that make up the tree of programme content.",
+                        "example": "[\"\/content_nodes\/1a2b3c4d\"]",
+                        "items": {
+                            "format": "iri-reference",
+                            "type": "string"
+                        },
+                        "readOnly": true,
+                        "type": "array"
                     },
                     "location": {
                         "description": "The physical location where this activity's programme will be carried out.",
@@ -704,11 +721,8 @@
                         "readOnly": true
                     },
                     "contentNodes": {
-                        "description": "All the content nodes that make up the tree of programme content.",
-                        "example": "[\"\/content_nodes\/1a2b3c4d\"]",
                         "items": {
-                            "format": "iri-reference",
-                            "type": "string"
+                            "$ref": "#\/components\/schemas\/ContentNode.jsonhal-read_Activity.Category_Activity.ActivityProgressLabel_Activity.ActivityResponsibles_Activity.ScheduleEntries_Activity.ContentNodes"
                         },
                         "readOnly": true,
                         "type": "array"
@@ -894,6 +908,16 @@
                         "example": "\/categories\/1a2b3c4d",
                         "format": "iri-reference",
                         "type": "string"
+                    },
+                    "contentNodes": {
+                        "description": "All the content nodes that make up the tree of programme content.",
+                        "example": "[\"\/content_nodes\/1a2b3c4d\"]",
+                        "items": {
+                            "format": "iri-reference",
+                            "type": "string"
+                        },
+                        "readOnly": true,
+                        "type": "array"
                     },
                     "location": {
                         "description": "The physical location where this activity's programme will be carried out.",
@@ -1223,11 +1247,8 @@
                         "readOnly": true
                     },
                     "contentNodes": {
-                        "description": "All the content nodes that make up the tree of programme content.",
-                        "example": "[\"\/content_nodes\/1a2b3c4d\"]",
                         "items": {
-                            "format": "iri-reference",
-                            "type": "string"
+                            "$ref": "#\/components\/schemas\/ContentNode.jsonld-read_Activity.Category_Activity.ActivityProgressLabel_Activity.ActivityResponsibles_Activity.ScheduleEntries_Activity.ContentNodes"
                         },
                         "readOnly": true,
                         "type": "array"
@@ -1420,6 +1441,16 @@
                         "example": "\/categories\/1a2b3c4d",
                         "format": "iri-reference",
                         "type": "string"
+                    },
+                    "contentNodes": {
+                        "description": "All the content nodes that make up the tree of programme content.",
+                        "example": "[\"\/content_nodes\/1a2b3c4d\"]",
+                        "items": {
+                            "format": "iri-reference",
+                            "type": "string"
+                        },
+                        "readOnly": true,
+                        "type": "array"
                     },
                     "location": {
                         "description": "The physical location where this activity's programme will be carried out.",
@@ -6844,10 +6875,8 @@
                     },
                     "contentNodes": {
                         "description": "All the content nodes that make up the tree of programme content.",
-                        "example": "[\"\/content_nodes\/1a2b3c4d\"]",
                         "items": {
-                            "format": "iri-reference",
-                            "type": "string"
+                            "$ref": "#\/components\/schemas\/ContentNode-read_Category.PreferredContentTypes_Category.ContentNodes"
                         },
                         "readOnly": true,
                         "type": "array"
@@ -6926,6 +6955,16 @@
                         "pattern": "^(#[0-9a-zA-Z]{6})$",
                         "type": "string"
                     },
+                    "contentNodes": {
+                        "description": "All the content nodes that make up the tree of programme content.",
+                        "example": "[\"\/content_nodes\/1a2b3c4d\"]",
+                        "items": {
+                            "format": "iri-reference",
+                            "type": "string"
+                        },
+                        "readOnly": true,
+                        "type": "array"
+                    },
                     "name": {
                         "description": "The full name of the category.",
                         "example": "Lagersport",
@@ -6982,6 +7021,16 @@
                         "maxLength": 8,
                         "pattern": "^(#[0-9a-zA-Z]{6})$",
                         "type": "string"
+                    },
+                    "contentNodes": {
+                        "description": "All the content nodes that make up the tree of programme content.",
+                        "example": "[\"\/content_nodes\/1a2b3c4d\"]",
+                        "items": {
+                            "format": "iri-reference",
+                            "type": "string"
+                        },
+                        "readOnly": true,
+                        "type": "array"
                     },
                     "name": {
                         "description": "The full name of the category.",
@@ -7261,10 +7310,8 @@
                     },
                     "contentNodes": {
                         "description": "All the content nodes that make up the tree of programme content.",
-                        "example": "[\"\/content_nodes\/1a2b3c4d\"]",
                         "items": {
-                            "format": "iri-reference",
-                            "type": "string"
+                            "$ref": "#\/components\/schemas\/ContentNode.jsonhal-read_Category.PreferredContentTypes_Category.ContentNodes"
                         },
                         "readOnly": true,
                         "type": "array"
@@ -7356,6 +7403,16 @@
                         "maxLength": 8,
                         "pattern": "^(#[0-9a-zA-Z]{6})$",
                         "type": "string"
+                    },
+                    "contentNodes": {
+                        "description": "All the content nodes that make up the tree of programme content.",
+                        "example": "[\"\/content_nodes\/1a2b3c4d\"]",
+                        "items": {
+                            "format": "iri-reference",
+                            "type": "string"
+                        },
+                        "readOnly": true,
+                        "type": "array"
                     },
                     "name": {
                         "description": "The full name of the category.",
@@ -7699,10 +7756,8 @@
                     },
                     "contentNodes": {
                         "description": "All the content nodes that make up the tree of programme content.",
-                        "example": "[\"\/content_nodes\/1a2b3c4d\"]",
                         "items": {
-                            "format": "iri-reference",
-                            "type": "string"
+                            "$ref": "#\/components\/schemas\/ContentNode.jsonld-read_Category.PreferredContentTypes_Category.ContentNodes"
                         },
                         "readOnly": true,
                         "type": "array"
@@ -7780,6 +7835,16 @@
                         "maxLength": 8,
                         "pattern": "^(#[0-9a-zA-Z]{6})$",
                         "type": "string"
+                    },
+                    "contentNodes": {
+                        "description": "All the content nodes that make up the tree of programme content.",
+                        "example": "[\"\/content_nodes\/1a2b3c4d\"]",
+                        "items": {
+                            "format": "iri-reference",
+                            "type": "string"
+                        },
+                        "readOnly": true,
+                        "type": "array"
                     },
                     "name": {
                         "description": "The full name of the category.",
