@@ -27,6 +27,6 @@ jobs:
     needs: build-and-push
     uses: ./.github/workflows/reusable-dev-deployment.yml
     with:
-      name: dev
+      name: baclucdev
       env: dev
     secrets: inherit

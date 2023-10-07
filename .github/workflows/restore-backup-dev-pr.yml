@@ -37,7 +37,7 @@ jobs:
     needs: build-and-push
     uses: ./.github/workflows/reusable-dev-deployment.yml
     with:
-      name: ${{ inputs.pr_number == null && 'dev' || format('pr{0}', inputs.pr_number) }}
+      name: ${{ inputs.pr_number == null && 'baclucdev' || format('pr{0}', inputs.pr_number) }}
       sha: ${{ github.sha }}
       env: ${{ inputs.env }}
       pr_number: ${{ inputs.pr_number }}
