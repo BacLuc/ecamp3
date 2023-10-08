@@ -3,20 +3,22 @@
 namespace App\Serializer\Normalizer;
 
 use ApiPlatform\Api\FilterInterface;
-use ApiPlatform\Api\IriConverterInterface;
-use ApiPlatform\Api\UrlGeneratorInterface;
 use ApiPlatform\Doctrine\Common\PropertyHelperTrait;
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Exception\ResourceClassNotFoundException;
 use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\IriConverterInterface;
 use ApiPlatform\Metadata\Resource\Factory\ResourceMetadataCollectionFactoryInterface;
+use ApiPlatform\Metadata\UrlGeneratorInterface;
 use App\Entity\BaseEntity;
 use App\Metadata\Resource\Factory\UriTemplateFactory;
 use App\Metadata\Resource\OperationHelper;
 use App\Util\ClassInfoTrait;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
 use Doctrine\ORM\Mapping\MappingException;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Persistence\Mapping\ClassMetadata;
 use Rize\UriTemplate;
 use Symfony\Component\DependencyInjection\ServiceLocator;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
@@ -91,7 +93,8 @@ class RelatedCollectionLinkNormalizer implements NormalizerInterface, Serializer
         private IriConverterInterface $iriConverter,
         private ManagerRegistry $managerRegistry,
         private ResourceMetadataCollectionFactoryInterface $resourceMetadataCollectionFactory,
-        private PropertyAccessorInterface $propertyAccessor
+        private PropertyAccessorInterface $propertyAccessor,
+        private readonly EntityManagerInterface $entityManager,
     ) {}
 
     public function supportsNormalization($data, $format = null, array $context = []): bool {
@@ -228,6 +231,10 @@ class RelatedCollectionLinkNormalizer implements NormalizerInterface, Serializer
 
     protected function getManagerRegistry(): ManagerRegistry {
         return $this->managerRegistry;
+    }
+
+    protected function getClassMetadata(string $resourceClass): ClassMetadata {
+        return $this->entityManager->getClassMetadata($resourceClass);
     }
 
     /**
