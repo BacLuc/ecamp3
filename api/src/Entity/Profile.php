@@ -8,6 +8,7 @@ use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Link;
 use ApiPlatform\Metadata\Patch;
 use App\InputFilter;
 use App\Repository\ProfileRepository;
@@ -34,6 +35,13 @@ use Symfony\Component\Validator\Constraints as Assert;
         new GetCollection(
             security: 'is_authenticated()'
         ),
+        new GetCollection(
+            uriTemplate: self::CAMP_FILTER_URI_TEMPLATE,
+            uriVariables: [
+                'campIri' => new Link(toProperty: 'user.collaborations.camp', fromClass: Camp::class),
+            ],
+            security: 'is_authenticated()'
+        ),
     ],
     denormalizationContext: ['groups' => ['write']],
     normalizationContext: ['groups' => ['read']]
@@ -42,6 +50,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: ProfileRepository::class)]
 #[ORM\Table(name: '`profile`')]
 class Profile extends BaseEntity {
+    public const CAMP_FILTER_URI_TEMPLATE = '/profiles/user.collaborations.camp={campIri}';
+
     public const EXAMPLE_EMAIL = 'bi-pi@example.com';
     public const EXAMPLE_FIRSTNAME = 'Robert';
     public const EXAMPLE_SURNAME = 'Baden-Powell';

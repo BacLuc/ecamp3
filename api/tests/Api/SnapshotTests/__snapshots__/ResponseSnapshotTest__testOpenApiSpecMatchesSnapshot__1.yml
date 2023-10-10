@@ -2150,11 +2150,9 @@ components:
         profiles:
           description: 'All profiles of the users collaborating in this camp.'
           example: '/profiles?user.collaborations.camp=%2Fcamps%2F1a2b3c4d'
-          items:
-            format: iri-reference
-            type: string
+          format: iri-reference
           readOnly: true
-          type: array
+          type: string
         progressLabels:
           description: 'All the progress labels within this camp.'
           example: '["/progress_labels/1a2b3c4d"]'
@@ -2334,11 +2332,9 @@ components:
         profiles:
           description: 'All profiles of the users collaborating in this camp.'
           example: '/profiles?user.collaborations.camp=%2Fcamps%2F1a2b3c4d'
-          items:
-            format: iri-reference
-            type: string
+          format: iri-reference
           readOnly: true
-          type: array
+          type: string
         progressLabels:
           description: 'All the progress labels within this camp.'
           example: '["/progress_labels/1a2b3c4d"]'
@@ -2520,11 +2516,9 @@ components:
         profiles:
           description: 'All profiles of the users collaborating in this camp.'
           example: '/profiles?user.collaborations.camp=%2Fcamps%2F1a2b3c4d'
-          items:
-            format: iri-reference
-            type: string
+          format: iri-reference
           readOnly: true
-          type: array
+          type: string
         progressLabels:
           description: 'All the progress labels within this camp.'
           example: '["/progress_labels/1a2b3c4d"]'
@@ -2706,11 +2700,9 @@ components:
         profiles:
           description: 'All profiles of the users collaborating in this camp.'
           example: '/profiles?user.collaborations.camp=%2Fcamps%2F1a2b3c4d'
-          items:
-            format: iri-reference
-            type: string
+          format: iri-reference
           readOnly: true
-          type: array
+          type: string
         progressLabels:
           description: 'All the progress labels within this camp.'
           example: '["/progress_labels/1a2b3c4d"]'
@@ -3134,11 +3126,9 @@ components:
         profiles:
           description: 'All profiles of the users collaborating in this camp.'
           example: '/profiles?user.collaborations.camp=%2Fcamps%2F1a2b3c4d'
-          items:
-            format: iri-reference
-            type: string
+          format: iri-reference
           readOnly: true
-          type: array
+          type: string
         progressLabels:
           description: 'All the progress labels within this camp.'
           example: '["/progress_labels/1a2b3c4d"]'
@@ -3327,11 +3317,9 @@ components:
         profiles:
           description: 'All profiles of the users collaborating in this camp.'
           example: '/profiles?user.collaborations.camp=%2Fcamps%2F1a2b3c4d'
-          items:
-            format: iri-reference
-            type: string
+          format: iri-reference
           readOnly: true
-          type: array
+          type: string
         progressLabels:
           description: 'All the progress labels within this camp.'
           example: '["/progress_labels/1a2b3c4d"]'
@@ -3513,11 +3501,9 @@ components:
         profiles:
           description: 'All profiles of the users collaborating in this camp.'
           example: '/profiles?user.collaborations.camp=%2Fcamps%2F1a2b3c4d'
-          items:
-            format: iri-reference
-            type: string
+          format: iri-reference
           readOnly: true
-          type: array
+          type: string
         progressLabels:
           description: 'All the progress labels within this camp.'
           example: '["/progress_labels/1a2b3c4d"]'
@@ -3699,11 +3685,9 @@ components:
         profiles:
           description: 'All profiles of the users collaborating in this camp.'
           example: '/profiles?user.collaborations.camp=%2Fcamps%2F1a2b3c4d'
-          items:
-            format: iri-reference
-            type: string
+          format: iri-reference
           readOnly: true
-          type: array
+          type: string
         progressLabels:
           description: 'All the progress labels within this camp.'
           example: '["/progress_labels/1a2b3c4d"]'
@@ -4048,11 +4032,9 @@ components:
         profiles:
           description: 'All profiles of the users collaborating in this camp.'
           example: '/profiles?user.collaborations.camp=%2Fcamps%2F1a2b3c4d'
-          items:
-            format: iri-reference
-            type: string
+          format: iri-reference
           readOnly: true
-          type: array
+          type: string
         progressLabels:
           description: 'All the progress labels within this camp.'
           example: '["/progress_labels/1a2b3c4d"]'
@@ -4255,11 +4237,9 @@ components:
         profiles:
           description: 'All profiles of the users collaborating in this camp.'
           example: '/profiles?user.collaborations.camp=%2Fcamps%2F1a2b3c4d'
-          items:
-            format: iri-reference
-            type: string
+          format: iri-reference
           readOnly: true
-          type: array
+          type: string
         progressLabels:
           description: 'All the progress labels within this camp.'
           example: '["/progress_labels/1a2b3c4d"]'
@@ -4441,11 +4421,9 @@ components:
         profiles:
           description: 'All profiles of the users collaborating in this camp.'
           example: '/profiles?user.collaborations.camp=%2Fcamps%2F1a2b3c4d'
-          items:
-            format: iri-reference
-            type: string
+          format: iri-reference
           readOnly: true
-          type: array
+          type: string
         progressLabels:
           description: 'All the progress labels within this camp.'
           example: '["/progress_labels/1a2b3c4d"]'
@@ -4627,11 +4605,9 @@ components:
         profiles:
           description: 'All profiles of the users collaborating in this camp.'
           example: '/profiles?user.collaborations.camp=%2Fcamps%2F1a2b3c4d'
-          items:
-            format: iri-reference
-            type: string
+          format: iri-reference
           readOnly: true
-          type: array
+          type: string
         progressLabels:
           description: 'All the progress labels within this camp.'
           example: '["/progress_labels/1a2b3c4d"]'
@@ -22750,6 +22726,94 @@ paths:
       description: 'Retrieves the collection of Profile resources.'
       operationId: api_profiles_get_collection
       parameters:
+        -
+          allowEmptyValue: true
+          allowReserved: false
+          deprecated: false
+          description: ''
+          explode: false
+          in: query
+          name: user.collaborations.camp
+          required: false
+          schema:
+            type: string
+          style: form
+        -
+          allowEmptyValue: true
+          allowReserved: false
+          deprecated: false
+          description: ''
+          explode: true
+          in: query
+          name: 'user.collaborations.camp[]'
+          required: false
+          schema:
+            items:
+              type: string
+            type: array
+          style: form
+      responses:
+        200:
+          content:
+            application/hal+json:
+              schema:
+                properties:
+                  _embedded: { items: { $ref: '#/components/schemas/Profile.jsonhal-read' }, type: array }
+                  _links: { properties: { first: { properties: { href: { format: iri-reference, type: string } }, type: object }, last: { properties: { href: { format: iri-reference, type: string } }, type: object }, next: { properties: { href: { format: iri-reference, type: string } }, type: object }, previous: { properties: { href: { format: iri-reference, type: string } }, type: object }, self: { properties: { href: { format: iri-reference, type: string } }, type: object } }, type: object }
+                  itemsPerPage: { minimum: 0, type: integer }
+                  totalItems: { minimum: 0, type: integer }
+                required:
+                  - _embedded
+                  - _links
+                type: object
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Profile-read'
+                type: array
+            application/ld+json:
+              schema:
+                properties:
+                  'hydra:member': { items: { $ref: '#/components/schemas/Profile.jsonld-read' }, type: array }
+                  'hydra:search': { properties: { '@type': { type: string }, 'hydra:mapping': { items: { properties: { '@type': { type: string }, property: { type: ['null', string] }, required: { type: boolean }, variable: { type: string } }, type: object }, type: array }, 'hydra:template': { type: string }, 'hydra:variableRepresentation': { type: string } }, type: object }
+                  'hydra:totalItems': { minimum: 0, type: integer }
+                  'hydra:view': { example: { '@id': string, 'hydra:first': string, 'hydra:last': string, 'hydra:next': string, 'hydra:previous': string, type: string }, properties: { '@id': { format: iri-reference, type: string }, '@type': { type: string }, 'hydra:first': { format: iri-reference, type: string }, 'hydra:last': { format: iri-reference, type: string }, 'hydra:next': { format: iri-reference, type: string }, 'hydra:previous': { format: iri-reference, type: string } }, type: object }
+                required:
+                  - 'hydra:member'
+                type: object
+            application/vnd.api+json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Profile-read'
+                type: array
+            text/html:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Profile-read'
+                type: array
+          description: 'Profile collection'
+      summary: 'Retrieves the collection of Profile resources.'
+      tags:
+        - Profile
+    parameters: []
+  '/profiles/user.collaborations.camp={campIri}':
+    get:
+      deprecated: false
+      description: 'Retrieves the collection of Profile resources.'
+      operationId: api_profilesuser.collaborations.camp=_campIri_get_collection
+      parameters:
+        -
+          allowEmptyValue: false
+          allowReserved: false
+          deprecated: false
+          description: 'Camp identifier'
+          explode: false
+          in: path
+          name: campIri
+          required: true
+          schema:
+            type: string
+          style: simple
         -
           allowEmptyValue: true
           allowReserved: false

@@ -13,7 +13,6 @@ use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use App\InputFilter;
 use App\Repository\CampRepository;
-use App\Serializer\Normalizer\RelatedCollectionLink;
 use App\State\CampCreateProcessor;
 use App\State\CampRemoveProcessor;
 use App\Util\EntityMap;
@@ -438,8 +437,10 @@ class Camp extends BaseEntity implements BelongsToCampInterface, CopyFromPrototy
      *
      * @return Profile[]
      */
-    #[ApiProperty(example: '/profiles?user.collaborations.camp=%2Fcamps%2F1a2b3c4d')]
-    #[RelatedCollectionLink(Profile::class, ['user.collaborations.camp' => '$this'])]
+    #[ApiProperty(
+        uriTemplate: Profile::CAMP_FILTER_URI_TEMPLATE,
+        example: '/profiles?user.collaborations.camp=%2Fcamps%2F1a2b3c4d'
+    )]
     #[Groups(['read'])]
     public function getProfiles(): array {
         $accessibleCampCollaborations = array_filter(
