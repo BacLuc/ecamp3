@@ -2,10 +2,13 @@
 
 namespace App\Tests\Api\SnapshotTests;
 
+use ApiPlatform\OpenApi\Factory\OpenApiFactoryInterface;
 use ApiPlatform\Symfony\Bundle\Test\Client;
 use App\Entity\BaseEntity;
 use App\Tests\Api\ECampApiTestCase;
 use App\Tests\Constraints\CompatibleHalResponse;
+use App\Util\ArrayDeepSort;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
@@ -34,20 +37,20 @@ class ResponseSnapshotTest extends ECampApiTestCase {
     }
 
     public function testOpenApiSpecMatchesSnapshot() {
-        $response = static::createClientWithCredentials()
-            ->request(
-                'GET',
-                '/docs.json',
-                [
-                    'headers' => [
-                        'accept' => 'application/json',
-                    ],
-                ]
-            )
-        ;
+        $container = static::$kernel->getContainer();
 
-        $this->assertResponseStatusCodeSame(200);
-        $this->assertMatchesResponseSnapshot($response);
+        /** @var OpenApiFactoryInterface $openApiFactory */
+        $openApiFactory = $container->get('api_platform.openapi.factory');
+
+        /** @var NormalizerInterface $normalizerInterface */
+        $normalizerInterface = $container->get('api_platform.openapi.normalizer.api_gateway');
+
+        $openApiResult = $openApiFactory->__invoke();
+        $openApiResultArray = $normalizerInterface->normalize($openApiResult, 'json');
+        $sortedResponseArray = ArrayDeepSort::sort($openApiResultArray);
+        $openApiJson = json_encode($sortedResponseArray, JSON_PRETTY_PRINT);
+
+        $this->assertMatchesJsonSnapshot($openApiJson);
     }
 
     /**

@@ -1,10 +1,10 @@
 {
     "components": {
-        "examples": [],
-        "headers": [],
-        "parameters": [],
-        "requestBodies": [],
-        "responses": [],
+        "examples": {},
+        "headers": {},
+        "parameters": {},
+        "requestBodies": {},
+        "responses": {},
         "schemas": {
             "Activity-read": {
                 "deprecated": false,
@@ -19603,7 +19603,7 @@
                 "type": "object"
             }
         },
-        "securitySchemes": []
+        "securitySchemes": {}
     },
     "info": {
         "description": "",
@@ -19919,7 +19919,7 @@
                             }
                         },
                         "description": "Activity resource created",
-                        "links": []
+                        "links": {}
                     },
                     "400": {
                         "description": "Invalid input"
@@ -20095,7 +20095,7 @@
                             }
                         },
                         "description": "Activity resource updated",
-                        "links": []
+                        "links": {}
                     },
                     "400": {
                         "description": "Invalid input"
@@ -20420,7 +20420,7 @@
                             }
                         },
                         "description": "ActivityProgressLabel resource created",
-                        "links": []
+                        "links": {}
                     },
                     "400": {
                         "description": "Invalid input"
@@ -20596,7 +20596,7 @@
                             }
                         },
                         "description": "ActivityProgressLabel resource updated",
-                        "links": []
+                        "links": {}
                     },
                     "400": {
                         "description": "Invalid input"
@@ -20952,7 +20952,7 @@
                             }
                         },
                         "description": "ActivityResponsible resource created",
-                        "links": []
+                        "links": {}
                     },
                     "400": {
                         "description": "Invalid input"
@@ -21233,23 +21233,23 @@
                     "204": {
                         "content": {
                             "application\/hal+json": {
-                                "schema": []
+                                "schema": {}
                             },
                             "application\/json": {
-                                "schema": []
+                                "schema": {}
                             },
                             "application\/ld+json": {
-                                "schema": []
+                                "schema": {}
                             },
                             "application\/vnd.api+json": {
-                                "schema": []
+                                "schema": {}
                             },
                             "text\/html": {
-                                "schema": []
+                                "schema": {}
                             }
                         },
                         "description": "ResetPassword resource created",
-                        "links": []
+                        "links": {}
                     },
                     "400": {
                         "description": "Invalid input"
@@ -21392,7 +21392,7 @@
                             }
                         },
                         "description": "ResetPassword resource updated",
-                        "links": []
+                        "links": {}
                     },
                     "400": {
                         "description": "Invalid input"
@@ -21806,7 +21806,7 @@
                             }
                         },
                         "description": "CampCollaboration resource created",
-                        "links": []
+                        "links": {}
                     },
                     "400": {
                         "description": "Invalid input"
@@ -21982,7 +21982,7 @@
                             }
                         },
                         "description": "CampCollaboration resource updated",
-                        "links": []
+                        "links": {}
                     },
                     "400": {
                         "description": "Invalid input"
@@ -22068,7 +22068,7 @@
                             }
                         },
                         "description": "CampCollaboration resource updated",
-                        "links": []
+                        "links": {}
                     },
                     "400": {
                         "description": "Invalid input"
@@ -22393,7 +22393,7 @@
                             }
                         },
                         "description": "Camp resource created",
-                        "links": []
+                        "links": {}
                     },
                     "400": {
                         "description": "Invalid input"
@@ -22569,7 +22569,7 @@
                             }
                         },
                         "description": "Camp resource updated",
-                        "links": []
+                        "links": {}
                     },
                     "400": {
                         "description": "Invalid input"
@@ -22894,7 +22894,7 @@
                             }
                         },
                         "description": "Category resource created",
-                        "links": []
+                        "links": {}
                     },
                     "400": {
                         "description": "Invalid input"
@@ -23070,7 +23070,7 @@
                             }
                         },
                         "description": "Category resource updated",
-                        "links": []
+                        "links": {}
                     },
                     "400": {
                         "description": "Invalid input"
@@ -23440,7 +23440,7 @@
                             }
                         },
                         "description": "ColumnLayout resource created",
-                        "links": []
+                        "links": {}
                     },
                     "400": {
                         "description": "Invalid input"
@@ -23616,7 +23616,7 @@
                             }
                         },
                         "description": "ColumnLayout resource updated",
-                        "links": []
+                        "links": {}
                     },
                     "400": {
                         "description": "Invalid input"
@@ -23986,7 +23986,7 @@
                             }
                         },
                         "description": "MaterialNode resource created",
-                        "links": []
+                        "links": {}
                     },
                     "400": {
                         "description": "Invalid input"
@@ -24162,7 +24162,7 @@
                             }
                         },
                         "description": "MaterialNode resource updated",
-                        "links": []
+                        "links": {}
                     },
                     "400": {
                         "description": "Invalid input"
@@ -24532,7 +24532,7 @@
                             }
                         },
                         "description": "MultiSelect resource created",
-                        "links": []
+                        "links": {}
                     },
                     "400": {
                         "description": "Invalid input"
@@ -24708,7 +24708,7 @@
                             }
                         },
                         "description": "MultiSelect resource updated",
-                        "links": []
+                        "links": {}
                     },
                     "400": {
                         "description": "Invalid input"
@@ -25078,7 +25078,7 @@
                             }
                         },
                         "description": "SingleText resource created",
-                        "links": []
+                        "links": {}
                     },
                     "400": {
                         "description": "Invalid input"
@@ -25254,7 +25254,7 @@
                             }
                         },
                         "description": "SingleText resource updated",
-                        "links": []
+                        "links": {}
                     },
                     "400": {
                         "description": "Invalid input"
@@ -25624,7 +25624,7 @@
                             }
                         },
                         "description": "Storyboard resource created",
-                        "links": []
+                        "links": {}
                     },
                     "400": {
                         "description": "Invalid input"
@@ -25800,7 +25800,7 @@
                             }
                         },
                         "description": "Storyboard resource updated",
-                        "links": []
+                        "links": {}
                     },
                     "400": {
                         "description": "Invalid input"
@@ -26748,7 +26748,7 @@
                             }
                         },
                         "description": "DayResponsible resource created",
-                        "links": []
+                        "links": {}
                     },
                     "400": {
                         "description": "Invalid input"
@@ -27442,7 +27442,7 @@
                             }
                         },
                         "description": "Invitation resource updated",
-                        "links": []
+                        "links": {}
                     },
                     "400": {
                         "description": "Invalid input"
@@ -27591,7 +27591,7 @@
                             }
                         },
                         "description": "Invitation resource updated",
-                        "links": []
+                        "links": {}
                     },
                     "400": {
                         "description": "Invalid input"
@@ -27961,7 +27961,7 @@
                             }
                         },
                         "description": "MaterialItem resource created",
-                        "links": []
+                        "links": {}
                     },
                     "400": {
                         "description": "Invalid input"
@@ -28137,7 +28137,7 @@
                             }
                         },
                         "description": "MaterialItem resource updated",
-                        "links": []
+                        "links": {}
                     },
                     "400": {
                         "description": "Invalid input"
@@ -28462,7 +28462,7 @@
                             }
                         },
                         "description": "MaterialList resource created",
-                        "links": []
+                        "links": {}
                     },
                     "400": {
                         "description": "Invalid input"
@@ -28638,7 +28638,7 @@
                             }
                         },
                         "description": "MaterialList resource updated",
-                        "links": []
+                        "links": {}
                     },
                     "400": {
                         "description": "Invalid input"
@@ -28963,7 +28963,7 @@
                             }
                         },
                         "description": "Period resource created",
-                        "links": []
+                        "links": {}
                     },
                     "400": {
                         "description": "Invalid input"
@@ -29139,7 +29139,7 @@
                             }
                         },
                         "description": "Period resource updated",
-                        "links": []
+                        "links": {}
                     },
                     "400": {
                         "description": "Invalid input"
@@ -29527,7 +29527,7 @@
                             }
                         },
                         "description": "Profile resource updated",
-                        "links": []
+                        "links": {}
                     },
                     "400": {
                         "description": "Invalid input"
@@ -29995,7 +29995,7 @@
                             }
                         },
                         "description": "ScheduleEntry resource created",
-                        "links": []
+                        "links": {}
                     },
                     "400": {
                         "description": "Invalid input"
@@ -30171,7 +30171,7 @@
                             }
                         },
                         "description": "ScheduleEntry resource updated",
-                        "links": []
+                        "links": {}
                     },
                     "400": {
                         "description": "Invalid input"
@@ -30464,7 +30464,7 @@
                             }
                         },
                         "description": "User resource created",
-                        "links": []
+                        "links": {}
                     },
                     "400": {
                         "description": "Invalid input"
@@ -30640,7 +30640,7 @@
                             }
                         },
                         "description": "User resource updated",
-                        "links": []
+                        "links": {}
                     },
                     "400": {
                         "description": "Invalid input"
@@ -30726,7 +30726,7 @@
                             }
                         },
                         "description": "User resource updated",
-                        "links": []
+                        "links": {}
                     },
                     "400": {
                         "description": "Invalid input"

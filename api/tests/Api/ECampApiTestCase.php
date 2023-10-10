@@ -74,6 +74,10 @@ abstract class ECampApiTestCase extends ApiTestCase {
         return json_decode($json_encode, true);
     }
 
+    protected static function getKernelClass(): string {
+        return TestKernel::class;
+    }
+
     /**
      * @throws ClientExceptionInterface
      * @throws RedirectionExceptionInterface
