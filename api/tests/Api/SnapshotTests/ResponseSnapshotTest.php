@@ -7,8 +7,10 @@ use ApiPlatform\Symfony\Bundle\Test\Client;
 use App\Entity\BaseEntity;
 use App\Tests\Api\ECampApiTestCase;
 use App\Tests\Constraints\CompatibleHalResponse;
+use App\Tests\Spatie\Snapshots\Driver\ECampYamlSnapshotDriver;
 use App\Util\ArrayDeepSort;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use Symfony\Component\Yaml\Yaml;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
@@ -47,10 +49,18 @@ class ResponseSnapshotTest extends ECampApiTestCase {
 
         $openApiResult = $openApiFactory->__invoke();
         $openApiResultArray = $normalizerInterface->normalize($openApiResult, 'json');
-        $sortedResponseArray = ArrayDeepSort::sort($openApiResultArray);
-        $openApiJson = json_encode($sortedResponseArray, JSON_PRETTY_PRINT);
+        $sortedOpenAPiArray = ArrayDeepSort::sort($openApiResultArray);
+        // Arguments for Yaml::dump taken from https://github.com/api-platform/core/blob/49c81194a3e6833f10d135c739776636775b15a5/src/OpenApi/Command/OpenApiCommand.php#L58
+        $openApiYaml = Yaml::dump(
+            input: $sortedOpenAPiArray,
+            inline: 10,
+            indent: 2,
+            flags: Yaml::DUMP_OBJECT_AS_MAP
+            | Yaml::DUMP_EMPTY_ARRAY_AS_SEQUENCE
+            | Yaml::DUMP_MULTI_LINE_LITERAL_BLOCK
+        );
 
-        $this->assertMatchesJsonSnapshot($openApiJson);
+        $this->assertMatchesSnapshot($openApiYaml, new ECampYamlSnapshotDriver());
     }
 
     /**
