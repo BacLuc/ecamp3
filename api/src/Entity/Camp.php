@@ -71,6 +71,7 @@ class Camp extends BaseEntity implements BelongsToCampInterface, CopyFromPrototy
     ];
 
     #[AssertContainsAtLeastOneManager(groups: ['update'])]
+    #[ApiProperty(uriTemplate: CampCollaboration::CAMP_FILTER_URI_TEMPLATE)]
     #[SerializedName('campCollaborations')]
     #[Groups(['read'])]
     #[ORM\OneToMany(targetEntity: CampCollaboration::class, mappedBy: 'camp', orphanRemoval: true)]

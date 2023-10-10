@@ -9,6 +9,7 @@ use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Link;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use App\InputFilter;
@@ -57,6 +58,14 @@ use Symfony\Component\Validator\Constraints as Assert;
             security: 'is_fully_authenticated()',
             normalizationContext: self::ITEM_NORMALIZATION_CONTEXT
         ),
+        new GetCollection(
+            uriTemplate: self::CAMP_FILTER_URI_TEMPLATE,
+            uriVariables: [
+                'campIri' => new Link(toProperty: 'camp', fromClass: Camp::class),
+            ],
+            security: 'is_fully_authenticated()',
+            normalizationContext: self::ITEM_NORMALIZATION_CONTEXT
+        ),
         new Post(
             processor: CampCollaborationCreateProcessor::class,
             denormalizationContext: ['groups' => ['write', 'create']],
@@ -89,6 +98,9 @@ class CampCollaboration extends BaseEntity implements BelongsToCampInterface {
         'groups' => ['read', 'CampCollaboration:Camp', 'CampCollaboration:User'],
         'swagger_definition_name' => 'read',
     ];
+
+    public const CAMP_FILTER_URI_TEMPLATE = '/camp_collaborations?camp={campIri}';
+
     public const RESEND_INVITATION = 'resend_invitation';
 
     public const ROLE_GUEST = 'guest';
