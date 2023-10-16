@@ -18,6 +18,10 @@ spec:
         app: filebeat
         {{- include "app.commonLabels" . | nindent 8 }}
         {{- include "app.commonSelectorLabels" . | nindent 8 }}
+      annotations:
+        # This deployment should be restarted whenever either the configmap or the secrets change
+        # because the containers depend on environment variables from these places during startup
+        checksum/config: {{ include (print $.Template.BasePath "/filebeat/filebeat_config_map.yaml") . | sha256sum }}
     spec:
       serviceAccountName: filebeat
       hostNetwork: true
