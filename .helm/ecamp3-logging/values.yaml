@@ -12,15 +12,6 @@ elasticsearch:
       requests:
         storage: 1Gi
 
-kibana:
-  resources:
-    requests:
-      cpu: 100m
-      memory: 200Mi
-    limit:
-      cpu: 300m
-      memory: 500Mi
-
 filebeat:
   resources:
     requests:
