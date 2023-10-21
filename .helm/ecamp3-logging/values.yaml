@@ -16,10 +16,10 @@ kibana:
   resources:
     requests:
       cpu: 100m
-      memory: 200Mi
+      memory: 400Mi
     limit:
       cpu: 300m
-      memory: 500Mi
+      memory: 800Mi
 
 filebeat:
   resources:
