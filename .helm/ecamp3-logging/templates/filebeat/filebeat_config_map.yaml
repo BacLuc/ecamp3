@@ -23,26 +23,42 @@ data:
               target: json
               max_depth: 20
               add_error_key: true
-          - dissect:
-              tokenizer: "%{domain}/%{service}"
-              field: "json.httpRequest.requestUrl"
-              target_prefix: "json.httpRequest"
-              ignore_failure: true
-          - dissect:
-              tokenizer: "%{domain}/%{service}/%{entityName}"
-              field: "json.httpRequest.requestUrl"
-              target_prefix: "json.httpRequest"
-              ignore_failure: true
-          - dissect:
-              tokenizer: "%{domain}/%{service}/%{entityName}/%{entityId}"
-              field: "json.httpRequest.requestUrl"
-              target_prefix: "json.httpRequest"
-              ignore_failure: true
-          - dissect:
-              tokenizer: "%{domain}/%{service}/%{entityName}/%{entityId}?%{query}"
-              field: "json.httpRequest.requestUrl"
-              target_prefix: "json.httpRequest"
-              ignore_failure: true
+          - script:
+              # The processor uses a pure Go implementation of ECMAScript 5.1 and has no external dependencies.
+              # https://www.elastic.co/guide/en/beats/filebeat/current/processor-script.html
+              lang: javascript
+              source: |
+                const prefix = 'json.httpRequest.'
+                
+                function process(event) {
+                  const urlString = event.Get(prefix + 'requestUrl')
+                  if (!URL.canParse(urlString)) {
+                    return
+                  }
+                  const url = new URL(urlString)
+                  
+                  const host = url.host
+                  event.Put(prefix + 'domain', host)
+                  const path = url.pathname
+                  event.Put(prefix + 'path', path)
+                  const query = url.search
+                  event.Put(prefix + 'query', query)
+                  
+                  const pathParts = path.split('/')
+                  if (pathParts[0] === 'api') {
+                    Object.entries(splitApiUrl(pathParts)).forEach(([key, value]) => {
+                      event.Put(prefix + key, value)
+                    })
+                  }
+                }
+                
+                /**
+                 * @param { string[] } pathParts
+                 * @returns { object }
+                 */
+                function splitApiUrl(pathParts) {
+                  
+                }
           - add_kubernetes_metadata:
               host: ${NODE_NAME}
               matchers:

@@ -2,11 +2,11 @@ elasticsearch:
   elasticNode:
     resources:
       requests:
-        cpu: 100m
-        memory: 200Mi
-      limit:
         cpu: 300m
-        memory: 500Mi
+        memory: 400Mi
+      limit:
+        cpu: 500m
+        memory: 800Mi
   persistence:
     resources:
       requests:
@@ -15,17 +15,11 @@ elasticsearch:
 kibana:
   resources:
     requests:
-      cpu: 100m
-      memory: 400Mi
-    limit:
       cpu: 300m
-      memory: 800Mi
+      memory: 400Mi
 
 filebeat:
   resources:
     requests:
       cpu: 100m
       memory: 100Mi
-    limit:
-      cpu: 200m
-      memory: 200Mi
