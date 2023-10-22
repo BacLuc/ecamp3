@@ -23,6 +23,26 @@ data:
               target: json
               max_depth: 20
               add_error_key: true
+          - dissect:
+              tokenizer: "%{domain}/%{service}"
+              field: "json.httpRequest.requestUrl"
+              target_prefix: "json.httpRequest"
+              ignore_failure: true
+          - dissect:
+              tokenizer: "%{domain}/%{service}/%{entityName}"
+              field: "json.httpRequest.requestUrl"
+              target_prefix: "json.httpRequest"
+              ignore_failure: true
+          - dissect:
+              tokenizer: "%{domain}/%{service}/%{entityName}/%{entityId}"
+              field: "json.httpRequest.requestUrl"
+              target_prefix: "json.httpRequest"
+              ignore_failure: true
+          - dissect:
+              tokenizer: "%{domain}/%{service}/%{entityName}/%{entityId}?%{query}"
+              field: "json.httpRequest.requestUrl"
+              target_prefix: "json.httpRequest"
+              ignore_failure: true
           - add_kubernetes_metadata:
               host: ${NODE_NAME}
               matchers:
