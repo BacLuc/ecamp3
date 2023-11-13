@@ -42,6 +42,26 @@
       "dependencyDashboardApproval": true
     },
     {
+      "extends": [
+        "monorepo:vue"
+      ],
+      "matchUpdateTypes": [
+        "minor",
+        "lockFileMaintenance"
+      ],
+      "groupName": "vue-minor"
+    },
+    {
+      "extends": [
+        "monorepo:vue"
+      ],
+      "matchUpdateTypes": [
+        "patch",
+        "lockFileMaintenance"
+      ],
+      "groupName": "vue-patch"
+    },
+    {
       "matchPackageNames": [
         "sass"
       ],
