@@ -4,6 +4,7 @@ import Vuetify from 'vuetify'
 import formBaseComponents from '@/plugins/formBaseComponents'
 
 import { mount as mountComponent } from '@vue/test-utils'
+import { vi } from 'vitest'
 import ESwitch from '@/components/form/base/ESwitch.vue'
 import { touch } from '@/test/util'
 
@@ -88,7 +89,7 @@ describe('An ESwitch', () => {
     touch(wrapper.find('.v-input--selection-controls__ripple')).start(0, 0).end(20, 0)
     expect(wrapper.vm.data).toBe(true)
 
-    jest.resetAllMocks()
+    vi.resetAllMocks()
     touch(wrapper.find('.v-input--selection-controls__ripple')).start(0, 0).end(-20, 0)
     expect(wrapper.vm.data).toBe(false)
   })
@@ -103,7 +104,7 @@ describe('An ESwitch', () => {
     input.trigger('keydown.right')
     expect(wrapper.vm.data).toBe(true)
 
-    jest.resetAllMocks()
+    vi.resetAllMocks()
     input.trigger('keydown.left')
     expect(wrapper.vm.data).toBe(false)
   })

@@ -10,6 +10,7 @@ import flushPromises from 'flush-promises'
 import ApiWrapper from '@/components/form/api/ApiWrapper.vue'
 import { i18n } from '@/plugins'
 import merge from 'lodash/merge'
+import { vi } from 'vitest'
 import { ApiMock } from '@/components/form/api/__tests__/ApiMock'
 import { waitForDebounce } from '@/test/util'
 
@@ -40,7 +41,7 @@ describe('An ApiSelect', () => {
   })
 
   afterEach(() => {
-    jest.restoreAllMocks()
+    vi.restoreAllMocks()
     wrapper.destroy()
   })
 

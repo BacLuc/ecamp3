@@ -1,5 +1,6 @@
 import Dashboard from '../Dashboard.vue'
 import { shallowMount } from '@vue/test-utils'
+import { vi } from 'vitest'
 
 describe('Dashboard view', () => {
   it('Renders View', async () => {
@@ -29,10 +30,10 @@ const ROUTE = () => ({
   query: {},
 })
 const ROUTER = () => ({
-  replace: jest.fn(),
+  replace: vi.fn(),
 })
 const AUTH = {
-  loadUser: jest.fn(),
+  loadUser: vi.fn(),
 }
 
 function createCampWithRole(role) {

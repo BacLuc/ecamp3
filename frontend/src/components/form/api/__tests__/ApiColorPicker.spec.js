@@ -5,6 +5,7 @@ import user from '@testing-library/user-event'
 import { ApiMock } from '@/components/form/api/__tests__/ApiMock'
 import { extend } from 'vee-validate'
 import { regex } from 'vee-validate/dist/rules'
+import { vi } from 'vitest'
 
 extend('regex', regex)
 
@@ -22,7 +23,7 @@ describe('An ApiColorPicker', () => {
   })
 
   afterEach(() => {
-    jest.restoreAllMocks()
+    vi.restoreAllMocks()
   })
 
   test('triggers api.patch and status update if input changes', async () => {

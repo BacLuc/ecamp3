@@ -2,6 +2,7 @@ import ApiCheckbox from '../ApiCheckbox.vue'
 import ApiWrapper from '@/components/form/api/ApiWrapper.vue'
 import Vue from 'vue'
 import Vuetify from 'vuetify'
+import { vi } from 'vitest'
 import flushPromises from 'flush-promises'
 import formBaseComponents from '@/plugins/formBaseComponents'
 import merge from 'lodash/merge'
@@ -26,7 +27,7 @@ describe('An ApiCheckbox', () => {
   })
 
   afterEach(() => {
-    jest.restoreAllMocks()
+    vi.restoreAllMocks()
     wrapper.destroy()
   })
 
