@@ -1,0 +1,25 @@
+elasticsearch:
+  elasticNode:
+    resources:
+      requests:
+        cpu: 300m
+        memory: 400Mi
+      limit:
+        cpu: 500m
+        memory: 800Mi
+  persistence:
+    resources:
+      requests:
+        storage: 10Gi
+
+kibana:
+  resources:
+    requests:
+      cpu: 300m
+      memory: 400Mi
+
+filebeat:
+  resources:
+    requests:
+      cpu: 100m
+      memory: 100Mi
