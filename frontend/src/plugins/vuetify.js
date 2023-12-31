@@ -15,12 +15,10 @@ import BigScreen from './icons/BigScreen.vue'
 import ResponsiveLayout from './icons/ResponsiveLayout.vue'
 import ColumnLayout from './icons/ColumnLayout.vue'
 import i18n from '@/plugins/i18n'
-import colors from 'vuetify/lib/util/colors'
+import * as colors from 'vuetify/util/colors'
 
 class VuetifyLoaderPlugin {
   install(Vue) {
-    Vue.use(Vuetify)
-
     const opts = {
       lang: {
         t: (key, ...params) => i18n.tc(key, 0, params),
@@ -50,7 +48,7 @@ class VuetifyLoaderPlugin {
       },
     }
 
-    vuetify = new Vuetify(opts)
+    vuetify = new createVuetify(opts)
   }
 }
 
