@@ -62,7 +62,7 @@ export default {
 @import 'src/scss/global';
 @import '~@mdi/font/css/materialdesignicons.css';
 
-@media #{map-get($display-breakpoints, 'xs-only')} {
+@media #{map-get($display-breakpoints, 'xs')} {
   html,
   body,
   .v-application {
@@ -96,7 +96,7 @@ export default {
   border-top-right-radius: 0 !important;
 }
 
-@media #{map-get($display-breakpoints, 'xs-only')} {
+@media #{map-get($display-breakpoints, 'xs')} {
   .v-main > .v-main__wrap > .container {
     min-height: 100%;
     display: flex;

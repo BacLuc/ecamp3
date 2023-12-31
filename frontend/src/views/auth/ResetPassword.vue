@@ -20,7 +20,7 @@
       {{ $tc('views.auth.resetPassword.errorMessage') }}
     </v-alert>
 
-    <validation-observer v-slot="{ handleSubmit }">
+<!--    <validation-observer v-slot="{ handleSubmit }">-->
       <e-form name="user">
         <v-form
           v-if="status == 'loaded' || status == 'reseting'"
@@ -95,7 +95,7 @@
           </v-btn>
         </v-form>
       </e-form>
-    </validation-observer>
+<!--    </validation-observer>-->
     <p class="mt-8 mb0 text--secondary text-center">
       <router-link :to="{ name: 'login' }">
         {{ $tc('global.button.login') }}
@@ -106,7 +106,7 @@
 
 <script>
 import { load } from 'recaptcha-v3'
-import { ValidationObserver } from 'vee-validate'
+// import { ValidationObserver } from 'vee-validate'
 import { passwordStrengthMixin } from '../../mixins/passwordStrengthMixin.js'
 import { getEnv } from '@/environment'
 import EForm from '@/components/form/base/EForm.vue'
@@ -114,7 +114,11 @@ import IconSpacer from '@/components/layout/IconSpacer.vue'
 
 export default {
   name: 'ResetPassword',
-  components: { IconSpacer, EForm, ValidationObserver },
+  components: {
+    IconSpacer,
+    EForm,
+    // ValidationObserver
+  },
   mixins: [passwordStrengthMixin],
   props: {
     id: { type: String, required: true },

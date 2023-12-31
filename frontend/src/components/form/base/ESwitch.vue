@@ -1,11 +1,11 @@
 <template>
-  <ValidationProvider
-    v-slot="{ errors: veeErrors }"
-    :name="validationLabel"
-    :vid="veeId"
-    :rules="veeRules"
-    :required="required"
-  >
+<!--  <ValidationProvider-->
+<!--    v-slot="{ errors: veeErrors }"-->
+<!--    :name="validationLabel"-->
+<!--    :vid="veeId"-->
+<!--    :rules="veeRules"-->
+<!--    :required="required"-->
+<!--  >-->
     <v-switch
       inset
       v-bind="$attrs"
@@ -25,17 +25,19 @@
         <slot :name="name" v-bind="slotData" />
       </template>
     </v-switch>
-  </ValidationProvider>
+<!--  </ValidationProvider>-->
 </template>
 
 <script>
-import { ValidationProvider } from 'vee-validate'
+// import { ValidationProvider } from 'vee-validate'
 import { formComponentPropsMixin } from '@/mixins/formComponentPropsMixin.js'
 import { formComponentMixin } from '@/mixins/formComponentMixin.js'
 
 export default {
   name: 'ESwitch',
-  components: { ValidationProvider },
+  components: {
+    // ValidationProvider
+  },
   mixins: [formComponentPropsMixin, formComponentMixin],
   props: {
     value: { type: Boolean, required: false },

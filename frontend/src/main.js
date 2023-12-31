@@ -20,7 +20,7 @@ import * as Sentry from '@sentry/vue'
 import Toast from 'vue-toastification'
 import 'vue-toastification/dist/index.css'
 
-import { ClickOutside, Resize } from 'vuetify/lib/directives'
+import { ClickOutside, Resize } from 'vuetify/directives'
 import ResizeObserver from 'v-resize-observer'
 
 const env = getEnv()

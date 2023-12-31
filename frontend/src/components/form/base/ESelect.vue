@@ -1,15 +1,15 @@
 <template>
-  <ValidationProvider
-    v-slot="{ errors: veeErrors }"
-    tag="div"
-    :name="validationLabel"
-    :vid="veeId"
-    :rules="veeRules"
-    :skip-if-empty="skipIfEmpty"
-    :required="required"
-    :immediate="immediateValidation"
-    class="e-form-container"
-  >
+<!--  <ValidationProvider-->
+<!--    v-slot="{ errors: veeErrors }"-->
+<!--    tag="div"-->
+<!--    :name="validationLabel"-->
+<!--    :vid="veeId"-->
+<!--    :rules="veeRules"-->
+<!--    :skip-if-empty="skipIfEmpty"-->
+<!--    :required="required"-->
+<!--    :immediate="immediateValidation"-->
+<!--    class="e-form-container"-->
+<!--  >-->
     <v-select
       v-bind="$attrs"
       :filled="filled"
@@ -27,17 +27,19 @@
         <slot :name="name" v-bind="slotData" />
       </template>
     </v-select>
-  </ValidationProvider>
+<!--  </ValidationProvider>-->
 </template>
 
 <script>
-import { ValidationProvider } from 'vee-validate'
+// import { ValidationProvider } from 'vee-validate'
 import { formComponentPropsMixin } from '@/mixins/formComponentPropsMixin.js'
 import { formComponentMixin } from '@/mixins/formComponentMixin.js'
 
 export default {
   name: 'ESelect',
-  components: { ValidationProvider },
+  components: {
+    // ValidationProvider
+  },
   mixins: [formComponentPropsMixin, formComponentMixin],
   props: {
     immediateValidation: { type: Boolean, default: false },
