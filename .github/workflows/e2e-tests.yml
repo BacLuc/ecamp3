@@ -37,7 +37,7 @@ jobs:
               .fill(start)
               .map((value, index) => value + index);
             }
-            return range(0, ${{ inputs.pr_number != null && inputs.pr_number || 10 }})
+            return range(0, ${{ inputs.pr_number != null && inputs.pr_number || 30 }})
 
   e2e-tests-build:
     name: 'Tests: End-to-end build to detect flaky tests'
