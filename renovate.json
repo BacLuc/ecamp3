@@ -266,7 +266,7 @@
         "^frontend/package.json$"
       ],
       "matchStrings": [
-        "xlsx: \"https://cdn\\.sheetjs\\.com/xlsx-(?<currentValue>[0-9.]+)/xlsx-(?<currentValue>[0-9.]).*\""
+        "xlsx: \"https://cdn\\.sheetjs\\.com/xlsx-(?<currentValue>[0-9.]+)/xlsx-([0-9.]).*\""
       ],
       "depNameTemplate": "xlsx",
       "lookupNameTemplate": "https://git.sheetjs.com/sheetjs/sheetjs.git",
