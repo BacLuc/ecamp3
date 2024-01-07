@@ -260,6 +260,18 @@
         "image:\\s+'(?<depName>.*):(?<currentValue>.*)@(?<currentDigest>.*)'\\s"
       ],
       "datasourceTemplate": "docker"
+    },
+    {
+      "fileMatch": [
+        "^frontend/package.json$"
+      ],
+      "matchStrings": [
+        "xlsx: \"https://cdn.sheetjs.com/xlsx-(?<currentValue>[0-9.]+)/xlsx-(?<currentValue>[0-9.]).tar.gz)\""
+      ],
+      "depNameTemplate": "xlsx",
+      "lookupNameTemplate": "https://git.sheetjs.com/sheetjs/sheetjs.git",
+      "datasourceTemplate": "git-tags",
+      "versioningTemplate": "regex:^(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)?$"
     }
   ]
 }
