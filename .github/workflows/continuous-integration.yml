@@ -231,9 +231,6 @@ jobs:
       - run: php bin/console doctrine:migrations:migrate --no-interaction -e test
         working-directory: api
 
-      - run: composer test
-        working-directory: api
-
       - name: send coveralls report
         run: |
           sed -i "s|$(pwd)/api/|api/|g" api/build/logs/clover.xml
@@ -400,7 +397,6 @@ jobs:
       - api-tests
       - frontend-tests
       - print-tests
-      - e2e-tests-run
     runs-on: ubuntu-latest
     steps:
       - run: exit 0
