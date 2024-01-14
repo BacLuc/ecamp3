@@ -5,6 +5,7 @@ import {
   vuetifyLoader,
   auth,
   storeLoader,
+  halJsonVuex,
   formBaseComponents,
   ignoreNativeBindingWarnMessages,
   i18n,
@@ -46,6 +47,7 @@ Vue.use(veeValidate)
 Vue.use(Toast, {
   maxToasts: 2,
 })
+Vue.use(halJsonVuex)
 
 // manually importing necessary vuetify directives (there's no auomatic vuetify-loader for vitejs)
 Vue.directive('click-outside', ClickOutside)
