@@ -265,7 +265,7 @@ export default {
     this.scrollHeight = this.$el.scrollHeight
     window.addEventListener('resize', this.onResize)
   },
-  destroyed() {
+  unmounted() {
     window.removeEventListener('resize', this.onResize)
   },
   methods: {
