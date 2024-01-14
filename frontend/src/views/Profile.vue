@@ -51,7 +51,7 @@
             <api-select path="language" :items="availableLocales" />
           </api-form>
           <v-btn
-            v-if="!$vuetify.breakpoint.mdAndUp"
+            v-if="!$vuetify.display.mdAndUp"
             class="mt-2"
             color="red"
             block
