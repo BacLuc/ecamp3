@@ -7,7 +7,6 @@ import {
   storeLoader,
   halJsonVuex,
   formBaseComponents,
-  ignoreNativeBindingWarnMessages,
   i18n,
   dayjs,
   color,
@@ -38,7 +37,7 @@ import ResizeObserver from 'v-resize-observer'
 
 app.use(auth)
 app.use(formBaseComponents)
-app.use(ignoreNativeBindingWarnMessages)
+// app.use(ignoreNativeBindingWarnMessages)
 app.use(storeLoader)
 app.use(vuetifyLoader)
 app.use(dayjs)
@@ -49,6 +48,7 @@ app.use(Toast, {
 })
 app.use(halJsonVuex)
 app.use(router)
+app.use(i18n)
 
 // manually importing necessary vuetify directives (there's no auomatic vuetify-loader for vitejs)
 app.directive('click-outside', ClickOutside)
