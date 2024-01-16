@@ -5,7 +5,6 @@ import {
   vuetifyLoader,
   auth,
   storeLoader,
-  halJsonVuex,
   formBaseComponents,
   i18n,
   dayjs,
@@ -46,7 +45,6 @@ app.use(veeValidate)
 app.use(Toast, {
   maxToasts: 2,
 })
-app.use(halJsonVuex)
 app.use(router)
 app.use(i18n)
 
