@@ -20,8 +20,7 @@
       dark
       fab
       style="z-index: 3"
-      bottom
-      right
+      location="bottom right"
       class="fab--bottom_nav float-right"
       color="red"
       @click.stop="createNewActivity()"

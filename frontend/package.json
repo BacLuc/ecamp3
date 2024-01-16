@@ -176,7 +176,8 @@
         {
           "shallowOnly": true
         }
-      ]
+      ],
+      "vuetify/no-deprecated-slots": "off"
     },
     "parserOptions": {
       "parser": "@babel/eslint-parser"

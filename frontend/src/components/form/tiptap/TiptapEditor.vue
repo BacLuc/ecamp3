@@ -13,7 +13,7 @@
       :should-show="shouldShow"
       :tippy-options="{ maxWidth: 'none' }"
     >
-      <div class="elevation-4 ec-tiptap-toolbar white">
+      <div class="elevation-4 ec-tiptap-toolbar bg-white">
         <v-toolbar class="elevation-0 ec-tiptap-toolbar--first" dense color="transparent">
           <TiptapToolbarButton
             icon="mdi-format-bold"
