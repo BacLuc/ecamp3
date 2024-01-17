@@ -35,8 +35,10 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@use 'src/scss/variables';
+
 .ec-content-group__title {
-  border-bottom: 1px solid map-get($blue-grey, 'lighten-4');
+  border-bottom: 1px solid map-get(variables.$blue-grey, 'lighten-4');
   display: flex;
   align-items: baseline;
   justify-content: space-between;
@@ -45,4 +47,4 @@ export default {
 .ec-content-group + .ec-content-group {
   margin-top: 32px !important;
 }
-</style>
+</stylescoped>

@@ -303,15 +303,17 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@use 'src/scss/variables';
+
 .e-picasso-entry {
   user-select: none;
   display: block;
   height: 100%;
   padding: 1px;
-  @media #{map-get($display-breakpoints, 'sm-and-up')} {
+  @media #{map-get(variables.$display-breakpoints, 'sm-and-up')} {
     padding: 1px 2px;
   }
-  @media #{map-get($display-breakpoints, 'md-and-up')} {
+  @media #{map-get(variables.$display-breakpoints, 'md-and-up')} {
     padding: 2px 3px;
     line-height: normal;
   }
@@ -329,7 +331,7 @@ export default {
   opacity: 0.3;
 }
 
-@media #{map-get($display-breakpoints, 'sm-and-up')} {
+@media #{map-get(variables.$display-breakpoints, 'sm-and-up')} {
   .e-picasso-entry {
     font-size: 12px;
   }
@@ -488,7 +490,7 @@ export default {
   font-size: 11px;
 }
 
-@media #{map-get($display-breakpoints, 'sm-and-up')} {
+@media #{map-get(variables.$display-breakpoints, 'sm-and-up')} {
   .e-picasso-entry:hover .e-picasso-entry__drag-bottom::after {
     display: block; // resize handle not visible on mobile
   }

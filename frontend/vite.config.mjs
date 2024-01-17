@@ -25,6 +25,7 @@ const plugins = [
     autoImport: {
       labs: true,
     },
+    styles: { configFile: 'src/scss/variables.scss' },
   })
 ]
 const sentryAuthToken = process.env.SENTRY_AUTH_TOKEN
@@ -154,15 +155,15 @@ export default defineConfig(({ mode }) => ({
   },
   css: {
     preprocessorOptions: {
-      scss: {
-        additionalData: `
-        // original default variables from vuetify
-        @import "./node_modules/vuetify/lib/styles/settings/_variables.scss";
-        @import "./node_modules/vuetify/lib/styles/settings/_colors.scss";
-        @import "./node_modules/vuetify/dist/_component-variables.sass";
-        @import "./node_modules/vuetify/dist/_component-variables-labs.sass";
-        `,
-      },
+      // scss: {
+      //   additionalData: `
+      //   // original default variables from vuetify
+      //   @import "./node_modules/vuetify/lib/styles/settings/_variables.scss";
+      //   @import "./node_modules/vuetify/lib/styles/settings/_colors.scss";
+      //   @import "./node_modules/vuetify/dist/_component-variables.sass";
+      //   @import "./node_modules/vuetify/dist/_component-variables-labs.sass";
+      //   `,
+      // },
       // sass: {
       //   additionalData: '@import "./src/scss/variables.scss"\n', // vuetify variable overrides
       // },
