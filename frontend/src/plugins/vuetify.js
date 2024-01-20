@@ -18,6 +18,8 @@ import i18n from '@/plugins/i18n'
 import * as colors from 'vuetify/util/colors'
 import { apiPropsMixin } from '@/mixins/apiPropsMixin'
 
+import { VCalendar } from 'vuetify/labs/VCalendar'
+
 // Styles
 import '@mdi/font/css/materialdesignicons.css'
 import 'vuetify/styles'
@@ -62,6 +64,9 @@ class VuetifyLoaderPlugin {
             error: colors.red.darken2,
           },
         },
+      },
+      components: {
+        VCalendar,
       },
     }
 
