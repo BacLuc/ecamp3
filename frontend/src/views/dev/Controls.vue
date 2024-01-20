@@ -295,7 +295,7 @@ export default {
       return '/camp_collaborations/3229d273decd' // Harry Potter - Snoopy
     },
     availableLocales() {
-      return VueI18n.availableLocales.map((l) => ({
+      return VueI18n.global.availableLocales.map((l) => ({
         value: l,
         text: this.$tc('global.language', 1, l),
       }))
