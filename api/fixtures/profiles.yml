@@ -1,7 +1,7 @@
 App\Entity\Profile:
   profile1manager:
     user: '@user1manager'
-    email: test@example.com
+    email: <email()>
     firstname: Robert
     surname: Baden-Powell
     nickname: Bi-Pi
@@ -65,7 +65,7 @@ App\Entity\Profile:
     roles: [ 'ROLE_USER' ]
   profileAdmin:
     user: '@admin'
-    email: admin@example.com
+    email: <email()>
     firstname: Admi
     surname: Nistrator
     nickname: Administrator

@@ -12,10 +12,8 @@ use ApiPlatform\Metadata\Resource\Factory\ResourceMetadataCollectionFactoryInter
 use ApiPlatform\Symfony\Bundle\Test\ApiTestCase;
 use ApiPlatform\Symfony\Bundle\Test\Client;
 use App\Entity\BaseEntity;
-use App\Entity\Profile;
 use App\Entity\User;
 use App\Metadata\Resource\OperationHelper;
-use App\Repository\ProfileRepository;
 use App\Util\ArrayDeepSort;
 use Doctrine\Bundle\DoctrineBundle\DataCollector\DoctrineDataCollector;
 use Doctrine\ORM\EntityManagerInterface;
@@ -81,16 +79,9 @@ abstract class ECampApiTestCase extends ApiTestCase {
      * @throws ServerExceptionInterface
      * @throws TransportExceptionInterface
      */
-    protected static function createClientWithCredentials(?array $credentials = null, ?array $headers = null): Client {
+    protected static function createClientWithCredentials(string $userFixtureName = 'user1manager', ?array $headers = null): Client {
         $client = static::createBasicClient($headers);
-
-        /** @var Profile $profile */
-        $profile = static::getContainer()->get(ProfileRepository::class)
-            ->findOneBy(
-                array_diff_key($credentials ?: ['email' => 'test@example.com'], ['password' => ''])
-            )
-        ;
-        $user = $profile->user;
+        $user = self::getFixture($userFixtureName);
 
         $jwtToken = static::getContainer()->get('lexik_jwt_authentication.jwt_manager')->create($user);
         $lastPeriodPosition = strrpos($jwtToken, '.');
@@ -111,7 +102,7 @@ abstract class ECampApiTestCase extends ApiTestCase {
      * @throws TransportExceptionInterface
      */
     protected static function createClientWithAdminCredentials(?array $headers = null): Client {
-        return static::createClientWithCredentials(['email' => 'admin@example.com']);
+        return static::createClientWithCredentials('user1admin', $headers);
     }
 
     protected static function createBasicClient(?array $headers = null): Client {

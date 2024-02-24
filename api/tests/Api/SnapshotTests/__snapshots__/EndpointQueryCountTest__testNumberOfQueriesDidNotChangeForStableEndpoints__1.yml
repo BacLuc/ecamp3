@@ -69,7 +69,7 @@
     executionTimeSeconds: 0.01
 /periods/item:
     queryCount: 19
-    executionTimeSeconds: 0.03
+    executionTimeSeconds: 0.02
 /profiles:
     queryCount: 6
     executionTimeSeconds: 0.01

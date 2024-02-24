@@ -5,6 +5,7 @@ namespace App\Tests\Api\SnapshotTests;
 use App\Tests\Api\ECampApiTestCase;
 use App\Tests\Spatie\Snapshots\Driver\ECampYamlSnapshotDriver;
 use Hautelook\AliceBundle\PhpUnit\FixtureStore;
+use Hautelook\AliceBundle\PhpUnit\RefreshDatabaseState;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface;
@@ -31,34 +32,40 @@ class EndpointQueryCountTest extends ECampApiTestCase {
      * @throws TransportExceptionInterface
      */
     public function testNumberOfQueriesDidNotChangeForStableEndpoints() {
-        $numberOfQueries = [];
-        $responseCodes = [];
-        $collectionEndpoints = self::getCollectionEndpoints();
-        foreach ($collectionEndpoints as $collectionEndpoint) {
-            if ('/users' !== $collectionEndpoint && !str_contains($collectionEndpoint, '/content_node')) {
-                list($statusCode, $queryCount, $executionTimeSeconds) = $this->measurePerformanceFor($collectionEndpoint);
-                $responseCodes[$collectionEndpoint] = $statusCode;
-                $numberOfQueries[$collectionEndpoint] = [
-                    'queryCount' => $queryCount,
-                    'executionTimeSeconds' => $executionTimeSeconds,
-                ];
+        RefreshDatabaseState::setDbPopulated(false);
+
+        try {
+            $numberOfQueries = [];
+            $responseCodes = [];
+            $collectionEndpoints = self::getCollectionEndpoints();
+            foreach ($collectionEndpoints as $collectionEndpoint) {
+                if ('/users' !== $collectionEndpoint && !str_contains($collectionEndpoint, '/content_node')) {
+                    list($statusCode, $queryCount, $executionTimeSeconds) = $this->measurePerformanceFor($collectionEndpoint);
+                    $responseCodes[$collectionEndpoint] = $statusCode;
+                    $numberOfQueries[$collectionEndpoint] = [
+                        'queryCount' => $queryCount,
+                        'executionTimeSeconds' => $executionTimeSeconds,
+                    ];
+                }
+
+                if (!str_contains($collectionEndpoint, '/content_node')) {
+                    $fixtureFor = $this->getFixtureFor($collectionEndpoint);
+                    list($statusCode, $queryCount, $executionTimeSeconds) = $this->measurePerformanceFor("{$collectionEndpoint}/{$fixtureFor->getId()}");
+                    $responseCodes["{$collectionEndpoint}/item"] = $statusCode;
+                    $numberOfQueries["{$collectionEndpoint}/item"] = [
+                        'queryCount' => $queryCount,
+                        'executionTimeSeconds' => $executionTimeSeconds,
+                    ];
+                }
             }
 
-            if (!str_contains($collectionEndpoint, '/content_node')) {
-                $fixtureFor = $this->getFixtureFor($collectionEndpoint);
-                list($statusCode, $queryCount, $executionTimeSeconds) = $this->measurePerformanceFor("{$collectionEndpoint}/{$fixtureFor->getId()}");
-                $responseCodes["{$collectionEndpoint}/item"] = $statusCode;
-                $numberOfQueries["{$collectionEndpoint}/item"] = [
-                    'queryCount' => $queryCount,
-                    'executionTimeSeconds' => $executionTimeSeconds,
-                ];
-            }
+            $not200Responses = array_filter($responseCodes, fn ($value) => 200 != $value);
+            assertThat($not200Responses, isEmpty());
+
+            $this->assertMatchesSnapshot($numberOfQueries, new ECampYamlSnapshotDriver());
+        } finally {
+            RefreshDatabaseState::setDbPopulated(false);
         }
-
-        $not200Responses = array_filter($responseCodes, fn ($value) => 200 != $value);
-        assertThat($not200Responses, isEmpty());
-
-        $this->assertMatchesSnapshot($numberOfQueries, new ECampYamlSnapshotDriver());
     }
 
     /**
@@ -144,6 +151,10 @@ class EndpointQueryCountTest extends ECampApiTestCase {
 
             return $newArray;
         });
+    }
+
+    protected static function getLoadFixturesNTimes($container): int {
+        return 1e4;
     }
 
     private static function getContentNodeEndpointQueryCountRanges(): array {
