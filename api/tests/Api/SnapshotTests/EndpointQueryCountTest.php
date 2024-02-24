@@ -36,16 +36,22 @@ class EndpointQueryCountTest extends ECampApiTestCase {
         $collectionEndpoints = self::getCollectionEndpoints();
         foreach ($collectionEndpoints as $collectionEndpoint) {
             if ('/users' !== $collectionEndpoint && !str_contains($collectionEndpoint, '/content_node')) {
-                list($statusCode, $queryCount) = $this->measurePerformanceFor($collectionEndpoint);
+                list($statusCode, $queryCount, $executionTimeSeconds) = $this->measurePerformanceFor($collectionEndpoint);
                 $responseCodes[$collectionEndpoint] = $statusCode;
-                $numberOfQueries[$collectionEndpoint] = $queryCount;
+                $numberOfQueries[$collectionEndpoint] = [
+                    'queryCount' => $queryCount,
+                    'executionTimeSeconds' => $executionTimeSeconds,
+                ];
             }
 
             if (!str_contains($collectionEndpoint, '/content_node')) {
                 $fixtureFor = $this->getFixtureFor($collectionEndpoint);
-                list($statusCode, $queryCount) = $this->measurePerformanceFor("{$collectionEndpoint}/{$fixtureFor->getId()}");
+                list($statusCode, $queryCount, $executionTimeSeconds) = $this->measurePerformanceFor("{$collectionEndpoint}/{$fixtureFor->getId()}");
                 $responseCodes["{$collectionEndpoint}/item"] = $statusCode;
-                $numberOfQueries["{$collectionEndpoint}/item"] = $queryCount;
+                $numberOfQueries["{$collectionEndpoint}/item"] = [
+                    'queryCount' => $queryCount,
+                    'executionTimeSeconds' => $executionTimeSeconds,
+                ];
             }
         }
 
@@ -120,8 +126,9 @@ class EndpointQueryCountTest extends ECampApiTestCase {
         $statusCode = $response->getStatusCode();
         $collector = $client->getProfile()->getCollector('db');
         $queryCount = $collector->getQueryCount();
+        $executionTimeSeconds = round($collector->getTime(), 2);
 
-        return [$statusCode, $queryCount];
+        return [$statusCode, $queryCount, $executionTimeSeconds];
     }
 
     public static function getContentNodeEndpoints(): array {
