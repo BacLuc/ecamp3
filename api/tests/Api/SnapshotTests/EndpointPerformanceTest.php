@@ -56,6 +56,9 @@ class EndpointPerformanceTest extends ECampApiTestCase {
 
         $not200Responses = array_filter($responseCodes, fn ($value) => 200 != $value);
         assertThat($not200Responses, equalTo([]));
+        
+        echo 'Query execution time: ';
+        var_dump($queryExecutionTime);
 
         $endpointsWithTooLongExecutionTime = array_filter($queryExecutionTime, fn ($value) => MAX_EXECUTION_TIME_SECONDS < $value);
         assertThat($endpointsWithTooLongExecutionTime, equalTo([]));

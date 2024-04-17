@@ -23,9 +23,9 @@ App\Entity\ScheduleEntry:
     activity: '@additional_activity_<current()>'
     startOffset: 1980
     endOffset: 2040
-  additional_scheduleEntry_camp1_{1..200}:
+  additional_scheduleEntry_camp1_{1..10000}:
     period: '@period1'
-    activity: '@additional_activity_camp1_<current()>'
+    activity: '@additional_activity_camp1_1>'
     startOffset: 480
     endOffset: 540
 
@@ -121,6 +121,14 @@ App\Entity\ContentNode\SingleText:
   additional_singleText_camp1_{1..200}:
     root: '@additional_columnLayout_camp1_<current()>'
     parent: '@additional_responsiveLayout_camp1_<current()>'
+    slot: 'aside-top'
+    position: 2
+    instanceName: 'singleText<current()>'
+    contentType: '@contentTypeNotes'
+    data: { html: <word()> }
+  additional_singleText_camp1_lots_of_texts_{1..10000}:
+    root: '@additional_columnLayout_camp1_1'
+    parent: '@additional_responsiveLayout_camp1_1'
     slot: 'aside-top'
     position: 2
     instanceName: 'singleText<current()>'
