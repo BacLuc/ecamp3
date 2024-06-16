@@ -27,6 +27,8 @@ eCamp v3 is made up of a backend based on the PHP framework API Platform (Symfon
 
 ### How can I help?
 
+change doc
+
 Thanks for helping! There are a few ways to get started.
 
 - Visit our test environment at [https://dev.ecamp3.ch](https://dev.ecamp3.ch). If you discover a bug, [open a new issue for it](https://github.com/ecamp/ecamp3/issues/new).
