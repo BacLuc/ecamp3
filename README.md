@@ -27,7 +27,7 @@ eCamp v3 is made up of a backend based on the PHP framework API Platform (Symfon
 
 ### How can I help?
 
-change doc
+change doc as
 
 Thanks for helping! There are a few ways to get started.
 
