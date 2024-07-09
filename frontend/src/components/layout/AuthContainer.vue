@@ -3,17 +3,17 @@
     <v-col
       cols="12"
       class="pa-0 pa-sm-4 pb-sm-12 auth-column"
-      :class="{ 'fill-height': $vuetify.breakpoint.xsOnly }"
+      :class="{ 'fill-height': $vuetify.display.xs }"
     >
       <v-card
         class="pa-8 sso--card"
-        :tile="$vuetify.breakpoint.xsOnly"
-        :class="{ 'fill-min-height': $vuetify.breakpoint.xsOnly }"
+        :tile="$vuetify.display.xs"
+        :class="{ 'fill-min-height': $vuetify.display.xs }"
       >
         <slot />
       </v-card>
     </v-col>
-    <span v-if="$vuetify.breakpoint.smAndUp" class="photo_credits ma-3 pa-1">
+    <span v-if="$vuetify.display.smAndUp" class="photo_credits ma-3 pa-1">
       {{ $tc('components.layout.authContainer.photoCredits') }}
     </span>
   </v-container>

@@ -3,16 +3,16 @@ Displays a field as a textfield (can be used with v-model)
 -->
 
 <template>
-  <ValidationProvider
-    v-slot="{ errors: veeErrors }"
-    ref="validationProvider"
-    tag="div"
-    :name="validationLabel"
-    :vid="veeId ?? path"
-    :rules="veeRules"
-    :required="required"
-    class="e-form-container"
-  >
+<!--  <ValidationProvider-->
+<!--    v-slot="{ errors: veeErrors }"-->
+<!--    ref="validationProvider"-->
+<!--    tag="div"-->
+<!--    :name="validationLabel"-->
+<!--    :vid="veeId ?? path"-->
+<!--    :rules="veeRules"-->
+<!--    :required="required"-->
+<!--    class="e-form-container"-->
+<!--  >-->
     <v-text-field
       ref="textField"
       v-bind="$attrs"
@@ -43,18 +43,20 @@ Displays a field as a textfield (can be used with v-model)
         />
       </template>
     </v-text-field>
-  </ValidationProvider>
+<!--  </ValidationProvider>-->
 </template>
 
 <script>
 import { debounce } from 'lodash'
 import { formComponentPropsMixin } from '@/mixins/formComponentPropsMixin.js'
-import { ValidationProvider } from 'vee-validate'
+// import { ValidationProvider } from 'vee-validate'
 import { formComponentMixin } from '@/mixins/formComponentMixin.js'
 
 export default {
   name: 'EParseField',
-  components: { ValidationProvider },
+  components: {
+    // ValidationProvider
+  },
   mixins: [formComponentPropsMixin, formComponentMixin],
   props: {
     value: { validator: () => true, required: true },

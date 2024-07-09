@@ -47,4 +47,4 @@ export default {
 .ec-content-group + .ec-content-group {
   margin-top: 32px !important;
 }
-</stylescoped>
+</style>

@@ -22,6 +22,8 @@ import ResizeObserver from 'v-resize-observer'
 
 import '@/scss/main.scss'
 
+const app = createApp(App);
+
 // const env = getEnv()
 // if (env && env.SENTRY_FRONTEND_DSN) {
 //   const sentryEnvironment = env.SENTRY_ENVIRONMENT ?? 'local'
@@ -63,3 +65,5 @@ app.directive('resizeobserver', ResizeObserver.directive)
 // }).$mount('#app')'
 
 app.mount('#app')
+
+export default app

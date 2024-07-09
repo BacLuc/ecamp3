@@ -1,4 +1,4 @@
-import { Extension } from '@tiptap/vue-2'
+import { Extension } from '@tiptap/vue-3'
 import { Plugin, PluginKey } from '@tiptap/pm/state'
 import { Decoration, DecorationSet } from '@tiptap/pm/view'
 import LinkifyIt from 'linkify-it'

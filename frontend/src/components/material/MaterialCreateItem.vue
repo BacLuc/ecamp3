@@ -40,19 +40,19 @@
     <ButtonAdd height="52" hide-label @click="submitForm" />
   </td>
   <!--  </ValidationObserver>-->
-  <tr v-else>
-    <td :colspan="columns">
-      <div>
-        <p>
-          {{ $tc("components.material.materialCreateItem.noMaterialListAvailable") }}
-        </p>
-        <v-btn :to="campRoute(camp, 'admin')">
-          <v-icon :left="$vuetify.breakpoint.mdAndUp">mdi-cogs</v-icon>
-          {{ $tc("components.material.materialCreateItem.campSettingsButton") }}
-        </v-btn>
-      </div>
-    </td>
-  </tr>
+<!--  <tr v-else>-->
+<!--    <td :colspan="columns">-->
+<!--      <div>-->
+<!--        <p>-->
+<!--          {{ $tc("components.material.materialCreateItem.noMaterialListAvailable") }}-->
+<!--        </p>-->
+<!--        <v-btn :to="campRoute(camp, 'admin')">-->
+<!--          <v-icon :left="$vuetify.breakpoint.mdAndUp">mdi-cogs</v-icon>-->
+<!--          {{ $tc("components.material.materialCreateItem.campSettingsButton") }}-->
+<!--        </v-btn>-->
+<!--      </div>-->
+<!--    </td>-->
+<!--  </tr>-->
 </template>
 
 <script>

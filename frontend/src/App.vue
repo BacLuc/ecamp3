@@ -38,7 +38,7 @@ export default {
       const profile = await user.profile()._meta.load
 
       if (VueI18n.global.availableLocales.includes(profile.language)) {
-        this.$store.commit('setLanguage', profile.language)
+        // this.$store.commit('setLanguage', profile.language)
       }
     }
   },

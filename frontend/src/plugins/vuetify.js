@@ -1,28 +1,27 @@
 // You still need to register Vuetify itself
 // src/plugins/vuetify.js
 
-import Vuetify from 'vuetify/lib'
-import PbsLogo from './icons/PbsLogo.vue'
-import GoogleLogo from './icons/GoogleLogo.vue'
-import eCampLogo from './icons/eCampLogo.vue'
-import CeviLogo from './icons/CeviLogo.vue'
-import JublaLogo from './icons/JublaLogo.vue'
-import JSLogo from './icons/JSLogo.vue'
-import GSLogo from './icons/GSLogo.vue'
-import TentDay from './icons/TentDay.vue'
-import PaperSize from './icons/PaperSize.vue'
-import BigScreen from './icons/BigScreen.vue'
-import ResponsiveLayout from './icons/ResponsiveLayout.vue'
-import ColumnLayout from './icons/ColumnLayout.vue'
-import i18n from '@/plugins/i18n'
-import * as colors from 'vuetify/util/colors'
-import { apiPropsMixin } from '@/mixins/apiPropsMixin'
+import PbsLogo from "./icons/PbsLogo.vue";
+import GoogleLogo from "./icons/GoogleLogo.vue";
+import eCampLogo from "./icons/eCampLogo.vue";
+import CeviLogo from "./icons/CeviLogo.vue";
+import JublaLogo from "./icons/JublaLogo.vue";
+import JSLogo from "./icons/JSLogo.vue";
+import GSLogo from "./icons/GSLogo.vue";
+import TentDay from "./icons/TentDay.vue";
+import PaperSize from "./icons/PaperSize.vue";
+import BigScreen from "./icons/BigScreen.vue";
+import ResponsiveLayout from "./icons/ResponsiveLayout.vue";
+import ColumnLayout from "./icons/ColumnLayout.vue";
+import i18n from "@/plugins/i18n";
+import * as colors from "vuetify/util/colors";
 
-import { VCalendar } from 'vuetify/labs/VCalendar'
+import { VCalendar } from "vuetify/labs/VCalendar";
 
 // Styles
-import '@mdi/font/css/materialdesignicons.css'
-import 'vuetify/styles'
+import "@mdi/font/css/materialdesignicons.css";
+import "vuetify/styles";
+import { createVuetify } from "vuetify";
 
 class VuetifyLoaderPlugin {
   install(app) {
