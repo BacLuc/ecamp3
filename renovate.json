@@ -148,6 +148,12 @@
       ],
       "automerge": false,
       "groupName": "cypress"
+    },
+    {
+      "matchDepNames": [
+        "cypress/included"
+      ],
+      "versioning": "regex:^cypress-(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)-(?<compatibility>.*)@(?<digest>.*)$"
     }
   ],
   "customManagers": [
