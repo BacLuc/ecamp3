@@ -16,7 +16,8 @@
     "test:unit": "vitest run --coverage",
     "test:unit:debug": "node --inspect-brk=0.0.0.0:9229 ./node_modules/.bin/vitest --no-cache --runInBand",
     "test:unit:watch": "vitest --watch",
-    "postinstall": "./scripts/install-twemoji.sh"
+    "postinstall": "./scripts/install-twemoji.sh",
+    "generate-types": "orval"
   },
   "dependencies": {
     "@intlify/core": "9.14.2",
@@ -110,6 +111,7 @@
     "jest-serializer-vue-tjw": "3.20.0",
     "jsdom": "25.0.1",
     "lint-staged": "15.2.10",
+    "orval": "7.3.0",
     "prettier": "3.4.2",
     "sass": "1.32.13",
     "unplugin-vue-components": "0.27.5",
