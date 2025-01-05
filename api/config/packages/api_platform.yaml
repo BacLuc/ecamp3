@@ -29,7 +29,7 @@ api_platform:
     defaults:
         stateless: true
         extra_properties:
-            standard_put: true
+            standard_put: false
             rfc_7807_compliant_errors: false
         pagination_enabled: false
         itemOperations: [ 'get', 'patch', 'delete' ]
