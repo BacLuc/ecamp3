@@ -42,7 +42,7 @@ services:
         published: 2019
         protocol: tcp
     environment:
-      DATA_MIGRATIONS_DIR: dev-data
+      DATA_MIGRATIONS_DIR: empty-data
       DATABASE_URL: "postgresql://ecamp3:ecamp3@database:5432/ecamp3dev?serverVersion=15&charset=utf8"
       LOG_LEVEL: debug
       ADDITIONAL_TRUSTED_HOSTS: '.*'
