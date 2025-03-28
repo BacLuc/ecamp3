@@ -14,11 +14,9 @@ declare(strict_types=1);
 
 namespace App\HttpCache;
 
-use ApiPlatform\Api\IriConverterInterface as LegacyIriConverterInterface;
-use ApiPlatform\Api\ResourceClassResolverInterface as LegacyResourceClassResolverInterface;
-use ApiPlatform\Exception\InvalidArgumentException;
-use ApiPlatform\Exception\RuntimeException;
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Exception\InvalidArgumentException;
+use ApiPlatform\Metadata\Exception\RuntimeException;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\IriConverterInterface;
 use ApiPlatform\Metadata\Link;
@@ -46,7 +44,7 @@ final class PurgeHttpCacheListener {
 
     public const IRI_RELATION_DELIMITER = '#';
 
-    public function __construct(private readonly IriConverterInterface|LegacyIriConverterInterface $iriConverter, private readonly LegacyResourceClassResolverInterface|ResourceClassResolverInterface $resourceClassResolver, private readonly PropertyAccessorInterface $propertyAccessor, private readonly ResourceMetadataCollectionFactoryInterface $resourceMetadataCollectionFactory, private readonly CacheManager $cacheManager) {}
+    public function __construct(private readonly IriConverterInterface $iriConverter, private readonly ResourceClassResolverInterface $resourceClassResolver, private readonly PropertyAccessorInterface $propertyAccessor, private readonly ResourceMetadataCollectionFactoryInterface $resourceMetadataCollectionFactory, private readonly CacheManager $cacheManager) {}
 
     /**
      * Collects tags from the previous and the current version of the updated entities to purge related documents.

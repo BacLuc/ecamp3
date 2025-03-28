@@ -2,7 +2,7 @@
 
 namespace App\Serializer;
 
-use ApiPlatform\Serializer\SerializerContextBuilderInterface;
+use ApiPlatform\State\SerializerContextBuilderInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
