@@ -241,6 +241,9 @@ jobs:
     needs:
       - api-check-needed
     if: needs.api-check-needed.outputs.should_skip != 'true'
+    strategy:
+      fail-fast: false
+      matrix:
     env:
       DATABASE_URL: postgresql://ecamp3:ecamp3@localhost:5432/ecamp3?serverVersion=15&charset=utf8
 
