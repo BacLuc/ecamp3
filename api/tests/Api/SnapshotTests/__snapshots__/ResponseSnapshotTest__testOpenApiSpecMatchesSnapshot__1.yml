@@ -6920,6 +6920,88 @@ components:
         - preferredContentTypes
         - short
       type: object
+    Category-read_Category.PreferredContentTypes:
+      deprecated: false
+      description: |-
+        A type of programme, such as sports activities or meal times, is called a category. A category
+        determines color and numbering scheme of the associated activities, and is used for marking
+        "similar" activities. A category may contain some skeleton programme which is used as a blueprint
+        when creating a new activity in the category.
+      properties:
+        camp:
+          description: 'The camp to which this category belongs. May not be changed once the category is created.'
+          example: /camps/1a2b3c4d
+          format: iri-reference
+          type: string
+        color:
+          description: 'The color of the activities in this category, as a hex color string.'
+          example: '#4DBB52'
+          maxLength: 8
+          pattern: '^(#[0-9a-zA-Z]{6})$'
+          type: string
+        contentNodes:
+          description: 'All the content nodes that make up the tree of programme content.'
+          example: '["/content_nodes/1a2b3c4d"]'
+          items:
+            example: 'https://example.com/'
+            format: iri-reference
+            type: string
+          readOnly: true
+          type: array
+        id:
+          description: 'An internal, unique, randomly generated identifier of this entity.'
+          example: 1a2b3c4d
+          maxLength: 16
+          readOnly: true
+          type: string
+        name:
+          description: 'The full name of the category.'
+          example: Lagersport
+          maxLength: 32
+          type: string
+        numberingStyle:
+          default: '1'
+          description: |-
+            Specifies whether the schedule entries of the activities in this category should be numbered
+            using arabic numbers, roman numerals or letters.
+          enum:
+            - '-'
+            - '1'
+            - A
+            - I
+            - a
+            - i
+          example: '1'
+          maxLength: 1
+          type: string
+        preferredContentTypes:
+          items:
+            $ref: '#/components/schemas/ContentType-read_Category.PreferredContentTypes'
+          readOnly: true
+          type: array
+        rootContentNode:
+          description: |-
+            The programme contents, organized as a tree of content nodes. The root content node cannot be
+            exchanged, but all the contents attached to it can.
+          example: /content_nodes/1a2b3c4d
+          format: iri-reference
+          readOnly: true
+          type: string
+        short:
+          description: |-
+            An abbreviated name of the category, for display in tight spaces, often together with the day and
+            schedule entry number, e.g. LS 3.a, where LS is the category's short name.
+          example: LS
+          maxLength: 16
+          type: string
+      required:
+        - camp
+        - color
+        - name
+        - numberingStyle
+        - preferredContentTypes
+        - short
+      type: object
     Category-read_Category.PreferredContentTypes_Category.ContentNodes:
       deprecated: false
       description: |-
@@ -7380,6 +7462,97 @@ components:
         - preferredContentTypes
         - short
       type: object
+    Category.jsonhal-read_Category.PreferredContentTypes:
+      deprecated: false
+      description: |-
+        A type of programme, such as sports activities or meal times, is called a category. A category
+        determines color and numbering scheme of the associated activities, and is used for marking
+        "similar" activities. A category may contain some skeleton programme which is used as a blueprint
+        when creating a new activity in the category.
+      properties:
+        _links:
+          properties:
+            self:
+              properties:
+                href:
+                  format: iri-reference
+                  type: string
+              type: object
+          type: object
+        camp:
+          description: 'The camp to which this category belongs. May not be changed once the category is created.'
+          example: /camps/1a2b3c4d
+          format: iri-reference
+          type: string
+        color:
+          description: 'The color of the activities in this category, as a hex color string.'
+          example: '#4DBB52'
+          maxLength: 8
+          pattern: '^(#[0-9a-zA-Z]{6})$'
+          type: string
+        contentNodes:
+          description: 'All the content nodes that make up the tree of programme content.'
+          example: '["/content_nodes/1a2b3c4d"]'
+          items:
+            example: 'https://example.com/'
+            format: iri-reference
+            type: string
+          readOnly: true
+          type: array
+        id:
+          description: 'An internal, unique, randomly generated identifier of this entity.'
+          example: 1a2b3c4d
+          maxLength: 16
+          readOnly: true
+          type: string
+        name:
+          description: 'The full name of the category.'
+          example: Lagersport
+          maxLength: 32
+          type: string
+        numberingStyle:
+          default: '1'
+          description: |-
+            Specifies whether the schedule entries of the activities in this category should be numbered
+            using arabic numbers, roman numerals or letters.
+          enum:
+            - '-'
+            - '1'
+            - A
+            - I
+            - a
+            - i
+          example: '1'
+          maxLength: 1
+          type: string
+        preferredContentTypes:
+          items:
+            $ref: '#/components/schemas/ContentType.jsonhal-read_Category.PreferredContentTypes'
+          readOnly: true
+          type: array
+        rootContentNode:
+          description: |-
+            The programme contents, organized as a tree of content nodes. The root content node cannot be
+            exchanged, but all the contents attached to it can.
+          example: /content_nodes/1a2b3c4d
+          format: iri-reference
+          readOnly: true
+          type: string
+        short:
+          description: |-
+            An abbreviated name of the category, for display in tight spaces, often together with the day and
+            schedule entry number, e.g. LS 3.a, where LS is the category's short name.
+          example: LS
+          maxLength: 16
+          type: string
+      required:
+        - camp
+        - color
+        - name
+        - numberingStyle
+        - preferredContentTypes
+        - short
+      type: object
     Category.jsonhal-read_Category.PreferredContentTypes_Category.ContentNodes:
       deprecated: false
       description: |-
@@ -7717,6 +7890,94 @@ components:
             example: 'https://example.com/'
             format: iri-reference
             type: string
+          type: array
+        rootContentNode:
+          description: |-
+            The programme contents, organized as a tree of content nodes. The root content node cannot be
+            exchanged, but all the contents attached to it can.
+          example: /content_nodes/1a2b3c4d
+          format: iri-reference
+          readOnly: true
+          type: string
+        short:
+          description: |-
+            An abbreviated name of the category, for display in tight spaces, often together with the day and
+            schedule entry number, e.g. LS 3.a, where LS is the category's short name.
+          example: LS
+          maxLength: 16
+          type: string
+      required:
+        - camp
+        - color
+        - name
+        - numberingStyle
+        - preferredContentTypes
+        - short
+      type: object
+    Category.jsonld-read_Category.PreferredContentTypes:
+      deprecated: false
+      description: |-
+        A type of programme, such as sports activities or meal times, is called a category. A category
+        determines color and numbering scheme of the associated activities, and is used for marking
+        "similar" activities. A category may contain some skeleton programme which is used as a blueprint
+        when creating a new activity in the category.
+      properties:
+        '@id':
+          readOnly: true
+          type: string
+        '@type':
+          readOnly: true
+          type: string
+        camp:
+          description: 'The camp to which this category belongs. May not be changed once the category is created.'
+          example: /camps/1a2b3c4d
+          format: iri-reference
+          type: string
+        color:
+          description: 'The color of the activities in this category, as a hex color string.'
+          example: '#4DBB52'
+          maxLength: 8
+          pattern: '^(#[0-9a-zA-Z]{6})$'
+          type: string
+        contentNodes:
+          description: 'All the content nodes that make up the tree of programme content.'
+          example: '["/content_nodes/1a2b3c4d"]'
+          items:
+            example: 'https://example.com/'
+            format: iri-reference
+            type: string
+          readOnly: true
+          type: array
+        id:
+          description: 'An internal, unique, randomly generated identifier of this entity.'
+          example: 1a2b3c4d
+          maxLength: 16
+          readOnly: true
+          type: string
+        name:
+          description: 'The full name of the category.'
+          example: Lagersport
+          maxLength: 32
+          type: string
+        numberingStyle:
+          default: '1'
+          description: |-
+            Specifies whether the schedule entries of the activities in this category should be numbered
+            using arabic numbers, roman numerals or letters.
+          enum:
+            - '-'
+            - '1'
+            - A
+            - I
+            - a
+            - i
+          example: '1'
+          maxLength: 1
+          type: string
+        preferredContentTypes:
+          items:
+            $ref: '#/components/schemas/ContentType.jsonld-read_Category.PreferredContentTypes'
+          readOnly: true
           type: array
         rootContentNode:
           description: |-
@@ -11249,6 +11510,40 @@ components:
         - active
         - name
       type: object
+    ContentType-read_Category.PreferredContentTypes:
+      deprecated: false
+      description: ''
+      properties:
+        active:
+          default: true
+          description: 'Whether this content type is still maintained and recommended for use in new camps.'
+          example: 'true'
+          readOnly: true
+          type: boolean
+        contentNodes:
+          description: 'API endpoint link for creating new entities of type entityClass.'
+          example: '/content_node/column_layouts?contentType=%2Fcontent_types%2F1a2b3c4d'
+          format: iri-reference
+          readOnly: true
+          type: array
+        id:
+          description: 'An internal, unique, randomly generated identifier of this entity.'
+          example: 1a2b3c4d
+          maxLength: 16
+          readOnly: true
+          type: string
+        name:
+          description: |-
+            A name in UpperCamelCase of the content type. This value may be used as a technical
+            identifier of this content type, it is guaranteed to stay fixed.
+          example: SafetyConsiderations
+          maxLength: 32
+          readOnly: true
+          type: string
+      required:
+        - active
+        - name
+      type: object
     ContentType-read_Category.PreferredContentTypes_Category.ContentNodes:
       deprecated: false
       description: ''
@@ -11410,6 +11705,49 @@ components:
         - active
         - name
       type: object
+    ContentType.jsonhal-read_Category.PreferredContentTypes:
+      deprecated: false
+      description: ''
+      properties:
+        _links:
+          properties:
+            self:
+              properties:
+                href:
+                  format: iri-reference
+                  type: string
+              type: object
+          type: object
+        active:
+          default: true
+          description: 'Whether this content type is still maintained and recommended for use in new camps.'
+          example: 'true'
+          readOnly: true
+          type: boolean
+        contentNodes:
+          description: 'API endpoint link for creating new entities of type entityClass.'
+          example: '/content_node/column_layouts?contentType=%2Fcontent_types%2F1a2b3c4d'
+          format: iri-reference
+          readOnly: true
+          type: array
+        id:
+          description: 'An internal, unique, randomly generated identifier of this entity.'
+          example: 1a2b3c4d
+          maxLength: 16
+          readOnly: true
+          type: string
+        name:
+          description: |-
+            A name in UpperCamelCase of the content type. This value may be used as a technical
+            identifier of this content type, it is guaranteed to stay fixed.
+          example: SafetyConsiderations
+          maxLength: 32
+          readOnly: true
+          type: string
+      required:
+        - active
+        - name
+      type: object
     ContentType.jsonhal-read_Category.PreferredContentTypes_Category.ContentNodes:
       deprecated: false
       description: ''
@@ -11459,6 +11797,63 @@ components:
         Defines a type of content that can be present in a content node tree. A content type
         determines what data can be stored in content nodes of this type, as well as validation,
         available slots and jsonConfig settings.
+      properties:
+        '@context':
+          oneOf:
+            -
+              additionalProperties: true
+              properties:
+                '@vocab':
+                  type: string
+                hydra:
+                  enum: ['http://www.w3.org/ns/hydra/core#']
+                  type: string
+              required:
+                - '@vocab'
+                - hydra
+              type: object
+            -
+              type: string
+          readOnly: true
+        '@id':
+          readOnly: true
+          type: string
+        '@type':
+          readOnly: true
+          type: string
+        active:
+          default: true
+          description: 'Whether this content type is still maintained and recommended for use in new camps.'
+          example: 'true'
+          readOnly: true
+          type: boolean
+        contentNodes:
+          description: 'API endpoint link for creating new entities of type entityClass.'
+          example: '/content_node/column_layouts?contentType=%2Fcontent_types%2F1a2b3c4d'
+          format: iri-reference
+          readOnly: true
+          type: array
+        id:
+          description: 'An internal, unique, randomly generated identifier of this entity.'
+          example: 1a2b3c4d
+          maxLength: 16
+          readOnly: true
+          type: string
+        name:
+          description: |-
+            A name in UpperCamelCase of the content type. This value may be used as a technical
+            identifier of this content type, it is guaranteed to stay fixed.
+          example: SafetyConsiderations
+          maxLength: 32
+          readOnly: true
+          type: string
+      required:
+        - active
+        - name
+      type: object
+    ContentType.jsonld-read_Category.PreferredContentTypes:
+      deprecated: false
+      description: ''
       properties:
         '@context':
           oneOf:
@@ -24916,7 +25311,7 @@ paths:
             application/hal+json:
               schema:
                 properties:
-                  _embedded: { anyOf: [{ properties: { item: { items: { $ref: '#/components/schemas/Category.jsonhal-read' }, type: array } }, type: object }, { type: object }] }
+                  _embedded: { anyOf: [{ properties: { item: { items: { $ref: '#/components/schemas/Category.jsonhal-read_Category.PreferredContentTypes' }, type: array } }, type: object }, { type: object }] }
                   _links: { properties: { first: { properties: { href: { format: iri-reference, type: string } }, type: object }, last: { properties: { href: { format: iri-reference, type: string } }, type: object }, next: { properties: { href: { format: iri-reference, type: string } }, type: object }, previous: { properties: { href: { format: iri-reference, type: string } }, type: object }, self: { properties: { href: { format: iri-reference, type: string } }, type: object } }, type: object }
                   itemsPerPage: { minimum: 0, type: integer }
                   totalItems: { minimum: 0, type: integer }
@@ -24927,12 +25322,12 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/Category-read'
+                  $ref: '#/components/schemas/Category-read_Category.PreferredContentTypes'
                 type: array
             application/ld+json:
               schema:
                 properties:
-                  member: { items: { $ref: '#/components/schemas/Category.jsonld-read' }, type: array }
+                  member: { items: { $ref: '#/components/schemas/Category.jsonld-read_Category.PreferredContentTypes' }, type: array }
                   search: { properties: { '@type': { type: string }, mapping: { items: { properties: { '@type': { type: string }, property: { type: ['null', string] }, required: { type: boolean }, variable: { type: string } }, type: object }, type: array }, template: { type: string }, variableRepresentation: { type: string } }, type: object }
                   totalItems: { minimum: 0, type: integer }
                   view: { example: { '@id': string, first: string, last: string, next: string, previous: string, type: string }, properties: { '@id': { format: iri-reference, type: string }, '@type': { type: string }, first: { format: iri-reference, type: string }, last: { format: iri-reference, type: string }, next: { format: iri-reference, type: string }, previous: { format: iri-reference, type: string } }, type: object }
@@ -24947,7 +25342,7 @@ paths:
             text/html:
               schema:
                 items:
-                  $ref: '#/components/schemas/Category-read'
+                  $ref: '#/components/schemas/Category-read_Category.PreferredContentTypes'
                 type: array
           description: 'Category collection'
       summary: 'Retrieves the collection of Category resources.'

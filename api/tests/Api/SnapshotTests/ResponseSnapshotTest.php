@@ -217,6 +217,32 @@ class ResponseSnapshotTest extends ECampApiTestCase {
         });
     }
 
+    /**
+     * @throws RedirectionExceptionInterface
+     * @throws DecodingExceptionInterface
+     * @throws ClientExceptionInterface
+     * @throws TransportExceptionInterface
+     * @throws ServerExceptionInterface
+     */
+    #[DataProvider('getSubresourceEndpoints')]
+    public function testSubResourceUrlMatchesSnapshot(string $endpoint, string $subresource) {
+        $fixture = $this->getFixtureFor($endpoint);
+        $uri = "{$endpoint}/{$fixture->getId()}/{$subresource}";
+
+        $response = static::createClientWithCredentials()->request('GET', $uri);
+
+        assertThat($response->getStatusCode(), equalTo(200));
+        $this->assertMatchesEscapedResponseSnapshot($response);
+    }
+
+    public static function getSubresourceEndpoints(): iterable {
+        yield ['/camps', '/categories'];
+
+        yield ['/camps', '/activities'];
+
+        yield ['/camps', '/activity_progress_labels'];
+    }
+
     private function getFixtureFor(string $collectionEndpoint) {
         $fixtures = FixtureStore::getFixtures();
 
