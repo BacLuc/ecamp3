@@ -36,6 +36,8 @@ api_platform:
                 input_formats: [ 'jsonld', 'jsonapi', 'json' ]
         normalization_context:
             skip_null_values: false
+        denormalization_context:
+            allow_extra_attributes: false
 
     # On API-Platform Update - test, if this config is still needed.
     # See PR 5948: https://github.com/ecamp/ecamp3/pull/5948
