@@ -10,7 +10,15 @@ import { svg4VuePlugin } from 'vite-plugin-svg4vue'
 
 const plugins = [
   comlink(), // must be first
-  vue(),
+  vue({
+    template: {
+      compilerOptions: {
+        compatConfig: {
+          MODE: 2,
+        },
+      },
+    },
+  }),
   Components({
     resolvers: [
       // Vuetify
