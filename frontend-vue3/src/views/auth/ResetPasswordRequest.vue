@@ -1,0 +1,107 @@
+<template>
+  <auth-container>
+    <h1 class="display-1 text-center mb-4">
+      {{ $tc('views.auth.resetPasswordRequest.title') }}
+    </h1>
+
+    <v-alert v-if="status == 'success'" type="success">
+      {{ $tc('views.auth.resetPasswordRequest.successMessage') }}
+    </v-alert>
+
+    <v-alert v-if="status == 'error'" type="error">
+      {{ $tc('views.auth.resetPasswordRequest.errorMessage') }}
+    </v-alert>
+
+    <v-form
+      v-if="status == 'mounted' || status == 'sending'"
+      @submit.prevent="resetPassword"
+    >
+      <e-text-field
+        v-model="email"
+        :label="$tc('entity.profile.fields.email')"
+        name="email"
+        vee-rules="email"
+        append-icon="mdi-at"
+        :dense="$vuetify.breakpoint.xsOnly"
+        type="email"
+        autocomplete="username"
+        autofocus
+      />
+      <v-btn
+        type="submit"
+        block
+        :color="email ? 'blue darken-2' : 'blue lightne-4'"
+        :disabled="!email"
+        outlined
+        :x-large="$vuetify.breakpoint.smAndUp"
+        class="my-4"
+      >
+        <v-progress-circular v-if="status == 'sending'" indeterminate size="24" />
+        <v-icon v-else>$vuetify.icons.ecamp</v-icon>
+        <v-spacer />
+        <span>{{ $tc('views.auth.resetPasswordRequest.send') }}</span>
+        <v-spacer />
+        <icon-spacer />
+      </v-btn>
+    </v-form>
+    <p class="mt-8 mb0 text--secondary text-center">
+      <router-link :to="{ name: 'login' }">
+        {{ $tc('global.button.login') }}
+      </router-link>
+    </p>
+  </auth-container>
+</template>
+
+<script>
+import { load } from 'recaptcha-v3'
+import { getEnv } from '@/environment.js'
+
+export default {
+  name: 'ResetPasswordRequest',
+
+  data() {
+    return {
+      email: '',
+      status: 'mounted',
+      recaptcha: null,
+    }
+  },
+
+  head() {
+    return {
+      title: this.$tc('views.auth.resetPasswordRequest.title'),
+    }
+  },
+
+  mounted() {
+    if (getEnv().RECAPTCHA_SITE_KEY) {
+      this.recaptcha = load(getEnv().RECAPTCHA_SITE_KEY, {
+        explicitRenderParameters: {
+          badge: 'bottomleft',
+        },
+      })
+    }
+  },
+
+  methods: {
+    async resetPassword() {
+      this.status = 'sending'
+
+      let recaptchaToken = null
+      if (this.recaptcha) {
+        const recaptcha = await this.recaptcha
+        recaptchaToken = await recaptcha.execute('login')
+      }
+
+      this.$auth
+        .resetPasswordRequest(this.email, recaptchaToken)
+        .then(() => {
+          this.status = 'success'
+        })
+        .catch(() => {
+          this.status = 'error'
+        })
+    },
+  },
+}
+</script>
