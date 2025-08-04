@@ -128,13 +128,12 @@
   </router-link>
 </template>
 <script>
-import { ref, toRefs, computed } from 'vue'
+import { computed, ref, toRefs } from 'vue'
 import DialogActivityEdit from '../DialogActivityEdit.vue'
 import campCollaborationDisplayName from '@/common/helpers/campCollaborationDisplayName.js'
 import { timestampToUtcString } from './dateHelperVCalendar.js'
 import { dateHelperUTCFormatted } from '@/mixins/dateHelperUTCFormatted.js'
-import { scheduleEntryRoute } from '@/router.js'
-import router from '@/router.js'
+import router, { scheduleEntryRoute } from '@/router.js'
 import { contrastColor } from '@/common/helpers/colors.js'
 import { useClickDetector } from './useClickDetector.js'
 import AvatarRow from '@/components/generic/AvatarRow.vue'
@@ -303,7 +302,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@use 'src/scss/variables';
+@use '/src/scss/variables';
 
 .e-picasso-entry {
   user-select: none;

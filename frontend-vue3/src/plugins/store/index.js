@@ -1,4 +1,4 @@
-import { createStore, createLogger } from 'vuex'
+import { createStore } from 'vuex'
 import axios from 'axios'
 import HalJsonVuex from 'hal-json-vuex'
 import lang from './lang'
@@ -14,7 +14,7 @@ export default {
       modules: {
         lang,
         auth,
-        preferences,,
+        preferences,
       },
       strict: debug,
       // plugins: debug ? [createLogger()] : [],

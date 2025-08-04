@@ -14,10 +14,8 @@
               {{ $tc(roles[collaborator.role].roleTranslation)
               }}<span>
                 &middot;
-                <template v-for="icon in roles[collaborator.role].icons"
-                  ><v-icon :key="icon" x-small class="vertical-baseline">{{
-                    icon
-                  }}</v-icon
+                <template v-for="icon in roles[collaborator.role].icons" :key="icon"
+                  ><v-icon class="vertical-baseline" x-small>{{ icon }}</v-icon
                   >&thinsp;</template
                 ></span
               >

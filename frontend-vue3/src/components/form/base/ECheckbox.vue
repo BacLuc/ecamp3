@@ -29,7 +29,9 @@
 </template>
 
 <script>
-import { formComponentPropsMixin } from '@/mixins/formComponentPropsMixin.js'import { formComponentMixin } from ''@/mixins/formComponentMixin.js'/ import { ValidationProvider } from 'vee-validate'
+import { formComponentPropsMixin } from '@/mixins/formComponentPropsMixin.js'
+import { formComponentMixin } from '@/mixins/formComponentMixin.js'
+// import { ValidationProvider } from 'vee-validate'
 
 export default {
   name: 'ECheckbox',

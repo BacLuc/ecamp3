@@ -50,7 +50,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@use 'src/scss/variables';
+@use '/src/scss/variables';
 .v-bottom-navigation--fixed {
   height: auto !important;
   min-height: 56px;

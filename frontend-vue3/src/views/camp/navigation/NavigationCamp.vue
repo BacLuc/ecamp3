@@ -30,7 +30,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@use 'src/scss/variables';
+@use '/src/scss/variables';
 
 .camp--name:deep(.v-btn__content) {
   width: 100%;

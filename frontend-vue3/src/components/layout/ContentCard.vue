@@ -62,7 +62,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@use 'src/scss/variables';
+@use '/src/scss/variables';
 
 .ec-content-card__toolbar {
   @media #{map-get(variables.$display-breakpoints, 'xs')} {

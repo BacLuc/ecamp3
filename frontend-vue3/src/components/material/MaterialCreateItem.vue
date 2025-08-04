@@ -56,8 +56,11 @@
 </template>
 
 <script>
-import { campRoute } from '@/router.js'// import { ValidationObserver } from 'vee-validate'
-import ButtonAdd from ''@/components/buttons/ButtonAdd.vue'export default {
+import { campRoute } from '@/router.js'
+// import { ValidationObserver } from 'vee-validate'
+import ButtonAdd from '@/components/buttons/ButtonAdd.vue'
+
+export default {
   name: 'MaterialCreateItem',
   components: {
     // ValidationObserver,

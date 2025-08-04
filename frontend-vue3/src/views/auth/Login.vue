@@ -20,7 +20,7 @@
       <div>
         <i18n-t :keypath="infoTextKey">
           <template #br><br /></template>
-        </i18n>
+        </i18n-t>
         <v-btn
           text
           elevation="0"

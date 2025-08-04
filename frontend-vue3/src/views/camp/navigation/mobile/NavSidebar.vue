@@ -115,7 +115,7 @@
 </template>
 
 <script>
-import { campRoute, adminRoute } from '@/router'
+import { adminRoute, campRoute } from '@/router'
 import UserAvatar from '@/components/user/UserAvatar.vue'
 import SidebarListItem from '@/components/layout/SidebarListItem.vue'
 import { mapGetters } from 'vuex'
@@ -158,7 +158,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@use 'src/scss/variables';
+@use '/src/scss/variables';
 
 .v-bottom-navigation--fixed {
   height: auto !important;

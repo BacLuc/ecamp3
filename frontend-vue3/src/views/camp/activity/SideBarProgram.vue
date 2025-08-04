@@ -87,8 +87,10 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@use '/src/scss/variables';
+
 .ec-sidebar-program__picasso :deep(.e-picasso) {
-  @media #{map-get($display-breakpoints, 'md-and-up')} {
+  @media #{map-get(variables.$display-breakpoints, 'md-and-up')} {
     height: calc(100vh - 202px);
   }
 }

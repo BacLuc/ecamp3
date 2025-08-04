@@ -12,7 +12,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@use 'src/scss/variables';
+@use '/src/scss/variables';
 
 hr {
   border: none;

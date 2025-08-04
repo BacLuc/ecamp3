@@ -102,6 +102,7 @@ import { isNavigationFailure, NavigationFailureType } from 'vue-router'
 import { errorToMultiLineToast } from '@/components/toast/toasts'
 import ButtonBack from '@/components/buttons/ButtonBack.vue'
 import UserMeta from '@/components/navigation/UserMeta.vue'
+
 const ignoreNavigationFailure = (e) => {
   if (!isNavigationFailure(e, NavigationFailureType.duplicated)) {
     return Promise.reject(e)
@@ -204,7 +205,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@use 'src/scss/variables';
+@use '/src/scss/variables';
 
 .bg {
   height: 100%;

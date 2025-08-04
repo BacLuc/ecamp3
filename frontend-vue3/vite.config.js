@@ -162,10 +162,10 @@ export default defineConfig(({ mode }) => ({
   css: {
     preprocessorOptions: {
       scss: {
-        additionalData: '@import "./node_modules/vuetify/src/styles/styles.sass";\n', // original default variables from vuetify
+        // additionalData: '@import "./node_modules/vuetify/src/styles/styles.sass";\n', // original default variables from vuetify
       },
       sass: {
-        additionalData: '@import "./src/scss/variables.scss"\n', // vuetify variable overrides
+        // additionalData: '@import "./src/scss/variables.scss"\n', // vuetify variable overrides
       },
       // scss: {
       //   additionalData: `

@@ -81,7 +81,9 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@media #{map-get($display-breakpoints, 'xs-only')} {
+@use '/src/scss/variables';
+
+@media #{map-get(variables.$display-breakpoints, 'xs-only')} {
   :deep(table) {
     display: block;
   }

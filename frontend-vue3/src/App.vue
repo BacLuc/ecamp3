@@ -61,7 +61,7 @@ export default {
 <style lang="scss">
 // @import 'src/scss/vuetify';
 // @import 'src/scss/global';
-@use 'src/scss/variables';
+@use '/src/scss/variables';
 @import '~@mdi/font/css/materialdesignicons.css';
 
 @media #{map-get(variables.$display-breakpoints, 'xs')} {

@@ -389,7 +389,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@use 'src/scss/variables';
+@use '/src/scss/variables';
 
 .e-picasso {
   border: none;

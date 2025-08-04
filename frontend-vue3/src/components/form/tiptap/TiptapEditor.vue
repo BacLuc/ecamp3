@@ -294,7 +294,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@use 'src/scss/variables';
+@use '/src/scss/variables';
 
 div.editor:deep(p.is-editor-empty:first-child::before) {
   content: attr(data-placeholder);

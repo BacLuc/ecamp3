@@ -18,7 +18,6 @@ const compat = new FlatCompat({
 const gitignorePath = path.resolve(__dirname, '.gitignore')
 export default [
   ...compat.extends(
-    'plugin:vue/recommended',
     'plugin:vue/vue3-recommended',
     'plugin:vue-scoped-css/vue3-recommended',
     'eslint:recommended'

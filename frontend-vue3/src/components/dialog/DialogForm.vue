@@ -143,7 +143,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@use 'src/scss/variables';
+@use '/src/scss/variables';
 
 @media #{map-get(variables.$display-breakpoints, 'xs')} {
   .ec-dialog-form {

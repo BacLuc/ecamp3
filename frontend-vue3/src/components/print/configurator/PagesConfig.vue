@@ -96,6 +96,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@use '/src/scss/variables';
+
 .e-pages-config__wrapper {
   display: flow-root;
   aspect-ratio: 1 / 1;
@@ -216,6 +218,6 @@ export default {
 }
 
 .e-pages-config__delete:hover {
-  color: map-get($red, 'base') !important;
+  color: map-get(variables.$red, 'base') !important;
 }
 </style>

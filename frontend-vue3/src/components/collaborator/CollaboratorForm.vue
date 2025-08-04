@@ -29,8 +29,8 @@
         <span
           >{{ item.role }} &middot;
           <span class="grey--text"
-            ><template v-for="icon in item.icons"
-              ><v-icon :key="icon" x-small>{{ icon }}</v-icon
+            ><template v-for="icon in item.icons" :key="icon"
+              ><v-icon x-small>{{ icon }}</v-icon
               >&thinsp;</template
             ></span
           >
@@ -55,8 +55,8 @@
           </v-list-item-content>
           <v-list-item-action-text class="text-right">
             <span
-              ><template v-for="icon in item.icons"
-                ><v-icon :key="icon" small>{{ icon }}</v-icon
+              ><template v-for="icon in item.icons" :key="icon"
+                ><v-icon small>{{ icon }}</v-icon
                 >&thinsp;</template
               ></span
             >
@@ -67,8 +67,8 @@
         <span
           >{{ item.role }} &middot;
           <span class="grey--text"
-            ><template v-for="icon in item.icons"
-              ><v-icon :key="icon" x-small>{{ icon }}</v-icon
+            ><template v-for="icon in item.icons" :key="icon"
+              ><v-icon x-small>{{ icon }}</v-icon
               >&thinsp;</template
             ></span
           >

@@ -23,7 +23,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@use 'src/scss/variables';
+@use '/src/scss/variables';
 
 @media #{map-get(variables.$display-breakpoints, 'md-and-up')} {
   .e-pages-overview {

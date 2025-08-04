@@ -109,7 +109,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@use 'src/scss/variables';
+@use '/src/scss/variables';
 
 .fab--bottom_nav {
   position: fixed;
