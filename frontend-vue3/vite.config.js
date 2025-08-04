@@ -40,7 +40,7 @@ if (sentryAuthToken) {
 export default defineConfig(({ mode }) => ({
   server: {
     port: 3000,
-    allowedHosts: ['frontend', 'localhost:3000'],
+    allowedHosts: ['frontend-vue3', 'localhost:3000'],
   },
   plugins,
   worker: {
