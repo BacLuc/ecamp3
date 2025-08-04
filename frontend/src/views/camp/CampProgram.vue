@@ -300,7 +300,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 :root {
   --schedule-entry-filters-height: 0px;
 }
