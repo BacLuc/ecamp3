@@ -1,12 +1,12 @@
 import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue2'
+import vue from '@vitejs/plugin-vue'
 import { comlink } from 'vite-plugin-comlink'
 import * as path from 'path'
-import { VuetifyResolver } from 'unplugin-vue-components/resolvers'
 import Components from 'unplugin-vue-components/vite'
 import { sentryVitePlugin } from '@sentry/vite-plugin'
 import { configDefaults } from 'vitest/config'
 import { svg4VuePlugin } from 'vite-plugin-svg4vue'
+import vuetify from 'vite-plugin-vuetify'
 
 const plugins = [
   comlink(), // must be first
@@ -20,13 +20,16 @@ const plugins = [
     },
   }),
   Components({
-    resolvers: [
-      // Vuetify
-      VuetifyResolver(),
-    ],
+    resolvers: [],
   }),
   svg4VuePlugin({
     skipSvgo: true,
+  }),
+  vuetify({
+    autoImport: {
+      labs: true,
+    },
+    styles: { configFile: 'src/scss/variables.scss' },
   }),
 ]
 const sentryAuthToken = process.env.SENTRY_AUTH_TOKEN
@@ -115,13 +118,16 @@ export default defineConfig(({ mode }) => ({
       'vue',
       'vuedraggable',
       'vue-toastification',
-      'vuetify/es5/components/VCalendar/modes/column.js',
-      'vuetify/es5/components/VCalendar/util/events.js',
+      // 'vuetify/es5/components/VCalendar/modes/column.js',
+      // 'vuetify/es5/components/VCalendar/util/events.js',
     ],
   },
   build: {
     sourcemap: true,
     minify: mode === 'development' ? false : 'esbuild',
+    rollupOptions: {
+      external: ['vuetify/lib'],
+    },
   },
   resolve: {
     alias: [
@@ -156,15 +162,23 @@ export default defineConfig(({ mode }) => ({
   css: {
     preprocessorOptions: {
       scss: {
-        // support for legacy api will be removed in vite 7. https://vite.dev/guide/migration.html#sass-now-uses-modern-api-by-default
-        api: 'legacy',
         additionalData: '@import "./node_modules/vuetify/src/styles/styles.sass";\n', // original default variables from vuetify
       },
       sass: {
-        // support for legacy api will be removed in vite 7. https://vite.dev/guide/migration.html#sass-now-uses-modern-api-by-default
-        api: 'legacy',
         additionalData: '@import "./src/scss/variables.scss"\n', // vuetify variable overrides
       },
+      // scss: {
+      //   additionalData: `
+      //   // original default variables from vuetify
+      //   @import "./node_modules/vuetify/lib/styles/settings/_variables.scss";
+      //   @import "./node_modules/vuetify/lib/styles/settings/_colors.scss";
+      //   @import "./node_modules/vuetify/dist/_component-variables.sass";
+      //   @import "./node_modules/vuetify/dist/_component-variables-labs.sass";
+      //   `,
+      // },
+      // sass: {
+      //   additionalData: '@import "./src/scss/variables.scss"\n', // vuetify variable overrides
+      // },
     },
   },
   test: {
