@@ -2,8 +2,8 @@
   <div class="e-form-container">
     <v-text-field
       :id="name"
-      :class="[inputClass]"
       ref="textField"
+      :class="[inputClass]"
       :error-messages="errorMessage"
       :label="label || name"
       :model-value="inputValue"
