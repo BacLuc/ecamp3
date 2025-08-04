@@ -32,11 +32,6 @@ export default {
     UserMeta,
     ContentCard,
   },
-  head() {
-    return {
-      title: this.$tc('views.invitations.personalInvitations'),
-    }
-  },
   computed: {
     loading() {
       return this.api.get().personalInvitations().loading

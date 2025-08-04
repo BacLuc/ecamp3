@@ -1,9 +1,9 @@
 <template>
   <IconButton
+    :hide-label="hideLabel || $vuetify.display.xsOnly"
     class="px-3 px-sm-4"
     color="primary"
     :icon="icon"
-    :hide-label="hideLabel || $vuetify.breakpoint.xsOnly"
     v-bind="$attrs"
     v-on="$listeners"
   >

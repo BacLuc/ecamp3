@@ -5,12 +5,10 @@
         <v-icon v-if="icon">{{ icon }}</v-icon>
       </v-list-item-icon>
     </slot>
-    <v-list-item-content>
-      <v-list-item-title :class="{ 'whitespace-normal': titleMultiline }">{{
-        title
-      }}</v-list-item-title>
-      <v-list-item-subtitle v-if="subtitle">{{ subtitle }}</v-list-item-subtitle>
-    </v-list-item-content>
+
+    <v-list-item-title>{{ title }}</v-list-item-title>
+    <v-list-item-subtitle v-if="subtitle">{{ subtitle }}</v-list-item-subtitle>
+
     <v-list-item-icon v-if="!hideChevron">
       <v-icon style="opacity: 0.6">mdi-chevron-right</v-icon>
     </v-list-item-icon>
@@ -28,7 +26,6 @@ export default {
     hideChevron: { type: Boolean, default: false },
     to: { type: [String, Object], default: null },
     href: { type: [String, Object], default: null },
-    titleMultiline: { type: Boolean, default: false },
   },
 }
 </script>

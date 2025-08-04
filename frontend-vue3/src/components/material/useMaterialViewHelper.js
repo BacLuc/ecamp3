@@ -1,10 +1,9 @@
 import { computed, onMounted, ref } from 'vue'
-import { useRoute } from 'vue-router/composables'
+import { useRoute } from 'vue-router'
 import * as XLSX from 'xlsx'
 import { slugify } from '@/plugins/slugify.js'
 import i18n from '@/plugins/i18n/index.js'
 import dayjs from '@/common/helpers/dayjs.js'
-import { campShortTitle } from '@/common/helpers/campShortTitle.js'
 import { apiStore } from '@/plugins/store/index.js'
 import { materialListFromRoute } from '@/router.js'
 import shortScheduleEntryDescription from './shortScheduleEntryDescription.js'
@@ -13,7 +12,7 @@ function generateFilename(camp, materialList) {
   const description = materialList
     ? [i18n.tc('components.material.useMaterialViewHelper.detail'), materialList]
     : [i18n.tc('components.material.useMaterialViewHelper.overview')]
-  const filename = [campShortTitle(camp), ...description].map(slugify)
+  const filename = [camp.name, ...description].map(slugify)
   return [...filename, dayjs().format('YYMMDDHHmmss')].join('_') + '.xlsx'
 }
 
@@ -55,7 +54,7 @@ async function getSheets(camp, collection, materialList) {
             materialItem.quantity,
             materialItem.unit,
             materialItem.article,
-            ...(!materialList ? [materialItem.materialList?.().name] : []),
+            ...(!materialList ? [materialItem.materialList().name] : []),
             activity?.title
               ? `${activity.category().short} ${activity?.title}: ${scheduleEntries}`
               : period.description,
@@ -123,18 +122,8 @@ export function useMaterialViewHelper(camp, list) {
   const downloadXlsx = downloadMaterialList(camp, collection, computedList.value?.name)
   const openPeriods = loadPeriods(camp)
 
-  onMounted(async () => {
-    await Promise.all([
-      apiStore
-        .get()
-        .contentNodes({
-          isRoot: 'true',
-          camp: camp._meta.self,
-        })
-        .$loadItems(),
-      ...collection.value.map(({ materialItems }) => materialItems.$reload()),
-      camp.categories().$loadItems(),
-    ])
+  onMounted(() => {
+    collection.value.map(({ materialItems }) => materialItems.$reload())
   })
 
   return {

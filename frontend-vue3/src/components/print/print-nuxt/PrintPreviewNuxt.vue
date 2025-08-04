@@ -1,7 +1,7 @@
 <template>
   <div style="position: relative">
-    <v-btn class="float-right" text :href="url" target="_blank">
-      <v-icon left>mdi-open-in-new</v-icon>
+    <v-btn :href="url" class="float-right" target="_blank" variant="text">
+      <v-icon start>mdi-open-in-new</v-icon>
       {{ $tc('components.print.printNuxt.printPreviewNuxt.openPreview') }}
     </v-btn>
 
@@ -18,7 +18,7 @@
       v-bind="$attrs"
     />
 
-    <v-overlay absolute :value="loading || error" z-index="2">
+    <v-overlay :model-value="loading || error" absolute z-index="2">
       <div v-if="error">
         {{ $tc('components.print.printNuxt.printPreviewNuxt.previewError') }}
       </div>

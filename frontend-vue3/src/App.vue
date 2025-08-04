@@ -27,7 +27,7 @@ export default {
     offline: false,
   }),
   created() {
-    this.$store.commit('setLanguage', this.$store.state.lang.language)
+    // this.$store.commit('setLanguage', this.$store.state.lang.language)
 
     window.addEventListener('offline', this.offlineListener)
     window.addEventListener('online', this.onlineListener)
@@ -37,8 +37,8 @@ export default {
       const user = await this.$auth.loadUser()
       const profile = await user.profile()._meta.load
 
-      if (VueI18n.availableLocales.includes(profile.language)) {
-        this.$store.commit('setLanguage', profile.language)
+      if (VueI18n.global.availableLocales.includes(profile.language)) {
+        // this.$store.commit('setLanguage', profile.language)
       }
     }
   },
@@ -56,14 +56,15 @@ export default {
   },
 }
 </script>
-<!-- these styles must be global -->
+<!-- these styles are be global -->
 <!-- eslint-disable-next-line vue-scoped-css/enforce-style-type -->
 <style lang="scss">
-@import 'src/scss/tailwind';
-@import 'src/scss/global';
+// @import 'src/scss/vuetify';
+// @import 'src/scss/global';
+@use 'src/scss/variables';
 @import '~@mdi/font/css/materialdesignicons.css';
 
-@media #{map-get($display-breakpoints, 'xs-only')} {
+@media #{map-get(variables.$display-breakpoints, 'xs')} {
   html,
   body,
   .v-application {
@@ -97,7 +98,7 @@ export default {
   border-top-right-radius: 0 !important;
 }
 
-@media #{map-get($display-breakpoints, 'xs-only')} {
+@media #{map-get(variables.$display-breakpoints, 'xs')} {
   .v-main > .v-main__wrap > .container {
     min-height: 100%;
     display: flex;
@@ -115,7 +116,7 @@ export default {
   font-feature-settings: 'tnum';
 }
 
-@media #{map-get($display-breakpoints, 'sm-and-down')} {
+@media #{map-get(variables.$display-breakpoints, 'sm-and-down')} {
   // TODO: this changes look & feel of all v-containers. Do we really want this?
   .container.container--fluid {
     padding: 0;

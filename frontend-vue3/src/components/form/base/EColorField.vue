@@ -84,7 +84,7 @@ export default {
     serialize(value) {
       try {
         return serialize(value, { format: 'hex', collapse: false }).toUpperCase()
-      } catch {
+      } catch (e) {
         return null
       }
     },
@@ -95,7 +95,7 @@ export default {
     deserialize(value) {
       try {
         return !value ? null : reactive(parse(value, { space: 'srgb', format: 'hex' }))
-      } catch {
+      } catch (e) {
         return null
       }
     },

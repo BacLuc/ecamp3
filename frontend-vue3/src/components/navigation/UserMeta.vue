@@ -98,17 +98,6 @@
         </v-list-item-action-text>
       </v-list-item>
       <v-list-item
-        v-if="isAdmin"
-        block
-        tag="li"
-        exact
-        :to="{ name: 'admin/debug' }"
-        @click="open = false"
-      >
-        <v-icon left>mdi-coffee</v-icon>
-        <span>{{ $tc('components.navigation.userMeta.admin') }}</span>
-      </v-list-item>
-      <v-list-item
         v-if="!$vuetify.breakpoint.lgAndUp"
         block
         :href="helpLink"
@@ -145,7 +134,6 @@
 import UserAvatar from '../user/UserAvatar.vue'
 import { mapGetters } from 'vuex'
 import { getEnv } from '@/environment.js'
-import { isAdmin } from '@/plugins/auth'
 
 export default {
   name: 'UserMeta',
@@ -170,15 +158,10 @@ export default {
     return {
       open: false,
       logoutInProgress: false,
-      isAdmin: false,
-      deferredLoad: true,
     }
   },
   computed: {
     invitationCount() {
-      if (this.deferredLoad) {
-        return 0
-      }
       return this.api.get().personalInvitations().totalItems
     },
     newsLink() {
@@ -198,12 +181,6 @@ export default {
             this.authUser?._meta?.self === collaboration.user?.()?._meta?.self
         )
     },
-  },
-  mounted() {
-    this.isAdmin = isAdmin()
-    setTimeout(() => {
-      this.deferredLoad = false
-    }, 400)
   },
   methods: {
     async logout() {

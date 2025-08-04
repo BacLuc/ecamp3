@@ -13,7 +13,7 @@
       :should-show="shouldShow"
       :tippy-options="{ maxWidth: 'none' }"
     >
-      <div class="elevation-4 ec-tiptap-toolbar white">
+      <div class="elevation-4 ec-tiptap-toolbar bg-white">
         <v-toolbar class="elevation-0 ec-tiptap-toolbar--first" dense color="transparent">
           <TiptapToolbarButton
             icon="mdi-format-bold"
@@ -114,7 +114,7 @@
   </div>
 </template>
 <script>
-import { BubbleMenu, Editor, EditorContent } from '@tiptap/vue-2'
+import { BubbleMenu, Editor, EditorContent } from '@tiptap/vue-3'
 import Document from '@tiptap/extension-document'
 import Paragraph from '@tiptap/extension-paragraph'
 import Text from '@tiptap/extension-text'
@@ -294,6 +294,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@use 'src/scss/variables';
+
 div.editor:deep(p.is-editor-empty:first-child::before) {
   content: attr(data-placeholder);
   float: left;
@@ -319,7 +321,7 @@ div.editor:deep(.ec-tiptap-toolbar) {
 .ec-tiptap-toolbar--second,
 .ec-tiptap-toolbar__mobile-divider {
   display: block;
-  @media #{map-get($display-breakpoints, 'sm-and-up')} {
+  @media #{map-get(variables.$display-breakpoints, 'sm-and-up')} {
     display: none;
   }
 }

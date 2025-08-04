@@ -1,5 +1,5 @@
 <template>
-  <NavTopbar v-if="$vuetify.breakpoint.mdAndUp" :camp="camp" />
+  <NavTopbar v-if="$vuetify.display.mdAndUp" :camp="camp" />
   <div v-else>
     <NavBottombar :camp="camp" @input="open = $event" />
     <NavSidebar v-model="open" :camp="camp" />
@@ -10,7 +10,6 @@
 import NavTopbar from '@/views/camp/navigation/desktop/NavTopbar.vue'
 import NavBottombar from '@/views/camp/navigation/mobile/NavBottombar.vue'
 import NavSidebar from '@/views/camp/navigation/mobile/NavSidebar.vue'
-import { campShortTitle } from '@/common/helpers/campShortTitle'
 
 export default {
   name: 'NavigationCamp',
@@ -27,14 +26,24 @@ export default {
       open: false,
     }
   },
-  head() {
-    return {
-      templateParams: {
-        section: () => campShortTitle(this.camp),
-      },
-    }
-  },
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+@use 'src/scss/variables';
+
+.camp--name:deep(.v-btn__content) {
+  width: 100%;
+}
+
+.v-bottom-navigation--fixed {
+  height: auto !important;
+  min-height: 56px;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.v-application .ec-close-drawer {
+  background-color: #{map-get(variables.$blue-grey, 'lighten-5')};
+  border-top: 1px solid #{map-get(variables.$blue-grey, 'lighten-4')};
+}
+</style>

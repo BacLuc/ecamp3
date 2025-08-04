@@ -12,7 +12,7 @@
   >
     <template #header>
       <strong>
-        <v-icon color="blue darken-2">$vuetify.icons.responsiveLayout</v-icon>
+        <v-icon color="blue-darken-2">$responsiveLayout</v-icon>
         {{ $tc('contentNode.responsiveLayout.name') }}
       </strong>
       <menu-cardless-content-node :content-node="contentNode" />
@@ -140,7 +140,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .ec-responsivelayout--layout-mode {
   border: 1px solid black;
   border-radius: 10px;

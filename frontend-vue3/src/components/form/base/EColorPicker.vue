@@ -103,7 +103,7 @@ Displays a field as a color picker (can be used with v-model)
 import { formComponentMixin } from '@/mixins/formComponentMixin.js'
 import { contrastColor } from '@/common/helpers/colors.js'
 import ColorSwatch from '@/components/form/base/ColorPicker/ColorSwatch.vue'
-import { debounce } from 'lodash-es'
+import { debounce } from 'lodash'
 import { formComponentPropsMixin } from '@/mixins/formComponentPropsMixin.js'
 
 export default {
@@ -145,7 +145,7 @@ export default {
         return this.value && this.value !== '#NANNAN'
           ? contrastColor(this.value)
           : 'black'
-      } catch {
+      } catch (error) {
         return 'black'
       }
     },

@@ -1,11 +1,10 @@
 <template>
-  <div v-if="$vuetify.breakpoint.mdAndUp" class="e-pages-config__wrapper">
+  <div v-if="$vuetify.display.mdAndUp" class="e-pages-config__wrapper">
     <div
       class="e-pages-config"
       :class="{
         'e-pages-config--multiple': multiple,
         'e-pages-config--landscape': landscape,
-        'e-pages-config--portrait': !landscape,
         'e-pages-config--template': template,
       }"
     >
@@ -17,9 +16,9 @@
       />
       <div class="e-pages-config__inner" v-bind="$attrs" v-on="$listeners">
         <div class="e-pages-config__scroller">
-          <v-icon v-if="template" x-large class="ma-auto">mdi-plus</v-icon>
+          <v-icon v-if="template" class="ma-auto" size="x-large">mdi-plus</v-icon>
           <h3
-            class="e-pages-config__title title py-4 white sticky"
+            class="e-pages-config__text-h6 text-h6 py-4 bg-white sticky"
             :class="{ handle: !template }"
           >
             <TextAlignBaseline v-if="!template"
@@ -30,7 +29,9 @@
               ><v-icon>mdi-drag</v-icon></TextAlignBaseline
             >
           </h3>
-          <slot />
+          <div class="mx-4">
+            <slot />
+          </div>
         </div>
       </div>
       <ButtonDelete
@@ -162,20 +163,11 @@ export default {
     0 1px 2px rgba(0, 0, 0, 0.24);
 }
 
-.e-pages-config--landscape .e-pages-config__inner {
-  width: 100%;
-}
-
-.e-pages-config--portrait .e-pages-config__inner {
-  height: 100%;
-}
-
 .e-pages-config__scroller {
   display: flex;
   flex-direction: column;
   overflow: hidden auto;
   aspect-ratio: var(--aspect);
-  max-height: 100%;
 }
 
 .e-pages-config__title {

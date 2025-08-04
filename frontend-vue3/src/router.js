@@ -1,12 +1,8 @@
-import Vue from 'vue'
-import Router from 'vue-router'
+import { createRouter, createWebHashHistory } from 'vue-router'
 import { slugify } from '@/plugins/slugify.js'
-import { isLoggedIn, isAdmin } from '@/plugins/auth'
+import { isLoggedIn } from '@/plugins/auth'
 import { apiStore } from '@/plugins/store'
-import { campShortTitle } from '@/common/helpers/campShortTitle'
 import { getEnv } from '@/environment.js'
-
-Vue.use(Router)
 
 const NavigationAuth = () => import('./views/auth/NavigationAuth.vue')
 const NavigationDefault = () => import('./views/NavigationDefault.vue')
@@ -14,8 +10,9 @@ const NavigationCamp = () => import('./views/camp/navigation/NavigationCamp.vue'
 const GenericPage = () => import('./components/generic/GenericPage.vue')
 
 /* istanbul ignore next */
-export default new Router({
+const router = createRouter({
   mode: 'history',
+  history: createWebHashHistory(),
   base: '/',
   routes: [
     ...(getEnv().FEATURE_DEVELOPER
@@ -543,6 +540,8 @@ export default new Router({
     },
   ],
 })
+
+export default router
 
 function evaluateGuards(guards, to, from, next) {
   const guardsLeft = guards.slice(0)

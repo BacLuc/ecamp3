@@ -1,9 +1,9 @@
 <template>
   <v-app-bar
-    v-if="$vuetify.breakpoint.mdAndUp"
+    v-if="$vuetify.display.mdAndUp"
     app
     clipped-left
-    color="blue-grey darken-4"
+    color="blue-grey-darken-4"
     dark
   >
     <Logo text />

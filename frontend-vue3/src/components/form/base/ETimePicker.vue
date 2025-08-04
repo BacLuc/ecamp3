@@ -28,7 +28,7 @@ Allows 15min steps only
         @input="picker.onInput"
       >
         <v-spacer />
-        <v-btn text color="primary" @click="picker.close">
+        <v-btn color="primary" variant="text" @click="picker.close">
           {{ $tc('global.button.close') }}
         </v-btn>
       </v-time-picker>
@@ -45,7 +45,6 @@ Allows 15min steps only
 import BasePicker from './BasePicker.vue'
 import { HTML5_FMT } from '@/common/helpers/dateFormat.js'
 import { formComponentMixin } from '@/mixins/formComponentMixin.js'
-import parseTime from '@/common/helpers/dayjs/parseTime.js'
 
 export default {
   name: 'ETimePicker',
@@ -119,8 +118,13 @@ export default {
      */
     parse(val) {
       if (val) {
-        const { parsedDateTime, isValid } = parseTime(val)
-        if (isValid) {
+        let valIgnoringLeadingZero = val.replace(/^0*?([\d]{1,2}):/, '$1:')
+        const parsedDateTime = this.$date.utc(valIgnoringLeadingZero, 'LT')
+        const formatted = parsedDateTime.format('LT')
+        if (!formatted.startsWith('0') && valIgnoringLeadingZero.match(/^0\d/)) {
+          valIgnoringLeadingZero = valIgnoringLeadingZero.slice(1)
+        }
+        if (parsedDateTime.isValid() && formatted === valIgnoringLeadingZero) {
           const newValue = this.setTimeOnValue(parsedDateTime)
           return Promise.resolve(newValue)
         } else {

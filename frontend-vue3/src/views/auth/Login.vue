@@ -12,13 +12,13 @@
       v-if="!isProdSuffix"
       class="mt-2 text-justify"
       text
-      dense
-      border="left"
-      style="hyphens: auto"
+      border="start"
+      density="compact"
+      style="hypens: auto"
       color="warning"
     >
       <div>
-        <i18n :path="infoTextKey">
+        <i18n-t :keypath="infoTextKey">
           <template #br><br /></template>
         </i18n>
         <v-btn
@@ -64,7 +64,7 @@
         :label="$tc('views.auth.login.email')"
         name="email"
         append-icon="mdi-account-outline"
-        :dense="$vuetify.breakpoint.xsOnly"
+        :dense="$vuetify.display.xsOnly"
         type="email"
         autocomplete="username"
       />
@@ -76,7 +76,7 @@
         vee-rules="required"
         name="password"
         append-icon="mdi-lock-outline"
-        :dense="$vuetify.breakpoint.xsOnly"
+        :dense="$vuetify.display.xsOnly"
         type="password"
         autocomplete="current-password"
       />
@@ -95,12 +95,12 @@
         :color="email && password ? 'blue darken-2' : 'blue lighten-4'"
         block
         :disabled="!(email && password) || authenticationInProgress"
-        outlined
-        :x-large="$vuetify.breakpoint.smAndUp"
+        :size="$vuetify.display.smAndUp && 'x-large'"
+        variant="outlined"
         class="my-4"
       >
         <v-progress-circular v-if="authenticationInProgress" indeterminate size="24" />
-        <v-icon v-else>$vuetify.icons.ecamp</v-icon>
+        <v-icon v-else>$ecamp</v-icon>
         <v-spacer />
         <span>{{ $tc('views.auth.login.provider.ecamp') }}</span>
         <v-spacer />
@@ -112,54 +112,54 @@
       <v-btn
         dark
         color="#91697f"
-        :x-large="$vuetify.breakpoint.smAndUp"
-        text
+        :size="$vuetify.display.smAndUp && 'x-large'"
+        variant="text"
         @click="loginPbsMiData"
       >
-        <v-icon class="my-1" color="#521d3a">$vuetify.icons.pbs</v-icon>
-        <span class="text--secondary body-2 font-weight-medium">{{
+        <v-icon class="my-1" color="#521d3a">$pbs</v-icon>
+        <span class="text--secondary text-body-2 font-weight-medium">{{
           $tc('views.auth.login.provider.midata')
         }}</span>
       </v-btn>
       <v-btn
         dark
         color="green"
-        :x-large="$vuetify.breakpoint.smAndUp"
-        text
+        :size="$vuetify.display.smAndUp && 'x-large'"
+        variant="text"
         @click="loginCeviDB"
       >
-        <v-icon class="my-1">$vuetify.icons.cevi</v-icon>
-        <span class="text--secondary body-2 font-weight-medium">{{
+        <v-icon class="my-1">$cevi</v-icon>
+        <span class="text--secondary text-body-2 font-weight-medium">{{
           $tc('views.auth.login.provider.cevidb')
         }}</span>
       </v-btn>
       <v-btn
         dark
         color="blue"
-        :x-large="$vuetify.breakpoint.smAndUp"
-        text
+        :size="$vuetify.display.smAndUp && 'x-large'"
+        variant="text"
         @click="loginJublaDB"
       >
-        <v-icon size="32">$vuetify.icons.jubla</v-icon>
-        <span class="text--secondary body-2 font-weight-medium">{{
+        <v-icon size="32">$jubla</v-icon>
+        <span class="text--secondary text-body-2 font-weight-medium">{{
           $tc('views.auth.login.provider.jubladb')
         }}</span>
       </v-btn>
       <v-btn
         dark
-        color="blue-grey lighten-3"
-        :x-large="$vuetify.breakpoint.smAndUp"
-        text
+        :size="$vuetify.display.smAndUp && 'x-large'"
+        color="blue-grey-lighten-3"
+        variant="text"
         @click="loginGoogle"
       >
-        <v-icon class="my-1">$vuetify.icons.google</v-icon>
-        <span class="text--secondary body-2 font-weight-medium">{{
+        <v-icon class="my-1">$google</v-icon>
+        <span class="text--secondary text-body-2 font-weight-medium">{{
           $tc('views.auth.login.provider.google')
         }}</span>
       </v-btn>
       <small class="w-100">
-        <i18n
-          path="views.auth.login.acceptTermsOfServiceOnOAuthLogin"
+        <i18n-t
+          keypath="views.auth.login.acceptTermsOfServiceOnOAuthLogin"
           tag="p"
           class="text--secondary text-center w-100 mt-2"
           style="hyphens: auto"
@@ -169,7 +169,7 @@
               $tc('views.auth.login.termsOfServiceLink')
             }}</a>
           </template>
-        </i18n>
+        </i18n-t>
       </small>
     </div>
     <p class="mt-8 mb-0 text--secondary text-center">
@@ -240,7 +240,7 @@ export default {
     },
   },
   mounted() {
-    this.$store.commit('setLanguage', this.$i18n.browserPreferredLocale)
+    // this.$store.commit('setLanguage', this.$i18n.browserPreferredLocale)
   },
   methods: {
     async login() {
@@ -251,12 +251,13 @@ export default {
         .then(async () => {
           const user = await this.$auth.loadUser()
           const profile = await user.profile()._meta.load
-          if (VueI18n.availableLocales.includes(profile.language)) {
-            await this.$store.commit('setLanguage', profile.language)
+          if (VueI18n.global.availableLocales.includes(profile.language)) {
+            // await this.$store.commit('setLanguage', profile.language)
           }
           this.$router.replace(this.$route.query.redirect || '/')
         })
         .catch((e) => {
+          console.log(e)
           this.authenticationInProgress = false
           this.error = serverErrorToString(e)
         })

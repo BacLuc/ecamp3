@@ -1,5 +1,5 @@
 import {
-  compile,
+  compileToFunction,
   createCoreContext,
   fallbackWithLocaleChain,
   registerLocaleFallbacker,
@@ -9,7 +9,7 @@ import {
 } from '@intlify/core'
 
 const createI18n = (translationData, language) => {
-  registerMessageCompiler(compile)
+  registerMessageCompiler(compileToFunction)
   registerLocaleFallbacker(fallbackWithLocaleChain)
 
   const context = createCoreContext({

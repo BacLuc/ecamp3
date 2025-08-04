@@ -59,7 +59,7 @@
   </v-stepper-content>
 </template>
 <script>
-import { ValidationObserver } from 'vee-validate'
+// import { ValidationObserver } from 'vee-validate'
 import ButtonCancel from '@/components/buttons/ButtonCancel.vue'
 import ButtonContinue from '@/components/buttons/ButtonContinue.vue'
 import ContentActions from '@/components/layout/ContentActions.vue'
@@ -74,7 +74,7 @@ export default {
     ContentActions,
     CreateCampPeriods,
     ETextField,
-    ValidationObserver,
+    // ValidationObserver,
   },
   props: {
     camp: { type: Object, required: true },

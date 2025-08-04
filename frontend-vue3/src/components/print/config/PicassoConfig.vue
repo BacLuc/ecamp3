@@ -1,12 +1,11 @@
 <template>
-  <div class="px-md-4 flex-grow-1 d-flex flex-column justify-content-between">
+  <div>
     <e-select
       v-model="options.periods"
-      :label="$tc('print.config.periods')"
+      :label="$tc('components.print.config.picassoConfig.periods')"
       :items="periods"
       multiple
       :filled="false"
-      :readonly="periods.length === 1"
       @input="$emit('input')"
     />
     <e-select
@@ -16,22 +15,11 @@
       :filled="false"
       @input="$emit('input')"
     />
-    <div class="flex-grow-1"></div>
-    <DialogScheduleEntryFilter
-      :camp="camp"
-      :filter-fn="filterFn()"
-      :filter="options.filter"
-      hide-period-filter
-      @input="updateFilter"
-    />
   </div>
 </template>
 
 <script>
-import cloneDeep from 'lodash-es/cloneDeep'
-import DialogScheduleEntryFilter from './DialogScheduleEntryFilter.vue'
-import { filterMatchScheduleEntry } from '@/common/helpers/filterMatchScheduleEntry.js'
-import { repairPrintFilterConfig } from '../repairPrintConfig.js'
+import cloneDeep from 'lodash/cloneDeep'
 
 const ORIENTATIONS = [
   {
@@ -46,7 +34,6 @@ const ORIENTATIONS = [
 
 export default {
   name: 'PicassoConfig',
-  components: { DialogScheduleEntryFilter },
   props: {
     value: { type: Object, required: true },
     camp: { type: Object, required: true },
@@ -71,29 +58,10 @@ export default {
         text: p.description,
       }))
     },
-    selectedPeriods() {
-      if (!this.options.filter.period) return this.camp.periods().items
-      return this.camp.periods().items.filter((period) => {
-        return this.filter.periods.includes(period._meta.self)
-      })
-    },
   },
-  methods: {
-    filterFn() {
-      return (filter) =>
-        this.selectedPeriods
-          .flatMap((period) => period.scheduleEntries().items)
-          .filter((scheduleEntry) => filterMatchScheduleEntry(scheduleEntry, filter))
-    },
-    updateFilter(newFilter) {
-      this.options.filter = newFilter
-      this.$emit('input')
-    },
-  },
-  defaultOptions(camp) {
+  defaultOptions() {
     return {
-      periods:
-        camp.periods().items.length === 1 ? [camp.periods().items[0]._meta.self] : [],
+      periods: [],
       orientation: 'L',
     }
   },
@@ -102,19 +70,15 @@ export default {
   },
   repairConfig(config, camp) {
     if (!config.options) config.options = {}
+    if (!config.options.periods) config.options.periods = []
     const knownPeriods = camp.periods().items.map((p) => p._meta.self)
-    if (knownPeriods.length === 1) {
-      config.options.periods = [camp.periods().items[0]._meta.self]
-    } else {
-      if (!config.options.periods) config.options.periods = []
-      config.options.periods = config.options.periods.filter((period) => {
-        return knownPeriods.includes(period)
-      })
-    }
+    config.options.periods = config.options.periods.filter((period) => {
+      return knownPeriods.includes(period)
+    })
     if (!ORIENTATIONS.map((o) => o.value).includes(config.options.orientation)) {
       config.options.orientation = 'L'
     }
-    return repairPrintFilterConfig(config, camp, knownPeriods)
+    return config
   },
 }
 </script>

@@ -33,7 +33,6 @@
         :disabled="layoutMode || disabled"
         dense
         :uri="item.uri"
-        vee-rules="greaterThan:0"
         path="quantity"
         inputmode="decimal"
       />
@@ -89,7 +88,7 @@
       <!-- Activity link (only visible in full period view) -->
       <ScheduleEntryLinks
         v-if="period && item.entityObject && item.entityObject.materialNode"
-        :activity-promise="findOneActivityByContentNode(item.entityObject)"
+        :activity-promise="findOneActivityByContentNode(item.entityObject.materialNode())"
       />
 
       <!-- Action buttons -->
@@ -270,7 +269,6 @@ export default {
       newMaterialItems: {},
       periodOnly: false,
       clientWidth: 1000,
-      loadMaterialNodesPromise: Promise.resolve(),
     }
   },
   computed: {
@@ -350,7 +348,7 @@ export default {
           unit: item.unit,
           combinedQuantity: this.renderQuantity(item),
           article: item.article,
-          listName: item.materialList ? item.materialList()?.name : '',
+          listName: item.materialList().name,
           entityObject: item,
           readonly: this.disabled || (this.period && item.materialNode), // if complete component is in period overview, disable editing of material that belongs to materialNodes (Activity material)
           rowClass: 'readonly',
@@ -392,12 +390,8 @@ export default {
       }
     },
   },
-  async mounted() {
+  mounted() {
     this.clientWidth = this.$el.clientWidth
-
-    if (this.period) {
-      this.loadMaterialNodesPromise = this.loadMaterialNodes()
-    }
   },
   methods: {
     onResize({ width }) {
@@ -456,35 +450,13 @@ export default {
         })
     },
 
-    async findOneActivityByContentNode(entityObject) {
-      await Promise.all([
-        this.camp.activities().$loadItems(),
-        this.loadMaterialNodesPromise,
-      ])
-      const contentNode = entityObject.materialNode()
+    async findOneActivityByContentNode(contentNode) {
+      await this.camp.activities().$loadItems()
       const root = await contentNode.$href('root')
 
       return this.camp.activities().items.find((activity) => {
         return activity.rootContentNode()._meta.self === root
       })
-    },
-
-    async loadMaterialNodes() {
-      await this.api.get().contentTypes().$loadItems()
-      const contentTypeMaterial = this.api
-        .get()
-        .contentTypes()
-        .items.find((ct) => ct.name === 'Material')
-      if (!contentTypeMaterial) {
-        throw new Error('Material content type not found')
-      }
-      await this.api
-        .get()
-        .contentNodes({
-          camp: this.camp._meta.self,
-          contentType: contentTypeMaterial._meta.self,
-        })
-        .$loadItems()
     },
   },
 }

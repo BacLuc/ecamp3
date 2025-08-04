@@ -1,65 +1,65 @@
-import Vue from 'vue'
 import App from './App.vue'
 import router from '@/router.js'
 import {
-  vuetifyLoader,
   auth,
-  head,
-  unhead,
-  storeLoader,
-  formBaseComponents,
-  ignoreNativeBindingWarnMessages,
-  i18n,
-  dayjs,
   color,
+  dayjs,
+  formBaseComponents,
+  i18n,
+  storeLoader,
   veeValidate,
+  vuetifyLoader,
 } from './plugins'
-import { store } from './plugins/store'
-import { vuetify } from './plugins/vuetify'
-import { getEnv } from '@/environment.js'
-import * as Sentry from '@sentry/vue'
 import Toast from 'vue-toastification'
 import 'vue-toastification/dist/index.css'
 
-import { ClickOutside, Resize } from 'vuetify/lib/directives'
+import { ClickOutside, Resize } from 'vuetify/directives'
 import ResizeObserver from 'v-resize-observer'
 
-const env = getEnv()
-if (env && env.SENTRY_FRONTEND_DSN) {
-  const sentryEnvironment = env.SENTRY_ENVIRONMENT ?? 'local'
-  Sentry.init({
-    Vue,
-    dsn: env.SENTRY_FRONTEND_DSN,
-    environment: sentryEnvironment,
-    enableTracing: false,
-    autoSessionTracking: false,
-    logErrors: process.env.NODE_ENV !== 'production',
-  })
-}
+import '@/scss/main.scss'
 
-Vue.use(auth)
-Vue.use(head)
-Vue.use(formBaseComponents)
-Vue.use(ignoreNativeBindingWarnMessages)
-Vue.use(storeLoader)
-Vue.use(vuetifyLoader)
-Vue.use(dayjs)
-Vue.use(color)
-Vue.use(veeValidate)
-Vue.use(Toast, {
+const app = createApp(App)
+
+// const env = getEnv()
+// if (env && env.SENTRY_FRONTEND_DSN) {
+//   const sentryEnvironment = env.SENTRY_ENVIRONMENT ?? 'local'
+//   Sentry.init({
+//     Vue,
+//     dsn: env.SENTRY_FRONTEND_DSN,
+//     environment: sentryEnvironment,
+//     enableTracing: false,
+//     autoSessionTracking: false,
+//     logErrors: process.env.NODE_ENV !== 'production',
+//   })
+// }
+
+app.use(auth)
+app.use(formBaseComponents)
+// app.use(ignoreNativeBindingWarnMessages)
+app.use(storeLoader)
+app.use(vuetifyLoader)
+app.use(dayjs)
+app.use(color)
+app.use(veeValidate)
+app.use(Toast, {
   maxToasts: 2,
 })
+app.use(router)
+app.use(i18n)
 
 // manually importing necessary vuetify directives (there's no auomatic vuetify-loader for vitejs)
-Vue.directive('click-outside', ClickOutside)
-Vue.directive('resize', Resize)
-Vue.directive('resizeobserver', ResizeObserver.directive)
+app.directive('click-outside', ClickOutside)
+app.directive('resize', Resize)
+app.directive('resizeobserver', ResizeObserver.directive)
 
-new Vue({
-  router,
-  store,
-  vuetify,
-  i18n,
-  unhead,
-  render: (h) => h(App),
-}).$mount('#app')
+// new Vue({
+//   router,
+//   store,
+//   vuetify,
+//   i18n,
+//   render: (h) => h(App),
+// }).$mount('#app')'
+
+app.mount('#app')
+
+export default app

@@ -40,9 +40,10 @@ function getJWTExpirationTimestamp() {
 export function isLoggedIn() {
   const isLoggedIn = Date.now() < getJWTExpirationTimestamp()
 
-  if (isLoggedIn) {
-    loadUser()
-  }
+  // TODO: commented code creates an infinite-loop
+  // if (isLoggedIn) {
+  //   loadUser()
+  // }
 
   return isLoggedIn
 }
@@ -72,11 +73,6 @@ async function resetPassword(id, password, recaptchaToken) {
   return apiStore.patch(url, { password: password, recaptchaToken: recaptchaToken })
 }
 
-async function resendUserActivation(email, recaptchaToken) {
-  const url = await apiStore.href(apiStore.get(), 'resendActivation')
-  return apiStore.post(url, { email: email, recaptchaToken: recaptchaToken })
-}
-
 async function loadUser() {
   if (!getJWTPayloadFromCookie()) {
     store.commit('logout')
@@ -84,11 +80,10 @@ async function loadUser() {
   }
 
   try {
-    const profiles = await apiStore
-      .get()
-      .profiles({ user: parseJWTPayload(getJWTPayloadFromCookie()).user })._meta.load
-    store.commit('login', profiles.items[0].user())
-    return profiles.items[0].user()
+    const user = await apiStore.get(parseJWTPayload(getJWTPayloadFromCookie()).user)._meta
+      .load
+    store.commit('login', user)
+    return user
   } catch (e) {
     if (e.response && [401, 403, 404].includes(e.response.status)) {
       // 401 means no complete token was submitted, so we may be missing the JWT signature cookie
@@ -171,12 +166,11 @@ export const auth = {
   loadUser,
   resetPasswordRequest,
   resetPassword,
-  resendUserActivation,
 }
 
 class AuthPlugin {
-  install(Vue) {
-    Object.defineProperties(Vue.prototype, {
+  install(app) {
+    Object.defineProperties(app.config.globalProperties, {
       $auth: {
         get() {
           return auth

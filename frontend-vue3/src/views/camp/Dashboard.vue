@@ -1,12 +1,5 @@
 <template>
   <content-card :title="$tc('views.camp.dashboard.activities')" toolbar>
-    <template #title-actions>
-      <v-spacer />
-      <v-btn v-if="today !== null" text @click="scrollToToday">
-        <v-icon left>mdi-calendar-today</v-icon>
-        {{ $tc('views.camp.dashboard.today') }}
-      </v-btn>
-    </template>
     <div class="d-flow-root">
       <ScheduleEntryFilters
         v-if="loading"
@@ -14,7 +7,6 @@
         class="ma-4"
         :loading-endpoints="true"
         :camp="camp"
-        hide-day-filter
         :periods="periods"
       />
       <ScheduleEntryFilters
@@ -25,8 +17,6 @@
         :loading-endpoints="loadingEndpoints"
         :camp="camp"
         :periods="periods"
-        hide-day-filter
-        :filter-fn="filterFn"
       />
       <template v-if="!loading">
         <table
@@ -65,7 +55,6 @@
           <template v-if="!periods[uri].days()._meta.loading">
             <tbody
               v-for="(dayScheduleEntries, dayUri) in periodDays"
-              :id="days[dayUri].id"
               :key="dayUri"
               :aria-labelledby="dayUri + 'th'"
             >
@@ -141,7 +130,7 @@
 import { periodRoute } from '@/router.js'
 import ContentCard from '@/components/layout/ContentCard.vue'
 import ActivityRow from '@/components/dashboard/ActivityRow.vue'
-import { keyBy, groupBy, mapValues } from 'lodash-es'
+import { keyBy, groupBy, mapValues } from 'lodash'
 import { dateHelperUTCFormatted } from '@/mixins/dateHelperUTCFormatted.js'
 import { mapGetters } from 'vuex'
 import {
@@ -151,8 +140,6 @@ import {
 } from '@/helpers/querySyncHelper'
 import AvatarRow from '@/components/generic/AvatarRow.vue'
 import ScheduleEntryFilters from '@/components/program/ScheduleEntryFilters.vue'
-import dayjs from '@/common/helpers/dayjs.js'
-import { filterMatchScheduleEntry } from '@/common/helpers/filterMatchScheduleEntry.js'
 
 export default {
   name: 'Dashboard',
@@ -172,7 +159,6 @@ export default {
       loadingEndpoints: {
         categories: true,
         periods: true,
-        days: false,
         campCollaborations: true,
         progressLabels: true,
       },
@@ -185,11 +171,6 @@ export default {
         category: [],
         progressLabel: [],
       },
-    }
-  },
-  head() {
-    return {
-      title: this.$tc('views.camp.dashboard.activities'),
     }
   },
   computed: {
@@ -207,21 +188,40 @@ export default {
         '_meta.self'
       )
     },
-    today() {
-      const now = dayjs.utc()
-      const today = Object.values(this.days).filter(
-        (d) => dayjs.utc(d.start) <= now && dayjs.utc(d.end) >= now
-      )
-      return today.length > 0 ? today[0] : null
-    },
     dayResponsibleCollaborators() {
       return mapValues(this.days, (day) =>
         day.dayResponsibles().items.map((item) => item.campCollaboration())
       )
     },
     filteredScheduleEntries() {
-      return this.scheduleEntries.filter((scheduleEntry) =>
-        filterMatchScheduleEntry(scheduleEntry, this.filter)
+      return this.scheduleEntries.filter(
+        (scheduleEntry) =>
+          // filter by period
+          (this.filter.period === null ||
+            scheduleEntry.period()._meta.self === this.filter.period) &&
+          // filter by categories: OR filter
+          (this.filter.category === null ||
+            this.filter.category.length === 0 ||
+            this.filter.category?.includes(
+              scheduleEntry.activity().category()._meta.self
+            )) &&
+          // filter by responsibles: AND filter
+          (this.filter.responsible === null ||
+            this.filter.responsible.length === 0 ||
+            this.filter.responsible?.every((responsible) => {
+              return scheduleEntry
+                .activity()
+                .activityResponsibles()
+                .items.map((responsible) => responsible.campCollaboration()._meta.self)
+                .includes(responsible)
+            }) ||
+            (this.filter.responsible[0] === 'none' &&
+              scheduleEntry.activity().activityResponsibles().items.length === 0)) &&
+          (this.filter.progressLabel === null ||
+            this.filter.progressLabel.length === 0 ||
+            this.filter.progressLabel?.includes(
+              scheduleEntry.activity().progressLabel?.()._meta.self ?? 'none'
+            ))
       )
     },
     groupedScheduleEntries() {
@@ -234,12 +234,6 @@ export default {
           return scheduleEntry.day()._meta.self
         })
       )
-    },
-    filterFn() {
-      return (filter) =>
-        this.scheduleEntries.filter((scheduleEntry) =>
-          filterMatchScheduleEntry(scheduleEntry, filter)
-        )
     },
     ...mapGetters({
       loggedInUser: 'getLoggedInUser',
@@ -257,8 +251,6 @@ export default {
       this.api.get().days({ 'period.camp': this.camp._meta.self }),
       ...this.camp.periods().items.map((period) => period.scheduleEntries()._meta.load),
       this.camp.activities()._meta.load,
-      this.camp.categories()._meta.load,
-      this.camp.progressLabels()._meta.load,
     ])
 
     this.loading = false
@@ -270,8 +262,8 @@ export default {
 
     this.camp.periods()._meta.load.then(({ allItems }) => {
       const collection = allItems.map((entry) => entry._meta.self)
-      this.filter.period =
-        this.filter.period?.filter((value) => collection.includes(value)) ?? null
+      this.filter.periods =
+        this.filter.periods?.filter((value) => collection.includes(value)) ?? null
       this.loadingEndpoints.periods = false
     })
   },
@@ -282,37 +274,20 @@ export default {
       if (filterAndQueryAreEqual(query, this.$route.query)) return
       this.$router.replace({ query }).catch((err) => console.warn(err))
     },
-    scrollToToday() {
-      const element = document.getElementById(this.today.id)
-      if (element) {
-        let elementPosition =
-          element.getBoundingClientRect().top + document.documentElement.scrollTop
-        if (this.$vuetify.breakpoint.mdAndUp) {
-          elementPosition = elementPosition - 50
-        } else if (this.$vuetify.breakpoint.smAndUp) {
-          elementPosition = elementPosition + 14
-        } else {
-          elementPosition = elementPosition - 34
-        }
-        window.scrollTo({
-          top: elementPosition,
-          behavior: 'smooth',
-        })
-      }
-    },
   },
 }
 </script>
 
 <style scoped lang="scss">
+@use 'src/scss/variables';
 .day-header {
   z-index: 1;
   position: sticky;
   top: calc(48px - 1px - 0.75rem);
-  @media #{map-get($display-breakpoints, 'sm-and-up')} {
+  @media #{map-get(variables.$display-breakpoints, 'sm-and-up')} {
     top: calc(0px - 1px - 0.75rem);
   }
-  @media #{map-get($display-breakpoints, 'md-and-up')} {
+  @media #{map-get(variables.$display-breakpoints, 'md-and-up')} {
     top: calc(64px - 1px - 0.75rem);
   }
   padding-bottom: 0.25rem;

@@ -1,5 +1,11 @@
 <template>
-  <v-alert v-if="serverError" text outlined color="red darken-2" icon="mdi-alert-circle">
+  <v-alert
+    v-if="serverError"
+    color="red-darken-2"
+    icon="mdi-alert-circle"
+    text
+    variant="outlined"
+  >
     <server-error-content :server-error="serverError" />
   </v-alert>
 </template>

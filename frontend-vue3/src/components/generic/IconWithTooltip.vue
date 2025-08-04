@@ -1,5 +1,11 @@
 <template>
-  <v-tooltip v-if="showIcon" v-model="showTooltip" max-width="300px" color="#333" bottom>
+  <v-tooltip
+    v-if="showIcon"
+    v-model="showTooltip"
+    color="#333"
+    location="bottom"
+    max-width="300px"
+  >
     <!-- eslint-disable-next-line vue/no-unused-vars -->
     <template #activator="_">
       <v-btn
@@ -15,9 +21,9 @@
     </template>
     <slot>
       {{ text }}
-      <i18n v-if="tooltipI18nKey" :path="tooltipI18nKey">
+      <i18n-t v-if="tooltipI18nKey" :keypath="tooltipI18nKey">
         <template #br><br class="linebreak" /></template>
-      </i18n>
+      </i18n-t>
     </slot>
   </v-tooltip>
 </template>
@@ -44,12 +50,12 @@ export default {
   },
   methods: {
     click() {
-      if (this.$vuetify.breakpoint.xsOnly) {
+      if (this.$vuetify.display.xsOnly) {
         this.showTooltip = !this.showTooltip
       }
     },
     mouseenter() {
-      if (!this.$vuetify.breakpoint.xsOnly) {
+      if (!this.$vuetify.display.xsOnly) {
         this.showTooltip = true
       }
     },

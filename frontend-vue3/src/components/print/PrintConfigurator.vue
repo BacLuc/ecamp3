@@ -1,5 +1,5 @@
 <template>
-  <v-skeleton-loader v-if="loading" type="article" />
+  <v-skeleton-loader v-if="camp._meta.loading" type="article" />
   <div v-else>
     <PagesOverview v-model="cnf.contents" @input="onChange">
       <PagesConfig
@@ -39,7 +39,7 @@
             @click="
               addContent({
                 type: idx,
-                options: component.defaultOptions(camp),
+                options: component.defaultOptions(),
               })
             "
           >
@@ -52,13 +52,13 @@
 
       <template #drawer>
         <v-expansion-panels v-if="isDev" flat class="e-print-configurator__cnf">
-          <v-expansion-panel class="transparent rounded-0">
-            <v-expansion-panel-header class="subtitle py-2"
+          <v-expansion-panel class="bg-transparent rounded-0">
+            <v-expansion-panel-title class="subtitle py-2"
               >View Print-Config
-            </v-expansion-panel-header>
-            <v-expansion-panel-content>
+            </v-expansion-panel-title>
+            <v-expansion-panel-text>
               <pre style="font-size: 12px">{{ cnf }}</pre>
-            </v-expansion-panel-content>
+            </v-expansion-panel-text>
           </v-expansion-panel>
         </v-expansion-panels>
       </template>
@@ -100,22 +100,18 @@ import PrintPreviewNuxt from './print-nuxt/PrintPreviewNuxt.vue'
 import Draggable from 'vuedraggable'
 import CoverConfig from './config/CoverConfig.vue'
 import PicassoConfig from './config/PicassoConfig.vue'
-import SummaryConfig from './config/SummaryConfig.vue'
+import StoryConfig from './config/StoryConfig.vue'
 import ProgramConfig from './config/ProgramConfig.vue'
 import ActivityConfig from './config/ActivityConfig.vue'
-import ActivityListConfig from './config/ActivityListConfig.vue'
 import TocConfig from './config/TocConfig.vue'
 import PagesOverview from './configurator/PagesOverview.vue'
 import PagesConfig from './configurator/PagesConfig.vue'
 import DownloadNuxtPdfButton from '@/components/print/print-nuxt/DownloadNuxtPdfButton.vue'
 import DownloadClientPdfButton from '@/components/print/print-client/DownloadClientPdfButton.vue'
 import { getEnv } from '@/environment.js'
-import cloneDeep from 'lodash-es/cloneDeep'
+import cloneDeep from 'lodash/cloneDeep'
 import VueI18n from '../../plugins/i18n/index.js'
 import repairConfig from './repairPrintConfig.js'
-import StoryConfig from '@/components/print/config/StoryConfig.vue'
-import SafetyConsiderationsConfig from '@/components/print/config/SafetyConsiderationsConfig.vue'
-import campShortTitle from '@/common/helpers/campShortTitle.js'
 
 export default {
   name: 'PrintConfigurator',
@@ -129,11 +125,10 @@ export default {
     PrintPreviewNuxt,
     CoverConfig,
     PicassoConfig,
-    SummaryConfig,
+    StoryConfig,
     ProgramConfig,
     ActivityConfig,
     TocConfig,
-    ActivityListConfig,
   },
   props: {
     camp: {
@@ -143,16 +138,13 @@ export default {
   },
   data() {
     return {
-      loading: true,
       contentComponents: {
         Cover: CoverConfig,
         Picasso: PicassoConfig,
         Story: StoryConfig,
-        SafetyConsiderations: SafetyConsiderationsConfig,
         Program: ProgramConfig,
         Activity: ActivityConfig,
         Toc: TocConfig,
-        ActivityList: ActivityListConfig,
       },
       previewTab: null,
     }
@@ -165,7 +157,7 @@ export default {
       return this.repairConfig(
         this.$store.getters.getLastPrintConfig(this.camp._meta.self, {
           language: this.lang,
-          documentName: campShortTitle(this.camp),
+          documentName: this.camp.name,
           camp: this.camp._meta.self,
           contents: this.defaultContents(),
         })
@@ -183,19 +175,11 @@ export default {
       immediate: true,
     },
   },
-  async mounted() {
-    await this.camp.periods().$reload()
-    await Promise.all([
-      ...this.camp
-        .periods()
-        .items.flatMap((period) => [
-          period.days().$reload(),
-          period.contentNodes().$reload(),
-        ]),
-      this.camp.activities().$reload(),
-      this.camp.categories().$reload(),
-    ])
-    this.loading = false
+  mounted() {
+    this.camp.periods().items.forEach((period) => {
+      period.days().$reload()
+      period.contentNodes().$reload()
+    })
   },
   methods: {
     resetConfig() {
@@ -224,7 +208,6 @@ export default {
           type: 'Story',
           options: {
             periods: [period._meta.self],
-            contentType: 'Storycontext',
           },
         })
         contents.push({

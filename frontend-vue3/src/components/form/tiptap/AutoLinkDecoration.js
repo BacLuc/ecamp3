@@ -1,4 +1,4 @@
-import { Extension } from '@tiptap/vue-2'
+import { Extension } from '@tiptap/vue-3'
 import { Plugin, PluginKey } from '@tiptap/pm/state'
 import { Decoration, DecorationSet } from '@tiptap/pm/view'
 import LinkifyIt from 'linkify-it'
@@ -24,7 +24,7 @@ export const AutoLinkDecoration = Extension.create({
             let link
             try {
               link = new URL(url)
-            } catch {
+            } catch (_) {
               /* It can't be parsed as an url */
             }
             if (!link.host.includes('.') && !link.port) {

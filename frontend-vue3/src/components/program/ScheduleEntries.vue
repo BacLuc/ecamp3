@@ -6,21 +6,21 @@
       :reload-entries="reloadScheduleEntries"
       :on="eventHandlers"
     />
-    <DialogActivityCreate
+    <dialog-activity-create
       ref="dialogActivityCreate"
+      :period="period"
       :schedule-entry="newScheduleEntry"
       @activity-created="afterCreateActivity($event)"
     />
 
     <v-btn
       v-if="showButton"
-      :fixed="$vuetify.breakpoint.mdAndUp"
-      :absolute="!$vuetify.breakpoint.mdAndUp"
+      :absolute="!$vuetify.display.mdAndUp"
+      :fixed="$vuetify.display.mdAndUp"
       dark
       fab
       style="z-index: 3"
-      bottom
-      right
+      location="bottom right"
       class="fab--bottom_nav float-right"
       color="red"
       @click.stop="createNewActivity()"
@@ -41,7 +41,7 @@ export default {
   props: {
     period: { type: Object, required: true },
     showButton: { type: Boolean, required: true },
-    filterFn: { type: Function, required: false, default: () => true },
+    matchFn: { type: Function, required: false, default: () => true },
   },
   data() {
     return {
@@ -63,7 +63,7 @@ export default {
     filteredScheduleEntries() {
       return this.scheduleEntries.items.map((item) => ({
         ...item,
-        filterMatch: this.filterFn(item),
+        filterMatch: this.matchFn(item),
       }))
     },
     loading() {
@@ -108,12 +108,14 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+@use 'src/scss/variables';
+
 .fab--bottom_nav {
   position: fixed;
   bottom: calc(16px + 56px + env(safe-area-inset-bottom)) !important;
-  @media #{map-get($display-breakpoints, 'md-and-up')} {
-    bottom: calc(16px + env(safe-area-inset-bottom)) !important;
+  @media #{map-get(variables.$display-breakpoints, 'md-and-up')} {
+    bottom: calc(16px + 36px + env(safe-area-inset-bottom)) !important;
   }
 }
 </style>

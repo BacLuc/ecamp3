@@ -19,7 +19,7 @@
       <template v-for="(_, name) in $slots" #[name]>
         <slot :name="name" />
       </template>
-      <template v-for="(_, name) in $scopedSlots" #[name]="slotData">
+      <template v-for="(_, name) in $slots" #[name]="slotData">
         <slot :name="name" v-bind="slotData" />
       </template>
     </component>
@@ -29,7 +29,7 @@
 <script>
 import { ValidationProvider } from 'vee-validate'
 import { formComponentPropsMixin } from '@/mixins/formComponentPropsMixin.js'
-import { VTextField } from 'vuetify/lib'
+import { VTextField } from 'vuetify/components'
 
 export default {
   name: 'BaseComponent',

@@ -78,7 +78,6 @@ import EDatePicker from '@/components/form/base/EDatePicker.vue'
 import ETimePicker from '@/components/form/base/ETimePicker.vue'
 import EColorPicker from '@/components/form/base/EColorPicker.vue'
 import EColorField from '@/components/form/base/EColorField.vue'
-import ETimeField from '@/components/form/base/ETimeField.vue'
 import ApiTextField from '@/components/form/api/ApiTextField.vue'
 import ApiNumberField from '@/components/form/api/ApiNumberField.vue'
 import ApiTextarea from '@/components/form/api/ApiTextarea.vue'
@@ -91,7 +90,7 @@ import ApiDatePicker from '@/components/form/api/ApiDatePicker.vue'
 import ApiTimePicker from '@/components/form/api/ApiTimePicker.vue'
 import ApiColorPicker from '@/components/form/api/ApiColorPicker.vue'
 import VueI18n from '@/plugins/i18n'
-import { VTextField, VTextarea, VCheckbox, VSwitch, VSelect } from 'vuetify/lib'
+import { VTextField, VTextarea, VCheckbox, VSwitch, VSelect } from 'vuetify/components'
 
 export default {
   name: 'Controls',
@@ -116,7 +115,6 @@ export default {
     ApiSwitch,
     VSelect,
     ESelect,
-    ETimeField,
     ApiSelect,
     EDatePicker,
     ApiDatePicker,
@@ -143,7 +141,6 @@ export default {
     selectValue: null,
     dateValue: '2020-01-01',
     timeValue: '2020-01-01T14:45:00+00:00',
-    timeValue2: '00:00',
 
     headers: [
       { text: 'Type', value: 'id' },
@@ -153,11 +150,6 @@ export default {
       { text: 'api-input.autosave', value: 'api.autosave', sortable: false },
     ],
   }),
-
-  head: {
-    title: 'Controls',
-  },
-
   computed: {
     items() {
       return [
@@ -276,16 +268,6 @@ export default {
             veeRules: 'required',
           },
         },
-        {
-          id: 'time-field',
-          component: (type) => (type === 'e' ? `${type}-time-field` : ''),
-          value: this.timeValue2,
-          props: {
-            placeholder: this.placeholder,
-            path: 'start',
-            uri: this.scheduleEntryUri,
-          },
-        },
       ]
     },
     profileUri() {
@@ -313,7 +295,7 @@ export default {
       return '/camp_collaborations/3229d273decd' // Harry Potter - Snoopy
     },
     availableLocales() {
-      return VueI18n.availableLocales.map((l) => ({
+      return VueI18n.global.availableLocales.map((l) => ({
         value: l,
         text: this.$tc('global.language', 1, l),
       }))

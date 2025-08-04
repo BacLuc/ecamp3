@@ -1,71 +1,68 @@
 <template>
-  <ValidationObserver
-    v-if="materialListsSorted.length > 0"
-    ref="validation"
-    tag="tr"
-    class="newItemRow"
-    @keyup.enter="submitForm"
-  >
-    <td class="pt-1">
-      <e-number-field
-        ref="quantity"
-        v-model="materialItem.quantity"
-        dense
-        vee-rules="greaterThan:0"
-        inputmode="decimal"
-        path="quantity"
-      />
-    </td>
-    <td class="pt-1">
-      <e-text-field v-model="materialItem.unit" dense path="unit" maxlength="32" />
-    </td>
-    <td class="pt-1">
-      <e-text-field
-        v-model="materialItem.article"
-        dense
-        vee-rules="required"
-        path="article"
-        maxlength="64"
-      />
-    </td>
-    <td class="pt-1" :colspan="columns - 4">
-      <e-select
-        v-model="materialItem.materialList"
-        dense
-        vee-rules="required"
-        :label="$tc('entity.materialList.name')"
-        :items="materialListsSorted"
-      />
-    </td>
-    <td class="pt-1">
-      <ButtonAdd height="52" hide-label @click="submitForm" />
-    </td>
-  </ValidationObserver>
-
-  <tr v-else>
-    <td :colspan="columns">
-      <div>
-        <p>
-          {{ $tc('components.material.materialCreateItem.noMaterialListAvailable') }}
-        </p>
-        <v-btn :to="campRoute(camp, 'admin')">
-          <v-icon :left="$vuetify.breakpoint.mdAndUp">mdi-cogs</v-icon>
-          {{ $tc('components.material.materialCreateItem.campSettingsButton') }}
-        </v-btn>
-      </div>
-    </td>
-  </tr>
+  <!--  <ValidationObserver-->
+  <!--    v-if="materialLists.length > 0"-->
+  <!--    ref="validation"-->
+  <!--    tag="tr"-->
+  <!--    class="newItemRow"-->
+  <!--    @keyup.enter="submitForm"-->
+  <!--  >-->
+  <td class="pt-1">
+    <e-number-field
+      ref="quantity"
+      v-model="materialItem.quantity"
+      dense
+      inputmode="decimal"
+      path="quantity"
+    />
+  </td>
+  <td class="pt-1">
+    <e-text-field v-model="materialItem.unit" dense maxlength="32" path="unit" />
+  </td>
+  <td class="pt-1">
+    <e-text-field
+      v-model="materialItem.article"
+      dense
+      maxlength="64"
+      path="article"
+      vee-rules="required"
+    />
+  </td>
+  <td :colspan="columns - 4" class="pt-1">
+    <e-select
+      v-model="materialItem.materialList"
+      :items="materialLists"
+      :label="$tc('entity.materialList.name')"
+      dense
+      vee-rules="required"
+    />
+  </td>
+  <td class="pt-1">
+    <ButtonAdd height="52" hide-label @click="submitForm" />
+  </td>
+  <!--  </ValidationObserver>-->
+  <!--  <tr v-else>-->
+  <!--    <td :colspan="columns">-->
+  <!--      <div>-->
+  <!--        <p>-->
+  <!--          {{ $tc("components.material.materialCreateItem.noMaterialListAvailable") }}-->
+  <!--        </p>-->
+  <!--        <v-btn :to="campRoute(camp, 'admin')">-->
+  <!--          <v-icon :left="$vuetify.breakpoint.mdAndUp">mdi-cogs</v-icon>-->
+  <!--          {{ $tc("components.material.materialCreateItem.campSettingsButton") }}-->
+  <!--        </v-btn>-->
+  <!--      </div>-->
+  <!--    </td>-->
+  <!--  </tr>-->
 </template>
 
 <script>
-import { campRoute } from '@/router.js'
-import { ValidationObserver } from 'vee-validate'
-import ButtonAdd from '@/components/buttons/ButtonAdd.vue'
-import materialListsSorted from '@/common/helpers/materialListsSorted.js'
-
-export default {
+import { campRoute } from '@/router.js'// import { ValidationObserver } from 'vee-validate'
+import ButtonAdd from ''@/components/buttons/ButtonAdd.vue'export default {
   name: 'MaterialCreateItem',
-  components: { ValidationObserver, ButtonAdd },
+  components: {
+    // ValidationObserver,
+    ButtonAdd,
+  },
   provide() {
     return {
       entityName: 'materialItem',
@@ -85,8 +82,8 @@ export default {
     }
   },
   computed: {
-    materialListsSorted() {
-      return materialListsSorted(this.camp.materialLists().items).map((list) => ({
+    materialLists() {
+      return this.camp.materialLists().items.map((list) => ({
         value: list._meta.self,
         text: list.name,
       }))
@@ -128,6 +125,7 @@ export default {
   line-height: 80px;
   vertical-align: top;
 }
+
 .v-btn {
   vertical-align: text-bottom;
 }

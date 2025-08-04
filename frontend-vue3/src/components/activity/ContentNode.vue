@@ -1,5 +1,6 @@
 <template>
   <component
+    v-bind="$attrs"
     :is="contentNode.contentTypeName"
     v-if="!contentNode.loading"
     class="content-node"
@@ -8,7 +9,6 @@
     :layout-mode="layoutMode"
     :draggable="draggable"
     :disabled="disabled"
-    v-bind="$attrs"
   />
 </template>
 
@@ -51,7 +51,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .draggable {
   cursor: move;
   transition: background-color 0.3s 25ms ease;

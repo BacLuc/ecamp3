@@ -69,7 +69,7 @@ Displays a field as a picker (can be used with v-model)
 </template>
 
 <script>
-import { debounce } from 'lodash-es'
+import { debounce } from 'lodash'
 import { formComponentPropsMixin } from '@/mixins/formComponentPropsMixin.js'
 
 export default {
@@ -172,7 +172,7 @@ export default {
 
     this.setValue(this.value)
   },
-  beforeDestroy() {
+  beforeUnmount() {
     if (this.clickOutsideHandler) {
       document.removeEventListener('click', this.clickOutsideHandler)
     }

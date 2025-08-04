@@ -230,7 +230,7 @@ export default {
     CategoryChip,
     ContentActions,
     ServerError,
-    ValidationObserver,
+    // ValidationObserver,
   },
   props: {
     camp: { type: Object, required: true },

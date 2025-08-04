@@ -72,7 +72,7 @@
         <v-tooltip
           v-if="collaborator.status !== 'inactive'"
           :disabled="disabled || !isLastManager"
-          top
+          location="top"
           eager
         >
           <template #activator="{ on, attrs }">

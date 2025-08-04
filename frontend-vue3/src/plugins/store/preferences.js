@@ -1,4 +1,4 @@
-import Vue from 'vue'
+import app from '../../main.js'
 
 const LOCAL_STORAGE_PREFIX = 'preferences:'
 
@@ -13,7 +13,7 @@ export function loadFromLocalStorage(localStorage = window.localStorage) {
         )
         values[uri] ||= {}
         values[uri][identifier] = JSON.parse(localStorage[key])
-      } catch {
+      } catch (error) {
         // Just ignore this key and continue with the others
       }
     })
@@ -43,7 +43,7 @@ export const getters = {
 
 function setPreferenceValue(state, campUri, identifier, value) {
   if (!(campUri in state.preferences)) Vue.set(state.preferences, campUri, {})
-  Vue.set(state.preferences[campUri], identifier, value)
+  app.set(state.preferences[campUri], identifier, value)
   window.localStorage.setItem(
     `${LOCAL_STORAGE_PREFIX}${campUri}:${identifier}`,
     JSON.stringify(value)

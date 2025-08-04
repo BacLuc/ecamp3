@@ -60,7 +60,7 @@
           <template #activator="{ on }">
             <v-btn
               icon
-              small
+              size="small"
               color="error"
               class="float-right"
               width="36"

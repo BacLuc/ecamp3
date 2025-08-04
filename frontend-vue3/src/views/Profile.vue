@@ -51,7 +51,7 @@
             <api-select path="language" :items="availableLocales" />
           </api-form>
           <v-btn
-            v-if="!$vuetify.breakpoint.mdAndUp"
+            v-if="!$vuetify.display.mdAndUp"
             class="mt-2"
             color="red"
             block
@@ -96,11 +96,6 @@ export default {
   props: {
     emailVerificationKey: { type: String, required: false, default: null },
   },
-  head() {
-    return {
-      title: this.$tc('views.profile.profile'),
-    }
-  },
   computed: {
     ...mapGetters({
       user: 'getLoggedInUser',
@@ -109,7 +104,7 @@ export default {
       return this.user?.profile()
     },
     availableLocales() {
-      return VueI18n.availableLocales.map((l) => ({
+      return VueI18n.global.availableLocales.map((l) => ({
         value: l,
         text: this.$tc('global.language', 1, l),
       }))
@@ -117,8 +112,8 @@ export default {
   },
   watch: {
     profile() {
-      if (VueI18n.availableLocales.includes(this.profile?.language)) {
-        this.$store.commit('setLanguage', this.profile?.language)
+      if (VueI18n.global.availableLocales.includes(this.profile?.language)) {
+        // this.$store.commit('setLanguage', this.profile?.language)
       }
     },
   },

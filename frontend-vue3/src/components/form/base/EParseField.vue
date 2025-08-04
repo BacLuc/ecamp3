@@ -3,58 +3,60 @@ Displays a field as a textfield (can be used with v-model)
 -->
 
 <template>
-  <ValidationProvider
-    v-slot="{ errors: veeErrors }"
-    ref="validationProvider"
-    tag="div"
-    :name="validationLabel"
-    :vid="veeId ?? path"
-    :rules="veeRules"
+  <!--  <ValidationProvider-->
+  <!--    v-slot="{ errors: veeErrors }"-->
+  <!--    ref="validationProvider"-->
+  <!--    tag="div"-->
+  <!--    :name="validationLabel"-->
+  <!--    :vid="veeId ?? path"-->
+  <!--    :rules="veeRules"-->
+  <!--    :required="required"-->
+  <!--    class="e-form-container"-->
+  <!--  >-->
+  <v-text-field
+    ref="textField"
+    :class="[inputClass]"
+    :error-messages="veeErrors.concat(combinedErrorMessages)"
+    :filled="filled"
+    :hide-details="hideDetails"
+    :label="labelOrEntityFieldLabel"
     :required="required"
-    class="e-form-container"
+    :value="stringValue"
+    type="text"
+    v-bind="$attrs"
+    v-on="inputListeners"
   >
-    <v-text-field
-      ref="textField"
-      v-bind="$attrs"
-      :value="stringValue"
-      :filled="filled"
-      :required="required"
-      :hide-details="hideDetails"
-      :error-messages="veeErrors.concat(combinedErrorMessages)"
-      :label="labelOrEntityFieldLabel"
-      :class="[inputClass]"
-      type="text"
-      v-on="inputListeners"
-    >
-      <template #prepend>
-        <slot
-          name="prepend"
-          :string-value="stringValue"
-          :internal-value="internalValue"
-          :serialized-value="serializedValue"
-        />
-      </template>
-      <template #append>
-        <slot
-          name="append"
-          :string-value="stringValue"
-          :internal-value="internalValue"
-          :serialized-value="serializedValue"
-        />
-      </template>
-    </v-text-field>
-  </ValidationProvider>
+    <template #prepend>
+      <slot
+        :internal-value="internalValue"
+        :serialized-value="serializedValue"
+        :string-value="stringValue"
+        name="prepend"
+      />
+    </template>
+    <template #append>
+      <slot
+        :internal-value="internalValue"
+        :serialized-value="serializedValue"
+        :string-value="stringValue"
+        name="append"
+      />
+    </template>
+  </v-text-field>
+  <!--  </ValidationProvider>-->
 </template>
 
 <script>
-import { debounce } from 'lodash-es'
+import { debounce } from 'lodash'
 import { formComponentPropsMixin } from '@/mixins/formComponentPropsMixin.js'
-import { ValidationProvider } from 'vee-validate'
+// import { ValidationProvider } from 'vee-validate'
 import { formComponentMixin } from '@/mixins/formComponentMixin.js'
 
 export default {
   name: 'EParseField',
-  components: { ValidationProvider },
+  components: {
+    // ValidationProvider
+  },
   mixins: [formComponentPropsMixin, formComponentMixin],
   props: {
     value: { validator: () => true, required: true },
@@ -159,7 +161,7 @@ export default {
         }
         this.serializedValue = val
         this.internalValue = this.deserialize?.(val) ?? val
-        this.stringValue = this.format?.(this.internalValue) ?? val
+        this.stringValue = this.format?.(val) ?? val
       },
       immediate: true,
     },

@@ -1,17 +1,17 @@
 <template>
   <v-navigation-drawer
-    :value="value"
+    :model-value="value"
     app
-    right
+    location="right"
     width="300"
-    @input="$emit('input', $event)"
+    @update:model-value="$emit('input', $event)"
   >
     <div class="d-flex flex-column fill-height">
-      <div class="d-flex flex-column align-center blue-grey darken-4 white--text py-6">
-        <v-icon x-large>$vuetify.icons.ecamp</v-icon>
-        <h2 class="title text-center">eCamp</h2>
+      <div class="d-flex flex-column align-center bg-blue-grey-darken-4 text-white py-6">
+        <v-icon size="x-large">$ecamp</v-icon>
+        <h2 class="text-h6 text-center">eCamp</h2>
       </div>
-      <v-divider class="blue-grey darken-2" />
+      <v-divider class="bg-blue-grey-darken-2" />
       <v-list>
         <SidebarListItem
           v-if="user && !user._meta.loading"
@@ -39,12 +39,11 @@
 
       <v-list v-if="!camp._meta.loading">
         <SidebarListItem
-          :title="camp.title"
+          :title="camp.name"
           :subtitle="camp.motto"
           two-line
           hide-avatar
           hide-chevron
-          title-overflow
         />
         <v-divider inset i />
         <SidebarListItem
@@ -58,12 +57,6 @@
           :title="$tc('views.camp.navigation.mobile.navSidebar.itemActivity')"
           :subtitle="$tc('views.camp.navigation.mobile.navSidebar.itemActivitySubtitle')"
           icon="mdi-view-dashboard"
-        />
-        <v-divider inset />
-        <SidebarListItem
-          :to="campRoute(camp, 'overview/checklists')"
-          :title="$tc('views.camp.navigation.mobile.navSidebar.itemChecklists')"
-          icon="mdi-clipboard-list-outline"
         />
         <v-divider inset />
         <SidebarListItem
@@ -105,16 +98,16 @@
       </v-list>
       <div class="mt-auto">
         <v-btn
-          x-large
+          size="x-large"
           height="56"
-          text
+          variant="text"
           tile
           block
           class="ec-close-drawer pb-safe"
           @click="$emit('input', false)"
         >
           {{ $tc('views.camp.navigation.mobile.navSidebar.itemClose') }}
-          <v-icon right>mdi-close</v-icon>
+          <v-icon end>mdi-close</v-icon>
         </v-btn>
       </div>
     </div>
@@ -165,8 +158,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@use 'src/scss/variables';
+
+.v-bottom-navigation--fixed {
+  height: auto !important;
+  min-height: 56px;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
 .v-application .ec-close-drawer {
-  background-color: #{map-get($blue-grey, 'lighten-5')};
-  border-top: 1px solid #{map-get($blue-grey, 'lighten-4')};
+  background-color: #{map-get(variables.$blue-grey, 'lighten-5')};
+  border-top: 1px solid #{map-get(variables.$blue-grey, 'lighten-4')};
 }
 </style>

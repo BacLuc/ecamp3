@@ -1,41 +1,45 @@
 <template>
-  <div class="px-md-4 flex-grow-1 d-flex flex-column justify-content-between">
+  <div>
     <e-select
       v-model="options.periods"
       :items="periods"
-      :label="$tc('print.config.periods')"
+      :label="$tc('components.print.config.storyConfig.periods')"
       multiple
       :filled="false"
-      :readonly="periods.length === 1"
       @input="$emit('input')"
-    />
-    <div class="flex-grow-1"></div>
-    <DialogScheduleEntryFilter
-      :camp="camp"
-      :filter-fn="filterFn()"
-      :filter="options.filter"
-      hide-period-filter
-      @input="updateFilter"
     />
   </div>
 </template>
 
 <script>
-import SummaryConfig, {
-  SUMMARY_CONTENTTYPES,
-} from '@/components/print/config/SummaryConfig.vue'
-import DialogScheduleEntryFilter from './DialogScheduleEntryFilter.vue'
-import { repairPrintFilterConfig } from '../repairPrintConfig.js'
-
 export default {
   name: 'StoryConfig',
-  components: { DialogScheduleEntryFilter },
-  extends: SummaryConfig,
-  defaultOptions(camp) {
+  props: {
+    value: { type: Object, required: true },
+    camp: { type: Object, required: true },
+  },
+  data() {
+    return {}
+  },
+  computed: {
+    options: {
+      get() {
+        return this.value
+      },
+      set(v) {
+        this.$emit('input', v)
+      },
+    },
+    periods() {
+      return this.camp.periods().items.map((p) => ({
+        value: p._meta.self,
+        text: p.description,
+      }))
+    },
+  },
+  defaultOptions() {
     return {
-      periods:
-        camp.periods().items.length === 1 ? [camp.periods().items[0]._meta.self] : [],
-      contentType: 'Storycontext',
+      periods: [],
     }
   },
   design: {
@@ -43,20 +47,12 @@ export default {
   },
   repairConfig(config, camp) {
     if (!config.options) config.options = {}
-    if (!config.options.contentType) config.options.contentType = 'Storycontext'
-    if (!SUMMARY_CONTENTTYPES.includes(config.options.contentType)) {
-      config.options.contentType = 'Storycontext'
-    }
+    if (!config.options.periods) config.options.periods = []
     const knownPeriods = camp.periods().items.map((p) => p._meta.self)
-    if (knownPeriods.length === 1) {
-      config.options.periods = [camp.periods().items[0]._meta.self]
-    } else {
-      if (!config.options.periods) config.options.periods = []
-      config.options.periods = config.options.periods.filter((period) => {
-        return knownPeriods.includes(period)
-      })
-    }
-    return repairPrintFilterConfig(config, camp, knownPeriods)
+    config.options.periods = config.options.periods.filter((period) => {
+      return knownPeriods.includes(period)
+    })
+    return config
   },
 }
 </script>

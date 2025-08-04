@@ -1,15 +1,12 @@
 <template>
   <v-expansion-panel ref="panel">
-    <v-expansion-panel-header>
+    <v-expansion-panel-title>
       <h3>{{ dateLong(day.start) }}</h3>
-    </v-expansion-panel-header>
-    <v-expansion-panel-content>
+    </v-expansion-panel-title>
+    <v-expansion-panel-text>
       <template v-if="entriesWithStory.length">
         <template v-for="{ scheduleEntry, storyChapters } in entriesWithStory">
-          <div
-            v-for="chapter in storyChapters"
-            :key="scheduleEntry._meta.self + chapter._meta.self"
-          >
+          <div v-for="chapter in storyChapters" :key="chapter._meta.self">
             <h4 class="mt-3 mt-sm-5">
               <span class="d-inline-flex align-center">
                 <span v-if="scheduleEntry.number" class="tabular-nums">{{
@@ -24,10 +21,9 @@
               </span>
               <router-link
                 :to="{
-                  name: 'camp/activity',
+                  name: 'activity',
                   params: {
                     campId: day.period().camp().id,
-                    activityId: scheduleEntry.activity().id,
                     scheduleEntryId: scheduleEntry.id,
                   },
                 }"
@@ -59,7 +55,7 @@
       <p v-else>
         {{ $tc('components.story.storyDay.noStory') }}
       </p>
-    </v-expansion-panel-content>
+    </v-expansion-panel-text>
   </v-expansion-panel>
 </template>
 <script>

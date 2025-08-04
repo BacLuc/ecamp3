@@ -1,5 +1,4 @@
-import Vue from 'vue'
-import VueI18n from 'vue-i18n'
+import { createI18n } from 'vue-i18n'
 import deepmerge from 'deepmerge'
 
 import itCommon from '@/common/locales/it.json'
@@ -24,17 +23,15 @@ import deCHScout from '@/locales/de-CH-scout.json'
 import rm from '@/locales/rm.json'
 import rmCHScout from '@/locales/rm-CH-scout.json'
 
-import validationIt from 'vee-validate/dist/locale/it.json'
-import validationFr from 'vee-validate/dist/locale/fr.json'
-import validationEn from 'vee-validate/dist/locale/en.json'
-import validationDe from 'vee-validate/dist/locale/de.json'
+// import validationIt from 'vee-validate/dist/locale/it.json'
+// import validationFr from 'vee-validate/dist/locale/fr.json'
+// import validationEn from 'vee-validate/dist/locale/en.json'
+// import validationDe from 'vee-validate/dist/locale/de.json'
 
 import vuetifyEn from 'vuetify/lib/locale/en'
 import vuetifyDe from 'vuetify/lib/locale/de'
 import vuetifyFr from 'vuetify/lib/locale/fr'
 import vuetifyIt from 'vuetify/lib/locale/it'
-
-Vue.use(VueI18n)
 
 const fallbackLocales = {
   rm: ['de'],
@@ -45,30 +42,6 @@ const i18n = new VueI18n({
   locale: 'de',
   fallbackLocale: fallbackLocales,
   messages: deepmerge.all([
-    // vee-validate locales
-    {
-      it: {
-        global: {
-          validation: validationIt.messages,
-        },
-      },
-      fr: {
-        global: {
-          validation: validationFr.messages,
-        },
-      },
-      en: {
-        global: {
-          validation: validationEn.messages,
-        },
-      },
-      de: {
-        global: {
-          validation: validationDe.messages,
-        },
-      },
-    },
-
     // vuetify locales
     {
       en: { $vuetify: vuetifyEn },
@@ -106,6 +79,7 @@ const i18n = new VueI18n({
     },
   ]),
   silentTranslationWarn: true,
+  silentFallbackWarn: true,
 })
 
 Object.defineProperty(i18n, 'browserPreferredLocale', {

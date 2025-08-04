@@ -6,11 +6,11 @@ Displays the content wrapped inside a card.
   <v-card
     :max-width="maxWidth"
     width="100%"
-    :tile="$vuetify.breakpoint.xsOnly"
+    :rounded="$vuetify.display.xsOnly && '0'"
     class="mx-auto"
   >
     <v-toolbar
-      v-if="back || !$vuetify.breakpoint.mdAndUp || toolbar"
+      v-if="back || !$vuetify.display.mdAndUp || toolbar"
       class="ec-content-card__toolbar"
       :class="{ 'ec-content-card__toolbar--border': !noBorder }"
       elevation="0"
@@ -18,7 +18,7 @@ Displays the content wrapped inside a card.
     >
       <v-toolbar-items>
         <button-back
-          v-if="back || (!$vuetify.breakpoint.mdAndUp && !!$route.query.isDetail)"
+          v-if="back || (!$vuetify.display.mdAndUp && !!$route.query.isDetail)"
           class="ml-n4"
         />
       </v-toolbar-items>
@@ -62,16 +62,16 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@use 'src/scss/variables';
+
 .ec-content-card__toolbar {
-  @media #{map-get($display-breakpoints, 'xs-only')} {
+  @media #{map-get(variables.$display-breakpoints, 'xs')} {
     position: sticky;
     top: 0;
     z-index: 5;
   }
 }
-</style>
 
-<style>
 .ec-content-card__toolbar--border {
   border-bottom: 1px solid rgba(0, 0, 0, 0.12) !important;
 }

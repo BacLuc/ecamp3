@@ -1,6 +1,7 @@
 <template>
   <e-select
     v-model="selectedCampCollaborations"
+    v-bind="$attrs"
     :items="availableCampCollaborations"
     :loading="isSaving || isLoading ? 'secondary' : false"
     path="responsible"
@@ -12,11 +13,10 @@
     chips
     deletable-chips
     small-chips
-    v-bind="$attrs"
     @input="onInput"
   >
     <template #selection="{ item }">
-      <v-chip :key="item.value" small class="mx-0">
+      <v-chip :key="item.value" class="mx-0" size="small">
         <UserAvatar
           :camp-collaboration="item.campCollaboration"
           left

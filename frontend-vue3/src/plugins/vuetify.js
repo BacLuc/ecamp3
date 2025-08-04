@@ -1,7 +1,6 @@
 // You still need to register Vuetify itself
 // src/plugins/vuetify.js
 
-import Vuetify from 'vuetify/lib'
 import PbsLogo from './icons/PbsLogo.vue'
 import GoogleLogo from './icons/GoogleLogo.vue'
 import eCampLogo from './icons/eCampLogo.vue'
@@ -15,18 +14,35 @@ import BigScreen from './icons/BigScreen.vue'
 import ResponsiveLayout from './icons/ResponsiveLayout.vue'
 import ColumnLayout from './icons/ColumnLayout.vue'
 import i18n from '@/plugins/i18n'
-import colors from 'vuetify/lib/util/colors'
+import * as colors from 'vuetify/util/colors'
+
+import { VCalendar } from 'vuetify/labs/VCalendar'
+
+// Styles
+import '@mdi/font/css/materialdesignicons.css'
+import 'vuetify/styles'
+import { createVuetify } from 'vuetify'
 
 class VuetifyLoaderPlugin {
-  install(Vue) {
-    Vue.use(Vuetify)
-
+  install(app) {
     const opts = {
       lang: {
         t: (key, ...params) => i18n.tc(key, 0, params),
       },
       icons: {
-        values: {
+        aliases: {
+          pbs: 'mdi-close-circle',
+          google: 'mdi-close-circle',
+          ecamp: 'mdi-close-circle',
+          cevi: 'mdi-close-circle',
+          jubla: 'mdi-close-circle',
+          tentDay: 'mdi-close-circle',
+          paperSize: 'mdi-close-circle',
+          bigScreen: 'mdi-close-circle',
+          columnLayout: 'mdi-close-circle',
+          responsiveLayout: 'mdi-close-circle',
+        },
+        sets: {
           pbs: { component: PbsLogo },
           google: { component: GoogleLogo },
           ecamp: { component: eCampLogo },
@@ -48,9 +64,14 @@ class VuetifyLoaderPlugin {
           },
         },
       },
+      components: {
+        VCalendar,
+      },
     }
 
-    vuetify = new Vuetify(opts)
+    vuetify = createVuetify(opts)
+
+    app.use(vuetify)
   }
 }
 

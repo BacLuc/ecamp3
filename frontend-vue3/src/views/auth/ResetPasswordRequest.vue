@@ -1,6 +1,6 @@
 <template>
   <auth-container>
-    <h1 class="display-1 text-center mb-4">
+    <h1 class="text-h4 text-center mb-4">
       {{ $tc('views.auth.resetPasswordRequest.title') }}
     </h1>
 
@@ -18,11 +18,11 @@
     >
       <e-text-field
         v-model="email"
-        :label="$tc('entity.profile.fields.email')"
+        :dense="$vuetify.display.xsOnly"
         name="email"
         vee-rules="email"
         append-icon="mdi-at"
-        :dense="$vuetify.breakpoint.xsOnly"
+        :label="$tc('entity.user.fields.email')"
         type="email"
         autocomplete="username"
         autofocus
@@ -32,12 +32,12 @@
         block
         :color="email ? 'blue darken-2' : 'blue lightne-4'"
         :disabled="!email"
-        outlined
-        :x-large="$vuetify.breakpoint.smAndUp"
+        :size="$vuetify.display.smAndUp && 'x-large'"
+        variant="outlined"
         class="my-4"
       >
         <v-progress-circular v-if="status == 'sending'" indeterminate size="24" />
-        <v-icon v-else>$vuetify.icons.ecamp</v-icon>
+        <v-icon v-else>$ecamp</v-icon>
         <v-spacer />
         <span>{{ $tc('views.auth.resetPasswordRequest.send') }}</span>
         <v-spacer />
@@ -64,12 +64,6 @@ export default {
       email: '',
       status: 'mounted',
       recaptcha: null,
-    }
-  },
-
-  head() {
-    return {
-      title: this.$tc('views.auth.resetPasswordRequest.title'),
     }
   },
 

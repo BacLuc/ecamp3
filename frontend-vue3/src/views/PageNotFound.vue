@@ -3,23 +3,23 @@
     <div class="hill">
       <div class="d-flex absolute w-100 top-0 localnav">
         <ButtonBack
-          v-if="!$vuetify.breakpoint.mdAndUp && hasHistory"
+          v-if="!$vuetify.display.mdAndUp && hasHistory"
           visible-label
           text
           dark
         />
-        <UserMeta v-if="!$vuetify.breakpoint.mdAndUp" avatar-only />
+        <UserMeta v-if="!$vuetify.display.mdAndUp" avatar-only />
       </div>
       <ShootingStar class="shootingstar" />
       <TentNight class="tent" />
       <div class="relative">
-        <p class="white--text text-center px-3 d-flex justify-center mb-n8 relative">
-          <i18n path="views.pageNotFound.detail">
+        <p class="text-white text-center px-3 d-flex justify-center mb-n8 relative">
+          <i18n-t keypath="views.pageNotFound.detail">
             <template #br><br /></template>
-          </i18n>
+          </i18n-t>
           <br />
-          <v-btn text dark :to="{ name: 'home' }" class="absolute bottom-n100">
-            <v-icon left>mdi-tent</v-icon>
+          <v-btn :to="{ name: 'home' }" class="absolute bottom-n100" dark variant="text">
+            <v-icon start>mdi-tent</v-icon>
             {{ $tc('views.pageNotFound.backToHome') }}
           </v-btn>
         </p>
@@ -40,11 +40,6 @@ export default {
   data: () => {
     return {
       hasHistory: false,
-    }
-  },
-  head() {
-    return {
-      title: '404',
     }
   },
   mounted() {

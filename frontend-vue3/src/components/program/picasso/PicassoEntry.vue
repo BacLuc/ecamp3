@@ -26,11 +26,7 @@
       <v-icon x-small color="white">mdi-content-copy</v-icon>
     </v-btn>
 
-    <ClipboardInfoDialog
-      v-if="isEditable"
-      ref="copyInfoDialog"
-      translation-context-i18n-key="components.program.picasso.picassoEntry.clipboardInfoDialog"
-    />
+    <CopyActivityInfoDialog v-if="isEditable" ref="copyInfoDialog" />
 
     <!-- edit button & dialog -->
     <DialogActivityEdit
@@ -50,11 +46,6 @@
           @mouseup.stop=""
         >
           <v-icon x-small color="white">mdi-pencil</v-icon>
-        </v-btn>
-      </template>
-      <template #moreActions>
-        <v-btn color="primary" :to="scheduleEntryRoute">
-          {{ $tc('global.button.open') }}
         </v-btn>
       </template>
     </DialogActivityEdit>
@@ -137,21 +128,22 @@
   </router-link>
 </template>
 <script>
-import { computed, ref, toRefs } from 'vue'
-import DialogActivityEdit from '@/components/activity/dialog/DialogActivityEdit.vue'
+import { ref, toRefs, computed } from 'vue'
+import DialogActivityEdit from '../DialogActivityEdit.vue'
 import campCollaborationDisplayName from '@/common/helpers/campCollaborationDisplayName.js'
 import { timestampToUtcString } from './dateHelperVCalendar.js'
 import { dateHelperUTCFormatted } from '@/mixins/dateHelperUTCFormatted.js'
-import router, { scheduleEntryRoute } from '@/router.js'
+import { scheduleEntryRoute } from '@/router.js'
+import router from '@/router.js'
 import { contrastColor } from '@/common/helpers/colors.js'
 import { useClickDetector } from './useClickDetector.js'
 import AvatarRow from '@/components/generic/AvatarRow.vue'
 import { ONE_MINUTE_IN_MILLISECONDS } from '@/helpers/vCalendarDragAndDrop.js'
-import ClipboardInfoDialog from '@/components/generic/ClipboardInfoDialog.vue'
+import CopyActivityInfoDialog from '@/components/activity/CopyActivityInfoDialog.vue'
 
 export default {
   name: 'PicassoEntry',
-  components: { AvatarRow, DialogActivityEdit, ClipboardInfoDialog },
+  components: { AvatarRow, DialogActivityEdit, CopyActivityInfoDialog },
   mixins: [dateHelperUTCFormatted],
   props: {
     editable: { type: Boolean, required: true },
@@ -273,7 +265,7 @@ export default {
     this.scrollHeight = this.$el.scrollHeight
     window.addEventListener('resize', this.onResize)
   },
-  destroyed() {
+  unmounted() {
     window.removeEventListener('resize', this.onResize)
   },
   methods: {
@@ -311,15 +303,17 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@use 'src/scss/variables';
+
 .e-picasso-entry {
   user-select: none;
   display: block;
   height: 100%;
   padding: 1px;
-  @media #{map-get($display-breakpoints, 'sm-and-up')} {
+  @media #{map-get(variables.$display-breakpoints, 'sm-and-up')} {
     padding: 1px 2px;
   }
-  @media #{map-get($display-breakpoints, 'md-and-up')} {
+  @media #{map-get(variables.$display-breakpoints, 'md-and-up')} {
     padding: 2px 3px;
     line-height: normal;
   }
@@ -337,7 +331,7 @@ export default {
   opacity: 0.3;
 }
 
-@media #{map-get($display-breakpoints, 'sm-and-up')} {
+@media #{map-get(variables.$display-breakpoints, 'sm-and-up')} {
   .e-picasso-entry {
     font-size: 12px;
   }
@@ -496,7 +490,7 @@ export default {
   font-size: 11px;
 }
 
-@media #{map-get($display-breakpoints, 'sm-and-up')} {
+@media #{map-get(variables.$display-breakpoints, 'sm-and-up')} {
   .e-picasso-entry:hover .e-picasso-entry__drag-bottom::after {
     display: block; // resize handle not visible on mobile
   }

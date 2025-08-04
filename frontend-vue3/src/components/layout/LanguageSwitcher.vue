@@ -1,20 +1,19 @@
 <template>
-  <v-menu offset-y>
-    <template #activator="{ on, attrs }">
+  <v-menu location="top right">
+    <template #activator="{ props }">
       <v-btn
         id="languageSwitcher"
-        text
+        size="small"
         class="my-n2"
-        small
+        v-bind="props"
         :aria-label="$tc('global.changeLanguage')"
-        v-bind="attrs"
-        v-on="on"
+        variant="text"
       >
-        <v-icon left small>mdi-translate</v-icon>
+        <v-icon size="small" start>mdi-translate</v-icon>
         {{ $tc('global.language') }}
       </v-btn>
     </template>
-    <v-list dense tag="ul" aria-labelledby="languageSwitcher">
+    <v-list aria-labelledby="languageSwitcher" density="compact" tag="ul">
       <v-list-item
         v-for="item in $root.$i18n.availableLocales"
         :key="item"

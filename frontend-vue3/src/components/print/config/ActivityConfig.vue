@@ -1,5 +1,5 @@
 <template>
-  <div class="px-md-4">
+  <div>
     <e-select
       v-if="!loading"
       v-model="optionsScheduleEntry"

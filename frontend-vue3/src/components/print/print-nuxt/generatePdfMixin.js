@@ -1,6 +1,6 @@
 import { saveAs } from 'file-saver'
 import slugify from 'slugify'
-import { cloneDeep } from 'lodash-es'
+import { cloneDeep } from 'lodash'
 import axios from 'axios'
 import { getEnv } from '@/environment.js'
 import * as Sentry from '@sentry/browser'
