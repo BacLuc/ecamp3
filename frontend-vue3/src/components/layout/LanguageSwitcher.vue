@@ -6,11 +6,11 @@
         size="small"
         class="my-n2"
         v-bind="props"
-        :aria-label="$tc('global.changeLanguage')"
+        :aria-label="$t('global.changeLanguage')"
         variant="text"
       >
         <v-icon size="small" start>mdi-translate</v-icon>
-        {{ $tc('global.language') }}
+        {{ $t('global.language') }}
       </v-btn>
     </template>
     <v-list aria-labelledby="languageSwitcher" density="compact" tag="ul">
@@ -21,7 +21,7 @@
         :lang="item"
         @click="changeLang(item)"
       >
-        <v-list-item-title>{{ $tc('global.language', 1, item) }}</v-list-item-title>
+        <v-list-item-title>{{ $t('global.language', 1, item) }}</v-list-item-title>
       </v-list-item>
     </v-list>
   </v-menu>

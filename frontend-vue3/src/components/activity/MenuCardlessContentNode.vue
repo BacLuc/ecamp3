@@ -61,11 +61,11 @@ export default {
     },
     deleteCaption() {
       return this.deletingDisabled
-        ? this.$tc('components.activity.menuCardlessContentNode.deletingDisabled')
-        : this.$tc('global.button.delete')
+        ? this.$t('components.activity.menuCardlessContentNode.deletingDisabled')
+        : this.$t('global.button.delete')
     },
     contentNodeName() {
-      return this.$tc(`contentNode.${camelCase(this.contentNode.contentTypeName)}.name`)
+      return this.$t(`contentNode.${camelCase(this.contentNode.contentTypeName)}.name`)
     },
   },
   methods: {

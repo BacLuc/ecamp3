@@ -11,7 +11,7 @@
     <v-toolbar-items>
       <v-btn :href="newsLink" target="_blank" text>
         <v-icon left>mdi-script-text-outline</v-icon>
-        {{ $tc('global.navigation.news') }}
+        {{ $t('global.navigation.news') }}
       </v-btn>
     </v-toolbar-items>
     <v-btn
@@ -26,7 +26,7 @@
       class="help-button--desktop"
     >
       <v-icon>mdi-help</v-icon>
-      <span class="d-sr-only">{{ $tc('global.navigation.help') }}</span>
+      <span class="d-sr-only">{{ $t('global.navigation.help') }}</span>
     </v-btn>
   </v-app-bar>
   <v-btn
@@ -41,7 +41,7 @@
     class="help-button--mobile"
   >
     <v-icon>mdi-help</v-icon>
-    <span class="d-sr-only">{{ $tc('global.navigation.help') }}</span>
+    <span class="d-sr-only">{{ $t('global.navigation.help') }}</span>
   </v-btn>
 </template>
 

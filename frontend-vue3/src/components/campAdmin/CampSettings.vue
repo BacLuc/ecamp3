@@ -4,7 +4,7 @@ Displays details on a single camp and allows to edit them.
 
 <template>
   <content-group
-    :title="$tc('components.campAdmin.campSettings.title')"
+    :title="$t('components.campAdmin.campSettings.title')"
     icon="mdi-information"
   >
     <v-skeleton-loader v-if="camp._meta.loading" type="article" />

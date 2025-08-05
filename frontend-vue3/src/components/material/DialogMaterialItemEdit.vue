@@ -4,7 +4,7 @@
     :loading="loading"
     :error="error"
     icon="mdi-package-variant"
-    :title="$tc('components.material.dialogMaterialItemEdit.title')"
+    :title="$t('components.material.dialogMaterialItemEdit.title')"
     :submit-action="update"
     submit-color="success"
     :cancel-action="close"

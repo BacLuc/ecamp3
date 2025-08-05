@@ -8,7 +8,7 @@
   >
     <v-icon :left="!hideLabel" size="150%">{{ icon }}</v-icon>
     <span :class="{ 'd-sr-only': hideLabel }">
-      <slot>{{ $tc('global.button.add') }}</slot>
+      <slot>{{ $t('global.button.add') }}</slot>
     </span>
   </v-btn>
 </template>

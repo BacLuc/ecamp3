@@ -18,17 +18,17 @@
         />
         <template v-else-if="variant === 'default' && invitationFound !== false">
           <span class="text-subtitle-2 font-weight-bold">{{
-            $tc('views.camp.invitation.title')
+            $t('views.camp.invitation.title')
           }}</span>
           <span v-if="!invite?._meta.loading">{{ invite?.campTitle }}</span>
         </template>
         <span v-else-if="variant === 'rejected'">{{
-          $tc('views.camp.invitation.successfullyRejected')
+          $t('views.camp.invitation.successfullyRejected')
         }}</span>
         <span v-else-if="variant === 'error'">{{
-          $tc('views.camp.invitation.error')
+          $t('views.camp.invitation.error')
         }}</span>
-        <span v-else>{{ $tc('views.camp.invitation.notFound') }}</span>
+        <span v-else>{{ $t('views.camp.invitation.notFound') }}</span>
       </h1>
       <div
         v-if="variant === 'default' && invitationFound === true"
@@ -44,10 +44,10 @@
             border="start"
             type="info"
           >
-            {{ $tc('views.camp.invitation.userAlreadyInCamp') }}
+            {{ $t('views.camp.invitation.userAlreadyInCamp') }}
             <div class="mt-2 d-flex flex-wrap gap-2">
               <v-btn :to="campLink" color="primary" elevation="0" size="small">
-                {{ $tc('views.camp.invitation.openCamp') }}
+                {{ $t('views.camp.invitation.openCamp') }}
               </v-btn>
               <v-btn
                 color="primary"
@@ -56,25 +56,25 @@
                 class="v-btn--has-bg"
                 @click="useAnotherAccount"
               >
-                {{ $tc('views.camp.invitation.useOtherAuth') }}
+                {{ $t('views.camp.invitation.useOtherAuth') }}
               </v-btn>
             </div>
           </v-alert>
           <div v-else class="d-grid gap-2 grid-cols-fill">
             <v-btn color="primary" size="x-large" @click="acceptInvitation">
-              {{ $tc('views.camp.invitation.acceptCurrentAuth') }}<br />
+              {{ $t('views.camp.invitation.acceptCurrentAuth') }}<br />
             </v-btn>
             <v-btn class="mt-2" dark variant="text" @click="useAnotherAccount">
-              {{ $tc('views.camp.invitation.useOtherAuth') }}
+              {{ $t('views.camp.invitation.useOtherAuth') }}
             </v-btn>
           </div>
         </div>
         <div v-else class="d-grid gap-2 grid-cols-2">
           <v-btn :to="loginLink" color="primary" size="x-large">
-            {{ $tc('global.button.login') }}
+            {{ $t('global.button.login') }}
           </v-btn>
           <v-btn :to="{ name: 'register' }" color="secondary" size="x-large">
-            {{ $tc('views.camp.invitation.register') }}
+            {{ $t('views.camp.invitation.register') }}
           </v-btn>
         </div>
         <v-btn
@@ -83,13 +83,13 @@
           variant="text"
           @click="rejectInvitation"
         >
-          {{ $tc('views.camp.invitation.reject') }}
+          {{ $t('views.camp.invitation.reject') }}
         </v-btn>
       </div>
       <div class="justify-center d-flex col gap-2">
         <v-btn v-if="authUser" :to="{ name: 'home' }" dark variant="text">
           <v-icon start>mdi-tent</v-icon>
-          {{ $tc('views.camp.invitation.backToHome') }}
+          {{ $t('views.camp.invitation.backToHome') }}
         </v-btn>
       </div>
     </div>

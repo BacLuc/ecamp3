@@ -33,7 +33,7 @@ export const generatePdfMixin = {
       })
 
       if (error) {
-        this.$toast.error(this.$tc('components.print.printClient.generatePdfMixin.error'))
+        this.$toast.error(this.$t('components.print.printClient.generatePdfMixin.error'))
         Sentry.captureException(new Error(error))
         this.loading = false
         return

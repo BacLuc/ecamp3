@@ -4,7 +4,7 @@
     :loading="loading"
     :error="error"
     icon="mdi-progress-check"
-    :title="$tc('components.campAdmin.dialogActivityProgressLabelEdit.title')"
+    :title="$t('components.campAdmin.dialogActivityProgressLabelEdit.title')"
     :submit-action="update"
     submit-color="success"
     :cancel-action="close"

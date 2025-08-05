@@ -2,7 +2,7 @@
   <div>
     <e-select
       v-model="options.periods"
-      :label="$tc('components.print.config.picassoConfig.periods')"
+      :label="$t('components.print.config.picassoConfig.periods')"
       :items="periods"
       multiple
       :filled="false"
@@ -10,7 +10,7 @@
     />
     <e-select
       v-model="options.orientation"
-      :label="$tc('components.print.config.picassoConfig.orientation')"
+      :label="$t('components.print.config.picassoConfig.orientation')"
       :items="orientations"
       :filled="false"
       @input="$emit('input')"

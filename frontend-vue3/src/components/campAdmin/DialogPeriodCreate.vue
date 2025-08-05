@@ -4,9 +4,9 @@
     :loading="loading"
     :error="error"
     icon="mdi-calendar-plus"
-    :title="$tc('components.campAdmin.dialogPeriodCreate.title')"
+    :title="$t('components.campAdmin.dialogPeriodCreate.title')"
     :submit-action="createPeriod"
-    :submit-label="$tc('global.button.create')"
+    :submit-label="$t('global.button.create')"
     submit-color="success"
     :cancel-action="close"
   >

@@ -3,11 +3,11 @@ Basic layout for print preview
 -->
 
 <template>
-  <content-card :title="$tc('views.camp.admin.print.title')" toolbar>
+  <content-card :title="$t('views.camp.admin.print.title')" toolbar>
     <template #title-actions>
       <v-btn text class="mr-n2" @click="$refs.printConfigurator?.resetConfig()">
-        <v-icon v-if="$vuetify.breakpoint.smAndUp" left>mdi-file-restore-outline</v-icon>
-        {{ $tc('global.button.reset') }}
+        <v-icon v-if="$vuetify.display.smAndUp" left>mdi-file-restore-outline</v-icon>
+        {{ $t('global.button.reset') }}
       </v-btn>
     </template>
     <print-configurator ref="printConfigurator" :camp="camp" />
@@ -32,7 +32,7 @@ export default {
   },
   head() {
     return {
-      title: this.$tc('views.camp.admin.print.title'),
+      title: this.$t('views.camp.admin.print.title'),
     }
   },
 }

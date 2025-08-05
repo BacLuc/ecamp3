@@ -5,7 +5,7 @@
         <v-icon>mdi-playlist-plus</v-icon>
       </v-list-item-icon>
       <v-list-item-title>
-        {{ $tc('components.activity.content.columnLayout.columnOperations.addColumn') }}
+        {{ $t('components.activity.content.columnLayout.columnOperations.addColumn') }}
       </v-list-item-title>
     </v-list-item>
     <v-list-item :disabled="!removingColumnEnabled" @click="removeColumn">
@@ -14,7 +14,7 @@
       </v-list-item-icon>
       <v-list-item-title>
         {{
-          $tc('components.activity.content.columnLayout.columnOperations.removeColumn')
+          $t('components.activity.content.columnLayout.columnOperations.removeColumn')
         }}
       </v-list-item-title>
     </v-list-item>

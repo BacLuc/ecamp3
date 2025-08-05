@@ -29,7 +29,7 @@
           </template>
         </SidebarListItem>
         <SidebarListItem
-          :title="$tc('views.camp.navigation.mobile.navSidebar.itemCamps', 2)"
+          :title="$t('views.camp.navigation.mobile.navSidebar.itemCamps', 2)"
           icon="mdi-format-list-bulleted-triangle"
           :to="{ name: 'camps', query: { isDetail: true } }"
         />
@@ -48,31 +48,31 @@
         <v-divider inset i />
         <SidebarListItem
           :to="adminRoute(camp, 'info')"
-          :title="$tc('views.camp.navigation.mobile.navSidebar.itemInfos')"
+          :title="$t('views.camp.navigation.mobile.navSidebar.itemInfos')"
           icon="mdi-cogs"
         />
         <v-divider inset />
         <SidebarListItem
           :to="adminRoute(camp, 'activity')"
-          :title="$tc('views.camp.navigation.mobile.navSidebar.itemActivity')"
-          :subtitle="$tc('views.camp.navigation.mobile.navSidebar.itemActivitySubtitle')"
+          :title="$t('views.camp.navigation.mobile.navSidebar.itemActivity')"
+          :subtitle="$t('views.camp.navigation.mobile.navSidebar.itemActivitySubtitle')"
           icon="mdi-view-dashboard"
         />
         <v-divider inset />
         <SidebarListItem
-          :title="$tc('views.camp.navigation.mobile.navSidebar.itemCollaborators')"
+          :title="$t('views.camp.navigation.mobile.navSidebar.itemCollaborators')"
           icon="mdi-account-group"
           :to="adminRoute(camp, 'collaborators')"
         />
         <v-divider inset />
         <SidebarListItem
           :to="adminRoute(camp, 'material')"
-          :title="$tc('views.camp.navigation.mobile.navSidebar.itemMaterialLists')"
+          :title="$t('views.camp.navigation.mobile.navSidebar.itemMaterialLists')"
           icon="mdi-package-variant"
         />
         <v-divider inset />
         <SidebarListItem
-          :title="$tc('views.camp.navigation.mobile.navSidebar.itemPrinting')"
+          :title="$t('views.camp.navigation.mobile.navSidebar.itemPrinting')"
           icon="mdi-file"
           :to="adminRoute(camp, 'print')"
         />
@@ -82,14 +82,14 @@
 
       <v-list>
         <SidebarListItem
-          :title="$tc('global.navigation.help')"
+          :title="$t('global.navigation.help')"
           icon="mdi-help-circle-outline"
           :href="helpLink"
           target="_blank"
           hide-chevron
         />
         <SidebarListItem
-          :title="$tc('global.navigation.news')"
+          :title="$t('global.navigation.news')"
           icon="mdi-script-text-outline"
           :href="newsLink"
           target="_blank"
@@ -106,7 +106,7 @@
           class="ec-close-drawer pb-safe"
           @click="$emit('input', false)"
         >
-          {{ $tc('views.camp.navigation.mobile.navSidebar.itemClose') }}
+          {{ $t('views.camp.navigation.mobile.navSidebar.itemClose') }}
           <v-icon end>mdi-close</v-icon>
         </v-btn>
       </div>

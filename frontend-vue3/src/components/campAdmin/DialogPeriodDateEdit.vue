@@ -13,7 +13,7 @@
       <slot name="activator" v-bind="scope" />
     </template>
     <e-form v-if="mode == 'move'" class="e-form-container" name="period">
-      <p>{{ $tc('components.campAdmin.dialogPeriodDateEdit.movePeriod') }}</p>
+      <p>{{ $t('components.campAdmin.dialogPeriodDateEdit.movePeriod') }}</p>
       <e-date-picker
         v-model="entityData.start"
         path="start"
@@ -30,7 +30,7 @@
       />
     </e-form>
     <e-form v-if="mode == 'changeStart'" class="e-form-container" name="period">
-      <p>{{ $tc('components.campAdmin.dialogPeriodDateEdit.periodChangeStart') }}</p>
+      <p>{{ $t('components.campAdmin.dialogPeriodDateEdit.periodChangeStart') }}</p>
       <e-date-picker
         v-model="entityData.start"
         path="start"
@@ -47,7 +47,7 @@
       />
     </e-form>
     <e-form v-if="mode == 'changeEnd'" class="e-form-container" name="period">
-      <p>{{ $tc('components.campAdmin.dialogPeriodDateEdit.periodChangeEnd') }}</p>
+      <p>{{ $t('components.campAdmin.dialogPeriodDateEdit.periodChangeEnd') }}</p>
       <e-text-field
         :value="startString"
         path="start"
@@ -65,7 +65,7 @@
     </e-form>
     <e-text-field
       :value="periodDurationInDays"
-      :label="$tc('components.campAdmin.dialogPeriodDateEdit.periodDuration')"
+      :label="$t('components.campAdmin.dialogPeriodDateEdit.periodDuration')"
       hide-details
       prepend-icon="mdi-calendar-expand-horizontal"
       readonly

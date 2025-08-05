@@ -1,5 +1,5 @@
 <template>
-  <content-card :title="$tc('entity.checklist.name', 2)" toolbar max-width="800">
+  <content-card :title="$t('entity.checklist.name', 2)" toolbar max-width="800">
     <template #title-actions>
       <ChecklistCreate :camp="camp" :checklist-collection="checklistCollection" />
     </template>

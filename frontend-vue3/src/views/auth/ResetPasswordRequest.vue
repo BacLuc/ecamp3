@@ -1,15 +1,15 @@
 <template>
   <auth-container>
     <h1 class="text-h4 text-center mb-4">
-      {{ $tc('views.auth.resetPasswordRequest.title') }}
+      {{ $t('views.auth.resetPasswordRequest.title') }}
     </h1>
 
     <v-alert v-if="status == 'success'" type="success">
-      {{ $tc('views.auth.resetPasswordRequest.successMessage') }}
+      {{ $t('views.auth.resetPasswordRequest.successMessage') }}
     </v-alert>
 
     <v-alert v-if="status == 'error'" type="error">
-      {{ $tc('views.auth.resetPasswordRequest.errorMessage') }}
+      {{ $t('views.auth.resetPasswordRequest.errorMessage') }}
     </v-alert>
 
     <v-form
@@ -22,7 +22,7 @@
         name="email"
         vee-rules="email"
         append-icon="mdi-at"
-        :label="$tc('entity.user.fields.email')"
+        :label="$t('entity.user.fields.email')"
         type="email"
         autocomplete="username"
         autofocus
@@ -39,14 +39,14 @@
         <v-progress-circular v-if="status == 'sending'" indeterminate size="24" />
         <v-icon v-else>$ecamp</v-icon>
         <v-spacer />
-        <span>{{ $tc('views.auth.resetPasswordRequest.send') }}</span>
+        <span>{{ $t('views.auth.resetPasswordRequest.send') }}</span>
         <v-spacer />
         <icon-spacer />
       </v-btn>
     </v-form>
     <p class="mt-8 mb0 text--secondary text-center">
       <router-link :to="{ name: 'login' }">
-        {{ $tc('global.button.login') }}
+        {{ $t('global.button.login') }}
       </router-link>
     </p>
   </auth-container>

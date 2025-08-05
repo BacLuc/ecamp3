@@ -1,6 +1,6 @@
 <template>
   <v-container fluid>
-    <content-card :title="$tc('views.camps.title')" max-width="800" toolbar>
+    <content-card :title="$t('views.camps.title')" max-width="800" toolbar>
       <template #title-actions>
         <UserMeta v-if="!$vuetify.display.mdAndUp" avatar-only btn-classes="mr-n4" />
       </template>
@@ -24,7 +24,7 @@
         <v-list-item>
           <v-list-item-action>
             <button-add :to="{ name: 'camps/create' }" icon="mdi-plus">
-              {{ $tc('views.camps.create') }}
+              {{ $t('views.camps.create') }}
             </button-add>
           </v-list-item-action>
         </v-list-item>
@@ -40,7 +40,7 @@
         <v-expansion-panel v-if="isAdmin() && prototypeCamps.length > 0">
           <v-expansion-panel-title>
             <h3>
-              {{ $tc('views.camps.prototypeCamps') }}
+              {{ $t('views.camps.prototypeCamps') }}
             </h3>
           </v-expansion-panel-title>
           <v-expansion-panel-text>
@@ -62,7 +62,7 @@
         <v-expansion-panel v-if="!loading && pastCamps.length > 0">
           <v-expansion-panel-title>
             <h3>
-              {{ $tc('views.camps.pastCamps') }}
+              {{ $t('views.camps.pastCamps') }}
             </h3>
           </v-expansion-panel-title>
           <v-expansion-panel-text>

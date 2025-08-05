@@ -82,7 +82,7 @@ async function loadUser() {
   try {
     const user = await apiStore.get(parseJWTPayload(getJWTPayloadFromCookie()).user)._meta
       .load
-    store.commit('login', user)
+    // store.commit('login', user)
     return user
   } catch (e) {
     if (e.response && [401, 403, 404].includes(e.response.status)) {

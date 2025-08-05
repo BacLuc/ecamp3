@@ -2,7 +2,7 @@
   <DetailPane
     v-model="dialogOpen"
     max-width="900px"
-    :title="$tc('components.print.config.dialogScheduleEntryFilter.title')"
+    :title="$t('components.print.config.dialogScheduleEntryFilter.title')"
     icon="mdi-filter"
     :cancel-action="close"
     :cancel-visible="false"
@@ -58,7 +58,7 @@ export default {
   computed: {
     activatorLabel() {
       if (this.anyFilter)
-        return this.$tc(
+        return this.$t(
           'components.print.config.dialogScheduleEntryFilter.filterActive',
           1,
           {
@@ -66,7 +66,7 @@ export default {
             total: this.filterFn({}).length,
           }
         )
-      return this.$tc(
+      return this.$t(
         'components.print.config.dialogScheduleEntryFilter.filterActivities',
         1,
         {
@@ -75,7 +75,7 @@ export default {
       )
     },
     resultCountLabel() {
-      return this.$tc(
+      return this.$t(
         'components.print.config.dialogScheduleEntryFilter.resultCount',
         1,
         {

@@ -147,7 +147,7 @@ export default {
       let defaultMessage = e.message
       if (e.response) {
         if (e.response.status === 409 /* Conflict */) {
-          defaultMessage = this.$tc('global.serverError.409')
+          defaultMessage = this.$t('global.serverError.409')
         }
         if (e.response.status === 422 /* Validation Error */) {
           defaultMessage = e

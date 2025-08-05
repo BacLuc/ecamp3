@@ -11,7 +11,7 @@
         <v-tooltip right>
           <template #activator="{ on }">
             <button v-on="on">
-              {{ $tc(roles[collaborator.role].roleTranslation)
+              {{ $t(roles[collaborator.role].roleTranslation)
               }}<span>
                 &middot;
                 <template v-for="icon in roles[collaborator.role].icons" :key="icon"
@@ -21,7 +21,7 @@
               >
             </button>
           </template>
-          {{ $tc(roles[collaborator.role].abilitiesTranslation) }}
+          {{ $t(roles[collaborator.role].abilitiesTranslation) }}
         </v-tooltip>
       </v-list-item-subtitle>
     </v-list-item-content>

@@ -19,14 +19,14 @@
             color="error"
             type="submit"
             class="mr-1"
-            :aria-label="$tc('global.button.tryagain')"
+            :aria-label="$t('global.button.tryagain')"
             v-on="on"
             @click="wrapper.on.save"
           >
             <v-icon>mdi-refresh</v-icon>
           </v-btn>
         </template>
-        <span>{{ $tc('global.button.tryagain') }}</span>
+        <span>{{ $t('global.button.tryagain') }}</span>
       </v-tooltip>
       <v-tooltip class="ml-auto" location="bottom">
         <template #activator="{ on }">
@@ -36,14 +36,14 @@
             size="x-small"
             variant="flat"
             color="grey"
-            :aria-label="$tc('global.button.cancel')"
+            :aria-label="$t('global.button.cancel')"
             v-on="on"
             @click="wrapper.on.reset"
           >
             <v-icon>mdi-close</v-icon>
           </v-btn>
         </template>
-        <span>{{ $tc('global.button.cancel') }}</span>
+        <span>{{ $t('global.button.cancel') }}</span>
       </v-tooltip>
     </template>
 
@@ -58,13 +58,13 @@
             color="success"
             type="submit"
             class="mr-1"
-            :aria-label="$tc('global.button.save')"
+            :aria-label="$t('global.button.save')"
             v-on="on"
           >
             <v-icon>mdi-check</v-icon>
           </v-btn>
         </template>
-        <span>{{ $tc('global.button.save') }}</span>
+        <span>{{ $t('global.button.save') }}</span>
       </v-tooltip>
       <v-tooltip class="ml-auto" location="bottom">
         <template #activator="{ on }">
@@ -74,14 +74,14 @@
             size="x-small"
             variant="flat"
             color="grey"
-            :aria-label="$tc('global.button.cancel')"
+            :aria-label="$t('global.button.cancel')"
             v-on="on"
             @click="wrapper.on.reset"
           >
             <v-icon>mdi-close</v-icon>
           </v-btn>
         </template>
-        <span>{{ $tc('global.button.cancel') }}</span>
+        <span>{{ $t('global.button.cancel') }}</span>
       </v-tooltip>
     </template>
 

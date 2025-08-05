@@ -1,15 +1,15 @@
 <template>
   <auth-container>
     <h1 class="display-1 text-center mb-4">
-      {{ $tc('views.auth.resendActivation.title') }}
+      {{ $t('views.auth.resendActivation.title') }}
     </h1>
 
     <v-alert v-if="status === 'success'" type="success">
-      {{ $tc('views.auth.resendActivation.successMessage') }}
+      {{ $t('views.auth.resendActivation.successMessage') }}
     </v-alert>
 
     <v-alert v-if="status === 'error'" type="error">
-      {{ $tc('views.auth.resendActivation.errorMessage') }}
+      {{ $t('views.auth.resendActivation.errorMessage') }}
     </v-alert>
 
     <v-form
@@ -18,11 +18,11 @@
     >
       <e-text-field
         v-model="email"
-        :label="$tc('entity.profile.fields.email')"
+        :label="$t('entity.profile.fields.email')"
         name="email"
         vee-rules="email"
         append-icon="mdi-at"
-        :dense="$vuetify.breakpoint.xsOnly"
+        :dense="$vuetify.display.xsOnly"
         type="email"
         autocomplete="username"
         autofocus
@@ -33,20 +33,20 @@
         :color="email ? 'blue darken-2' : 'blue lightne-4'"
         :disabled="!email"
         outlined
-        :x-large="$vuetify.breakpoint.smAndUp"
+        :x-large="$vuetify.display.smAndUp"
         class="my-4"
       >
         <v-progress-circular v-if="status === 'sending'" indeterminate size="24" />
         <v-icon v-else>$vuetify.icons.ecamp</v-icon>
         <v-spacer />
-        <span>{{ $tc('views.auth.resendActivation.send') }}</span>
+        <span>{{ $t('views.auth.resendActivation.send') }}</span>
         <v-spacer />
         <icon-spacer />
       </v-btn>
     </v-form>
     <p class="mt-8 mb0 text--secondary text-center">
       <router-link :to="{ name: 'login' }">
-        {{ $tc('global.button.login') }}
+        {{ $t('global.button.login') }}
       </router-link>
     </p>
   </auth-container>

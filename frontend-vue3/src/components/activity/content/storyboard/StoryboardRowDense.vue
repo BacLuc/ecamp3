@@ -6,7 +6,7 @@
         size="small"
         class="drag-and-drop-handle"
         :disabled="isLastSection"
-        :aria-label="$tc('global.button.move')"
+        :aria-label="$t('global.button.move')"
         @keydown.down="$emit('move-down', itemKey)"
         @keydown.up="$emit('move-up', itemKey)"
       >
@@ -15,7 +15,7 @@
     </div>
     <div role="cell" class="e-storyboard-row__time">
       <api-text-field
-        :label="$tc('contentNode.storyboard.entity.section.fields.column1')"
+        :label="$t('contentNode.storyboard.entity.section.fields.column1')"
         :single-line="false"
         :path="`data.sections[${itemKey}].column1`"
         :disabled="layoutMode || disabled"
@@ -23,7 +23,7 @@
     </div>
     <div role="cell" class="e-storyboard-row__responsible">
       <api-text-field
-        :label="$tc('contentNode.storyboard.entity.section.fields.column3')"
+        :label="$t('contentNode.storyboard.entity.section.fields.column3')"
         :single-line="false"
         :path="`data.sections[${itemKey}].column3`"
         :disabled="layoutMode || disabled"
@@ -31,7 +31,7 @@
     </div>
     <div role="cell" class="e-storyboard-row__text">
       <api-richtext
-        :label="$tc('contentNode.storyboard.entity.section.fields.column2Html')"
+        :label="$t('contentNode.storyboard.entity.section.fields.column2Html')"
         :path="`data.sections[${itemKey}].column2Html`"
         rows="4"
         :disabled="layoutMode || disabled"

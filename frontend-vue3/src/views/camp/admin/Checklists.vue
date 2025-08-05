@@ -15,7 +15,7 @@ export default {
   },
   head() {
     return {
-      title: this.$tc('entity.checklist.name', 2),
+      title: this.$t('entity.checklist.name', 2),
     }
   },
   computed: {

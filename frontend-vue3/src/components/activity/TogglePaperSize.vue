@@ -7,8 +7,8 @@
         class="ec-paper-size-toggle d-none d-md-block"
         :aria-label="
           value
-            ? $tc('components.activity.togglePaperSize.switchToFullSize')
-            : $tc('components.activity.togglePaperSize.switchToPaperSize')
+            ? $t('components.activity.togglePaperSize.switchToFullSize')
+            : $t('components.activity.togglePaperSize.switchToPaperSize')
         "
         v-bind="buttonProps"
         @click="$emit('input', !value)"
@@ -20,8 +20,8 @@
     </template>
     {{
       value
-        ? $tc('components.activity.togglePaperSize.switchToFullSize')
-        : $tc('components.activity.togglePaperSize.switchToPaperSize')
+        ? $t('components.activity.togglePaperSize.switchToFullSize')
+        : $t('components.activity.togglePaperSize.switchToPaperSize')
     }}
   </v-tooltip>
 </template>

@@ -15,7 +15,7 @@
         maxWidth: 'min(290px, calc(100vw - 32px))',
         contentClass: 'ec-la-thematic-area',
       }"
-      :placeholder="$tc('components.activity.content.lAThematicArea.placeholder')"
+      :placeholder="$t('components.activity.content.lAThematicArea.placeholder')"
       @input="onInput"
     >
       <template #selection="{ index, parent }">
@@ -37,11 +37,11 @@
               >
                 <v-list-item-content class="py-0">
                   <v-list-item-title>
-                    {{ $tc(`contentNode.laThematicArea.entity.option.${key}.name`) }}
+                    {{ $t(`contentNode.laThematicArea.entity.option.${key}.name`) }}
                   </v-list-item-title>
                   <v-list-item-subtitle>
                     {{
-                      $tc(`contentNode.laThematicArea.entity.option.${key}.description`)
+                      $t(`contentNode.laThematicArea.entity.option.${key}.description`)
                     }}
                   </v-list-item-subtitle>
                 </v-list-item-content>
@@ -102,8 +102,8 @@ export default {
     },
     items() {
       return this.dataOptions.map(([key, option]) => ({
-        text: this.$tc(`contentNode.laThematicArea.entity.option.${key}.name`),
-        description: this.$tc(
+        text: this.$t(`contentNode.laThematicArea.entity.option.${key}.name`),
+        description: this.$t(
           `contentNode.laThematicArea.entity.option.${key}.description`
         ),
         value: key,

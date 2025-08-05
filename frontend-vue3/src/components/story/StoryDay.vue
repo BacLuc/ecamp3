@@ -53,7 +53,7 @@
         </template>
       </template>
       <p v-else>
-        {{ $tc('components.story.storyDay.noStory') }}
+        {{ $t('components.story.storyDay.noStory') }}
       </p>
     </v-expansion-panel-text>
   </v-expansion-panel>

@@ -1,11 +1,11 @@
 <template>
   <v-bottom-navigation grow app background-color="blue-grey darken-4" dark>
     <v-btn :to="campRoute(camp, 'program')">
-      <span>{{ $tc('views.camp.navigation.mobile.navBottombar.program') }}</span>
+      <span>{{ $t('views.camp.navigation.mobile.navBottombar.program') }}</span>
       <v-icon>mdi-view-dashboard</v-icon>
     </v-btn>
     <v-btn :to="campRoute(camp, 'story')">
-      <span>{{ $tc('views.camp.navigation.mobile.navBottombar.story') }}</span>
+      <span>{{ $t('views.camp.navigation.mobile.navBottombar.story') }}</span>
       <v-icon>mdi-book-open-variant</v-icon>
     </v-btn>
     <v-btn :to="campRoute(camp, 'dashboard')">
@@ -13,11 +13,11 @@
       <v-icon large>mdi-tent</v-icon>
     </v-btn>
     <v-btn :to="materialListRoute(camp, '/lists')">
-      <span>{{ $tc('views.camp.navigation.mobile.navBottombar.material') }}</span>
+      <span>{{ $t('views.camp.navigation.mobile.navBottombar.material') }}</span>
       <v-icon>mdi-package-variant</v-icon>
     </v-btn>
     <v-btn @click="$emit('input', true)">
-      <span>{{ $tc('views.camp.navigation.mobile.navBottombar.more') }}</span>
+      <span>{{ $t('views.camp.navigation.mobile.navBottombar.more') }}</span>
       <v-icon>mdi-menu</v-icon>
     </v-btn>
   </v-bottom-navigation>

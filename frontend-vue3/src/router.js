@@ -531,7 +531,7 @@ const router = createRouter({
       redirect: { name: 'camps' },
     },
     {
-      path: '**',
+      path: '/**',
       name: 'PageNotFound',
       components: {
         navigation: NavigationDefault,

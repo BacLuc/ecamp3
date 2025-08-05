@@ -17,11 +17,11 @@
         >
           <v-tab :tab-value="true">
             <v-icon left>mdi-view-compact-outline</v-icon>
-            {{ $tc('components.category.categoryTemplate.layout') }}
+            {{ $t('components.category.categoryTemplate.layout') }}
           </v-tab>
           <v-tab :tab-value="false">
             <v-icon left>mdi-text</v-icon>
-            {{ $tc('components.category.categoryTemplate.contents') }}
+            {{ $t('components.category.categoryTemplate.contents') }}
           </v-tab>
         </v-tabs>
       </div>
@@ -54,7 +54,7 @@
             v-else-if="category.rootContentNode().children().items.length === 0"
             class="pa-2 text-center"
           >
-            {{ $tc('components.category.categoryTemplate.noTemplate') }}
+            {{ $t('components.category.categoryTemplate.noTemplate') }}
           </div>
           <root-node
             v-if="category.rootContentNode().children().items.length !== 0"

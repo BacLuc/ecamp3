@@ -4,12 +4,12 @@
       v-if="user"
       max-width="800"
       :title="
-        $tc('views.profile.profile') + (user._meta.loading ? '' : ': ' + user.displayName)
+        $t('views.profile.profile') + (user._meta.loading ? '' : ': ' + user.displayName)
       "
       toolbar
     >
       <template #title-actions>
-        <UserMeta v-if="!$vuetify.breakpoint.mdAndUp" avatar-only btn-classes="mr-n4" />
+        <UserMeta v-if="!$vuetify.display.mdAndUp" avatar-only btn-classes="mr-n4" />
       </template>
       <v-col>
         <v-skeleton-loader type="text" :loading="profile._meta.loading">
@@ -27,7 +27,7 @@
                 <dialog-change-mail>
                   <template #activator="{ on }">
                     <ButtonEdit text class="v-btn--has-bg" v-on="on">
-                      {{ $tc('views.profile.changeEmail') }}
+                      {{ $t('views.profile.changeEmail') }}
                     </ButtonEdit>
                   </template>
                 </dialog-change-mail>
@@ -59,7 +59,7 @@
             dark
             @click="$auth.logout()"
           >
-            {{ $tc('global.button.logout') }}
+            {{ $t('global.button.logout') }}
           </v-btn>
         </v-skeleton-loader>
       </v-col>
@@ -106,7 +106,7 @@ export default {
     availableLocales() {
       return VueI18n.global.availableLocales.map((l) => ({
         value: l,
-        text: this.$tc('global.language', 1, l),
+        text: this.$t('global.language', 1, l),
       }))
     },
   },

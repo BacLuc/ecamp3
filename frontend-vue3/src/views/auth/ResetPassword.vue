@@ -1,7 +1,7 @@
 <template>
   <auth-container>
     <h1 class="display-1 text-center mb-4">
-      {{ $tc('views.auth.resetPassword.title') }}
+      {{ $t('views.auth.resetPassword.title') }}
     </h1>
 
     <div v-if="status == 'loading'" style="text-align: center">
@@ -9,15 +9,15 @@
     </div>
 
     <v-alert v-if="status == 'loading-failed'" type="error">
-      {{ $tc('views.auth.resetPassword.invalidRequest') }}
+      {{ $t('views.auth.resetPassword.invalidRequest') }}
     </v-alert>
 
     <v-alert v-if="status == 'success'" type="success">
-      {{ $tc('views.auth.resetPassword.successMessage') }}
+      {{ $t('views.auth.resetPassword.successMessage') }}
     </v-alert>
 
     <v-alert v-if="status == 'failed'" type="error">
-      {{ $tc('views.auth.resetPassword.errorMessage') }}
+      {{ $t('views.auth.resetPassword.errorMessage') }}
     </v-alert>
 
     <!--    <validation-observer v-slot="{ handleSubmit }">-->
@@ -27,7 +27,7 @@
         @submit.prevent="handleSubmit(resetPassword)"
       >
         <e-text-field
-          :dense="$vuetify.breakpoint.xsOnly"
+          :dense="$vuetify.display.xsOnly"
           :value="email"
           append-icon="mdi-at"
           autocomplete="username"
@@ -38,7 +38,7 @@
 
         <e-text-field
           v-model="password"
-          :dense="$vuetify.breakpoint.xsOnly"
+          :dense="$vuetify.display.xsOnly"
           append-icon="mdi-lock-outline"
           autocomplete="new-password"
           autofocus
@@ -64,8 +64,8 @@
 
         <e-text-field
           v-model="confirmation"
-          :dense="$vuetify.breakpoint.xsOnly"
-          :label="$tc('views.auth.resetPassword.passwordConfirmation')"
+          :dense="$vuetify.display.xsOnly"
+          :label="$t('views.auth.resetPassword.passwordConfirmation')"
           append-icon="mdi-lock-outline"
           autocomplete="new-password"
           maxlength="128"
@@ -80,7 +80,7 @@
         <v-btn
           :color="email ? 'blue darken-2' : 'blue lightne-4'"
           :disabled="!email"
-          :x-large="$vuetify.breakpoint.smAndUp"
+          :x-large="$vuetify.display.smAndUp"
           block
           class="my-4"
           outlined
@@ -89,7 +89,7 @@
           <v-progress-circular v-if="status == 'reseting'" indeterminate size="24" />
           <v-icon v-else>$vuetify.icons.ecamp</v-icon>
           <v-spacer />
-          <span>{{ $tc('views.auth.resetPassword.send') }}</span>
+          <span>{{ $t('views.auth.resetPassword.send') }}</span>
           <v-spacer />
           <IconSpacer />
         </v-btn>
@@ -98,7 +98,7 @@
     <!--    </validation-observer>-->
     <p class="mt-8 mb0 text--secondary text-center">
       <router-link :to="{ name: 'login' }">
-        {{ $tc('global.button.login') }}
+        {{ $t('global.button.login') }}
       </router-link>
     </p>
   </auth-container>

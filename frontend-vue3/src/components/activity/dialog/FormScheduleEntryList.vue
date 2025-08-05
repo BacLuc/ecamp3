@@ -4,7 +4,7 @@
       <v-row no-gutters>
         <v-col class="header mb-3">
           <legend class="py-2 px-3 float-left">
-            {{ $tc('components.activity.dialog.formScheduleEntryList.name') }}
+            {{ $t('components.activity.dialog.formScheduleEntryList.name') }}
           </legend>
 
           <button-add
@@ -118,6 +118,9 @@ export default {
 }
 </script>
 <style scoped lang="scss">
+
+@use '/src/scss/variables';
+
 .period.period {
   border-bottom-width: 1px !important;
   border-bottom-style: solid !important;
@@ -125,7 +128,7 @@ export default {
 }
 
 .header {
-  border-bottom: 1px solid map-get($blue-grey, 'lighten-4');
+  border-bottom: 1px solid map-get(variables.$blue-grey, 'lighten-4');
 }
 .transition-list-item {
   transition: all 0.5s;

@@ -5,7 +5,7 @@
       <v-icon v-else :disabled="disabled">mdi-lock-open-variant</v-icon>
     </v-list-item-icon>
     <v-list-item-title>
-      {{ value ? $tc('global.button.lock') : $tc('global.button.unlock') }}
+      {{ value ? $t('global.button.lock') : $t('global.button.unlock') }}
     </v-list-item-title>
   </v-list-item>
 </template>

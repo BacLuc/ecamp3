@@ -3,7 +3,7 @@
     <e-select
       v-model="options.periods"
       :items="periods"
-      :label="$tc('print.config.periods')"
+      :label="$t('print.config.periods')"
       multiple
       :filled="false"
       :readonly="periods.length === 1"

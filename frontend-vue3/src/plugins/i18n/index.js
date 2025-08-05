@@ -38,7 +38,7 @@ const fallbackLocales = {
   default: 'en',
 }
 
-const i18n = new VueI18n({
+const i18n = createI18n({
   locale: 'de',
   fallbackLocale: fallbackLocales,
   messages: deepmerge.all([

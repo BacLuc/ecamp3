@@ -31,7 +31,7 @@
     <e-select
       v-model="materialItem.materialList"
       :items="materialLists"
-      :label="$tc('entity.materialList.name')"
+      :label="$t('entity.materialList.name')"
       dense
       vee-rules="required"
     />
@@ -44,11 +44,11 @@
   <!--    <td :colspan="columns">-->
   <!--      <div>-->
   <!--        <p>-->
-  <!--          {{ $tc("components.material.materialCreateItem.noMaterialListAvailable") }}-->
+  <!--          {{ $t("components.material.materialCreateItem.noMaterialListAvailable") }}-->
   <!--        </p>-->
   <!--        <v-btn :to="campRoute(camp, 'admin')">-->
-  <!--          <v-icon :left="$vuetify.breakpoint.mdAndUp">mdi-cogs</v-icon>-->
-  <!--          {{ $tc("components.material.materialCreateItem.campSettingsButton") }}-->
+  <!--          <v-icon :left="$vuetify.display.mdAndUp">mdi-cogs</v-icon>-->
+  <!--          {{ $t("components.material.materialCreateItem.campSettingsButton") }}-->
   <!--        </v-btn>-->
   <!--      </div>-->
   <!--    </td>-->

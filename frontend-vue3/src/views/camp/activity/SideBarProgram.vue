@@ -1,6 +1,6 @@
 <template>
   <SideBar
-    :title="$tc('views.camp.activity.sideBarProgram.title')"
+    :title="$t('views.camp.activity.sideBarProgram.title')"
     icon="mdi-format-list-numbered"
   >
     <ScheduleEntries v-if="period" :period="period" :show-button="false">

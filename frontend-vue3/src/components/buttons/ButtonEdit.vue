@@ -7,7 +7,7 @@
     v-bind="$attrs"
     v-on="$listeners"
   >
-    <slot>{{ $tc('global.button.edit') }}</slot>
+    <slot>{{ $t('global.button.edit') }}</slot>
   </IconButton>
 </template>
 

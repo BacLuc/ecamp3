@@ -4,7 +4,7 @@
     icon="mdi-content-copy"
     :title="title"
     :cancel-action="cancel"
-    :cancel-label="$tc('global.button.close')"
+    :cancel-label="$t('global.button.close')"
   >
     <template #activator="scope">
       <slot name="activator" v-bind="scope" />
@@ -41,19 +41,19 @@ export default {
   },
   computed: {
     title() {
-      return this.$tc(this.translationContextI18nKey + '.title')
+      return this.$t(this.translationContextI18nKey + '.title')
     },
     description() {
-      return this.$tc(this.translationContextI18nKey + '.description')
+      return this.$t(this.translationContextI18nKey + '.description')
     },
     allow() {
-      return this.$tc(this.translationContextI18nKey + '.allow')
+      return this.$t(this.translationContextI18nKey + '.allow')
     },
     granted() {
-      return this.$tc(this.translationContextI18nKey + '.granted')
+      return this.$t(this.translationContextI18nKey + '.granted')
     },
     denied() {
-      return this.$tc(this.translationContextI18nKey + '.denied')
+      return this.$t(this.translationContextI18nKey + '.denied')
     },
   },
   async mounted() {

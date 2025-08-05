@@ -1,5 +1,5 @@
 <template>
-  <content-card :title="$tc('views.camp.admin.activity.title')" toolbar>
+  <content-card :title="$t('views.camp.admin.activity.title')" toolbar>
     <v-container fluid class="px-4 pb-8">
       <v-row>
         <v-col cols="12" lg="6" class="pb-0 pr-lg-6">
@@ -32,7 +32,7 @@ export default {
   },
   head() {
     return {
-      title: this.$tc('views.camp.admin.activity.title'),
+      title: this.$t('views.camp.admin.activity.title'),
     }
   },
 }

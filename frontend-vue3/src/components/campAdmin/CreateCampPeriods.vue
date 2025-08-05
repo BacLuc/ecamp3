@@ -11,7 +11,7 @@
         <v-row no-gutters>
           <v-col>
             <legend class="pa-2">
-              {{ $tc('entity.period.name') }}
+              {{ $t('entity.period.name') }}
             </legend>
           </v-col>
           <v-col cols="auto">
@@ -72,7 +72,7 @@
     </v-card>
     <v-btn text block height="auto" class="pa-4" @click="addPeriod">
       <v-icon>mdi-plus</v-icon>
-      {{ $tc('components.campAdmin.createCampPeriods.add') }}
+      {{ $t('components.campAdmin.createCampPeriods.add') }}
     </v-btn>
   </div>
 </template>

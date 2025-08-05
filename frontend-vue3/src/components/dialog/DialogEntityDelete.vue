@@ -2,11 +2,11 @@
   <dialog-form
     v-model="showDialog"
     :icon="icon"
-    :title="dialogTitle || $tc('components.dialog.dialogEntityDelete.title')"
+    :title="dialogTitle || $t('components.dialog.dialogEntityDelete.title')"
     :error="error"
     :submit-action="del"
     :submit-enabled="submitEnabled && !$slots.error"
-    :submit-label="$tc('global.button.delete')"
+    :submit-label="$t('global.button.delete')"
     submit-color="error"
     :submit-icon="icon"
     cancel-icon=""
@@ -16,7 +16,7 @@
       <slot name="activator" v-bind="scope" />
     </template>
     <slot>{{
-      $tc('global.warning.delete', warningTextEntity ? 2 : 0, {
+      $t('global.warning.delete', warningTextEntity ? 2 : 0, {
         entity: warningTextEntity,
       })
     }}</slot>

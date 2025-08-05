@@ -1,11 +1,11 @@
 <template>
   <auth-container>
-    <div v-if="isProdSuffix && $vuetify.breakpoint.smAndDown" class="text-center">
+    <div v-if="isProdSuffix && $vuetify.display.smAndDown" class="text-center">
       <v-icon size="64"> $vuetify.icons.ecamp </v-icon>
     </div>
 
     <h1 class="display-1 text-center" :class="{ 'my-4': isProdSuffix }">
-      {{ $tc('global.button.login') }}
+      {{ $t('global.button.login') }}
     </h1>
 
     <v-alert
@@ -43,15 +43,15 @@
     <v-alert v-if="error" outlined text border="left" type="error">
       <span class="d-block">{{ error }}</span>
       <span class="d-block mt-1"
-        >{{ $tc('views.auth.login.passwordForgotten') }}
+        >{{ $t('views.auth.login.passwordForgotten') }}
         <router-link :to="{ name: 'resetPasswordRequest' }">
-          {{ $tc('views.auth.login.resetPassword') }}
+          {{ $t('views.auth.login.resetPassword') }}
         </router-link>
       </span>
       <span class="d-block mt-1"
-        >{{ $tc('views.auth.login.notActivated') }}
+        >{{ $t('views.auth.login.notActivated') }}
         <router-link :to="{ name: 'resendActivation' }">
-          {{ $tc('views.auth.login.resendActivation') }}
+          {{ $t('views.auth.login.resendActivation') }}
         </router-link>
       </span>
     </v-alert>
@@ -61,7 +61,7 @@
         v-model="email"
         vee-rules="email|required"
         autofocus
-        :label="$tc('views.auth.login.email')"
+        :label="$t('views.auth.login.email')"
         name="email"
         append-icon="mdi-account-outline"
         :dense="$vuetify.display.xsOnly"
@@ -72,7 +72,7 @@
       <e-text-field
         id="inputPassword"
         v-model="password"
-        :label="$tc('views.auth.login.password')"
+        :label="$t('views.auth.login.password')"
         vee-rules="required"
         name="password"
         append-icon="mdi-lock-outline"
@@ -86,7 +86,7 @@
           tabindex="100"
           style="color: gray"
         >
-          {{ $tc('views.auth.login.passwordForgotten') }}
+          {{ $t('views.auth.login.passwordForgotten') }}
         </router-link>
       </small>
 
@@ -102,12 +102,12 @@
         <v-progress-circular v-if="authenticationInProgress" indeterminate size="24" />
         <v-icon v-else>$ecamp</v-icon>
         <v-spacer />
-        <span>{{ $tc('views.auth.login.provider.ecamp') }}</span>
+        <span>{{ $t('views.auth.login.provider.ecamp') }}</span>
         <v-spacer />
         <icon-spacer />
       </v-btn>
     </v-form>
-    <horizontal-rule :label="$tc('views.auth.login.or')" />
+    <horizontal-rule :label="$t('views.auth.login.or')" />
     <div class="openid-buttons">
       <v-btn
         dark
@@ -118,7 +118,7 @@
       >
         <v-icon class="my-1" color="#521d3a">$pbs</v-icon>
         <span class="text--secondary text-body-2 font-weight-medium">{{
-          $tc('views.auth.login.provider.midata')
+          $t('views.auth.login.provider.midata')
         }}</span>
       </v-btn>
       <v-btn
@@ -130,7 +130,7 @@
       >
         <v-icon class="my-1">$cevi</v-icon>
         <span class="text--secondary text-body-2 font-weight-medium">{{
-          $tc('views.auth.login.provider.cevidb')
+          $t('views.auth.login.provider.cevidb')
         }}</span>
       </v-btn>
       <v-btn
@@ -142,7 +142,7 @@
       >
         <v-icon size="32">$jubla</v-icon>
         <span class="text--secondary text-body-2 font-weight-medium">{{
-          $tc('views.auth.login.provider.jubladb')
+          $t('views.auth.login.provider.jubladb')
         }}</span>
       </v-btn>
       <v-btn
@@ -154,7 +154,7 @@
       >
         <v-icon class="my-1">$google</v-icon>
         <span class="text--secondary text-body-2 font-weight-medium">{{
-          $tc('views.auth.login.provider.google')
+          $t('views.auth.login.provider.google')
         }}</span>
       </v-btn>
       <small class="w-100">
@@ -166,16 +166,16 @@
         >
           <template #termsOfServiceLink>
             <a :href="termsOfServiceLink" target="_blank" style="color: gray">{{
-              $tc('views.auth.login.termsOfServiceLink')
+              $t('views.auth.login.termsOfServiceLink')
             }}</a>
           </template>
         </i18n-t>
       </small>
     </div>
     <p class="mt-8 mb-0 text--secondary text-center">
-      {{ $tc('views.auth.login.accountless') }}<br />
+      {{ $t('views.auth.login.accountless') }}<br />
       <router-link :to="{ name: 'register' }">
-        {{ $tc('views.auth.login.registernow') }}
+        {{ $t('views.auth.login.registernow') }}
       </router-link>
     </p>
   </auth-container>
@@ -218,7 +218,7 @@ export default {
   },
   head() {
     return {
-      title: this.$tc('global.button.login'),
+      title: this.$t('global.button.login'),
     }
   },
   computed: {

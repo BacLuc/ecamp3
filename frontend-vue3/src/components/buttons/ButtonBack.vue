@@ -2,12 +2,12 @@
   <v-btn
     v-bind="$attrs"
     :icon="!visibleLabel"
-    :aria-label="$tc('global.button.back')"
+    :aria-label="$t('global.button.back')"
     @click="$router.go(-1)"
   >
     <v-icon :left="visibleLabel">mdi-arrow-left</v-icon>
     <template v-if="visibleLabel">
-      {{ $tc('global.button.back') }}
+      {{ $t('global.button.back') }}
     </template>
   </v-btn>
 </template>

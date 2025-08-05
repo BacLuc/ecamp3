@@ -116,7 +116,7 @@ export default {
       if (this.contentNode.instanceName) {
         return this.contentNode.instanceName
       }
-      return this.$tc(`contentNode.${camelCase(this.contentNode.contentTypeName)}.name`)
+      return this.$t(`contentNode.${camelCase(this.contentNode.contentTypeName)}.name`)
     },
     icon() {
       return contentTypeIcons[camelCase(this.contentNode.contentTypeName)]

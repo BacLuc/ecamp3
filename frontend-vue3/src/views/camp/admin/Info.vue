@@ -1,5 +1,5 @@
 <template>
-  <content-card :title="$tc('views.camp.admin.info.title')" toolbar>
+  <content-card :title="$t('views.camp.admin.info.title')" toolbar>
     <v-container fluid class="px-4 pb-8">
       <v-row>
         <v-col cols="12" md="6" class="pb-0">
@@ -50,7 +50,7 @@ export default {
   }),
   head() {
     return {
-      title: this.$tc('views.camp.admin.info.title'),
+      title: this.$t('views.camp.admin.info.title'),
     }
   },
   mounted() {

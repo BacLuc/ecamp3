@@ -13,21 +13,21 @@
           <tr>
             <th v-if="!layoutMode">
               <span class="d-sr-only">
-                {{ $tc('components.activity.content.storyboard.reorder') }}
+                {{ $t('components.activity.content.storyboard.reorder') }}
               </span>
             </th>
             <th scope="col" class="text-left">
-              {{ $tc('contentNode.storyboard.entity.section.fields.column1') }}
+              {{ $t('contentNode.storyboard.entity.section.fields.column1') }}
             </th>
             <th scope="col" class="text-left">
-              {{ $tc('contentNode.storyboard.entity.section.fields.column2Html') }}
+              {{ $t('contentNode.storyboard.entity.section.fields.column2Html') }}
             </th>
             <th scope="col" class="text-left">
-              {{ $tc('contentNode.storyboard.entity.section.fields.column3') }}
+              {{ $t('contentNode.storyboard.entity.section.fields.column3') }}
             </th>
             <th>
               <span class="d-sr-only">
-                {{ $tc('components.activity.content.storyboard.controls') }}
+                {{ $t('components.activity.content.storyboard.controls') }}
               </span>
             </th>
           </tr>

@@ -19,7 +19,7 @@
       <v-list-item color="primary" density="compact" @click.prevent="clear()">
         <v-list-item-title class="d-flex align-center text-grey-darken-1">
           <span class="flex-grow-1">{{
-            $tc('components.dashboard.selectFilter.clear')
+            $t('components.dashboard.selectFilter.clear')
           }}</span>
           <v-icon class="d-flex text-grey" end>mdi-close</v-icon>
         </v-list-item-title>

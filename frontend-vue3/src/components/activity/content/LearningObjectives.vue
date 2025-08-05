@@ -3,7 +3,7 @@
     <api-richtext
       :uri="contentNode._meta.self"
       path="data.html"
-      :placeholder="$tc('contentNode.learningObjectives.name')"
+      :placeholder="$t('contentNode.learningObjectives.name')"
       rows="2"
       :disabled="layoutMode || disabled"
       class="grow-v-slot"

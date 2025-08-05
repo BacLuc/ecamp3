@@ -62,7 +62,7 @@
       :min="localScheduleEntry.start"
       :allowed-dates="dateIsInSelectedPeriod"
       :filled="false"
-      :class="{ 'hide-control': $vuetify.breakpoint.mdAndUp && isSameDay }"
+      :class="{ 'hide-control': $vuetify.display.mdAndUp && isSameDay }"
       class="area-enddate date-picker"
       required
     />

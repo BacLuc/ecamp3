@@ -7,7 +7,7 @@
     right
     rounded
     :content-class="
-      ['ec-usermenu my-4', $vuetify.breakpoint.xsOnly && 'rounded-lg mt-2'].join(' ')
+      ['ec-usermenu my-4', $vuetify.display.xsOnly && 'rounded-lg mt-2'].join(' ')
     "
     transition="slide-y-transition"
     :close-on-content-click="false"
@@ -78,11 +78,11 @@
         @click="open = false"
       >
         <v-icon left>mdi-account</v-icon>
-        <span>{{ $tc('components.navigation.userMeta.profile') }}</span>
+        <span>{{ $t('components.navigation.userMeta.profile') }}</span>
       </v-list-item>
       <v-list-item block tag="li" exact :to="{ name: 'camps' }" @click="open = false">
         <v-icon left>mdi-format-list-bulleted-triangle</v-icon>
-        <span>{{ $tc('components.navigation.userMeta.myCamps') }}</span>
+        <span>{{ $t('components.navigation.userMeta.myCamps') }}</span>
       </v-list-item>
       <v-list-item
         block
@@ -92,25 +92,25 @@
         @click="open = false"
       >
         <v-icon left>mdi-email</v-icon>
-        <span>{{ $tc('components.navigation.userMeta.invitations') }}</span>
+        <span>{{ $t('components.navigation.userMeta.invitations') }}</span>
         <v-list-item-action-text v-if="invitationCount > 0">
           <v-badge inline bordered color="#f00" :content="invitationCount" />
         </v-list-item-action-text>
       </v-list-item>
       <v-list-item
-        v-if="!$vuetify.breakpoint.lgAndUp"
+        v-if="!$vuetify.display.lgAndUp"
         block
         :href="helpLink"
         target="_blank"
       >
         <v-icon left>mdi-help-circle</v-icon>
-        <span>{{ $tc('global.navigation.help') }}</span>
+        <span>{{ $t('global.navigation.help') }}</span>
         <v-spacer />
         <v-icon small right>mdi-open-in-new</v-icon>
       </v-list-item>
       <v-list-item block :href="newsLink" target="_blank">
         <v-icon left>mdi-script-text-outline</v-icon>
-        <span>{{ $tc('global.navigation.news') }}</span>
+        <span>{{ $t('global.navigation.news') }}</span>
         <v-spacer />
         <v-icon small right>mdi-open-in-new</v-icon>
       </v-list-item>
@@ -124,7 +124,7 @@
         />
         <v-icon v-else left>mdi-logout</v-icon>
 
-        <span>{{ $tc('components.navigation.userMeta.logOut') }}</span>
+        <span>{{ $t('components.navigation.userMeta.logOut') }}</span>
       </v-list-item>
     </v-list>
   </v-menu>

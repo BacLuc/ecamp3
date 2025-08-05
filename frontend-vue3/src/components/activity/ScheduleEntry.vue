@@ -98,9 +98,9 @@ Displays a single scheduleEntry
       >
         <template v-if="$vuetify.display.smAndUp">
           <v-icon left>mdi-file-document-edit-outline</v-icon>
-          {{ $tc('components.activity.scheduleEntry.backToContents') }}
+          {{ $t('components.activity.scheduleEntry.backToContents') }}
         </template>
-        <template v-else>{{ $tc('global.button.back') }}</template>
+        <template v-else>{{ $t('global.button.back') }}</template>
       </v-btn>
 
       <TogglePaperSize v-model="isPaperDisplaySize" />
@@ -124,7 +124,7 @@ Displays a single scheduleEntry
               <v-icon>mdi-puzzle-edit-outline</v-icon>
             </v-list-item-icon>
             <v-list-item-title>
-              {{ $tc('components.activity.scheduleEntry.changeLayout') }}
+              {{ $t('components.activity.scheduleEntry.changeLayout') }}
             </v-list-item-title>
           </v-list-item>
 
@@ -135,7 +135,7 @@ Displays a single scheduleEntry
               <v-icon>mdi-content-copy</v-icon>
             </v-list-item-icon>
             <v-list-item-title>
-              {{ $tc('components.activity.scheduleEntry.copyScheduleEntry') }}
+              {{ $t('components.activity.scheduleEntry.copyScheduleEntry') }}
             </v-list-item-title>
           </v-list-item>
           <ClipboardInfoDialog
@@ -153,11 +153,11 @@ Displays a single scheduleEntry
                   <v-icon>mdi-delete</v-icon>
                 </v-list-item-icon>
                 <v-list-item-title>
-                  {{ $tc('global.button.delete') }}
+                  {{ $t('global.button.delete') }}
                 </v-list-item-title>
               </v-list-item>
             </template>
-            {{ $tc('components.activity.scheduleEntry.deleteWarning') }}
+            {{ $t('components.activity.scheduleEntry.deleteWarning') }}
           </DialogEntityDelete>
         </v-list>
       </v-menu>
@@ -177,13 +177,13 @@ Displays a single scheduleEntry
                     scope="col"
                     class="text-right pb-2 pr-4"
                   >
-                    {{ $tc('entity.scheduleEntry.fields.nr') }}
+                    {{ $t('entity.scheduleEntry.fields.nr') }}
                   </th>
                   <th scope="col" class="text-left pb-2 pr-4">
-                    {{ $tc('entity.scheduleEntry.fields.duration') }}
+                    {{ $t('entity.scheduleEntry.fields.duration') }}
                   </th>
                   <th scope="col" class="text-left pb-2" colspan="2">
-                    {{ $tc('entity.scheduleEntry.fields.time') }}
+                    {{ $t('entity.scheduleEntry.fields.time') }}
                   </th>
                 </tr>
               </thead>
@@ -496,7 +496,7 @@ export default {
       await navigator.clipboard.writeText(url)
 
       this.$toast.info(
-        this.$tc('global.toast.copied', null, { source: this.activityName }),
+        this.$t('global.toast.copied', null, { source: this.activityName }),
         {
           timeout: 2000,
         }

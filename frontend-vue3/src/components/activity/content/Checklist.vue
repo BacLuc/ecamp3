@@ -5,7 +5,7 @@
         v-if="!disabled && !layoutMode"
         v-model="showDialog"
         icon="mdi-clipboard-list-outline"
-        :title="$tc('components.activity.content.checklist.title')"
+        :title="$t('components.activity.content.checklist.title')"
         :cancel-action="close"
         :cancel-visible="false"
       >
@@ -19,7 +19,7 @@
             <v-skeleton-loader v-if="!itemsLoaded" class="px-4 pb-4" type="paragraph" />
             <v-list-item v-else-if="activeChecklists.length === 0">
               <v-list-item-title>
-                {{ $tc('global.button.edit') }}
+                {{ $t('global.button.edit') }}
               </v-list-item-title>
             </v-list-item>
             <ChecklistItems

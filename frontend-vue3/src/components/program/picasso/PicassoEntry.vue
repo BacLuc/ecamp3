@@ -58,7 +58,7 @@
       <br v-if="!isTinyDuration" />
       <small class="e-picasso-entry__location">
         <span class="d-sr-only">{{
-          $tc('components.program.picasso.picassoEntry.location')
+          $t('components.program.picasso.picassoEntry.location')
         }}</span>
         {{ location }}
       </small>
@@ -69,7 +69,7 @@
         <br v-if="isLongDuration" />
         <small class="e-picasso-entry__responsible">
           <span class="d-sr-only">{{
-            $tc('components.program.picasso.picassoEntry.responsible')
+            $t('components.program.picasso.picassoEntry.responsible')
           }}</span
           >{{ campCollaborationText }}</small
         >
@@ -107,7 +107,7 @@
       <br v-if="!isTinyDuration" />
       <small
         ><span class="d-sr-only">{{
-          $tc('components.program.picasso.picassoEntry.location')
+          $t('components.program.picasso.picassoEntry.location')
         }}</span>
         {{ location }}
       </small>
@@ -118,7 +118,7 @@
         <br v-if="isLongDuration" />
         <small>
           <span class="d-sr-only">{{
-            $tc('components.program.picasso.picassoEntry.responsible')
+            $t('components.program.picasso.picassoEntry.responsible')
           }}</span
           >{{ campCollaborationText }}
         </small>
@@ -184,9 +184,9 @@ export default {
       return this.activity.category()
     },
     activityName() {
-      if (this.scheduleEntry.tmpEvent) return this.$tc('entity.activity.new')
+      if (this.scheduleEntry.tmpEvent) return this.$t('entity.activity.new')
 
-      if (this.activityLoading) return this.$tc('global.loading')
+      if (this.activityLoading) return this.$t('global.loading')
 
       return (
         (this.scheduleEntry.number ? this.scheduleEntry.number + ' ' : '') +
@@ -291,7 +291,7 @@ export default {
       await navigator.clipboard.writeText(url)
 
       this.$toast.info(
-        this.$tc('global.toast.copied', null, { source: this.activityName }),
+        this.$t('global.toast.copied', null, { source: this.activityName }),
         {
           timeout: 2000,
         }

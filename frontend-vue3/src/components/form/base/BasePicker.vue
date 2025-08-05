@@ -37,7 +37,7 @@ Displays a field as a picker (can be used with v-model)
               name="prepend"
               :color="iconColor"
               :attrs="{
-                'aria-label': $tc(buttonAriaLabelI18nKey, 0, {
+                'aria-label': $t(buttonAriaLabelI18nKey, 0, {
                   label: labelOrEntityFieldLabel,
                 }),
               }"
@@ -46,7 +46,7 @@ Displays a field as a picker (can be used with v-model)
               <v-icon
                 :color="iconColor"
                 :aria-label="
-                  $tc(buttonAriaLabelI18nKey, 0, { label: labelOrEntityFieldLabel })
+                  $t(buttonAriaLabelI18nKey, 0, { label: labelOrEntityFieldLabel })
                 "
                 @click="(...args) => onMenuOpen(on, ...args)"
               >

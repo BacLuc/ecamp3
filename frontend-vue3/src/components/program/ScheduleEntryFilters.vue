@@ -7,7 +7,7 @@
     <BooleanFilter
       v-if="loadingEndpoints !== true && loadingEndpoints.campCollaborations !== true"
       v-model="showOnlyMyActivities"
-      :label="$tc('components.program.scheduleEntryFilters.onlyMyActivities')"
+      :label="$t('components.program.scheduleEntryFilters.onlyMyActivities')"
     />
     <v-skeleton-loader
       v-else
@@ -24,7 +24,7 @@
           v-model="value.period"
           :items="periods"
           display-field="description"
-          :label="$tc('components.program.scheduleEntryFilters.period')"
+          :label="$t('components.program.scheduleEntryFilters.period')"
         />
       </template>
       <v-skeleton-loader
@@ -42,7 +42,7 @@
       and-filter
       :items="campCollaborations"
       :display-field="campCollaborationDisplayName"
-      :label="$tc('components.program.scheduleEntryFilters.responsible')"
+      :label="$t('components.program.scheduleEntryFilters.responsible')"
     >
       <template #item="{ item }">
         <template v-if="item.exclusiveNone">
@@ -69,7 +69,7 @@
       multiple
       :items="categories"
       display-field="short"
-      :label="$tc('components.program.scheduleEntryFilters.category')"
+      :label="$t('components.program.scheduleEntryFilters.category')"
     >
       <template #item="{ item }">
         <CategoryChip dense :category="categories[item.value]" class="mr-1" />
@@ -89,7 +89,7 @@
       multiple
       :items="progressLabels"
       display-field="title"
-      :label="$tc('components.program.scheduleEntryFilters.progressLabel')"
+      :label="$t('components.program.scheduleEntryFilters.progressLabel')"
     >
       <template #item="{ item }">
         {{ progressLabels[item.value].title }}
@@ -105,7 +105,7 @@
     <v-chip v-if="filterSet" label outlined @click="resetFilter">
       <span>&ZeroWidthSpace;</span>
       <v-icon left>mdi-close</v-icon>
-      {{ $tc('components.program.scheduleEntryFilters.clearFilters') }}
+      {{ $t('components.program.scheduleEntryFilters.clearFilters') }}
     </v-chip>
   </div>
 </template>
@@ -177,7 +177,7 @@ export default {
       return {
         none: {
           exclusiveNone: true,
-          label: this.$tc('components.program.scheduleEntryFilters.responsibleNone'),
+          label: this.$t('components.program.scheduleEntryFilters.responsibleNone'),
           _meta: { self: 'none' },
         },
         ...keyBy(this.camp.campCollaborations().items, '_meta.self'),
@@ -190,7 +190,7 @@ export default {
       const labels = sortBy(this.camp.progressLabels().items, (l) => l.position)
       return {
         none: {
-          title: this.$tc('components.program.scheduleEntryFilters.progressLabelNone'),
+          title: this.$t('components.program.scheduleEntryFilters.progressLabelNone'),
           _meta: { self: 'none' },
         },
         ...keyBy(labels, '_meta.self'),

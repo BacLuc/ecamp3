@@ -3,11 +3,11 @@
     <v-stepper-header class="elevation-0">
       <v-spacer v-if="$vuetify.display.smAndUp" />
       <v-stepper-step :complete="step > 1" :step="1" class="px-4">
-        {{ $tc('components.campCreate.campCreate.steps.infos') }}
+        {{ $t('components.campCreate.campCreate.steps.infos') }}
       </v-stepper-step>
       <v-divider class="mx-n2" />
       <v-stepper-step :complete="step > 2" :step="2" class="px-4">
-        {{ $tc('components.campCreate.campCreate.steps.template') }}
+        {{ $t('components.campCreate.campCreate.steps.template') }}
       </v-stepper-step>
       <v-spacer v-if="$vuetify.display.smAndUp" />
     </v-stepper-header>
@@ -50,7 +50,7 @@ export default {
           {
             start: '',
             end: '',
-            description: this.$tc('entity.period.defaultDescription'),
+            description: this.$t('entity.period.defaultDescription'),
           },
         ],
         campPrototype: '',

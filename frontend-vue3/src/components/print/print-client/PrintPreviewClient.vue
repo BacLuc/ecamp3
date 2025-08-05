@@ -2,14 +2,14 @@
   <div style="position: relative">
     <iframe
       :src="urlWithPagemodes"
-      :title="$tc('components.print.printClient.printPreviewClient.previewIframeTitle')"
+      :title="$t('components.print.printClient.printPreviewClient.previewIframeTitle')"
       class="d-block"
       v-bind="$attrs"
       height="800px"
     />
     <v-overlay :model-value="loading || error" absolute z-index="2">
       <div v-if="error">
-        {{ $tc('components.print.printClient.printPreviewClient.previewError') }}
+        {{ $t('components.print.printClient.printPreviewClient.previewError') }}
       </div>
       <v-progress-circular v-else indeterminate />
     </v-overlay>

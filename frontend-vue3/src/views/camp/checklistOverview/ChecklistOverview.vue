@@ -7,7 +7,7 @@
           <tr>
             <td></td>
             <td></td>
-            <td v-if="$vuetify.breakpoint.mdAndUp" style="width: 300px"></td>
+            <td v-if="$vuetify.display.mdAndUp" style="width: 300px"></td>
           </tr>
         </thead>
         <tbody>

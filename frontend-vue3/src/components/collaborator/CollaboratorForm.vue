@@ -19,7 +19,7 @@
       aria-readonly="true"
       aria-describedby="readonly"
       :items="items"
-      :hint="$tc('components.collaborator.collaboratorForm.roleHint')"
+      :hint="$t('components.collaborator.collaboratorForm.roleHint')"
       persistent-hint
       item-value="key"
       item-text="role"
@@ -81,7 +81,7 @@
       class="e-form-container e-avatar-field v-card__text rounded-t"
     >
       <legend>
-        {{ $tc('components.collaborator.collaboratorForm.overrideAvatar') }}
+        {{ $t('components.collaborator.collaboratorForm.overrideAvatar') }}
       </legend>
 
       <div class="d-flex gap-4 align-center">
@@ -125,20 +125,20 @@ export default {
       return [
         {
           key: 'manager',
-          role: this.$tc('entity.camp.collaborators.manager'),
-          abilities: this.$tc('global.collaborationAbilities.manager'),
+          role: this.$t('entity.camp.collaborators.manager'),
+          abilities: this.$t('global.collaborationAbilities.manager'),
           icons: ['mdi-eye-outline', 'mdi-pencil-outline', 'mdi-cog-outline'],
         },
         {
           key: 'member',
-          role: this.$tc('entity.camp.collaborators.member'),
-          abilities: this.$tc('global.collaborationAbilities.member'),
+          role: this.$t('entity.camp.collaborators.member'),
+          abilities: this.$t('global.collaborationAbilities.member'),
           icons: ['mdi-eye-outline', 'mdi-pencil-outline'],
         },
         {
           key: 'guest',
-          role: this.$tc('entity.camp.collaborators.guest'),
-          abilities: this.$tc('global.collaborationAbilities.guest'),
+          role: this.$t('entity.camp.collaborators.guest'),
+          abilities: this.$t('global.collaborationAbilities.guest'),
           icons: ['mdi-eye-outline'],
         },
       ]
@@ -153,7 +153,7 @@ export default {
       }
     },
     translatedStatus() {
-      return this.$tc(`entity.campCollaboration.status.${this.status}`)
+      return this.$t(`entity.campCollaboration.status.${this.status}`)
     },
   },
 }

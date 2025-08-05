@@ -9,7 +9,7 @@ export default {
     submitLabel: {
       type: String,
       default: function () {
-        // return this.$tc('global.button.submit')
+        // return this.$t('global.button.submit')
       },
       required: false,
     },
@@ -21,7 +21,7 @@ export default {
     cancelLabel: {
       type: String,
       default: function () {
-        // return this.$tc('global.button.cancel')
+        // return this.$t('global.button.cancel')
       },
       required: false,
     },

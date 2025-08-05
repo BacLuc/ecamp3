@@ -4,9 +4,9 @@
     :loading="loading"
     :error="error"
     icon="mdi-calendar-plus"
-    :title="$tc('entity.activity.new')"
+    :title="$t('entity.activity.new')"
     :submit-action="createActivity"
-    :submit-label="$tc('global.button.create')"
+    :submit-label="$t('global.button.create')"
     submit-icon="mdi-plus"
     submit-color="success"
     :cancel-action="cancelCreate"
@@ -24,7 +24,7 @@
         <template #activator="{ on }">
           <v-btn v-show="showClipboardPrompt" v-on="on">
             <v-icon left>mdi-information-outline</v-icon>
-            {{ $tc('components.program.dialogActivityCreate.copyPasteActivity') }}
+            {{ $t('components.program.dialogActivityCreate.copyPasteActivity') }}
           </v-btn>
         </template>
       </ClipboardInfoDialog>
@@ -33,7 +33,7 @@
     <div v-if="hasClipboardEntity">
       <div class="mb-8">
         <div v-if="!clipboardAccessDenied">
-          {{ $tc('components.program.dialogActivityCreate.clipboard') }}
+          {{ $t('components.program.dialogActivityCreate.clipboard') }}
           <div style="float: right">
             <small>
               <a
@@ -41,7 +41,7 @@
                 style="color: inherit; text-decoration: none"
                 @click="clearClipboard"
               >
-                {{ $tc('components.program.dialogActivityCreate.clearClipboard') }}
+                {{ $t('components.program.dialogActivityCreate.clearClipboard') }}
               </a>
             </small>
           </div>
@@ -64,7 +64,7 @@
           <v-list-item-action>
             <e-checkbox
               :value="entityData.copyActivitySource !== null"
-              :label="$tc('components.program.dialogActivityCreate.copyActivityContent')"
+              :label="$t('components.program.dialogActivityCreate.copyActivityContent')"
               @input="setCopyContentCheckbox"
             />
           </v-list-item-action>
@@ -80,11 +80,11 @@
         <PopoverPrompt
           v-model="showCopyActivityUrlPopover"
           icon="mdi-content-paste"
-          :title="$tc('components.program.dialogActivityCreate.pasteActivity')"
+          :title="$t('components.program.dialogActivityCreate.pasteActivity')"
         >
           <template #activator="scope">
             <v-btn
-              :title="$tc('components.program.dialogActivityCreate.pasteActivity')"
+              :title="$t('components.program.dialogActivityCreate.pasteActivity')"
               text
               class="v-btn--has-bg"
               height="56"
@@ -94,10 +94,10 @@
               <v-icon v-else>mdi-content-paste</v-icon>
             </v-btn>
           </template>
-          {{ $tc('components.program.dialogActivityCreate.copySourceInfo') }}
+          {{ $t('components.program.dialogActivityCreate.copySourceInfo') }}
           <e-text-field
             v-model="clipboardEntityUrl"
-            :label="$tc('components.program.dialogActivityCreate.copyActivity')"
+            :label="$t('components.program.dialogActivityCreate.copyActivity')"
             style="margin-bottom: 12px"
             autofocus
           />

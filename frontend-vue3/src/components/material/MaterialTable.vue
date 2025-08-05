@@ -126,7 +126,7 @@
           <v-tooltip top color="red darken-2">
             <template #activator="{ on, attrs }">
               <span v-bind="attrs" class="red--text text--darken-2" v-on="on">{{
-                $tc('global.serverError.short')
+                $t('global.serverError.short')
               }}</span>
             </template>
             <ServerErrorContent :server-error="item.serverError" />
@@ -134,7 +134,7 @@
 
           <ButtonRetry @click="retry(item)" />
           <ButtonCancel class="v-btn--has-bg" @click="cancel(item)">
-            {{ $tc('global.button.discard') }}
+            {{ $t('global.button.discard') }}
           </ButtonCancel>
         </div>
       </div>
@@ -150,12 +150,12 @@
       >
         <span>
           <span v-if="!periodOnly" class="d-sr-only">{{
-            $tc('global.button.filter')
+            $t('global.button.filter')
           }}</span>
           {{
             periodOnly
-              ? $tc('components.material.materialTable.periodOnly')
-              : $tc('components.material.materialTable.reference')
+              ? $t('components.material.materialTable.periodOnly')
+              : $t('components.material.materialTable.reference')
           }}
         </span>
         <v-icon
@@ -192,13 +192,13 @@
       >
         <template #activator="{ on }">
           <ButtonAdd class="mt-5" v-on="on">
-            {{ $tc('components.material.materialTable.addNewItem') }}
+            {{ $t('components.material.materialTable.addNewItem') }}
           </ButtonAdd>
         </template>
       </DialogMaterialItemCreate>
     </template>
 
-    <template #no-data>{{ $tc('components.material.materialTable.noItems') }}</template>
+    <template #no-data>{{ $t('components.material.materialTable.noItems') }}</template>
   </v-data-table>
 </template>
 
@@ -278,32 +278,32 @@ export default {
       if (this.isDefaultVariant) {
         headers.push(
           {
-            text: this.$tc('entity.materialItem.fields.quantity'),
+            text: this.$t('entity.materialItem.fields.quantity'),
             value: 'quantity',
             align: 'end',
             sortable: false,
             width: '10%',
           },
           {
-            text: this.$tc('entity.materialItem.fields.unit'),
+            text: this.$t('entity.materialItem.fields.unit'),
             value: 'unit',
             sortable: false,
             width: '15%',
           },
           {
-            text: this.$tc('entity.materialItem.fields.article'),
+            text: this.$t('entity.materialItem.fields.article'),
             value: 'article',
             cellClass: 'font-weight-bold',
           },
           {
-            text: this.$tc('entity.materialList.name'),
+            text: this.$t('entity.materialList.name'),
             value: 'listName',
             width: '20%',
           }
         )
       } else {
         headers.push({
-          text: this.$tc('entity.materialItem.fields.article'),
+          text: this.$t('entity.materialItem.fields.article'),
           value: 'article',
           align: 'start',
           sortable: true,
@@ -315,7 +315,7 @@ export default {
       // Activity column only shown in period overview
       if (this.period) {
         headers.push({
-          text: this.$tc('entity.materialItem.fields.reference'),
+          text: this.$t('entity.materialItem.fields.reference'),
           align: this.isDefaultVariant ? 'start' : 'end',
           width: this.isDefaultVariant ? '15%' : 'auto',
           value: 'lastColumn',

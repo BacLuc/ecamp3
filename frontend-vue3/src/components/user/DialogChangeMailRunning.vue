@@ -1,20 +1,20 @@
 <template>
   <dialog-form
     v-model="showDialog"
-    :title="$tc('components.user.dialogChangeMailRunning.title')"
+    :title="$t('components.user.dialogChangeMailRunning.title')"
     :cancel-action="status === 'initial' ? null : close"
-    :cancel-label="$tc('global.button.close')"
+    :cancel-label="$t('global.button.close')"
   >
     <div v-if="status === 'initial'">
       <v-progress-circular indeterminate />
-      {{ $tc('components.user.dialogChangeMailRunning.message') }}
+      {{ $t('components.user.dialogChangeMailRunning.message') }}
     </div>
     <div v-if="status === 'success'">
       <v-icon>mdi mdi-check</v-icon>
-      {{ $tc('components.user.dialogChangeMailRunning.success') }}
+      {{ $t('components.user.dialogChangeMailRunning.success') }}
     </div>
     <div v-if="status === 'error'">
-      {{ $tc('components.user.dialogChangeMailRunning.error') }}
+      {{ $t('components.user.dialogChangeMailRunning.error') }}
     </div>
   </dialog-form>
 </template>

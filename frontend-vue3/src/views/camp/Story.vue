@@ -1,5 +1,5 @@
 <template>
-  <content-card :title="$tc('views.camp.story.title')" toolbar>
+  <content-card :title="$t('views.camp.story.title')" toolbar>
     <template #title-actions>
       <period-switcher :period="period" :route-name="'camp/period/story'" />
       <v-spacer />

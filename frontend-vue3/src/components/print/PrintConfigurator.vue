@@ -5,7 +5,7 @@
       <PagesConfig
         v-for="(content, idx) in cnf.contents"
         :key="idx"
-        :title="$tc('components.print.printConfigurator.config.' + content.type)"
+        :title="$t('components.print.printConfigurator.config.' + content.type)"
         :landscape="content.options.orientation === 'L'"
         :multiple="
           contentComponents[content.type].design.multiple ||
@@ -25,7 +25,7 @@
         <template #activator="{ on, attrs }">
           <PagesConfig
             id="page-config"
-            :title="$tc('components.print.printConfigurator.add')"
+            :title="$t('components.print.printConfigurator.add')"
             multiple
             template
             v-bind="attrs"
@@ -44,7 +44,7 @@
             "
           >
             <v-list-item-title>
-              {{ $tc('components.print.printConfigurator.config.' + idx) }}
+              {{ $t('components.print.printConfigurator.config.' + idx) }}
             </v-list-item-title>
           </v-list-item>
         </v-list>

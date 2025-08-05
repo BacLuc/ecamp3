@@ -6,7 +6,7 @@
     :error="error"
     :submit-action="deactivateUser"
     :submit-enabled="!$slots.error"
-    :submit-label="$tc('components.collaborator.promptCollaboratorDeactivate.deactivate')"
+    :submit-label="$t('components.collaborator.promptCollaboratorDeactivate.deactivate')"
     submit-color="error"
     submit-icon="mdi-cancel"
     cancel-icon=""
@@ -17,7 +17,7 @@
     </template>
     <slot>
       {{
-        $tc('components.collaborator.promptCollaboratorDeactivate.warningText', 1, {
+        $t('components.collaborator.promptCollaboratorDeactivate.warningText', 1, {
           name: displayName,
         })
       }}

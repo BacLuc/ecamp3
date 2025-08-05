@@ -4,16 +4,16 @@
     :loading="loading"
     :error="error"
     icon="mdi-account-plus"
-    :title="$tc('components.collaborator.collaboratorCreate.title')"
+    :title="$t('components.collaborator.collaboratorCreate.title')"
     :submit-action="createCollaboration"
-    :submit-label="$tc('components.collaborator.collaboratorCreate.invite')"
+    :submit-label="$t('components.collaborator.collaboratorCreate.invite')"
     submit-icon="mdi-email-fast"
     submit-color="success"
     :cancel-action="close"
   >
     <template #activator="{ on }">
       <ButtonAdd color="secondary" text class="my-n2" icon="mdi-account-plus" v-on="on">
-        {{ $tc('components.collaborator.collaboratorCreate.inviteCta') }}
+        {{ $t('components.collaborator.collaboratorCreate.inviteCta') }}
       </ButtonAdd>
     </template>
 

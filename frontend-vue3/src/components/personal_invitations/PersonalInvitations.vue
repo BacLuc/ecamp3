@@ -3,13 +3,13 @@
     <v-card-text v-if="invitations.items.length === 0">
       <p>
         {{
-          $tc('components.personalInvitations.personalInvitations.noOpenInvitations', 0, {
+          $t('components.personalInvitations.personalInvitations.noOpenInvitations', 0, {
             email: authUser.profile().email,
           })
         }}
       </p>
     </v-card-text>
-    <template v-if="$vuetify.breakpoint.mdAndUp">
+    <template v-if="$vuetify.display.mdAndUp">
       <v-list-item v-for="invitation in invitations.items" :key="invitation._meta.self">
         <v-list-item-content>
           <v-list-item-title>{{ invitation.campTitle }}</v-list-item-title>
@@ -22,14 +22,14 @@
           >
             <template #activator="{ on }">
               <v-btn class="px-4" text v-on="on">
-                {{ $tc('components.personalInvitations.personalInvitations.reject') }}
+                {{ $t('components.personalInvitations.personalInvitations.reject') }}
               </v-btn>
             </template>
           </DialogPersonalInvitationReject>
         </v-list-item-action>
         <v-list-item-action>
           <v-btn color="primary" @click="acceptInvitation(invitation)">
-            {{ $tc('components.personalInvitations.personalInvitations.accept') }}<br />
+            {{ $t('components.personalInvitations.personalInvitations.accept') }}<br />
           </v-btn>
         </v-list-item-action>
       </v-list-item>
@@ -50,7 +50,7 @@
             >
               <template #activator="{ on }">
                 <v-btn class="px-4" text v-on="on">
-                  {{ $tc('components.personalInvitations.personalInvitations.reject') }}
+                  {{ $t('components.personalInvitations.personalInvitations.reject') }}
                 </v-btn>
               </template>
             </DialogPersonalInvitationReject>
@@ -58,7 +58,7 @@
           <v-spacer />
           <v-list-item-action>
             <v-btn color="primary" @click="acceptInvitation(invitation)">
-              {{ $tc('components.personalInvitations.personalInvitations.accept') }}<br />
+              {{ $t('components.personalInvitations.personalInvitations.accept') }}<br />
             </v-btn>
           </v-list-item-action>
         </v-list-item>

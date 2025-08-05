@@ -6,7 +6,7 @@ Critical operations on camp
   <v-expansion-panel active-class="red lighten-5 red--text text--darken-4">
     <v-expansion-panel-header>
       <h2 class="subtitle-1 font-weight-bold">
-        {{ $tc('components.campAdmin.campDangerZone.title') }}
+        {{ $t('components.campAdmin.campDangerZone.title') }}
       </h2>
     </v-expansion-panel-header>
     <v-expansion-panel-content>
@@ -16,10 +16,10 @@ Critical operations on camp
           <v-list-item class="px-0">
             <v-list-item-content>
               <v-list-item-title>
-                {{ $tc('components.campAdmin.campDangerZone.deleteCamp.title') }}
+                {{ $t('components.campAdmin.campDangerZone.deleteCamp.title') }}
               </v-list-item-title>
               <div class="body-2 grey--text text--darken-3">
-                {{ $tc('components.campAdmin.campDangerZone.deleteCamp.description') }}
+                {{ $t('components.campAdmin.campDangerZone.deleteCamp.description') }}
               </div>
             </v-list-item-content>
             <v-list-item-action>
@@ -38,19 +38,19 @@ Critical operations on camp
                     color="blue-grey"
                     @click.prevent="on.click"
                   >
-                    {{ $tc('global.button.delete') }}
+                    {{ $t('global.button.delete') }}
                   </button-delete>
                 </template>
                 <p class="body-1">
                   {{
-                    $tc('components.campAdmin.campDangerZone.deleteCamp.explanation', 0, {
+                    $t('components.campAdmin.campDangerZone.deleteCamp.explanation', 0, {
                       campTitle: camp.title,
                     })
                   }}
                 </p>
                 <label>
                   {{
-                    $tc('components.campAdmin.campDangerZone.deleteCamp.label', 0, {
+                    $t('components.campAdmin.campDangerZone.deleteCamp.label', 0, {
                       campTitle: camp.title,
                     })
                   }}

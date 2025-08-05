@@ -3,7 +3,7 @@
     <v-btn :loading="loading" color="primary" variant="outlined" @click="generatePdf">
       <v-icon>mdi-printer</v-icon>
       <div class="mx-1">
-        {{ $tc('components.print.printClient.downloadClientPdfButton.label') }}
+        {{ $t('components.print.printClient.downloadClientPdfButton.label') }}
       </div>
     </v-btn>
   </div>

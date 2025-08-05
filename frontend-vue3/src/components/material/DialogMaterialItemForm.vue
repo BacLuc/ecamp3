@@ -17,7 +17,7 @@
       v-model="localMaterialItem.materialList"
       dense
       vee-rules="required"
-      :label="$tc('entity.materialList.name')"
+      :label="$t('entity.materialList.name')"
       :items="materialListArray"
     />
   </e-form>

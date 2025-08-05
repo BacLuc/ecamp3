@@ -1,7 +1,7 @@
 <template>
   <div class="mb-1">
     <p class="mb-0 blue--text text--darken-3 font-weight-medium flex-shrink-0">
-      {{ $tc('contentNode.columnLayout.entity.column.name', 2, { name: slotName }) }}
+      {{ $t('contentNode.columnLayout.entity.column.name', 2, { name: slotName }) }}
       <span class="d-sr-only">{{ width + '0%' }}</span>
     </p>
     <div v-if="showProgress" class="d-flex mb-1" aria-hidden="true">

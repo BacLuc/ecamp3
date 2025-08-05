@@ -2,7 +2,7 @@
   <v-list>
     <v-list-item :to="materialListRoute(camp, '/all', { isDetail: true })" exact-path>
       <v-list-item-content>
-        {{ $tc('components.material.materialLists.overview') }}
+        {{ $t('components.material.materialLists.overview') }}
       </v-list-item-content>
       <v-list-item-icon>
         <v-icon color="blue-grey lighten-3">mdi-chevron-right</v-icon>
@@ -19,7 +19,7 @@
         <v-list-item-title>{{ materialList.name }}</v-list-item-title>
         <v-list-item-subtitle
           >{{
-            $tc(
+            $t(
               'components.material.materialLists.materialsCount',
               materialList.itemCount,
               {

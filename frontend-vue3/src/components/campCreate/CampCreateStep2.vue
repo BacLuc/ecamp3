@@ -10,7 +10,7 @@
               v-model="selectedPrototypeValue"
               :vee-rules="{ required: true }"
               :skip-if-empty="false"
-              :label="$tc('entity.camp.prototype')"
+              :label="$t('entity.camp.prototype')"
               :hint="prototypeHint"
               persistent-hint
               :items="campTemplates"
@@ -25,7 +25,7 @@
                 ref="copyCampUrlInput"
                 v-model="copyCampUrl"
                 :vee-rules="{ required: true }"
-                :label="$tc('components.campCreate.campCreateStep2.prototypeCampUrl')"
+                :label="$t('components.campCreate.campCreateStep2.prototypeCampUrl')"
                 class="flex-grow-1"
                 @input="setClipboardEntityUrl"
               />
@@ -37,7 +37,7 @@
               >
                 <template #activator="{ on }">
                   <v-btn
-                    :title="$tc('components.campCreate.campCreateStep2.pasteCamp')"
+                    :title="$t('components.campCreate.campCreateStep2.pasteCamp')"
                     text
                     class="v-btn--has-bg"
                     height="56"
@@ -51,7 +51,7 @@
               <v-btn
                 v-else-if="!clipboardAccessDenied"
                 ref="pasteButton"
-                :title="$tc('components.campCreate.campCreateStep2.pasteCamp')"
+                :title="$t('components.campCreate.campCreateStep2.pasteCamp')"
                 text
                 class="v-btn--has-bg"
                 height="56"
@@ -63,11 +63,11 @@
             </div>
             <div v-if="prototypePreview" class="px-2 rounded-lg dashborder">
               <h3 class="mt-2 h3">
-                {{ $tc('components.campCreate.campCreateStep2.preview') }}
+                {{ $t('components.campCreate.campCreateStep2.preview') }}
               </h3>
               <v-list class="w-100" dense color="transparent">
                 <v-subheader class="px-0" style="height: auto">
-                  {{ $tc('components.campCreate.campCreateStep2.category') }}
+                  {{ $t('components.campCreate.campCreateStep2.category') }}
                 </v-subheader>
                 <v-list-item
                   v-for="category in prototypePreview.categories().items"
@@ -81,10 +81,10 @@
                       category
                         .preferredContentTypes()
                         .items.map((item) =>
-                          $tc('contentNode.' + camelCase(item.name) + '.name')
+                          $t('contentNode.' + camelCase(item.name) + '.name')
                         )
                         .join(', ') ||
-                      $tc('components.campCreate.campCreateStep2.noContent')
+                      $t('components.campCreate.campCreateStep2.noContent')
                     }}</small>
                   </v-list-item-title>
                 </v-list-item>
@@ -92,7 +92,7 @@
               <div class="d-flex flex-row">
                 <v-list class="w-100 sm:w-50" dense color="transparent">
                   <v-subheader class="px-0" style="height: auto">
-                    {{ $tc('components.campCreate.campCreateStep2.progressLabels') }}
+                    {{ $t('components.campCreate.campCreateStep2.progressLabels') }}
                   </v-subheader>
                   <v-list-item
                     v-for="(progressLabel, idx) in prototypePreview.progressLabels()
@@ -110,7 +110,7 @@
                 </v-list>
                 <v-list class="w-100 sm:w-50" dense color="transparent">
                   <v-subheader class="px-0" style="height: auto">
-                    {{ $tc('components.campCreate.campCreateStep2.materialLists') }}
+                    {{ $t('components.campCreate.campCreateStep2.materialLists') }}
                   </v-subheader>
                   <v-list-item
                     v-for="materialList in copyableMaterialLists"
@@ -130,7 +130,7 @@
                 color="transparent"
               >
                 <v-subheader class="px-0" style="height: auto">
-                  {{ $tc('components.campCreate.campCreateStep2.checklists') }}
+                  {{ $t('components.campCreate.campCreateStep2.checklists') }}
                 </v-subheader>
                 <v-list-item
                   v-for="checklist in prototypePreview.checklists().items"
@@ -140,7 +140,7 @@
                   <v-list-item-title class="d-flex gap-2 align-baseline">
                     {{ checklist.name }}
                     <small class="blue-grey--text">{{
-                      $tc(
+                      $t(
                         'components.campCreate.campCreateStep2.checklistItemCount',
                         checklist.checklistItems().items.length
                       )
@@ -157,11 +157,11 @@
               icon="mdi-alert-circle-outline"
             >
               <strong>{{
-                $tc('components.campCreate.campCreateStep2.noPrototypeAlert.title')
+                $t('components.campCreate.campCreateStep2.noPrototypeAlert.title')
               }}</strong>
               <br />
               {{
-                $tc('components.campCreate.campCreateStep2.noPrototypeAlert.description')
+                $t('components.campCreate.campCreateStep2.noPrototypeAlert.description')
               }}
             </v-alert>
           </v-card-text>
@@ -174,7 +174,7 @@
               @click="$emit('previous-step')"
             >
               <v-icon left>mdi-arrow-left</v-icon>
-              {{ $tc('global.button.back') }}
+              {{ $t('global.button.back') }}
             </v-btn>
             <div class="ml-auto">
               <ButtonCancel :disabled="isSaving" @click="$router.go(-1)" />
@@ -184,7 +184,7 @@
                 :loading="isSaving"
                 data-testid="create-camp-button"
               >
-                {{ $tc('components.campCreate.campCreateStep2.create') }}
+                {{ $t('components.campCreate.campCreateStep2.create') }}
               </ButtonAdd>
               <v-tooltip v-else top>
                 <template #activator="{ attrs, on }">
@@ -195,10 +195,10 @@
                     @click="validate()"
                     v-on="on"
                   >
-                    {{ $tc('components.campCreate.campCreateStep2.create') }}
+                    {{ $t('components.campCreate.campCreateStep2.create') }}
                   </ButtonAdd>
                 </template>
-                {{ $tc('components.campCreate.campCreateStep2.submitTooltipPrototype') }}
+                {{ $t('components.campCreate.campCreateStep2.submitTooltipPrototype') }}
               </v-tooltip>
             </div>
           </ContentActions>
@@ -296,11 +296,11 @@ export default {
           : []),
         {
           value: 'other',
-          text: this.$tc('components.campCreate.campCreateStep2.otherPrototype'),
+          text: this.$t('components.campCreate.campCreateStep2.otherPrototype'),
         },
         {
           value: 'none',
-          text: this.$tc('components.campCreate.campCreateStep2.noPrototype'),
+          text: this.$t('components.campCreate.campCreateStep2.noPrototype'),
         },
       ])
     },
@@ -308,16 +308,16 @@ export default {
       const campPrototypeUris = this.campPrototypes.map((prototype) => prototype.value)
       switch (this.selectedPrototypeValue) {
         case '':
-          return this.$tc('components.campCreate.campCreateStep2.prototypeHint')
+          return this.$t('components.campCreate.campCreateStep2.prototypeHint')
         case 'none':
-          return this.$tc('components.campCreate.campCreateStep2.prototypeHintEmpty')
+          return this.$t('components.campCreate.campCreateStep2.prototypeHintEmpty')
         case 'other':
           return ''
         default:
           if (!campPrototypeUris.includes(this.selectedPrototypeValue)) {
-            return this.$tc('components.campCreate.campCreateStep2.prototypeHintOther')
+            return this.$t('components.campCreate.campCreateStep2.prototypeHintOther')
           }
-          return this.$tc('components.campCreate.campCreateStep2.prototypeHintSelected')
+          return this.$t('components.campCreate.campCreateStep2.prototypeHintSelected')
       }
     },
     prototypePreview() {
@@ -338,7 +338,7 @@ export default {
         .camps({ isPrototype: true })
         .items.map((ct) => ({
           value: ct._meta.self,
-          text: this.$tc(ct.title),
+          text: this.$t(ct.title),
           object: ct,
         }))
     },

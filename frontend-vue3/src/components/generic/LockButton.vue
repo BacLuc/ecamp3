@@ -43,15 +43,15 @@ export default {
   computed: {
     tooltip() {
       if (this.disabledForGuest) {
-        return this.$tc('components.generic.lockButton.guestsCannotEdit')
+        return this.$t('components.generic.lockButton.guestsCannotEdit')
       }
       if (this.message) {
         return this.message
       }
       if (!this.value) {
-        return this.$tc('components.generic.lockButton.clickToUnlock')
+        return this.$t('components.generic.lockButton.clickToUnlock')
       }
-      return this.$tc('components.generic.lockButton.clickToLock')
+      return this.$t('components.generic.lockButton.clickToLock')
     },
   },
   methods: {

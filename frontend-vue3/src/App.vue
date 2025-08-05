@@ -11,8 +11,8 @@
 
     <v-footer v-if="offline" app>
       <p class="mb-0">
-        <strong>{{ $tc('global.info.offline.title') }}</strong>
-        {{ $tc('global.info.offline.description') }}
+        <strong>{{ $t('global.info.offline.title') }}</strong>
+        {{ $t('global.info.offline.description') }}
       </p>
     </v-footer>
   </v-app>

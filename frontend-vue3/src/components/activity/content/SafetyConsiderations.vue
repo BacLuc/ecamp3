@@ -3,7 +3,7 @@
     <api-richtext
       :uri="contentNode._meta.self"
       path="data.html"
-      :placeholder="$tc('contentNode.safetyConsiderations.name')"
+      :placeholder="$t('contentNode.safetyConsiderations.name')"
       rows="2"
       :disabled="layoutMode || disabled"
       class="grow-v-slot"

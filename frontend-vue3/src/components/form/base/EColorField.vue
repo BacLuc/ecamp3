@@ -72,7 +72,7 @@ export default {
         return reactive(color)
       } catch (e) {
         if (e instanceof TypeError) {
-          throw new Error(this.$tc('components.form.base.eColorField.parseError'))
+          throw new Error(this.$t('components.form.base.eColorField.parseError'))
         } else {
           throw e
         }

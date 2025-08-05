@@ -6,7 +6,7 @@
         size="small"
         class="drag-and-drop-handle"
         :disabled="isLastSection"
-        :aria-label="$tc('global.button.move')"
+        :aria-label="$t('global.button.move')"
         @keydown.down="$emit('move-down', itemKey)"
         @keydown.up="$emit('move-up', itemKey)"
       >

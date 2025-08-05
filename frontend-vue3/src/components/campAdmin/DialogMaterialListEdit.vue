@@ -4,7 +4,7 @@
     :loading="loading"
     :error="error"
     icon="mdi-package-variant"
-    :title="$tc('components.campAdmin.dialogMaterialListEdit.title')"
+    :title="$t('components.campAdmin.dialogMaterialListEdit.title')"
     :submit-action="update"
     submit-color="success"
     :cancel-action="close"
@@ -54,7 +54,7 @@ export default {
   methods: {
     deleteErrorHandler(e) {
       if (e?.response?.status === 422 /* Validation Error */) {
-        return this.$tc('components.campAdmin.dialogMaterialListEdit.deleteError')
+        return this.$t('components.campAdmin.dialogMaterialListEdit.deleteError')
       }
       return null
     },

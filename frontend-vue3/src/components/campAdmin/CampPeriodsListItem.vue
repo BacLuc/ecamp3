@@ -25,7 +25,7 @@ Displays a single period as a list item including controls to edit and delete it
                 <v-icon>mdi-pencil</v-icon>
               </v-list-item-icon>
               <v-list-item-title>{{
-                $tc('components.campAdmin.campPeriodsListItem.changePeriodDescription')
+                $t('components.campAdmin.campPeriodsListItem.changePeriodDescription')
               }}</v-list-item-title>
             </v-list-item>
           </template>
@@ -42,7 +42,7 @@ Displays a single period as a list item including controls to edit and delete it
                 <v-icon>mdi-arrow-left-right</v-icon>
               </v-list-item-icon>
               <v-list-item-title>
-                {{ $tc('components.campAdmin.campPeriodsListItem.movePeriod') }}
+                {{ $t('components.campAdmin.campPeriodsListItem.movePeriod') }}
               </v-list-item-title>
             </v-list-item>
           </template>
@@ -60,7 +60,7 @@ Displays a single period as a list item including controls to edit and delete it
               </v-list-item-icon>
               <v-list-item-title>
                 {{
-                  $tc('components.campAdmin.campPeriodsListItem.periodChangeStart')
+                  $t('components.campAdmin.campPeriodsListItem.periodChangeStart')
                 }}</v-list-item-title
               >
             </v-list-item>
@@ -79,7 +79,7 @@ Displays a single period as a list item including controls to edit and delete it
               </v-list-item-icon>
               <v-list-item-title>
                 {{
-                  $tc('components.campAdmin.campPeriodsListItem.periodChangeEnd')
+                  $t('components.campAdmin.campPeriodsListItem.periodChangeEnd')
                 }}</v-list-item-title
               >
             </v-list-item>
@@ -99,15 +99,15 @@ Displays a single period as a list item including controls to edit and delete it
                 <v-icon>mdi-delete</v-icon>
               </v-list-item-icon>
               <v-list-item-title>
-                {{ $tc('global.button.delete') }}
+                {{ $t('global.button.delete') }}
               </v-list-item-title>
             </v-list-item>
           </template>
           <div v-if="isLastPeriod">
-            {{ $tc('components.campAdmin.campPeriodsListItem.lastPeriodNotDeletable') }}
+            {{ $t('components.campAdmin.campPeriodsListItem.lastPeriodNotDeletable') }}
           </div>
           <div v-else>
-            {{ $tc('components.campAdmin.campPeriodsListItem.deleteWarning') }} <br />
+            {{ $t('components.campAdmin.campPeriodsListItem.deleteWarning') }} <br />
             <ul>
               <li>
                 {{ period.description }}

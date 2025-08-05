@@ -54,10 +54,10 @@ export const generatePdfMixin = {
       } catch (error) {
         if (error?.response?.status === 503) {
           this.$toast.error(
-            this.$tc('components.print.printNuxt.generatePdfMixin.queueFull')
+            this.$t('components.print.printNuxt.generatePdfMixin.queueFull')
           )
         } else {
-          this.$toast.error(this.$tc('components.print.printNuxt.generatePdfMixin.error'))
+          this.$toast.error(this.$t('components.print.printNuxt.generatePdfMixin.error'))
         }
         Sentry.captureException(new Error(error))
       } finally {

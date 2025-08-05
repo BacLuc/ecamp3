@@ -1,5 +1,5 @@
 <template>
-  <content-card :title="$tc('views.camp.dashboard.activities')" toolbar>
+  <content-card :title="$t('views.camp.dashboard.activities')" toolbar>
     <div class="d-flow-root">
       <ScheduleEntryFilters
         v-if="loading"
@@ -36,19 +36,19 @@
           <thead :key="uri + '_head'">
             <tr class="d-sr-only">
               <th :id="uri + 'th-number'" scope="col">
-                {{ $tc('views.camp.dashboard.columns.number') }}
+                {{ $t('views.camp.dashboard.columns.number') }}
               </th>
               <th :id="uri + 'th-category'" scope="col">
-                {{ $tc('views.camp.dashboard.columns.category') }}
+                {{ $t('views.camp.dashboard.columns.category') }}
               </th>
               <th :id="uri + 'th-time'" scope="col">
-                {{ $tc('views.camp.dashboard.columns.time') }}
+                {{ $t('views.camp.dashboard.columns.time') }}
               </th>
               <th :id="uri + 'th-title'" scope="col">
-                {{ $tc('views.camp.dashboard.columns.title') }}
+                {{ $t('views.camp.dashboard.columns.title') }}
               </th>
               <th :id="uri + 'th-responsible'" scope="col">
-                {{ $tc('views.camp.dashboard.columns.responsible') }}
+                {{ $t('views.camp.dashboard.columns.responsible') }}
               </th>
             </tr>
           </thead>
@@ -90,10 +90,10 @@
           v-if="scheduleEntries.length > 0 && filteredScheduleEntries.length === 0"
           class="ma-4"
         >
-          {{ $tc('views.camp.dashboard.noEntries') }}
+          {{ $t('views.camp.dashboard.noEntries') }}
         </p>
         <p v-if="scheduleEntries.length === 0" class="ma-4">
-          {{ $tc('views.camp.dashboard.welcome') }}
+          {{ $t('views.camp.dashboard.welcome') }}
         </p>
       </template>
       <table v-else class="mx-4 mt-6 mb-3 d-sr-none" style="border-collapse: collapse">

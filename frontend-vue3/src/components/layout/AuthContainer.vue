@@ -14,7 +14,7 @@
       </v-card>
     </v-col>
     <span v-if="$vuetify.display.smAndUp" class="photo_credits ma-3 pa-1">
-      {{ $tc('components.layout.authContainer.photoCredits') }}
+      {{ $t('components.layout.authContainer.photoCredits') }}
     </span>
   </v-container>
 </template>

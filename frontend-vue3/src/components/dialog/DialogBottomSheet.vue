@@ -23,13 +23,13 @@
           </v-toolbar-title>
           <v-btn
             v-if="cancelAction != null"
-            :title="$tc('global.button.cancel')"
+            :title="$t('global.button.cancel')"
             class="ml-auto"
             icon
             @click="doCancel"
           >
             <v-icon>mdi-close</v-icon>
-            <span class="d-sr-only">{{ $tc('global.button.cancel') }}</span>
+            <span class="d-sr-only">{{ $t('global.button.cancel') }}</span>
           </v-btn>
         </v-toolbar>
         <div class="pa-4">

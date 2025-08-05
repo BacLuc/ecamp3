@@ -34,7 +34,7 @@ Displays a field as a date picker (can be used with v-model)
       >
         <v-spacer />
         <v-btn color="primary" variant="text" @click="picker.close">
-          {{ $tc('global.button.close') }}
+          {{ $t('global.button.close') }}
         </v-btn>
       </v-date-picker>
     </template>
@@ -161,7 +161,7 @@ export default {
           return Promise.resolve(newValue)
         } else {
           return Promise.reject(
-            new Error(this.$tc('components.form.base.eDatePicker.invalidFormat'))
+            new Error(this.$t('components.form.base.eDatePicker.invalidFormat'))
           )
         }
       } else {

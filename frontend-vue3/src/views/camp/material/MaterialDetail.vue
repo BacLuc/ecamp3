@@ -16,7 +16,7 @@
                     <v-icon>mdi-pencil</v-icon>
                   </v-list-item-icon>
                   <v-list-item-content>{{
-                    $tc('global.button.edit')
+                    $t('global.button.edit')
                   }}</v-list-item-content>
                 </v-list-item>
               </template>
@@ -26,7 +26,7 @@
                 <v-icon>mdi-microsoft-excel</v-icon>
               </v-list-item-icon>
               <v-list-item-content>{{
-                $tc('global.button.download')
+                $t('global.button.download')
               }}</v-list-item-content>
             </v-list-item>
           </v-list>

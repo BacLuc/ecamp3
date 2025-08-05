@@ -4,7 +4,7 @@ Displays all periods of a single camp and allows to edit them & create new ones
 
 <template>
   <content-group
-    :title="$tc('components.campAdmin.campPeriods.title', api.get().camps().items.length)"
+    :title="$t('components.campAdmin.campPeriods.title', api.get().camps().items.length)"
     icon="mdi-calendar-multiple"
   >
     <template #title-actions>
@@ -14,10 +14,10 @@ Displays all periods of a single camp and allows to edit them & create new ones
             color="secondary"
             text
             class="my-n2"
-            :hide-label="$vuetify.breakpoint.xsOnly"
+            :hide-label="$vuetify.display.xsOnly"
             v-on="on"
           >
-            {{ $tc('components.campAdmin.campPeriods.createPeriod') }}
+            {{ $t('components.campAdmin.campPeriods.createPeriod') }}
           </button-add>
         </template>
       </dialog-period-create>

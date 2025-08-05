@@ -5,7 +5,7 @@
       <SidebarListItem
         v-if="featureChecklistEnabled"
         to="/admin/checklists"
-        :title="$tc('entity.checklist.name', 2)"
+        :title="$t('entity.checklist.name', 2)"
         icon="mdi-clipboard-list-outline"
       />
     </v-list>

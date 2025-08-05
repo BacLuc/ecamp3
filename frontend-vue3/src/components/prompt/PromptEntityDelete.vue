@@ -2,12 +2,12 @@
   <PopoverPrompt
     v-model="showDialog"
     :icon="icon"
-    :title="$tc('components.prompt.promptEntityDelete.title')"
+    :title="$t('components.prompt.promptEntityDelete.title')"
     :error="error"
     type="error"
     :submit-action="del"
     :submit-enabled="submitEnabled && !$slots.error"
-    :submit-label="$tc('global.button.delete')"
+    :submit-label="$t('global.button.delete')"
     submit-color="error"
     :submit-icon="icon"
     cancel-icon=""
@@ -22,7 +22,7 @@
     <slot>
       <p>
         {{
-          $tc('global.warning.delete', warningTextEntity ? 2 : 0, {
+          $t('global.warning.delete', warningTextEntity ? 2 : 0, {
             entity: warningTextEntity,
           })
         }}

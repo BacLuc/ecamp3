@@ -20,7 +20,7 @@
           <br />
           <v-btn :to="{ name: 'home' }" class="absolute bottom-n100" dark variant="text">
             <v-icon start>mdi-tent</v-icon>
-            {{ $tc('views.pageNotFound.backToHome') }}
+            {{ $t('views.pageNotFound.backToHome') }}
           </v-btn>
         </p>
       </div>

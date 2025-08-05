@@ -1,3 +1,4 @@
+import { createApp } from 'vue'
 import App from './App.vue'
 import router from '@/router.js'
 import {
@@ -40,7 +41,7 @@ app.use(storeLoader)
 app.use(vuetifyLoader)
 app.use(dayjs)
 app.use(color)
-app.use(veeValidate)
+//app.use(veeValidate)
 app.use(Toast, {
   maxToasts: 2,
 })

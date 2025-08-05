@@ -20,7 +20,7 @@
           v-on="on"
         >
           <v-icon left>mdi-plus-circle-outline</v-icon>
-          {{ $tc('global.button.add') }}
+          {{ $t('global.button.add') }}
         </v-btn>
       </template>
       <v-list>
@@ -31,10 +31,10 @@
           @click="addContentNode(contentType)"
         >
           <v-list-item-icon>
-            <v-icon>{{ $tc(contentTypeIconKey(contentType)) }}</v-icon>
+            <v-icon>{{ $t(contentTypeIconKey(contentType)) }}</v-icon>
           </v-list-item-icon>
           <v-list-item-title>
-            {{ $tc(contentTypeNameKey(contentType)) }}
+            {{ $t(contentTypeNameKey(contentType)) }}
           </v-list-item-title>
         </v-list-item>
 
@@ -47,10 +47,10 @@
           @click="addContentNode(contentType)"
         >
           <v-list-item-icon>
-            <v-icon>{{ $tc(contentTypeIconKey(contentType)) }}</v-icon>
+            <v-icon>{{ $t(contentTypeIconKey(contentType)) }}</v-icon>
           </v-list-item-icon>
           <v-list-item-title>
-            {{ $tc(contentTypeNameKey(contentType)) }}
+            {{ $t(contentTypeNameKey(contentType)) }}
           </v-list-item-title>
         </v-list-item>
       </v-list>

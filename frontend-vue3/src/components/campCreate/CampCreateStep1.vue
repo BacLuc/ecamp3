@@ -7,7 +7,7 @@
             <e-text-field
               v-model="localCamp.title"
               path="title"
-              :placeholder="$tc('components.campCreate.campCreateStep1.titlePlaceholder')"
+              :placeholder="$t('components.campCreate.campCreateStep1.titlePlaceholder')"
               vee-rules="required|max:32"
               data-testid="create-camp-title-input"
               required
@@ -47,10 +47,10 @@
                   @click="validate()"
                   v-on="on"
                 >
-                  {{ $tc('global.button.continue') }}
+                  {{ $t('global.button.continue') }}
                 </v-btn>
               </template>
-              {{ $tc('components.campCreate.campCreateStep1.submitTooltip') }}
+              {{ $t('components.campCreate.campCreateStep1.submitTooltip') }}
             </v-tooltip>
           </ContentActions>
         </v-form>

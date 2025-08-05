@@ -105,6 +105,8 @@ export default {
 }
 </script>
 <style scoped lang="scss">
+@use '/src/scss/variables';
+
 .resize-btn {
   position: absolute;
   right: -35px;
@@ -118,7 +120,7 @@ export default {
   }
   &:active,
   &:hover {
-    color: map-get($blue, 'darken-4') !important;
+    color: map-get(variables.$blue, 'darken-4') !important;
     cursor: col-resize;
   }
   &::after {
@@ -136,14 +138,14 @@ export default {
       to bottom,
       rgb(21, 101, 192, 0.1),
       rgb(21, 101, 192, 0.1) 40%,
-      map-get($blue, 'darken-3') 40%,
-      map-get($blue, 'darken-3') 100%
+      map-get(variables.$blue, 'darken-3') 40%,
+      map-get(variables.$blue, 'darken-3') 100%
     );
     border-image: linear-gradient(
         to right,
         transparent 0%,
-        map-get($blue, 'lighten-2') 46%,
-        map-get($blue, 'lighten-2') 53%,
+        map-get(variables.$blue, 'lighten-2') 46%,
+        map-get(variables.$blue, 'lighten-2') 53%,
         transparent 100%
       )
       1;

@@ -9,14 +9,14 @@ Displays fields which don't apply to all camps, but are required for some
         <v-icon left size="20">{{
           $i18n.locale.includes('it') ? '$vuetify.icons.gs' : '$vuetify.icons.js'
         }}</v-icon>
-        {{ $tc('components.campAdmin.campConditionalFields.title') }}
+        {{ $t('components.campAdmin.campConditionalFields.title') }}
       </h2>
     </v-expansion-panel-header>
     <v-expansion-panel-content>
       <v-row class="pb-6">
         <v-col cols="12" md="6" class="pb-0">
           <content-group
-            :title="$tc('components.campAdmin.campConditionalFields.ysCamp.title')"
+            :title="$t('components.campAdmin.campConditionalFields.ysCamp.title')"
             icon="mdi-tent"
           >
             <v-skeleton-loader v-if="camp._meta.loading" type="article" />
@@ -33,7 +33,7 @@ Displays fields which don't apply to all camps, but are required for some
         </v-col>
         <v-col cols="12" md="6" class="pb-0">
           <content-group
-            :title="$tc('components.campAdmin.campConditionalFields.course.title')"
+            :title="$t('components.campAdmin.campConditionalFields.course.title')"
             icon="mdi-school"
           >
             <v-skeleton-loader v-if="camp._meta.loading" type="article" />

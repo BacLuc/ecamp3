@@ -64,7 +64,7 @@ export default {
     deploymentTime() {
       const timestamp = this.environment.DEPLOYMENT_TIME
       const dateTime = timestamp ? this.$date.unix(timestamp) : this.$date()
-      return dateTime.format(this.$tc('global.datetime.dateTimeLong'))
+      return dateTime.format(this.$t('global.datetime.dateTimeLong'))
     },
     version() {
       return this.environment.VERSION || ''
@@ -83,7 +83,7 @@ export default {
 <style scoped lang="scss">
 @use '/src/scss/variables';
 
-@media #{map-get(variables.$display-breakpoints, 'xs-only')} {
+@media #{map-get(variables.$display-breakpoints, 'xs')} {
   :deep(table) {
     display: block;
   }

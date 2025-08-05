@@ -1,7 +1,7 @@
 <template>
   <div class="w-100">
-    <template v-for="{ checklist, items } in activeChecklists">
-      <h3 :key="checklist._meta.self" class="px-4">{{ checklist.name }}</h3>
+    <template v-for="{ checklist, items } in activeChecklists" :key="checklist._meta.self">
+      <h3 class="px-4">{{ checklist.name }}</h3>
       <v-list-item
         v-for="{ item, parents } in items"
         :key="item._meta.self"
@@ -10,9 +10,9 @@
       >
         <v-list-item-content class="py-2">
           <v-list-item-subtitle v-if="parents.length > 0" class="d-flex gap-1">
-            <template v-for="(parent, index) in parents">
-              <span v-if="index" :key="parent._meta.self + 'divider'">/</span>
-              <span :key="parent._meta.self" class="e-checklist-item-parent-name">{{
+            <template v-for="(parent, index) in parents"  :key="parent._meta.self">
+              <span v-if="index">/</span>
+              <span class="e-checklist-item-parent-name">{{
                 parent.text
               }}</span>
             </template>

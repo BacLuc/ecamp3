@@ -28,7 +28,7 @@
                 <v-icon>mdi-content-copy</v-icon>
               </v-list-item-icon>
               <v-list-item-title>
-                {{ $tc('views.camp.category.category.copyCategory') }}
+                {{ $t('views.camp.category.category.copyCategory') }}
               </v-list-item-title>
             </v-list-item>
             <ClipboardInfoDialog
@@ -39,7 +39,7 @@
               v-if="isManager"
               :entity="category"
               :warning-text-entity="category.name"
-              :dialog-title="$tc('views.camp.category.category.deleteCategory')"
+              :dialog-title="$t('views.camp.category.category.deleteCategory')"
               :success-handler="goToActivityAdmin"
             >
               <template #activator="{ on }">
@@ -48,7 +48,7 @@
                     <v-icon>mdi-delete</v-icon>
                   </v-list-item-icon>
                   <v-list-item-title>
-                    {{ $tc('views.camp.category.category.deleteCategory') }}
+                    {{ $t('views.camp.category.category.deleteCategory') }}
                   </v-list-item-title>
                 </v-list-item>
               </template>
@@ -66,7 +66,7 @@
         <v-expansion-panel>
           <v-expansion-panel-header>
             <h3>
-              {{ $tc('views.camp.category.category.properties') }}
+              {{ $t('views.camp.category.category.properties') }}
             </h3>
           </v-expansion-panel-header>
           <v-expansion-panel-content>
@@ -81,7 +81,7 @@
         <v-expansion-panel>
           <v-expansion-panel-header>
             <h3>
-              {{ $tc('views.camp.category.category.template') }}
+              {{ $t('views.camp.category.category.template') }}
             </h3>
           </v-expansion-panel-header>
           <v-expansion-panel-content>
@@ -218,7 +218,7 @@ export default {
       await navigator.clipboard.writeText(url)
 
       this.$toast.info(
-        this.$tc('global.toast.copied', null, { source: this.category.name }),
+        this.$t('global.toast.copied', null, { source: this.category.name }),
         {
           timeout: 2000,
         }

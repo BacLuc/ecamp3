@@ -4,9 +4,9 @@
     :loading="loading"
     :error="error"
     icon="mdi-progress-check"
-    :title="$tc('components.campAdmin.dialogActivityProgressLabelCreate.title')"
+    :title="$t('components.campAdmin.dialogActivityProgressLabelCreate.title')"
     :submit-action="createDialogActivityProgressLabelCreate"
-    :submit-label="$tc('global.button.create')"
+    :submit-label="$t('global.button.create')"
     submit-color="success"
     :cancel-action="close"
   >

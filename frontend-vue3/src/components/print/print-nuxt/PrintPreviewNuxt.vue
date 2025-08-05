@@ -2,14 +2,14 @@
   <div style="position: relative">
     <v-btn :href="url" class="float-right" target="_blank" variant="text">
       <v-icon start>mdi-open-in-new</v-icon>
-      {{ $tc('components.print.printNuxt.printPreviewNuxt.openPreview') }}
+      {{ $t('components.print.printNuxt.printPreviewNuxt.openPreview') }}
     </v-btn>
 
     <iframe
       id="previewIFrame"
       ref="previewIFrame"
       name="previewIFrame"
-      :title="$tc('components.print.printNuxt.printPreviewNuxt.previewIframeTitle')"
+      :title="$t('components.print.printNuxt.printPreviewNuxt.previewIframeTitle')"
       class="mt-3 d-block"
       frameborder="1"
       width="100%"
@@ -20,7 +20,7 @@
 
     <v-overlay :model-value="loading || error" absolute z-index="2">
       <div v-if="error">
-        {{ $tc('components.print.printNuxt.printPreviewNuxt.previewError') }}
+        {{ $t('components.print.printNuxt.printPreviewNuxt.previewError') }}
       </div>
       <v-progress-circular v-else indeterminate />
     </v-overlay>

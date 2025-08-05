@@ -4,14 +4,14 @@
     type="error"
     icon="mdi-email"
     :title="
-      $tc(
+      $t(
         'components.personalInvitations.dialogPersonalInvitationReject.rejectInvitation'
       )
     "
     :error="error"
     :submit-action="submitAction"
     :submit-label="
-      $tc(
+      $t(
         'components.personalInvitations.dialogPersonalInvitationReject.rejectInvitation'
       )
     "
@@ -26,7 +26,7 @@
     </template>
     <slot>
       {{
-        $tc(
+        $t(
           'components.personalInvitations.dialogPersonalInvitationReject.warningText',
           0,
           { campTitle: campTitle }

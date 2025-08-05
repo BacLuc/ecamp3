@@ -4,9 +4,9 @@
     :loading="loading"
     :error="error"
     icon="mdi-calendar-plus"
-    :title="$tc('components.campAdmin.dialogCategoryCreate.title')"
+    :title="$t('components.campAdmin.dialogCategoryCreate.title')"
     :submit-action="createCategory"
-    :submit-label="$tc('global.button.create')"
+    :submit-label="$t('global.button.create')"
     submit-color="success"
     :cancel-action="close"
   >
@@ -22,7 +22,7 @@
         <template #activator="{ on }">
           <v-btn v-show="showClipboardPrompt" v-on="on">
             <v-icon left>mdi-information-outline</v-icon>
-            {{ $tc('components.campAdmin.dialogCategoryCreate.copyPasteCategory') }}
+            {{ $t('components.campAdmin.dialogCategoryCreate.copyPasteCategory') }}
           </v-btn>
         </template>
       </ClipboardInfoDialog>
@@ -31,7 +31,7 @@
     <div v-if="hasClipboardEntity">
       <div class="mb-8">
         <div v-if="!clipboardAccessDenied">
-          {{ $tc('components.campAdmin.dialogCategoryCreate.clipboard') }}
+          {{ $t('components.campAdmin.dialogCategoryCreate.clipboard') }}
           <div style="float: right">
             <small>
               <a
@@ -39,7 +39,7 @@
                 style="color: inherit; text-decoration: none"
                 @click="clearClipboard"
               >
-                {{ $tc('components.campAdmin.dialogCategoryCreate.clearClipboard') }}
+                {{ $t('components.campAdmin.dialogCategoryCreate.clearClipboard') }}
               </a>
             </small>
           </div>
@@ -62,7 +62,7 @@
           <v-list-item-action>
             <e-checkbox
               v-model="copyContent"
-              :label="$tc('components.campAdmin.dialogCategoryCreate.copyContent')"
+              :label="$t('components.campAdmin.dialogCategoryCreate.copyContent')"
             />
           </v-list-item-action>
         </v-list-item>
@@ -73,11 +73,11 @@
         <PopoverPrompt
           v-model="showCopyCategoryUrlPopover"
           icon="mdi-content-paste"
-          :title="$tc('components.campAdmin.dialogCategoryCreate.pasteCategory')"
+          :title="$t('components.campAdmin.dialogCategoryCreate.pasteCategory')"
         >
           <template #activator="{ on }">
             <v-btn
-              :title="$tc('components.campAdmin.dialogCategoryCreate.pasteCategory')"
+              :title="$t('components.campAdmin.dialogCategoryCreate.pasteCategory')"
               text
               class="v-btn--has-bg"
               height="56"
@@ -87,11 +87,11 @@
               <v-icon v-else>mdi-content-paste</v-icon>
             </v-btn>
           </template>
-          {{ $tc('components.campAdmin.dialogCategoryCreate.copySourceInfo') }}
+          {{ $t('components.campAdmin.dialogCategoryCreate.copySourceInfo') }}
           <e-text-field
             v-model="clipboardEntityUrl"
             :label="
-              $tc('components.campAdmin.dialogCategoryCreate.copyCategoryOrActivity')
+              $t('components.campAdmin.dialogCategoryCreate.copyCategoryOrActivity')
             "
             style="margin-bottom: 12px"
             autofocus

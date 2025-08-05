@@ -2,9 +2,9 @@
 Displays collaborators of a single camp.
 -->
 <template>
-  <content-card :title="$tc('views.camp.admin.collaborators.title')" toolbar>
+  <content-card :title="$t('views.camp.admin.collaborators.title')" toolbar>
     <v-card-text>
-      <ContentGroup :title="$tc('views.camp.admin.collaborators.members')">
+      <ContentGroup :title="$t('views.camp.admin.collaborators.members')">
         <template #title-actions>
           <CollaboratorCreate v-if="isManager" :camp="camp" />
         </template>
@@ -13,14 +13,14 @@ Displays collaborators of a single camp.
 
       <ContentGroup
         v-if="invited.length > 0"
-        :title="$tc('views.camp.admin.collaborators.openInvitations')"
+        :title="$t('views.camp.admin.collaborators.openInvitations')"
       >
         <CollaboratorList :collaborators="invited" :is-manager="isManager" />
       </ContentGroup>
 
       <ContentGroup
         v-if="inactive.length > 0"
-        :title="$tc('views.camp.admin.collaborators.inactiveCollaborators')"
+        :title="$t('views.camp.admin.collaborators.inactiveCollaborators')"
       >
         <CollaboratorList :collaborators="inactive" :is-manager="isManager" inactive />
       </ContentGroup>
@@ -48,7 +48,7 @@ export default {
   },
   head() {
     return {
-      title: this.$tc('views.camp.admin.collaborators.title'),
+      title: this.$t('views.camp.admin.collaborators.title'),
     }
   },
   computed: {

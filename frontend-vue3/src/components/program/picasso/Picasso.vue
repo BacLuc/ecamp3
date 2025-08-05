@@ -47,11 +47,11 @@ Listing all given activity schedule entries in a calendar view.
               entryWidth > 140
                 ? $date
                     .utc(date)
-                    .format($tc('components.program.picasso.picasso.datetime.fullDate'))
+                    .format($t('components.program.picasso.picasso.datetime.fullDate'))
                 : $date
                     .utc(date)
                     .format(
-                      $tc(
+                      $t(
                         'components.program.picasso.picasso.datetime.smallDate',
                         widthPluralization
                       )
@@ -75,7 +75,7 @@ Listing all given activity schedule entries in a calendar view.
 
     <!-- <v-snackbar v-model="isSaving" light>
       <v-icon class="mdi-spin">mdi-loading</v-icon>
-      {{ $tc('global.button.saving') }}
+      {{ $t('global.button.saving') }}
     </v-snackbar> -->
   </div>
 </template>
@@ -372,13 +372,13 @@ export default {
     intervalFormat(time) {
       return this.$date
         .utc(time.date + ' ' + time.time)
-        .format(this.$tc('global.datetime.hourLong'))
+        .format(this.$t('global.datetime.hourLong'))
     },
     dayFormat(day) {
       if (this.$vuetify.display.smAndDown) {
-        return this.$date.utc(day.date).format(this.$tc('global.datetime.dateShort'))
+        return this.$date.utc(day.date).format(this.$t('global.datetime.dateShort'))
       } else {
-        return this.$date.utc(day.date).format(this.$tc('global.datetime.dateLong'))
+        return this.$date.utc(day.date).format(this.$t('global.datetime.dateLong'))
       }
     },
     weekdayFormat() {

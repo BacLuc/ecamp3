@@ -53,11 +53,11 @@
                   <v-icon>mdi-delete</v-icon>
                 </v-list-item-icon>
                 <v-list-item-title>
-                  {{ $tc('global.button.delete') }}
+                  {{ $t('global.button.delete') }}
                 </v-list-item-title>
               </v-list-item>
             </template>
-            {{ $tc('components.checklist.checklistDetail.deleteWarning') }}
+            {{ $t('components.checklist.checklistDetail.deleteWarning') }}
           </DialogEntityDelete>
         </v-list>
       </v-menu>
@@ -124,7 +124,7 @@ export default {
     },
     deleteErrorHandler(e) {
       if (e?.response?.status === 422 /* Validation Error */) {
-        return this.$tc('components.checklist.checklistDetail.deleteError')
+        return this.$t('components.checklist.checklistDetail.deleteError')
       }
       return null
     },

@@ -1,6 +1,6 @@
 <template>
   <v-container fluid>
-    <content-card max-width="800" :title="$tc('views.campCreate.title')" toolbar>
+    <content-card max-width="800" :title="$t('views.campCreate.title')" toolbar>
       <CampCreate />
     </content-card>
   </v-container>

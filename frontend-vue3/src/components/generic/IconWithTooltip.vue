@@ -45,7 +45,7 @@ export default {
   },
   computed: {
     showIcon() {
-      return this.text || 'default' in this.$slots || this.$tc(this.tcKey) != this.tcKey
+      return this.text || 'default' in this.$slots || this.$t(this.tcKey) != this.tcKey
     },
   },
   methods: {

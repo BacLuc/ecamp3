@@ -1,5 +1,5 @@
-import { prepareInMainThread } from '@/pdf/prepareInMainThread.mjs'
-import cloneDeep from 'lodash/cloneDeep.js'
+import { prepareInMainThread } from '@/pdf/prepareInMainThread.js'
+import cloneDeep from 'lodash-es/cloneDeep.js'
 
 export const generatePdf = async (data) => {
   await prepareInMainThread(data.config)

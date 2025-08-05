@@ -1,12 +1,12 @@
 <template>
   <dialog-form
     v-model="showDialog"
-    :title="$tc('components.activity.dialog.dialogActivityEdit.title')"
+    :title="$t('components.activity.dialog.dialogActivityEdit.title')"
     :loading="loading"
     :error="error"
     icon="mdi-calendar-plus"
     :submit-action="updateActivity"
-    :submit-label="$tc('global.button.update')"
+    :submit-label="$t('global.button.update')"
     submit-color="success"
     :cancel-action="close"
     max-width="700px"

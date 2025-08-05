@@ -1,6 +1,6 @@
 <template>
   <auth-container>
-    <h1 class="text-h4">{{ $tc('views.auth.activate.title') }}</h1>
+    <h1 class="text-h4">{{ $t('views.auth.activate.title') }}</h1>
 
     <div v-if="loading" class="text-center">
       <v-progress-circular :size="100" indeterminate color="green" />
@@ -8,7 +8,7 @@
 
     <div v-if="activated === true">
       <v-alert type="success" class="my-4 text--green text--darken-2">
-        {{ $tc('views.auth.activate.success') }}
+        {{ $t('views.auth.activate.success') }}
       </v-alert>
       <v-spacer />
       <v-btn
@@ -19,13 +19,13 @@
         class="my-4"
         block
       >
-        {{ $tc('global.button.login') }}
+        {{ $t('global.button.login') }}
       </v-btn>
     </div>
 
     <div v-if="activated === false">
       <v-alert type="error" class="my-4 text--red text--darken-2">
-        {{ $tc('views.auth.activate.error') }}
+        {{ $t('views.auth.activate.error') }}
       </v-alert>
     </div>
   </auth-container>
@@ -50,7 +50,7 @@ export default {
 
   head() {
     return {
-      title: this.$tc('views.auth.activate.title'),
+      title: this.$t('views.auth.activate.title'),
     }
   },
 

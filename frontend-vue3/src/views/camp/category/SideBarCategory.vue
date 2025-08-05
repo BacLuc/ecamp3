@@ -1,6 +1,6 @@
 <template>
   <SideBar
-    :title="$tc('views.camp.category.sideBarCategory.title')"
+    :title="$t('views.camp.category.sideBarCategory.title')"
     icon="mdi-format-list-numbered"
   >
     <v-list>

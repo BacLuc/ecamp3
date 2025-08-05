@@ -4,9 +4,9 @@
     :loading="loading"
     :error="error"
     icon="mdi-account-plus"
-    :title="$tc('components.checklist.checklistCreate.title')"
+    :title="$t('components.checklist.checklistCreate.title')"
     :submit-action="createChecklist"
-    :submit-label="$tc('global.button.create')"
+    :submit-label="$t('global.button.create')"
     submit-icon="mdi-plus"
     submit-color="success"
     :cancel-action="close"
@@ -18,7 +18,7 @@
         class="my-n2"
         icon="mdi-playlist-plus"
         v-on="on"
-        >{{ $tc('components.checklist.checklistCreate.title') }}</ButtonAdd
+        >{{ $t('components.checklist.checklistCreate.title') }}</ButtonAdd
       >
     </template>
 

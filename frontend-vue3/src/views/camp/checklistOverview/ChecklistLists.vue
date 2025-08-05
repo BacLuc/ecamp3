@@ -1,5 +1,5 @@
 <template>
-  <content-card :title="$tc('views.camp.checklistOverview.checklistLists.title')" toolbar>
+  <content-card :title="$t('views.camp.checklistOverview.checklistLists.title')" toolbar>
     <v-list>
       <v-skeleton-loader v-if="checklists._meta.loading" type="list-item@3" />
       <v-list-item
@@ -33,7 +33,7 @@ export default {
   },
   head() {
     return {
-      title: this.$tc('views.camp.checklistOverview.checklistLists.title'),
+      title: this.$t('views.camp.checklistOverview.checklistLists.title'),
     }
   },
   computed: {

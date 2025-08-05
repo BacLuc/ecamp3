@@ -1,36 +1,36 @@
 <template>
-  <SideBar :title="$tc('global.navigation.admin.title')" icon="mdi-menu">
+  <SideBar :title="$t('global.navigation.admin.title')" icon="mdi-menu">
     <v-list class="py-0">
       <SidebarListItem
         :to="adminRoute(camp, 'info')"
-        :title="$tc('views.camp.admin.sideBarAdmin.itemInfos')"
+        :title="$t('views.camp.admin.sideBarAdmin.itemInfos')"
         icon="mdi-tent"
       />
       <SidebarListItem
         :to="adminRoute(camp, 'activity')"
-        :title="$tc('views.camp.admin.sideBarAdmin.itemActivity')"
-        :subtitle="$tc('views.camp.admin.sideBarAdmin.itemActivitySubtitle')"
+        :title="$t('views.camp.admin.sideBarAdmin.itemActivity')"
+        :subtitle="$t('views.camp.admin.sideBarAdmin.itemActivitySubtitle')"
         icon="mdi-view-dashboard-outline"
       />
       <SidebarListItem
         :to="adminRoute(camp, 'collaborators')"
-        :title="$tc('views.camp.admin.sideBarAdmin.itemCollaborators')"
+        :title="$t('views.camp.admin.sideBarAdmin.itemCollaborators')"
         icon="mdi-account-group-outline"
       />
       <SidebarListItem
         v-if="featureChecklistEnabled"
         :to="adminRoute(camp, 'checklists')"
-        :title="$tc('entity.checklist.name', 2)"
+        :title="$t('entity.checklist.name', 2)"
         icon="mdi-clipboard-list-outline"
       />
       <SidebarListItem
         :to="adminRoute(camp, 'material')"
-        :title="$tc('views.camp.admin.sideBarAdmin.itemMaterialLists')"
+        :title="$t('views.camp.admin.sideBarAdmin.itemMaterialLists')"
         icon="mdi-package-variant-closed"
       />
       <SidebarListItem
         :to="adminRoute(camp, 'print')"
-        :title="$tc('views.camp.admin.sideBarAdmin.itemPrint')"
+        :title="$t('views.camp.admin.sideBarAdmin.itemPrint')"
         icon="mdi-file-outline"
       />
     </v-list>

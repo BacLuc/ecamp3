@@ -1,6 +1,4 @@
-@use '~inter-ui/default' as inter-ui with (
-  $inter-font-path: '~inter-ui/Inter (web hinted latin)'
-);
+@use '~inter-ui/default' as inter-ui;
 @include inter-ui.weight-200;
 @include inter-ui.weight-400;
 @include inter-ui.weight-500;

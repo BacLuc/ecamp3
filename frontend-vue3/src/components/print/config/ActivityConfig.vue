@@ -4,7 +4,7 @@
       v-if="!loading"
       v-model="optionsScheduleEntry"
       :items="scheduleEntries"
-      :label="$tc('components.print.config.activityConfig.activity')"
+      :label="$t('components.print.config.activityConfig.activity')"
       :filled="false"
       @input="$emit('input')"
     />

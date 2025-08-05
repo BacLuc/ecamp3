@@ -1,6 +1,6 @@
 <template>
   <auth-container>
-    <h1 class="display-1 text-center">{{ $tc('views.auth.register.title') }}</h1>
+    <h1 class="display-1 text-center">{{ $t('views.auth.register.title') }}</h1>
     <!--    <validation-observer v-slot="{ handleSubmit }">-->
     <e-form name="user">
       <v-form @submit.prevent="handleSubmit(register)">
@@ -61,7 +61,7 @@
 
         <e-text-field
           v-model="pw2"
-          :label="$tc('views.auth.register.passwordConfirmation')"
+          :label="$t('views.auth.register.passwordConfirmation')"
           append-icon="mdi-lock-outline"
           autocomplete="new-password"
           dense
@@ -79,19 +79,19 @@
         <e-checkbox
           v-if="termsOfServiceLink"
           v-model="tos"
-          :label="$tc('views.auth.register.acceptTermsOfService')"
+          :label="$t('views.auth.register.acceptTermsOfService')"
           :vee-rules="{ required: { allowFalse: false } }"
           class="align-center"
         >
           <template #label>
-            <span :class="{ 'body-2': $vuetify.breakpoint.xsOnly }" style="hyphens: auto">
-              {{ $tc('views.auth.register.acceptTermsOfService') }}
+            <span :class="{ 'body-2': $vuetify.display.xsOnly }" style="hyphens: auto">
+              {{ $t('views.auth.register.acceptTermsOfService') }}
             </span>
           </template>
           <template #append>
             <v-btn
               :href="termsOfServiceLink"
-              :title="$tc('global.button.open')"
+              :title="$t('global.button.open')"
               class="px-1"
               dense
               min-width="0"
@@ -107,14 +107,14 @@
         <p class="mt-0 mb-4 text--secondary text-left">
           <small>
             <span style="color: #d32f2f">*</span>
-            {{ $tc('views.auth.register.requiredField') }}
+            {{ $t('views.auth.register.requiredField') }}
           </small>
         </p>
 
         <v-btn block color="primary" type="submit" x-large>
           <v-progress-circular v-if="registering" indeterminate size="24" />
           <v-spacer />
-          <span>{{ $tc('views.auth.register.register') }}</span>
+          <span>{{ $t('views.auth.register.register') }}</span>
           <v-spacer />
           <icon-spacer />
         </v-btn>
@@ -123,9 +123,9 @@
     <!--    </validation-observer>-->
 
     <p class="mt-8 mb-0 text--secondary text-center">
-      {{ $tc('views.auth.register.alreadyHaveAnAccount') }}<br />
+      {{ $t('views.auth.register.alreadyHaveAnAccount') }}<br />
       <router-link :to="{ name: 'login' }">
-        {{ $tc('global.button.login') }}
+        {{ $t('global.button.login') }}
       </router-link>
     </p>
   </auth-container>
@@ -176,7 +176,7 @@ export default {
     availableLocales() {
       return VueI18n.global.availableLocales.map((l) => ({
         value: l,
-        text: this.$tc('global.language', 1, l),
+        text: this.$t('global.language', 1, l),
       }))
     },
     termsOfServiceLink() {

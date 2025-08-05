@@ -3,7 +3,7 @@
     <api-richtext
       :uri="contentNode._meta.self"
       path="data.html"
-      :label="$tc('contentNode.notes.name')"
+      :label="$t('contentNode.notes.name')"
       rows="4"
       auto-grow
       :disabled="layoutMode || disabled"

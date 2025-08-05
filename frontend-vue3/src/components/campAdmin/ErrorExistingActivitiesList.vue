@@ -1,7 +1,7 @@
 <template>
   <div>
     <p class="mb-2">
-      {{ $tc('components.campAdmin.errorExistingActivitiesList.description') }}
+      {{ $t('components.campAdmin.errorExistingActivitiesList.description') }}
     </p>
     <ul class="list">
       <li v-for="activity in existingActivities" :key="activity._meta.self" class="mt-2">
@@ -43,7 +43,7 @@ export default {
   methods: {
     rangeShort,
     translate(...args) {
-      return this.$tc(...args)
+      return this.$t(...args)
     },
   },
 }
