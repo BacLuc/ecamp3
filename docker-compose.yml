@@ -166,11 +166,12 @@ services:
     restart: on-failure
 
   browserless:
-    image: browserless/chrome:1.61.1-puppeteer-21.9.0
+    image: ghcr.io/browserless/chrome:v2.34.1
     container_name: 'ecamp3-browserless'
     ports:
       - '3010:3000'
     environment:
+      - TOKEN=1234
       - MAX_CONCURRENT_SESSIONS=1
       - CONNECTION_TIMEOUT=40000
       - MAX_QUEUE_LENGTH=10
