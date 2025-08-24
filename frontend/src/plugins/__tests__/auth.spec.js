@@ -1,9 +1,11 @@
 import { describe, beforeEach, afterEach, vi, expect, it } from 'vitest'
 import Vue from 'vue'
-import { auth } from '@/plugins/auth'
+import { auth, isLoggedIn } from '@/plugins/auth'
 import Cookies from 'js-cookie'
 import cloneDeep from 'lodash-es/cloneDeep'
 import { getEnv } from '@/environment'
+import flushPromises from 'flush-promises'
+import router from '@/router.js'
 
 const storePlugin = await vi.importActual('@/plugins/store')
 const storeLoader = storePlugin.default
@@ -57,8 +59,13 @@ vi.mock('@/router', async () => {
       resolve: () => ({
         href: '/loginCallback',
       }),
+      replace: vi.fn(),
     },
   }
+})
+beforeEach(() => {
+  // noinspection JSUnresolvedReference
+  router.replace.mockImplementation(() => Promise.resolve())
 })
 
 describe('authentication logic', () => {
@@ -340,6 +347,187 @@ describe('authentication logic', () => {
   })
 })
 
+describe('refreshLogic', () => {
+  beforeEach(() => {
+    vi.useFakeTimers()
+    vi.spyOn(apiStore, 'get').mockImplementation(() => ({
+      profiles: () => ({
+        _meta: {
+          load: new Promise(() => {}),
+        },
+      }),
+    }))
+    vi.spyOn(apiStore, 'href').mockImplementation(async (_root, rel) => {
+      return rel === 'refreshToken' ? '/token/refresh' : '/'
+    })
+  })
+  afterEach(() => {
+    vi.restoreAllMocks()
+    Cookies.remove('localhost_jwt_hp')
+    window.environment = cloneDeep(envBackup)
+  })
+
+  const expiresInMs = 15 * 60 * 1000
+
+  it('just schedules refresh when logged in', async () => {
+    Cookies.set(
+      'localhost_jwt_hp',
+      createJWT({ exp: (new Date().getTime() + expiresInMs) / 1000 })
+    )
+    vi.spyOn(apiStore, 'post').mockImplementation(async () => {
+      Cookies.set(
+        'localhost_jwt_hp',
+        createJWT({ exp: (new Date().getTime() + expiresInMs) / 1000 })
+      )
+    })
+
+    await auth.initRefresh()
+
+    expect(isLoggedIn()).toBeTruthy()
+
+    vi.advanceTimersByTime(expiresInMs)
+    await flushPromises()
+
+    expect(apiStore.post).toHaveBeenCalledTimes(1)
+  })
+
+  it('refreshes and schedules refresh when expired', async () => {
+    Cookies.set(
+      'localhost_jwt_hp',
+      createJWT({ exp: (new Date().getTime() + -1) / 1000 })
+    )
+    vi.spyOn(apiStore, 'post').mockImplementation(async () => {
+      console.log('refreshing')
+      Cookies.set(
+        'localhost_jwt_hp',
+        createJWT({ exp: (new Date().getTime() + expiresInMs) / 1000 })
+      )
+    })
+
+    await auth.initRefresh()
+
+    expect(apiStore.post).toHaveBeenCalledTimes(1)
+    expect(isLoggedIn()).toBeTruthy()
+
+    vi.advanceTimersByTime(expiresInMs)
+    await flushPromises()
+
+    expect(apiStore.post).toHaveBeenCalledTimes(2)
+  })
+
+  it('schedules refresh when refreshing', async () => {
+    Cookies.set(
+      'localhost_jwt_hp',
+      createJWT({ exp: (new Date().getTime() + expiresInMs) / 1000 })
+    )
+    vi.spyOn(apiStore, 'post').mockImplementation(async () => {
+      Cookies.set(
+        'localhost_jwt_hp',
+        createJWT({ exp: (new Date().getTime() + expiresInMs) / 1000 })
+      )
+    })
+
+    await auth.initRefresh()
+
+    expect(isLoggedIn()).toBeTruthy()
+
+    vi.advanceTimersByTime(expiresInMs)
+    await flushPromises()
+
+    expect(apiStore.post).toHaveBeenCalledTimes(1)
+
+    vi.advanceTimersByTime(expiresInMs)
+    await flushPromises()
+    expect(apiStore.post).toHaveBeenCalledTimes(2)
+  })
+
+  it('schedules refresh after login', async () => {
+    vi.spyOn(apiStore, 'post').mockImplementation(async () => {
+      throw new Error('JWT refresh token not found')
+    })
+
+    try {
+      await auth.initRefresh()
+    } catch {}
+
+    expect(isLoggedIn()).toBeFalsy()
+
+    vi.spyOn(apiStore, 'post').mockImplementation(async () => {
+      Cookies.set(
+        'localhost_jwt_hp',
+        createJWT({ exp: (new Date().getTime() + expiresInMs) / 1000 })
+      )
+    })
+
+    await auth.login('foo', 'bar')
+
+    expect(isLoggedIn()).toBeTruthy()
+
+    vi.advanceTimersByTime(expiresInMs)
+    await flushPromises()
+
+    expect(apiStore.post).toHaveBeenCalledTimes(2)
+  })
+
+  it('clears refresh timer on logout', async () => {
+    Cookies.set(
+      'localhost_jwt_hp',
+      createJWT({ exp: (new Date().getTime() + expiresInMs) / 1000 })
+    )
+    vi.spyOn(apiStore, 'post').mockImplementation(async () => {
+      Cookies.set(
+        'localhost_jwt_hp',
+        createJWT({ exp: (new Date().getTime() + expiresInMs) / 1000 })
+      )
+    })
+
+    await auth.initRefresh()
+
+    expect(isLoggedIn()).toBeTruthy()
+
+    await auth.logout()
+
+    vi.advanceTimersByTime(expiresInMs)
+    await flushPromises()
+
+    expect(apiStore.post).not.toHaveBeenCalled()
+  })
+
+  it('does not refresh access token after logout', async () => {
+    Cookies.set(
+      'localhost_jwt_hp',
+      createJWT({ exp: (new Date().getTime() + expiresInMs) / 1000 })
+    )
+    vi.spyOn(apiStore, 'post').mockImplementation(async () => {
+      Cookies.set(
+        'localhost_jwt_hp',
+        createJWT({ exp: (new Date().getTime() + expiresInMs) / 1000 })
+      )
+    })
+
+    await auth.initRefresh()
+
+    expect(isLoggedIn()).toBeTruthy()
+
+    await auth.logout()
+    await auth.initRefresh()
+
+    expect(isLoggedIn()).toBeFalsy()
+  })
+
+  it('still goes to login when refresh fails', async () => {
+    vi.spyOn(apiStore, 'post').mockImplementation(async () => {
+      throw new Error('JWT refresh token not found')
+    })
+
+    try {
+      await auth.initRefresh()
+    } catch {}
+
+    expect(isLoggedIn()).toBeFalsy()
+  })
+})
+
 function createState(authState = {}) {
   return {
     auth: {
@@ -417,4 +605,20 @@ function createState(authState = {}) {
       },
     },
   }
+}
+
+function createJWT(payload) {
+  const header = {
+    alg: 'HS256',
+    typ: 'JWT',
+  }
+  const payloadObj = {
+    iat: 1633133409,
+    exp: 33166364400,
+    roles: ['ROLE_USER'],
+    username: 'test-user',
+    user: '/users/1a2b3c4d',
+    ...payload,
+  }
+  return `${btoa(JSON.stringify(header))}.${btoa(JSON.stringify(payloadObj))}`
 }
