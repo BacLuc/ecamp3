@@ -27,7 +27,7 @@ Critical operations on camp
                 :entity="camp"
                 :submit-enabled="promptText === camp.title"
                 icon="mdi-bomb"
-                @submit="$router.push({ name: 'camps' })"
+                @submit="goToCampList()"
               >
                 <template #activator="{ on }">
                   <button-delete
@@ -36,6 +36,7 @@ Critical operations on camp
                     dark
                     outlined
                     color="blue-grey"
+                    data-testid="delete-camp-button"
                     @click.prevent="on.click"
                   >
                     {{ $tc('global.button.delete') }}
@@ -54,7 +55,10 @@ Critical operations on camp
                       campTitle: camp.title,
                     })
                   }}
-                  <e-text-field v-model="promptText" />
+                  <e-text-field
+                    v-model="promptText"
+                    data-testid="delete-camp-confirm-textinput"
+                  />
                 </label>
               </dialog-entity-delete>
             </v-list-item-action>
@@ -87,6 +91,11 @@ export default {
     return {
       promptText: '',
     }
+  },
+  methods: {
+    goToCampList() {
+      this.$router.push({ name: 'camps' }).catch()
+    },
   },
 }
 </script>

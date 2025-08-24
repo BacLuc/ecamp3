@@ -25,6 +25,7 @@
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 
 import 'cypress-wait-until'
+import './commands/deleteCamp'
 
 Cypress.Commands.add('login', (identifier) => {
   cy.session(identifier, () => {

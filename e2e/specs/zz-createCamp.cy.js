@@ -6,8 +6,12 @@ tomorrow.setDate(tomorrow.getDate() + 1)
 const in2Days = new Date()
 in2Days.setDate(in2Days.getDate() + 2)
 
-const campTitle = 'title'
+const campTitle = `title_${new Date().getTime()}`
 describe('create new camp', () => {
+  afterEach(() => {
+    cy.deleteCamp(campTitle)
+  })
+
   it('without prototype', () => {
     cy.login(bipiUser)
 
