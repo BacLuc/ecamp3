@@ -10,7 +10,7 @@ Listing all given activity schedule entries in a calendar view.
       :events="events"
       view-mode="week"
     ></v-calendar>
-    <!-- <v-calendar
+    <v-calendar
       ref="calendar"
       v-model="value"
       v-resize="resize"
@@ -38,9 +38,9 @@ Listing all given activity schedule entries in a calendar view.
       v-on="vCalendarListeners"
       @mouseleave.native="onMouseleave"
       @mousedown.native.prevent="preventMiddleButtonFromStartingScrollBehaviour"
-    > -->
-    <!-- day header -->
-    <!-- <template #day-label-header="{ date }">
+    >
+      <!-- day header -->
+      <template #day-label-header="{ date }">
         <slot name="day-label-header" :date="date">
           <div class="e-picasso-daily_head-day-label">
             {{
@@ -60,23 +60,23 @@ Listing all given activity schedule entries in a calendar view.
           </div>
           <day-responsibles :date="date" :period="period" :readonly="!editable" />
         </slot>
-      </template> -->
+      </template>
 
-    <!-- template for single scheduleEntry -->
-    <!-- <template #event="{ event }">
+      <!-- template for single scheduleEntry -->
+      <template #event="{ event }">
         <PicassoEntry
           :schedule-entry="event"
           :editable="editable"
           @start-resize="startResize(event)"
           @finish-edit="reloadScheduleEntries"
         />
-      </template> -->
-    <!-- </v-calendar> -->
+      </template>
+    </v-calendar>
 
-    <!-- <v-snackbar v-model="isSaving" light>
+    <v-snackbar v-model="isSaving" light>
       <v-icon class="mdi-spin">mdi-loading</v-icon>
       {{ $t('global.button.saving') }}
-    </v-snackbar> -->
+    </v-snackbar>
   </div>
 </template>
 <script>
@@ -88,16 +88,16 @@ import { useDragAndDropReminder } from './useDragAndDropReminder.js'
 import { apiStore as api } from '@/plugins/store'
 import mergeListeners from '@/helpers/mergeListeners.js'
 import { timestampToUtcString, utcStringToTimestamp } from './dateHelperVCalendar.js'
-// import DayResponsibles from './DayResponsibles.vue'
+import DayResponsibles from './DayResponsibles.vue'
 import { ONE_DAY_IN_MILLISECONDS } from '@/helpers/vCalendarDragAndDrop.js'
-// import { errorToMultiLineToast } from '@/components/toast/toasts'
-//import PicassoEntry from './PicassoEntry.vue'
+import { errorToMultiLineToast } from '@/components/toast/toasts'
+import PicassoEntry from './PicassoEntry.vue'
 
 export default {
   name: 'Picasso',
   components: {
-    // PicassoEntry,
-    // DayResponsibles,
+    PicassoEntry,
+    DayResponsibles,
   },
   props: {
     // period for which to show picasso
@@ -181,7 +181,7 @@ export default {
         .patch(scheduleEntry._meta.self, patchData)
         .catch((error) => {
           console.log(error)
-          // Vue.$toast.error(errorToMultiLineToast(error))
+          Vue.$toast.error(errorToMultiLineToast(error))
         })
         .finally(() => {
           isSaving.value = false
@@ -255,13 +255,13 @@ export default {
     const events = ref([])
     const loadCalenderEventsFromScheduleEntries = () => {
       // prepare scheduleEntries to make them understandable by v-calendar
-      events.value = scheduleEntries.value.items.map((entry) => ({
-        /*...entry,
+      events.value = scheduleEntries.value.items?.map((entry) => ({
+        ...entry,
         startTimestamp: utcStringToTimestamp(entry.start),
         endTimestamp: utcStringToTimestamp(entry.end),
         timed: true,
         isResizing: false,
-        isMoving: false,*/
+        isMoving: false,
 
         // VCalendar v3
         title:
@@ -277,7 +277,7 @@ export default {
       }))
 
       // add placeholder for drag & drop (create new entry)
-      // events.value.push(placeholder)
+      events.value?.push(placeholder)
     }
     loadCalenderEventsFromScheduleEntries()
 
