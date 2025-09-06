@@ -1,6 +1,6 @@
 <template>
   <Link class="toc-entry" :href="`#${id}`">
-    <Text>{{ $tc('print.cover.title') }}</Text>
+    <Text>{{ $t('print.cover.title') }}</Text>
   </Link>
 </template>
 <script>

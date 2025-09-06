@@ -1,7 +1,7 @@
 <template>
   <Link v-for="period in periods" class="toc-entry" :href="`#${id}-${period.id}`">
     <Text
-      >{{ $tc('print.summary.safetyConsiderations.title') }}:
+      >{{ $t('print.summary.safetyConsiderations.title') }}:
       {{ period.description }}</Text
     >
   </Link>

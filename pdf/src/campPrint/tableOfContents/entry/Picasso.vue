@@ -1,6 +1,6 @@
 <template>
   <Link v-for="period in periods" class="toc-entry" :href="`#${id}-${period.id}`">
-    <Text>{{ $tc('print.picasso.title', { period: period.description }) }}</Text>
+    <Text>{{ $t('print.picasso.title', { period: period.description }) }}</Text>
   </Link>
 </template>
 <script>

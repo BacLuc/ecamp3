@@ -7,7 +7,7 @@ function multiLineToast(lines) {
     component: MultiLineToast,
     props: {
       lines,
-      generalErrorText: i18n.tc('components.toast.toasts.multiLineToast.generalError'),
+      generalErrorText: i18n.t('components.toast.toasts.multiLineToast.generalError'),
     },
   }
 }

@@ -1,6 +1,6 @@
 <template>
   <View :id="`${id}-${period.id}-${day.id}`" class="summary-day-title-container">
-    <Text class="summary-day-title">{{ $tc('entity.day.name') }} {{ day.number }}</Text>
+    <Text class="summary-day-title">{{ $t('entity.day.name') }} {{ day.number }}</Text>
     <Text class="summary-day-date">{{ date }}</Text>
   </View>
   <template v-for="{ scheduleEntry, contentNodes } in entriesWithContentNodes">

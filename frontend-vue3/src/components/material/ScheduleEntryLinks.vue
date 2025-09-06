@@ -77,7 +77,7 @@ export default {
     },
     shortDescription(scheduleEntry) {
       if (this.loading) return ''
-      return shortScheduleEntryDescription(scheduleEntry, this.$tc.bind(this))
+      return shortScheduleEntryDescription(scheduleEntry, this.$t.bind(this))
     },
   },
 }

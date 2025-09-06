@@ -10,8 +10,8 @@ import shortScheduleEntryDescription from './shortScheduleEntryDescription.js'
 
 function generateFilename(camp, materialList) {
   const description = materialList
-    ? [i18n.tc('components.material.useMaterialViewHelper.detail'), materialList]
-    : [i18n.tc('components.material.useMaterialViewHelper.overview')]
+    ? [i18n.t('components.material.useMaterialViewHelper.detail'), materialList]
+    : [i18n.t('components.material.useMaterialViewHelper.overview')]
   const filename = [camp.name, ...description].map(slugify)
   return [...filename, dayjs().format('YYMMDDHHmmss')].join('_') + '.xlsx'
 }
@@ -32,15 +32,15 @@ async function getSheets(camp, collection, materialList) {
       const data = [
         [
           `${
-            materialList ?? i18n.tc('components.material.useMaterialViewHelper.overview')
+            materialList ?? i18n.t('components.material.useMaterialViewHelper.overview')
           }: ${period.description}`,
         ],
         [
-          i18n.tc('entity.materialItem.fields.quantity'),
-          i18n.tc('entity.materialItem.fields.unit'),
-          i18n.tc('entity.materialItem.fields.article'),
-          ...(!materialList ? [i18n.tc('entity.materialItem.fields.list')] : []),
-          i18n.tc('entity.materialItem.fields.reference'),
+          i18n.t('entity.materialItem.fields.quantity'),
+          i18n.t('entity.materialItem.fields.unit'),
+          i18n.t('entity.materialItem.fields.article'),
+          ...(!materialList ? [i18n.t('entity.materialItem.fields.list')] : []),
+          i18n.t('entity.materialItem.fields.reference'),
         ],
       ]
       await Promise.all(

@@ -7,7 +7,6 @@
         <v-icon :left="$vuetify.display.mdAndUp">mdi-tent</v-icon>
         <span class="sr-only-sm-and-down">{{
           camp.title
-            | loading($t('views.camp.navigation.desktop.navTopbar.campIsLoading'))
         }}</span>
       </v-btn>
       <v-btn :to="campRoute(camp, 'program')" text>
@@ -70,6 +69,9 @@ export default {
   computed: {
     helpLink() {
       return getEnv().HELP_LINK
+    },
+    loading() {
+      return true
     },
     ...mapGetters({
       user: 'getLoggedInUser',

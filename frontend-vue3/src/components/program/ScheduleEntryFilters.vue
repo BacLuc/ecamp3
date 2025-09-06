@@ -230,7 +230,7 @@ export default {
   },
   methods: {
     campCollaborationDisplayName(campCollaboration) {
-      return campCollaborationDisplayName(campCollaboration, this.$tc.bind(this))
+      return campCollaborationDisplayName(campCollaboration, this.$t.bind(this))
     },
     loadEndpointData(endpoint, filterKey, hasNone = false) {
       this.camp[endpoint]()._meta.load.then(({ allItems }) => {

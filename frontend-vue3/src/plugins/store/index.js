@@ -16,7 +16,7 @@ export default {
         auth,
         preferences,
       },
-      strict: debug,
+      strict: false,
       // plugins: debug ? [createLogger()] : [],
     })
 

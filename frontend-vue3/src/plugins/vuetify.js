@@ -27,7 +27,7 @@ class VuetifyLoaderPlugin {
   install(app) {
     const opts = {
       lang: {
-        t: (key, ...params) => i18n.tc(key, 0, params),
+        t: (key, ...params) => i18n.t(key, 0, params),
       },
       icons: {
         aliases: {

@@ -128,8 +128,8 @@ export default {
       }
     },
     sortContentTypeByTranslatedName(ct1, ct2) {
-      const ct1name = this.$i18n.tc(this.contentTypeNameKey(ct1))
-      const ct2name = this.$i18n.tc(this.contentTypeNameKey(ct2))
+      const ct1name = this.$i18n.t(this.contentTypeNameKey(ct1))
+      const ct2name = this.$i18n.t(this.contentTypeNameKey(ct2))
       return ct1name.localeCompare(ct2name)
     },
     async addContentNode(contentType) {

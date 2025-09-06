@@ -3,7 +3,7 @@
     :id="`${id}-${period.id}`"
     :bookmark="{ title: period.description, fit: true }"
     class="program-period-title"
-    >{{ $tc('print.program.title') }}: {{ period.description }}</Text
+    >{{ $t('print.program.title') }}: {{ period.description }}</Text
   >
   <ScheduleEntry
     v-for="scheduleEntry in scheduleEntries"

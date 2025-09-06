@@ -3,13 +3,13 @@
     <InstanceName :content-node="contentNode" />
     <View v-if="anyContent" class="storyboard-header-row">
       <View class="storyboard-header-cell storyboard-column-1">
-        <Text>{{ $tc('contentNode.storyboard.entity.section.fields.column1') }}</Text>
+        <Text>{{ $t('contentNode.storyboard.entity.section.fields.column1') }}</Text>
       </View>
       <View class="storyboard-header-cell storyboard-column-2">
-        <Text>{{ $tc('contentNode.storyboard.entity.section.fields.column2Html') }}</Text>
+        <Text>{{ $t('contentNode.storyboard.entity.section.fields.column2Html') }}</Text>
       </View>
       <View class="storyboard-header-cell storyboard-column-3">
-        <Text>{{ $tc('contentNode.storyboard.entity.section.fields.column3') }}</Text>
+        <Text>{{ $t('contentNode.storyboard.entity.section.fields.column3') }}</Text>
       </View>
     </View>
     <View v-for="section in sections" class="storyboard-row">

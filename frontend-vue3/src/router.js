@@ -1,8 +1,9 @@
-import { createRouter, createWebHashHistory } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
 import { slugify } from '@/plugins/slugify.js'
 import { isLoggedIn } from '@/plugins/auth'
 import { apiStore } from '@/plugins/store'
 import { getEnv } from '@/environment.js'
+import campShortTitle from '@/common/helpers/campShortTitle.js'
 
 const NavigationAuth = () => import('./views/auth/NavigationAuth.vue')
 const NavigationDefault = () => import('./views/NavigationDefault.vue')
@@ -12,7 +13,7 @@ const GenericPage = () => import('./components/generic/GenericPage.vue')
 /* istanbul ignore next */
 const router = createRouter({
   mode: 'history',
-  history: createWebHashHistory(),
+  history: createWebHistory(),
   base: '/',
   routes: [
     ...(getEnv().FEATURE_DEVELOPER

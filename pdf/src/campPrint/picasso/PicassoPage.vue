@@ -8,7 +8,7 @@
         class="picasso-ys-logo"
       />
       <Text :id="`${id}-${period.id}`" :bookmark="bookmark" class="picasso-title">
-        {{ $tc('print.picasso.title', { period: period.description }) }}
+        {{ $t('print.picasso.title', { period: period.description }) }}
       </Text>
       <Text class="picasso-organizer">{{ period.camp().organizer }}</Text>
     </View>
@@ -75,7 +75,7 @@ export default {
   computed: {
     bookmark() {
       return {
-        title: this.$tc('print.picasso.title', {
+        title: this.$t('print.picasso.title', {
           period: this.period.description,
         }),
         fit: true,

@@ -80,7 +80,7 @@ Listing all given activity schedule entries in a calendar view.
   </div>
 </template>
 <script>
-import { reactive, ref, toRefs, watch } from 'vue'
+import { reactive, ref, toRefs, watch, computed } from 'vue'
 import { useDragAndDropMove } from './useDragAndDropMove.js'
 import { useDragAndDropResize } from './useDragAndDropResize.js'
 import { useDragAndDropNew } from './useDragAndDropNew.js'

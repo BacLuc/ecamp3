@@ -13,31 +13,31 @@ import {
 export const dateHelperUTCFormatted = {
   methods: {
     dateShort(dateTimeString) {
-      return dateShort(dateTimeString, this.$tc.bind(this))
+      return dateShort(dateTimeString, this.$t.bind(this))
     },
     dateLong(dateTimeString) {
-      return dateLong(dateTimeString, this.$tc.bind(this))
+      return dateLong(dateTimeString, this.$t.bind(this))
     },
     hourShort(dateTimeString) {
-      return hourShort(dateTimeString, this.$tc.bind(this))
+      return hourShort(dateTimeString, this.$t.bind(this))
     },
     hourLong(dateTimeString) {
-      return hourLong(dateTimeString, this.$tc.bind(this))
+      return hourLong(dateTimeString, this.$t.bind(this))
     },
     timeDurationShort(start, end) {
-      return timeDurationShort(start, end, this.$tc.bind(this))
+      return timeDurationShort(start, end, this.$t.bind(this))
     },
     rangeTime(start, end) {
-      return rangeTime(start, end, this.$tc.bind(this))
+      return rangeTime(start, end, this.$t.bind(this))
     },
     rangeShort(start, end) {
-      return rangeShort(start, end, this.$tc.bind(this))
+      return rangeShort(start, end, this.$t.bind(this))
     },
     rangeLongEnd(start, end) {
-      return rangeLongEnd(start, end, this.$tc.bind(this))
+      return rangeLongEnd(start, end, this.$t.bind(this))
     },
     dateRange(start, end) {
-      return dateRange(start, end, this.$tc.bind(this))
+      return dateRange(start, end, this.$t.bind(this))
     },
   },
 }

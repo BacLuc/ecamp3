@@ -10,7 +10,7 @@ export default (i18n) => ({
     return parseFloat(value) > min
   },
   message: (field, { min }) => {
-    return i18n.tc('global.validation.greaterThan', 0, {
+    return i18n.t('global.validation.greaterThan', 0, {
       min: min,
     })
   },

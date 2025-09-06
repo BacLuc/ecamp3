@@ -19,7 +19,7 @@
       <View class="schedule-entry-header-metadata">
         <View class="schedule-entry-header-metadata-entry"
           ><Text v-if="activity.location" class="schedule-entry-header-metadata-label"
-            >{{ $tc('entity.activity.fields.location') }}:</Text
+            >{{ $t('entity.activity.fields.location') }}:</Text
           ><Text>{{ activity.location }}</Text></View
         >
       </View>
@@ -29,7 +29,7 @@
           <Text
             v-if="activity.activityResponsibles().items.length"
             class="schedule-entry-header-metadata-label"
-            >{{ $tc('entity.activity.fields.responsible') }}:</Text
+            >{{ $t('entity.activity.fields.responsible') }}:</Text
           >
           <Responsibles :activity="activity" style="max-width: 200pt" />
         </View>

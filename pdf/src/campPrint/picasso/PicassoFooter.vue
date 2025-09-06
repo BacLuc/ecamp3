@@ -5,7 +5,7 @@
         joinWithoutBlanks([camp.courseKind, camp.kind])
       }}</Text>
       <Text v-if="camp.courseNumber" class="picasso-footer-field">{{
-        $tc('print.picasso.picassoFooter.courseNumber', {
+        $t('print.picasso.picassoFooter.courseNumber', {
           courseNumber: camp.courseNumber,
         })
       }}</Text>
@@ -17,13 +17,13 @@
     </View>
     <View class="picasso-footer-column">
       <Text class="picasso-footer-field">{{
-        $tc('print.picasso.picassoFooter.leaders', { leaders })
+        $t('print.picasso.picassoFooter.leaders', { leaders })
       }}</Text>
       <Text v-if="camp.coachName" class="picasso-footer-field">{{
-        $tc('print.picasso.picassoFooter.coach', { coach: camp.coachName })
+        $t('print.picasso.picassoFooter.coach', { coach: camp.coachName })
       }}</Text>
       <Text v-if="camp.trainingAdvisorName" class="picasso-footer-field">{{
-        $tc('print.picasso.picassoFooter.trainingAdvisor', {
+        $t('print.picasso.picassoFooter.trainingAdvisor', {
           trainingAdvisor: camp.trainingAdvisorName,
         })
       }}</Text>
@@ -58,7 +58,7 @@ export default {
       return this.$date.formatDatePeriod(
         startDate,
         endDate,
-        this.$tc('global.datetime.dateLong'),
+        this.$t('global.datetime.dateLong'),
         this.locale
       )
     },

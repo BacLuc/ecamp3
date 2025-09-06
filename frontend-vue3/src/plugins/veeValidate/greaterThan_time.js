@@ -18,7 +18,7 @@ export default (dayjs, i18n) => ({
     return valueDate.unix() > minDate.unix()
   },
   message: (field, values) => {
-    return i18n.tc('global.validation.greaterThan_time', 0, {
+    return i18n.t('global.validation.greaterThan_time', 0, {
       min: normalizeMin(values.min, dayjs).format('LT'),
     })
   },

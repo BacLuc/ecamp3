@@ -56,7 +56,7 @@ const transformViolations = (error, i18n = null) => {
 
     if (i18n?.te(i18nKey)) {
       const parameters = violation.i18n?.parameters ?? {}
-      serverErrorMessages[propertyPath].push(i18n.tc(i18nKey, parameters))
+      serverErrorMessages[propertyPath].push(i18n.t(i18nKey, parameters))
     } else if (apiTranslation) {
       serverErrorMessages[propertyPath].push(apiTranslation)
     } else {
