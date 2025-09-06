@@ -71,6 +71,26 @@ class ListCampCollaborationsTest extends ECampApiTestCase {
         ], $response->toArray()['_links']['items']);
     }
 
+    public function testListCampCollaborationsFilteredByActivityResponsibleIsAllowedForCollaborator() {
+        $response = static::createClientWithCredentials()->request(
+            'GET',
+            '/camp_collaborations?activityResponsibles.activity='.urlencode($this->getIriFor('activity1'))
+        );
+        $this->assertResponseStatusCodeSame(200);
+        $this->assertJsonContains([
+            'totalItems' => 1,
+            '_links' => [
+                'items' => [],
+            ],
+            '_embedded' => [
+                'items' => [],
+            ],
+        ]);
+        $this->assertEqualsCanonicalizing([
+            ['href' => $this->getIriFor('campCollaboration1manager')],
+        ], $response->toArray()['_links']['items']);
+    }
+
     public function testListCampCollaborationsAsCampSubResourceIsAllowedForCollaborator() {
         $camp = static::getFixture('camp1');
         $response = static::createClientWithCredentials()->request('GET', "/camps/{$camp->getId()}/camp_collaborations");
