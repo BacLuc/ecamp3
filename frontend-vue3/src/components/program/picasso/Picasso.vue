@@ -31,7 +31,6 @@ Listing all given activity schedule entries in a calendar view.
       :day-format="dayFormat"
       :type="type"
       :max-days="maxDays"
-      :weekday-format="weekdayFormat"
       :weekdays="[1, 2, 3, 4, 5, 6, 0]"
       color="primary"
       :event-ripple="false"
@@ -307,7 +306,7 @@ export default {
     return {
       maxDays: 100,
       entryWidth: 80,
-      value: '',
+      value: new Date(),
       activitiesLoading: true,
       categoriesLoading: true,
 
@@ -365,7 +364,7 @@ export default {
       const widthIntervals = 46
       this.entryWidth = Math.max(
         (this.$refs.calendar.$el.offsetWidth - widthIntervals) /
-          this.$refs.calendar.days.length,
+          this.$refs.calendar.daysInWeek.length,
         85
       )
     },
@@ -380,9 +379,6 @@ export default {
       } else {
         return this.$date.utc(day.date).format(this.$t('global.datetime.dateLong'))
       }
-    },
-    weekdayFormat() {
-      return ''
     },
   },
 }
