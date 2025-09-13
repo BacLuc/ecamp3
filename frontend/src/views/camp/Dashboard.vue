@@ -306,6 +306,9 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@use '@/scss/variables' as *;
+@import './node_modules/vuetify/src/styles/styles.sass';
+
 .day-header {
   z-index: 1;
   position: sticky;

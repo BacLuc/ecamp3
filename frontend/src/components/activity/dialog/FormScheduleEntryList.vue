@@ -118,6 +118,9 @@ export default {
 }
 </script>
 <style scoped lang="scss">
+@use '@/scss/variables' as *;
+@import './node_modules/vuetify/src/styles/styles.sass';
+
 .period.period {
   border-bottom-width: 1px !important;
   border-bottom-style: solid !important;

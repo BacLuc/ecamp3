@@ -67,9 +67,11 @@ export default {
 <!-- these styles must be global -->
 <!-- eslint-disable-next-line vue-scoped-css/enforce-style-type -->
 <style lang="scss">
-@import 'src/scss/tailwind';
-@import 'src/scss/global';
-@import '~@mdi/font/css/materialdesignicons.css';
+@use '/src/scss/tailwind';
+@use '/src/scss/global';
+@use '~@mdi/font/css/materialdesignicons.css';
+@use '/src/scss/variables' as *;
+@import './node_modules/vuetify/src/styles/styles.sass';
 
 @media #{map-get($display-breakpoints, 'xs-only')} {
   html,

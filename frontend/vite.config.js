@@ -148,12 +148,12 @@ export default defineConfig(({ mode }) => ({
       scss: {
         // support for legacy api will be removed in vite 7. https://vite.dev/guide/migration.html#sass-now-uses-modern-api-by-default
         api: 'legacy',
-        additionalData: '@import "./node_modules/vuetify/src/styles/styles.sass";\n', // original default variables from vuetify
+        silenceDeprecations: ['slash-div', 'mixed-decls'],
       },
       sass: {
         // support for legacy api will be removed in vite 7. https://vite.dev/guide/migration.html#sass-now-uses-modern-api-by-default
         api: 'legacy',
-        additionalData: '@import "./src/scss/variables.scss"\n', // vuetify variable overrides
+        silenceDeprecations: ['slash-div', 'mixed-decls'],
       },
     },
   },

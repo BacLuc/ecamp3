@@ -62,6 +62,9 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@use '@/scss/variables' as *;
+@import './node_modules/vuetify/src/styles/styles.sass';
+
 .ec-content-card__toolbar {
   @media #{map-get($display-breakpoints, 'xs-only')} {
     position: sticky;

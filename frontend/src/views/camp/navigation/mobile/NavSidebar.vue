@@ -165,6 +165,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@use '@/scss/variables' as *;
+@import './node_modules/vuetify/src/styles/styles.sass';
+
 .v-application .ec-close-drawer {
   background-color: #{map-get($blue-grey, 'lighten-5')};
   border-top: 1px solid #{map-get($blue-grey, 'lighten-4')};

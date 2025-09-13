@@ -167,6 +167,9 @@ export default {
 }
 </script>
 <style scoped lang="scss">
+@use '@/scss/variables' as *;
+@import './node_modules/vuetify/src/styles/styles.sass';
+
 .min-height {
   min-height: 10rem;
 }

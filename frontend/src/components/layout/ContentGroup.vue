@@ -35,6 +35,9 @@ export default {
 </script>
 
 <style lang="scss">
+@use '@/scss/variables' as *;
+@import './node_modules/vuetify/src/styles/styles.sass';
+
 .ec-content-group__title {
   border-bottom: 1px solid map-get($blue-grey, 'lighten-4');
   display: flex;

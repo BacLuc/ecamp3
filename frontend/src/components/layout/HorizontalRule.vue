@@ -12,6 +12,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@use '@/scss/variables' as *;
+@import './node_modules/vuetify/src/styles/styles.sass';
+
 hr {
   border: none;
   border-top: 1px solid map-get($blue-grey, 'lighten-3');

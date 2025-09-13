@@ -27,6 +27,9 @@ export default {
 }
 </script>
 <style scoped lang="scss">
+@use '@/scss/variables' as *;
+@import './node_modules/vuetify/src/styles/styles.sass';
+
 .button-wrapper {
   display: flex;
   flex-direction: column;

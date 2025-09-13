@@ -95,6 +95,9 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@use '@/scss/variables' as *;
+@import './node_modules/vuetify/src/styles/styles.sass';
+
 .e-pages-config__wrapper {
   display: flow-root;
   aspect-ratio: 1 / 1;

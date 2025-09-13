@@ -105,6 +105,9 @@ export default {
 }
 </script>
 <style scoped lang="scss">
+@use '@/scss/variables' as *;
+@import './node_modules/vuetify/src/styles/styles.sass';
+
 .resize-btn {
   position: absolute;
   right: -35px;

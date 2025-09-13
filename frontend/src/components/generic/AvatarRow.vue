@@ -51,6 +51,9 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@use '@/scss/variables' as *;
+@import './node_modules/vuetify/src/styles/styles.sass';
+
 .e-avatarrow {
   display: flex;
   flex-direction: row-reverse;
