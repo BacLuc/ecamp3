@@ -86,9 +86,9 @@ services:
 
     App\Serializer\PreventAutomaticEmbeddingPropertyMetadataFactory:
         decorates: 'api_platform.metadata.property.metadata_factory'
-        # Priority should be 1 lower than the one of SerializerPropertyMetadataFactory, see
-        # https://github.com/api-platform/core/blob/main/src/Bridge/Symfony/Bundle/Resources/config/metadata/metadata.xml#L65
-        decoration_priority: 29
+        # Priority should be 1 lower than the one of AttributePropertyMetadataFactory, see
+        # https://github.com/api-platform/core/blob/4abec444e80d8c6d0925a1b4159006993980305b/src/Symfony/Bundle/Resources/config/metadata/property.xml#L16
+        decoration_priority: 31
 
     App\Serializer\Denormalizer\MaterialItemDenormalizer:
         tags:
