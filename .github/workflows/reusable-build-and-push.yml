@@ -87,7 +87,7 @@ jobs:
           export REPO_NAME=$(basename $(pwd))
           echo "services:" > /tmp/docker-compose.yml
           for i in $(find . -name docker-compose.yml); do
-             docker compose -f $i config | yq '.services | select(.[].build != null and .[].image != null)' | sed 's/^/  /' >> /tmp/docker-compose.yml
+             docker compose -f $i config | yq '.services | select(.[].build != null and .[].image != null) | .compose_file="'$i'"' | sed 's/^/  /' >> /tmp/docker-compose.yml
           done
 
           cat /tmp/docker-compose.yml
@@ -95,6 +95,7 @@ jobs:
           yq_pipe='.services'
           yq_pipe=$yq_pipe'| to_entries[]'
           yq_pipe=$yq_pipe'| select(.value.build != null and .value.image != null)'
+          yq_pipe=$yq_pipe'| .value.build.compose_file=.value.compose_file'
           yq_pipe=$yq_pipe'| .value.build.image=.value.image'
           yq_pipe=$yq_pipe'| .value.build.service=.key'
           yq_pipe=$yq_pipe'| .value.build'
@@ -244,18 +245,9 @@ jobs:
           echo "result: ${{ steps.transform-build-args.outputs.result }}"
           echo "result: ${{ toJSON(steps.transform-build-args.outputs) }}"
 
-      - name: Build and push image
-        uses: docker/build-push-action@v6
+      - name: Build image
         if: steps.check-image.outputs.result == 'false'
-        with:
-          push: true
-          file: ${{ matrix.build-config.dockerfile }}
-          tags: ${{ join(fromJSON(steps.expand-tags.outputs.result)) }}
-          context: ${{ matrix.build-config.context }}
-          build-args: |
-            ${{ steps.transform-build-args.outputs.result }}
-          cache-from: type=gha,scope=${{ matrix.build-config.image }}
-          cache-to: type=gha,scope=${{ matrix.build-config.image }},mode=max
+        run: docker compose -f ${{ matrix.build-config.compose_file }} build ${{ matrix.build-config.service }}
 
       - name: Retag and push images
         if: steps.check-image.outputs.result == 'true'
