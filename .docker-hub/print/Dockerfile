@@ -9,7 +9,7 @@ COPY common /common
 
 WORKDIR /app
 
-COPY print/package*.json ./
+COPY package*.json ./
 
 ENV NUXT_SENTRY_AUTH_TOKEN=$SENTRY_AUTH_TOKEN
 ENV NUXT_SENTRY_ORG=$SENTRY_ORG
@@ -18,7 +18,7 @@ ENV NUXT_SENTRY_RELEASE_NAME=$SENTRY_RELEASE_NAME
 
 RUN npm ci
 
-COPY print .
+COPY . .
 RUN npm run build
 
 # production stage

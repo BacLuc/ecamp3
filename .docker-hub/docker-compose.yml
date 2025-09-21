@@ -13,8 +13,8 @@ services:
   print-image:
     image: ${REGISTRY:-docker.io}/${REPO_OWNER:-ecamp}/ecamp3-print:${VERSION:-latest}
     build:
-      context: ../
-      dockerfile: .docker-hub/print/Dockerfile
+      context: ../print
+      dockerfile: ../.docker-hub/print/Dockerfile
       # they have to be registered in GitHub under exactly this name in secrets or vars
       args:
         SENTRY_AUTH_TOKEN: ${SENTRY_AUTH_TOKEN:-}
