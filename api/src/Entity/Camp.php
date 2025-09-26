@@ -192,18 +192,6 @@ class Camp extends BaseEntity implements BelongsToCampInterface, CopyFromPrototy
     public bool $isPrototype = false;
 
     /**
-     * An optional short title for the camp. Can be used in the UI where space is tight. If
-     * not present, frontends may auto-shorten the title if the shortTitle is not set.
-     */
-    #[InputFilter\Trim]
-    #[InputFilter\CleanText]
-    #[Assert\Length(max: 32)]
-    #[ApiProperty(example: 'SoLa 2022')]
-    #[Groups(['read', 'write'])]
-    #[ORM\Column(type: 'text', nullable: true)]
-    public ?string $shortTitle;
-
-    /**
      * The full title of the camp. Used for identifying the camp in lists of camps, so
      * this should include all necessary information to distinguish this camp from
      * other camps that the collaborators are part of.
