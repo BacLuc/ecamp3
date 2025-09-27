@@ -7,7 +7,7 @@ namespace DoctrineMigrations;
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
 
-require_once __DIR__.'/checklists/helpers.php';
+require_once __DIR__ . '/checklists/helpers.php';
 
 /**
  * Auto-generated Migration: Please modify to your needs!
