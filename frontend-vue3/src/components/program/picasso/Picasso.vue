@@ -73,7 +73,7 @@ Listing all given activity schedule entries in a calendar view.
   </div>
 </template>
 <script>
-import { reactive, ref, toRefs, watch, computed } from 'vue'
+import { computed, reactive, ref, toRefs, watch } from 'vue'
 import { useDragAndDropMove } from './useDragAndDropMove.js'
 import { useDragAndDropResize } from './useDragAndDropResize.js'
 import { useDragAndDropNew } from './useDragAndDropNew.js'
@@ -358,7 +358,7 @@ export default {
       const widthIntervals = 46
       this.entryWidth = Math.max(
         (this.$refs.calendar.$el.offsetWidth - widthIntervals) /
-          this.$refs.calendar.daysInWeek.length,
+          this.$refs.calendar.days.length,
         85
       )
     },
