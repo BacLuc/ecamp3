@@ -284,6 +284,12 @@ const router = createRouter({
           beforeEnter: requirePeriod,
         },
         {
+          path: 'showcalendar/period/:periodId/:periodTitle?',
+          name: 'camp/period/showcalendar',
+          component: () => import('./views/camp/ShowCalendar.vue'),
+          beforeEnter: requirePeriod,
+        },
+        {
           path: 'program',
           name: 'camp/program',
           async beforeEnter(to, from, next) {
@@ -779,6 +785,7 @@ function getContentLayout(route) {
   switch (route.name) {
     case 'camp/checklist':
     case 'camp/period/program':
+    case 'camp/period/showcalendar':
     case 'camp/admin/print':
     case 'camp/admin/activity/category':
       return 'full'
