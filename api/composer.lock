@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "21df6e313bcb2c107457ab79cfb189d6",
+    "content-hash": "0c8da1164d223ac8ddce6656eeacffdd",
     "packages": [
         {
             "name": "api-platform/doctrine-common",
@@ -245,6 +245,84 @@
                 "source": "https://github.com/api-platform/documentation/tree/v4.2.2"
             },
             "time": "2025-08-19T08:04:29+00:00"
+        },
+        {
+            "name": "api-platform/hal",
+            "version": "4.2.0-beta.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/api-platform/hal.git",
+                "reference": "c75d92dc08451be2f711d0737e4124eb8c602a78"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/api-platform/hal/zipball/c75d92dc08451be2f711d0737e4124eb8c602a78",
+                "reference": "c75d92dc08451be2f711d0737e4124eb8c602a78",
+                "shasum": ""
+            },
+            "require": {
+                "api-platform/documentation": "^4.1.11",
+                "api-platform/metadata": "^4.1.11",
+                "api-platform/serializer": "^4.1.11",
+                "api-platform/state": "^4.1.11",
+                "php": ">=8.2",
+                "symfony/type-info": "^7.3"
+            },
+            "require-dev": {
+                "api-platform/json-schema": "^4.1.11",
+                "phpunit/phpunit": "11.5.x-dev"
+            },
+            "type": "library",
+            "extra": {
+                "thanks": {
+                    "url": "https://github.com/api-platform/api-platform",
+                    "name": "api-platform/api-platform"
+                },
+                "symfony": {
+                    "require": "^6.4 || ^7.0"
+                },
+                "branch-alias": {
+                    "dev-3.4": "3.4.x-dev",
+                    "dev-4.1": "4.1.x-dev",
+                    "dev-4.2": "4.2.x-dev",
+                    "dev-main": "4.3.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "ApiPlatform\\Hal\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Kévin Dunglas",
+                    "email": "kevin@dunglas.fr",
+                    "homepage": "https://dunglas.fr"
+                },
+                {
+                    "name": "API Platform Community",
+                    "homepage": "https://api-platform.com/community/contributors"
+                }
+            ],
+            "description": "API Hal support",
+            "homepage": "https://api-platform.com",
+            "keywords": [
+                "api",
+                "hal",
+                "rest"
+            ],
+            "support": {
+                "issues": "https://github.com/api-platform/hal/issues",
+                "source": "https://github.com/api-platform/hal/tree/4.2.0-beta.1"
+            },
+            "time": "2025-09-16T12:49:22+00:00"
         },
         {
             "name": "api-platform/http-cache",
@@ -492,82 +570,6 @@
                 "source": "https://github.com/api-platform/json-api/tree/v4.2.2"
             },
             "time": "2025-09-16T12:49:22+00:00"
-        },
-        {
-            "name": "api-platform/json-hal",
-            "version": "v4.1.25",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/api-platform/json-hal.git",
-                "reference": "07f97ae8317df9161a718243a9d7515611614eb8"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/api-platform/json-hal/zipball/07f97ae8317df9161a718243a9d7515611614eb8",
-                "reference": "07f97ae8317df9161a718243a9d7515611614eb8",
-                "shasum": ""
-            },
-            "require": {
-                "api-platform/documentation": "^4.1.11",
-                "api-platform/metadata": "^4.1.11",
-                "api-platform/serializer": "^4.1.11",
-                "api-platform/state": "^4.1.11",
-                "php": ">=8.2"
-            },
-            "require-dev": {
-                "api-platform/json-schema": "^4.1.11",
-                "phpunit/phpunit": "11.5.x-dev"
-            },
-            "type": "library",
-            "extra": {
-                "thanks": {
-                    "url": "https://github.com/api-platform/api-platform",
-                    "name": "api-platform/api-platform"
-                },
-                "symfony": {
-                    "require": "^6.4 || ^7.0"
-                },
-                "branch-alias": {
-                    "dev-3.4": "3.4.x-dev",
-                    "dev-4.1": "4.1.x-dev",
-                    "dev-main": "4.2.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "ApiPlatform\\Hal\\": ""
-                },
-                "exclude-from-classmap": [
-                    "/Tests/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Kévin Dunglas",
-                    "email": "kevin@dunglas.fr",
-                    "homepage": "https://dunglas.fr"
-                },
-                {
-                    "name": "API Platform Community",
-                    "homepage": "https://api-platform.com/community/contributors"
-                }
-            ],
-            "description": "API Hal support",
-            "homepage": "https://api-platform.com",
-            "keywords": [
-                "api",
-                "hal",
-                "rest"
-            ],
-            "support": {
-                "source": "https://github.com/api-platform/json-hal/tree/v4.1.25"
-            },
-            "abandoned": "api-platform/hal",
-            "time": "2025-09-15T09:57:10+00:00"
         },
         {
             "name": "api-platform/json-schema",
@@ -15916,7 +15918,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {},
+    "stability-flags": {
+        "api-platform/hal": 10
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
