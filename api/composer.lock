@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0c3f0095aca2a786ab0ce9c74d054717",
+    "content-hash": "7c07b49a7dae69933a7c7b7dba568a6d",
     "packages": [
         {
             "name": "api-platform/doctrine-common",
@@ -998,16 +998,16 @@
         },
         {
             "name": "api-platform/state",
-            "version": "v4.1.24",
+            "version": "v4.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/api-platform/state.git",
-                "reference": "056b07285cdc904984fb44c2614f7df8f4620a95"
+                "reference": "5a74ea2ca36d0651bf637b0da6c10db4383172bf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/api-platform/state/zipball/056b07285cdc904984fb44c2614f7df8f4620a95",
-                "reference": "056b07285cdc904984fb44c2614f7df8f4620a95",
+                "url": "https://api.github.com/repos/api-platform/state/zipball/5a74ea2ca36d0651bf637b0da6c10db4383172bf",
+                "reference": "5a74ea2ca36d0651bf637b0da6c10db4383172bf",
                 "shasum": ""
             },
             "require": {
@@ -1019,9 +1019,12 @@
                 "symfony/translation-contracts": "^3.0"
             },
             "require-dev": {
+                "api-platform/serializer": "^4.1",
                 "api-platform/validator": "^4.1",
                 "phpunit/phpunit": "11.5.x-dev",
                 "symfony/http-foundation": "^6.4 || ^7.0",
+                "symfony/object-mapper": "^7.3",
+                "symfony/type-info": "^7.3",
                 "symfony/web-link": "^6.4 || ^7.1",
                 "willdurand/negotiation": "^3.1"
             },
@@ -1044,7 +1047,8 @@
                 "branch-alias": {
                     "dev-3.4": "3.4.x-dev",
                     "dev-4.1": "4.1.x-dev",
-                    "dev-main": "4.2.x-dev"
+                    "dev-4.2": "4.2.x-dev",
+                    "dev-main": "4.3.x-dev"
                 }
             },
             "autoload": {
@@ -1084,9 +1088,9 @@
                 "swagger"
             ],
             "support": {
-                "source": "https://github.com/api-platform/state/tree/v4.1.24"
+                "source": "https://github.com/api-platform/state/tree/v4.2.3"
             },
-            "time": "2025-07-16T14:01:52+00:00"
+            "time": "2025-10-31T10:04:25+00:00"
         },
         {
             "name": "api-platform/symfony",
