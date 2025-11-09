@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a8a988d7daf2c4cc81e5e7119b2564f0",
+    "content-hash": "4736dd27635b8a20f4ac2ba8056c23a7",
     "packages": [
         {
             "name": "api-platform/doctrine-common",
@@ -98,25 +98,25 @@
         },
         {
             "name": "api-platform/doctrine-orm",
-            "version": "v4.1.24",
+            "version": "v4.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/api-platform/doctrine-orm.git",
-                "reference": "9989d0fd4badfe77fa71fed9ae734d146bc0495d"
+                "reference": "f30b580379ea16f6de3e27ecf8e474335af011f9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/api-platform/doctrine-orm/zipball/9989d0fd4badfe77fa71fed9ae734d146bc0495d",
-                "reference": "9989d0fd4badfe77fa71fed9ae734d146bc0495d",
+                "url": "https://api.github.com/repos/api-platform/doctrine-orm/zipball/f30b580379ea16f6de3e27ecf8e474335af011f9",
+                "reference": "f30b580379ea16f6de3e27ecf8e474335af011f9",
                 "shasum": ""
             },
             "require": {
-                "api-platform/doctrine-common": "^4.1.11",
+                "api-platform/doctrine-common": "^4.2.0-alpha.3@alpha",
                 "api-platform/metadata": "^4.1.11",
                 "api-platform/state": "^4.1.11",
                 "doctrine/orm": "^2.17 || ^3.0",
                 "php": ">=8.2",
-                "symfony/property-info": "^6.4 || ^7.1"
+                "symfony/type-info": "^7.3"
             },
             "require-dev": {
                 "doctrine/doctrine-bundle": "^2.11",
@@ -127,6 +127,7 @@
                 "symfony/cache": "^6.4 || ^7.0",
                 "symfony/framework-bundle": "^6.4 || ^7.0",
                 "symfony/property-access": "^6.4 || ^7.0",
+                "symfony/property-info": "^6.4 || ^7.1",
                 "symfony/serializer": "^6.4 || ^7.0",
                 "symfony/uid": "^6.4 || ^7.0",
                 "symfony/validator": "^6.4 || ^7.0",
@@ -144,7 +145,8 @@
                 "branch-alias": {
                     "dev-3.4": "3.4.x-dev",
                     "dev-4.1": "4.1.x-dev",
-                    "dev-main": "4.2.x-dev"
+                    "dev-4.2": "4.2.x-dev",
+                    "dev-main": "4.3.x-dev"
                 }
             },
             "autoload": {
@@ -177,9 +179,9 @@
                 "rest"
             ],
             "support": {
-                "source": "https://github.com/api-platform/doctrine-orm/tree/v4.1.24"
+                "source": "https://github.com/api-platform/doctrine-orm/tree/v4.2.3"
             },
-            "time": "2025-09-15T09:57:10+00:00"
+            "time": "2025-10-31T11:51:24+00:00"
         },
         {
             "name": "api-platform/documentation",
@@ -1000,16 +1002,16 @@
         },
         {
             "name": "api-platform/state",
-            "version": "v4.1.24",
+            "version": "v4.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/api-platform/state.git",
-                "reference": "056b07285cdc904984fb44c2614f7df8f4620a95"
+                "reference": "5a74ea2ca36d0651bf637b0da6c10db4383172bf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/api-platform/state/zipball/056b07285cdc904984fb44c2614f7df8f4620a95",
-                "reference": "056b07285cdc904984fb44c2614f7df8f4620a95",
+                "url": "https://api.github.com/repos/api-platform/state/zipball/5a74ea2ca36d0651bf637b0da6c10db4383172bf",
+                "reference": "5a74ea2ca36d0651bf637b0da6c10db4383172bf",
                 "shasum": ""
             },
             "require": {
@@ -1021,9 +1023,12 @@
                 "symfony/translation-contracts": "^3.0"
             },
             "require-dev": {
+                "api-platform/serializer": "^4.1",
                 "api-platform/validator": "^4.1",
                 "phpunit/phpunit": "11.5.x-dev",
                 "symfony/http-foundation": "^6.4 || ^7.0",
+                "symfony/object-mapper": "^7.3",
+                "symfony/type-info": "^7.3",
                 "symfony/web-link": "^6.4 || ^7.1",
                 "willdurand/negotiation": "^3.1"
             },
@@ -1046,7 +1051,8 @@
                 "branch-alias": {
                     "dev-3.4": "3.4.x-dev",
                     "dev-4.1": "4.1.x-dev",
-                    "dev-main": "4.2.x-dev"
+                    "dev-4.2": "4.2.x-dev",
+                    "dev-main": "4.3.x-dev"
                 }
             },
             "autoload": {
@@ -1086,9 +1092,9 @@
                 "swagger"
             ],
             "support": {
-                "source": "https://github.com/api-platform/state/tree/v4.1.24"
+                "source": "https://github.com/api-platform/state/tree/v4.2.3"
             },
-            "time": "2025-07-16T14:01:52+00:00"
+            "time": "2025-10-31T10:04:25+00:00"
         },
         {
             "name": "api-platform/symfony",
