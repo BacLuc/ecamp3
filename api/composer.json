@@ -15,7 +15,7 @@
         "api-platform/openapi": "4.1.24",
         "api-platform/serializer": "4.1.24",
         "api-platform/state": "4.2.3",
-        "api-platform/symfony": "4.1.23",
+        "api-platform/symfony": "4.1.26",
         "api-platform/validator": "4.2.3",
         "composer/package-versions-deprecated": "1.11.99",
         "cweagans/composer-patches": "1.7.3",
