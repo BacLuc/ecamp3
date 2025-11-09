@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4736dd27635b8a20f4ac2ba8056c23a7",
+    "content-hash": "d5121ec0f7939834bb8c5c145941c0cc",
     "packages": [
         {
             "name": "api-platform/doctrine-common",
@@ -824,7 +824,7 @@
         },
         {
             "name": "api-platform/openapi",
-            "version": "v4.1.24",
+            "version": "v4.1.26",
             "source": {
                 "type": "git",
                 "url": "https://github.com/api-platform/openapi.git",
@@ -905,7 +905,7 @@
                 "swagger"
             ],
             "support": {
-                "source": "https://github.com/api-platform/openapi/tree/v4.1.24"
+                "source": "https://github.com/api-platform/openapi/tree/v4.1.26"
             },
             "time": "2025-07-29T08:53:27+00:00"
         },
