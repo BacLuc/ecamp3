@@ -35,7 +35,6 @@ class PreventAutomaticEmbeddingPropertyMetadataFactoryTest extends TestCase {
             security: true,
             securityPostDenormalize: 'securityPostDenormalize',
             types: ['types'],
-            builtinTypes: [Type::int()],
             schema: ['schema'],
             initializable: true,
             iris: ['iris'],
@@ -45,6 +44,7 @@ class PreventAutomaticEmbeddingPropertyMetadataFactoryTest extends TestCase {
             policy: 'policy',
             serialize: ['serialize'],
             hydra: true,
+            nativeType: Type::int(),
             extraProperties: ['extraProperties'],
         );
         $decorated->expects($this->once())
@@ -79,7 +79,6 @@ class PreventAutomaticEmbeddingPropertyMetadataFactoryTest extends TestCase {
         $this->assertEquals($apiProperty->getSecurity(), $result->getSecurity());
         $this->assertEquals($apiProperty->getSecurityPostDenormalize(), $result->getSecurityPostDenormalize());
         $this->assertEquals($apiProperty->getTypes(), $result->getTypes());
-        $this->assertEquals($apiProperty->getBuiltinTypes(), $result->getBuiltinTypes());
         $this->assertEquals($apiProperty->getSchema(), $result->getSchema());
         $this->assertEquals($apiProperty->isInitializable(), $result->isInitializable());
         $this->assertEquals($apiProperty->getIris(), $result->getIris());
@@ -89,6 +88,7 @@ class PreventAutomaticEmbeddingPropertyMetadataFactoryTest extends TestCase {
         $this->assertEquals($apiProperty->getPolicy(), $result->getPolicy());
         $this->assertEquals($apiProperty->getSerialize(), $result->getSerialize());
         $this->assertEquals($apiProperty->getHydra(), $result->getHydra());
+        $this->assertEquals($apiProperty->getNativeType(), $result->getNativeType());
         $this->assertEquals($apiProperty->getExtraProperties(), $result->getExtraProperties());
     }
 }

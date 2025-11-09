@@ -80,7 +80,6 @@ final readonly class PreventAutomaticEmbeddingPropertyMetadataFactory implements
             security: $apiProperty->getSecurity(),
             securityPostDenormalize: $apiProperty->getSecurityPostDenormalize(),
             types: $apiProperty->getTypes(),
-            builtinTypes: $apiProperty->getBuiltinTypes(),
             schema: $apiProperty->getSchema(),
             initializable: $apiProperty->isInitializable(),
             iris: $apiProperty->getIris(),
@@ -90,6 +89,7 @@ final readonly class PreventAutomaticEmbeddingPropertyMetadataFactory implements
             policy: $apiProperty->getPolicy(),
             serialize: $apiProperty->getSerialize(),
             hydra: $apiProperty->getHydra(),
+            nativeType: $apiProperty->getNativeType(),
             extraProperties: $apiProperty->getExtraProperties(),
         );
     }
