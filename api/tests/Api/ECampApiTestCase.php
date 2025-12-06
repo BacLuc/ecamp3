@@ -184,6 +184,8 @@ abstract class ECampApiTestCase extends ApiTestCase {
             $schemaName = $matches[1];
             $properties = $schema->getDefinitions()[$schemaName]['properties'] ?? [];
             $writableProperties = array_filter($properties, fn ($property) => !($property['readOnly'] ?? false));
+            $exampleExtractor = new ExampleExtractor($resourceClass);
+            array_walk($writableProperties, fn (&$property, $key) => $property['example'] = $exampleExtractor->getExampleFor($key, $property));
             $writablePropertiesWithExample = array_filter($writableProperties, fn ($property) => ($property['example'] ?? false));
             $examples = array_map(fn ($property) => $property['example'] ?? $property['default'] ?? null, $writablePropertiesWithExample);
             $examples = array_map(function ($example) {
