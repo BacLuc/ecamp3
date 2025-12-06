@@ -693,7 +693,12 @@ class CreateActivityTest extends ECampApiTestCase {
             Activity::class,
             Get::class,
             $attributes,
-            ['category', 'progressLabel'],
+            [
+                'category',
+                'progressLabel',
+                'camp',
+                'rootContentNode',
+            ],
             $except
         );
     }

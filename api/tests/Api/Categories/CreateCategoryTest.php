@@ -648,7 +648,11 @@ class CreateCategoryTest extends ECampApiTestCase {
             Category::class,
             Get::class,
             $attributes,
-            ['camp', 'preferredContentTypes'],
+            [
+                'camp',
+                'preferredContentTypes',
+                'rootContentNode',
+            ],
             $except
         );
     }
