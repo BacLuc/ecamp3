@@ -49,7 +49,7 @@
         "symfony/http-client": "7.4.1",
         "symfony/intl": "7.4.0",
         "symfony/mailer": "7.4.0",
-        "symfony/monolog-bundle": "3.11.0",
+        "symfony/monolog-bundle": "4.0.0",
         "symfony/property-access": "7.4.0",
         "symfony/property-info": "7.4.0",
         "symfony/runtime": "7.4.0",
