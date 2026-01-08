@@ -17,6 +17,7 @@ Displays a field as a date picker (can be used with v-model)
     button-aria-label-i18n-key="components.form.base.eDatePicker.openPicker"
     close-on-picker-input
     @update:model-value="$emit('update:model-value', $event)"
+    log-changes="true"
   >
     <template #default="picker">
       <v-date-picker
@@ -97,6 +98,11 @@ export default {
         }
       },
       immediate: true,
+    },
+    modelValue: {
+      handler(newModelValue) {
+        console.log('modelValue', newModelValue)
+      },
     },
   },
   methods: {

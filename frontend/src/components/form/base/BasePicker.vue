@@ -106,6 +106,7 @@ export default {
      * Parse the value from the popup component into the internal format. If omitted, uses parse instead.
      */
     parsePicker: { type: Function, required: false, default: null },
+    logChanges: { type: Boolean, default: false },
   },
   data() {
     return {
@@ -158,8 +159,21 @@ export default {
   },
   watch: {
     modelValue(val) {
+      if (this.logChanges) {
+        console.log('modelValue in BasePicker', val)
+      }
       this.localValueInitialized = false
       this.setValue(val)
+    },
+    fieldValue(val) {
+      if (this.logChanges) {
+        console.log('fieldValue in BasePicker', val)
+      }
+    },
+    localValue(val) {
+      if (this.logChanges) {
+        console.log('localValue in BasePicker', val)
+      }
     },
   },
   mounted() {

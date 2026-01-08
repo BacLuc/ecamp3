@@ -1,6 +1,6 @@
 <template>
   <Field
-    v-slot="{ handleChange, handleReset, errors: veeFieldErrors }"
+    v-slot="{ errors: veeFieldErrors, value, field }"
     ref="validationField"
     :model-value="modelValue"
     as="div"
@@ -8,20 +8,21 @@
     :label="validationLabel"
     :rules="veeRules"
     class="e-form-container"
+    @change="$emit('update:model-value', $event)"
   >
+    <span>{{ modelValue }}</span>
+    <span>{{ console.log(value) }}</span>
     <v-text-field
       ref="textField"
-      :model-value="modelValue"
+      v-model="field.value"
+      v-bind="field"
       :class="[inputClass]"
       :error-messages="(veeFieldErrors ?? []).concat(errorMessages)"
       :label="labelOrEntityFieldLabel"
       :type="type"
-      v-bind="$attrs"
       :filled="filled"
       :required="required"
       :hide-details="hideDetails"
-      @blur="onBlur($event, handleReset)"
-      @update:model-value="onInput($event, handleChange)"
     >
       <!-- passing through all slots -->
       <template v-for="(_, slot) of $slots" #[slot]="slotData">
@@ -51,6 +52,13 @@ export default {
     return {
       preventValidationOnBlur: false,
     }
+  },
+  watch: {
+    modelValue: {
+      handler(newModelValue) {
+        console.log('modelValue in eTextField', newModelValue)
+      },
+    },
   },
   mounted() {
     this.preventValidationOnBlur =

@@ -12,60 +12,60 @@
       required
     />
 
-    <div class="area-starttime">
-      <e-time-dropdown
-        v-model="localScheduleEntry.start"
-        path="startDatetime"
-        vee-rules="required"
-        :filled="false"
-        required
-        value-format="YYYY-MM-DDTHH:mm:ssZ"
-        :items="startTimeList"
-        :menu-props="{
-          maxHeight: '320',
-          offsetOverflow: true,
-          offsetY: true,
-          nudgeLeft: '16px',
-        }"
-      />
-    </div>
-    <div class="area-dash text-field-alignment">-</div>
-    <div class="area-endtime">
-      <e-time-dropdown
-        v-model="localScheduleEntry.end"
-        value-format="YYYY-MM-DDTHH:mm:ssZ"
-        path="endDatetime"
-        :vee-rules="endTimeValidation"
-        :min="minEndTime"
-        :filled="false"
-        required
-        :items="endTimeList"
-        :menu-props="{
-          maxHeight: '320',
-          offsetOverflow: true,
-          offsetY: true,
-          nudgeLeft: '16px',
-        }"
-      >
-        <template #item="{ item }">
-          <span class="tabular-nums">{{ item.label }}</span
-          >&nbsp;<span class="opacity-60">({{ item.duration }})</span>
-        </template>
-      </e-time-dropdown>
-    </div>
+<!--    <div class="area-starttime">-->
+<!--      <e-time-dropdown-->
+<!--        v-model="localScheduleEntry.start"-->
+<!--        path="startDatetime"-->
+<!--        vee-rules="required"-->
+<!--        :filled="false"-->
+<!--        required-->
+<!--        value-format="YYYY-MM-DDTHH:mm:ssZ"-->
+<!--        :items="startTimeList"-->
+<!--        :menu-props="{-->
+<!--          maxHeight: '320',-->
+<!--          offsetOverflow: true,-->
+<!--          offsetY: true,-->
+<!--          nudgeLeft: '16px',-->
+<!--        }"-->
+<!--      />-->
+<!--    </div>-->
+<!--    <div class="area-dash text-field-alignment">-</div>-->
+<!--    <div class="area-endtime">-->
+<!--      <e-time-dropdown-->
+<!--        v-model="localScheduleEntry.end"-->
+<!--        value-format="YYYY-MM-DDTHH:mm:ssZ"-->
+<!--        path="endDatetime"-->
+<!--        :vee-rules="endTimeValidation"-->
+<!--        :min="minEndTime"-->
+<!--        :filled="false"-->
+<!--        required-->
+<!--        :items="endTimeList"-->
+<!--        :menu-props="{-->
+<!--          maxHeight: '320',-->
+<!--          offsetOverflow: true,-->
+<!--          offsetY: true,-->
+<!--          nudgeLeft: '16px',-->
+<!--        }"-->
+<!--      >-->
+<!--        <template #item="{ item }">-->
+<!--          <span class="tabular-nums">{{ item.label }}</span-->
+<!--          >&nbsp;<span class="opacity-60">({{ item.duration }})</span>-->
+<!--        </template>-->
+<!--      </e-time-dropdown>-->
+<!--    </div>-->
 
-    <!-- :vee-rules="'required|greaterThanOrEqual_date:@startDate' + startUTC" -->
-    <e-date-picker
-      v-model="localScheduleEntry.end"
-      value-format="YYYY-MM-DDTHH:mm:ssZ"
-      path="endDate"
-      :min="localScheduleEntry.start"
-      :allowed-dates="dateIsInSelectedPeriod"
-      :filled="false"
-      :class="{ 'hide-control': $vuetify.display.mdAndUp && isSameDay }"
-      class="area-enddate date-picker"
-      required
-    />
+<!--    &lt;!&ndash; :vee-rules="'required|greaterThanOrEqual_date:@startDate' + startUTC" &ndash;&gt;-->
+<!--    <e-date-picker-->
+<!--      v-model="localScheduleEntry.end"-->
+<!--      value-format="YYYY-MM-DDTHH:mm:ssZ"-->
+<!--      path="endDate"-->
+<!--      :min="localScheduleEntry.start"-->
+<!--      :allowed-dates="dateIsInSelectedPeriod"-->
+<!--      :filled="false"-->
+<!--      :class="{ 'hide-control': $vuetify.display.mdAndUp && isSameDay }"-->
+<!--      class="area-enddate date-picker"-->
+<!--      required-->
+<!--    />-->
     <div class="area-action">
       <e-text-field
         readonly
@@ -234,6 +234,7 @@ export default {
 
     // watch start and automatically shift end if start changes (=keep duration)
     'localScheduleEntry.start': function (newValue, oldValue) {
+      console.log('localScheduleEntry.start', newValue, oldValue)
       const delta = dayjs.utc(newValue).diff(dayjs.utc(oldValue))
       this.localScheduleEntry.end = dayjs
         .utc(this.localScheduleEntry.end)
