@@ -2,8 +2,10 @@
   "extends": [
     "mergeConfidence:all-badges",
     "config:recommended",
-    ":prConcurrentLimitNone",
-    "!group:apiPlatform"
+    ":prConcurrentLimitNone"
+  ],
+  "ignorePresets": [
+    "group:apiPlatform"
   ],
   "constraints": {
     "node": "24.13.1",
