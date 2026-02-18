@@ -36,6 +36,8 @@
         "!api-platform/admin-pack",
         "!api-platform/api-pack",
         "!api-platform/api-platform",
+        "!api-platform/metadata",
+        "!api-platform/openapi",
         "!api-platform/parameter-validator",
         "!api-platform/postman-collection-generator",
         "!api-platform/schema-generator"
