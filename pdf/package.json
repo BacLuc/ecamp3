@@ -34,7 +34,7 @@
   "devDependencies": {
     "@babel/eslint-parser": "7.28.6",
     "@eslint/compat": "2.0.2",
-    "@eslint/js": "9.39.2",
+    "@eslint/js": "10.0.1",
     "@intlify/core": "11.2.8",
     "@rushstack/eslint-patch": "1.15.0",
     "@vitejs/plugin-vue": "6.0.4",
@@ -49,7 +49,7 @@
     "@vue/test-utils": "2.4.6",
     "css": "3.0.0",
     "dayjs": "1.11.19",
-    "eslint": "9.39.2",
+    "eslint": "10.0.0",
     "eslint-plugin-local-rules": "3.0.2",
     "eslint-plugin-vue": "10.6.2",
     "globals": "17.3.0",
