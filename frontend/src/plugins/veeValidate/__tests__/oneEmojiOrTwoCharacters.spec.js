@@ -1,28 +1,27 @@
 import { describe, expect, it } from 'vitest'
 import oneEmojiOrTwoCharacters from '../oneEmojiOrTwoCharacters.js'
+import mockI18n from './mockI18n.js'
 
-const mockI18n = {
-  $tc: (key) => key,
-}
+const validationMessageKey = 'global.validation.oneEmojiOrTwoCharacters'
 
-describe.skip('oneEmojiOrTwoCharacters validation', () => {
+describe('oneEmojiOrTwoCharacters validation', () => {
   it.each([
     ['1', true],
     ['12', true],
-    ['123', false],
+    ['123', validationMessageKey],
     ['🧑🏼‍🔧', true],
-    ['🧑🏼‍🔧😊', false],
+    ['🧑🏼‍🔧😊', validationMessageKey],
     ['😊', true],
-    ['😊😊', false],
-    ['a😊', false],
+    ['😊😊', validationMessageKey],
+    ['a😊', validationMessageKey],
     ['', true],
-    ['😊😊😊😊', false],
+    ['😊😊😊😊', validationMessageKey],
   ])('validates %s as %s', (input, expected) => {
     // given
     const rule = oneEmojiOrTwoCharacters(mockI18n)
 
     // when
-    const result = rule.validate(input)
+    const result = rule(input, [], { label: 'Field' })
 
     // then
     expect(result).toBe(expected)

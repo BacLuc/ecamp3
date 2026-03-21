@@ -1,17 +1,17 @@
 import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest'
 import ApiNumberField from '../ApiNumberField.vue'
 import ApiWrapper from '@/components/form/api/ApiWrapper.vue'
-import Vue from 'vue'
-import Vuetify from 'vuetify'
 import flushPromises from 'flush-promises'
 import merge from 'lodash-es/merge'
 import { ApiMock } from '@/components/form/api/__tests__/ApiMock'
-import { i18n } from '@/plugins'
 import { mount as mountComponent } from '@vue/test-utils'
 import { waitForDebounce } from '@/test/util'
+import { setupVuetify } from '/tests/setupVuetify.js'
+import { i18n } from '@/plugins'
 
-describe.skip('An ApiNumberField', () => {
-  let vuetify
+setupVuetify()
+
+describe('An ApiNumberField', () => {
   let wrapper
   let apiMock
 
@@ -20,17 +20,18 @@ describe.skip('An ApiNumberField', () => {
   const NUMBER_1_string = '1.2'
 
   beforeEach(() => {
-    vuetify = new Vuetify()
     apiMock = ApiMock.create()
   })
 
   afterEach(() => {
     vi.restoreAllMocks()
-    wrapper.destroy()
+    if (wrapper) {
+      wrapper.unmount()
+    }
   })
 
   const mount = (options) => {
-    const app = Vue.component('App', {
+    const app = {
       components: { ApiNumberField },
       props: {
         path: { type: String, default: path },
@@ -44,16 +45,17 @@ describe.skip('An ApiNumberField', () => {
               required="true"
             />
           </div>`,
-    })
+    }
     apiMock.get().thenReturn(ApiMock.success(NUMBER_1).forPath(path))
     const defaultOptions = {
-      mocks: {
-        $tc: () => {},
-        api: apiMock.getMocks(),
+      global: {
+        mocks: {
+          $t: (key) => key,
+          api: apiMock.getMocks(),
+        },
       },
     }
     return mountComponent(app, {
-      vuetify,
       i18n,
       attachTo: document.body,
       ...merge(defaultOptions, options),

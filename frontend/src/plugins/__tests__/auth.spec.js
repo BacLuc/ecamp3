@@ -61,7 +61,7 @@ vi.mock('@/router', async () => {
   }
 })
 
-describe.skip('authentication logic', () => {
+describe.skip('authentication logic', () => { // Cannot run: depends on Vuex (Vue 2 API)
   afterEach(() => {
     vi.restoreAllMocks()
     Cookies.remove('localhost_jwt_hp')

@@ -5,7 +5,7 @@ import { fallbackLocales } from '@/plugins/i18n'
 
 const fallbackLocale = fallbackLocales.default
 
-describe.skip('transformViolations', () => {
+describe('transformViolations', () => {
   describe('without i18n', () => {
     it('returns server errors as 0 property of object', () => {
       expect(transformViolations(unauthorizedError)).toEqual({ 0: 'Unauthorized' })
@@ -35,13 +35,16 @@ describe.skip('transformViolations', () => {
 
   describe('with i18n', () => {
     const te = vi.fn()
-    const tc = vi.fn()
-    const i18n = { te, tc }
+    const t = vi.fn()
+    // locale is a ref in Vue 3, so we need to access .value
+    // Start with empty string since null causes issues with optional chaining
+    const locale = { value: '' }
+    const i18n = { te, t, locale }
 
     beforeEach(() => {
-      delete i18n.locale
+      locale.value = ''
       te.mockReset()
-      tc.mockReset()
+      t.mockReset()
     })
 
     describe('still uses the message property of violations', () => {
@@ -61,7 +64,7 @@ describe.skip('transformViolations', () => {
       })
 
       it('if the translation for the locale is not in the response and translation does not exist', () => {
-        i18n.locale = 'it'
+        locale.value = 'it'
         const validationError = createValidationError()
           .withViolation({
             message: 'first message',
@@ -96,7 +99,7 @@ describe.skip('transformViolations', () => {
           .build()
         te.mockReturnValue(true)
         const translation = 'a translation'
-        tc.mockReturnValue(translation)
+        t.mockReturnValue(translation)
 
         expect(transformViolations(validationError, i18n)).toEqual({
           property: [translation],
@@ -118,8 +121,8 @@ describe.skip('transformViolations', () => {
           .build()
         te.mockReturnValue(true)
         const translation = 'a translation'
-        tc.mockReturnValue(translation)
-        i18n.locale = 'en'
+        t.mockReturnValue(translation)
+        locale.value = 'en'
 
         expect(transformViolations(validationError, i18n)).toEqual({
           property: [translation],
@@ -142,7 +145,7 @@ describe.skip('transformViolations', () => {
           })
           .build()
         te.mockReturnValue(false)
-        i18n.locale = 'fr-CH-scout'
+        locale.value = 'fr-CH-scout'
 
         expect(transformViolations(validationError, i18n)).toEqual({
           property: ['fr_CH_scout'],
@@ -162,7 +165,7 @@ describe.skip('transformViolations', () => {
           })
           .build()
         te.mockReturnValue(false)
-        i18n.locale = 'de-CH-scout'
+        locale.value = 'de-CH-scout'
 
         expect(transformViolations(validationError, i18n)).toEqual({
           property: ['de_CH'],
@@ -183,7 +186,7 @@ describe.skip('transformViolations', () => {
           })
           .build()
         te.mockReturnValue(false)
-        i18n.locale = 'it'
+        locale.value = 'it'
 
         expect(transformViolations(validationError, i18n)).toEqual({
           property: [fallbackLocale],
