@@ -25,6 +25,10 @@ vi.mock('@/plugins/store', () => ({
     dispatch: vi.fn(),
     replaceState: vi.fn(),
   },
+  apiStore: {
+    get: vi.fn(),
+    post: vi.fn(),
+  },
 }))
 
 // Mock hal-json-vuex

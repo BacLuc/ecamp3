@@ -1,17 +1,16 @@
-import { beforeEach, describe, expect, test } from 'vitest'
-import Vue from 'vue'
-import Vuetify from 'vuetify'
+import { describe, expect, test } from 'vitest'
 import EColorField from '@/components/form/base/EColorField.vue'
 import { mount as mountComponent } from '@vue/test-utils'
 import { ColorSpace, sRGB } from 'colorjs.io/fn'
+import { setupVuetify } from '/tests/setupVuetify.js'
 
 ColorSpace.register(sRGB)
 
-describe.skip('An EColorField', () => {
-  let vuetify
+setupVuetify()
 
+describe('An EColorField', () => {
   const mount = (options) => {
-    const app = Vue.component('App', {
+    const app = {
       components: { EColorField },
       data: function () {
         return {
@@ -27,20 +26,16 @@ describe.skip('An EColorField', () => {
         },
       },
       template: `<div data-app><e-color-field label="test" v-model="data"/></div>`,
-    })
-    return mountComponent(app, { vuetify, attachTo: document.body, ...options })
+    }
+    return mountComponent(app, { attachTo: document.body, ...options })
   }
-
-  beforeEach(() => {
-    vuetify = new Vuetify()
-  })
 
   test('looks like a textfield', async () => {
     const wrapper = mount()
-    expect(wrapper).toMatchSnapshot('empty')
+    expect(wrapper.html()).toMatchSnapshot('empty')
 
     await wrapper.setData({ data: '#FF0000' })
-    expect(wrapper).toMatchSnapshot('with text')
+    expect(wrapper.html()).toMatchSnapshot('with text')
   })
 
   test('updates text when vModel changes', async () => {

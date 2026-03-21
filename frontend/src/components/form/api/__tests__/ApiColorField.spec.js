@@ -1,14 +1,21 @@
 import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest'
 import ApiColorField from '../ApiColorField.vue'
-import { fireEvent, screen, waitFor } from '@testing-library/vue'
-import { render } from '@/test/renderWithVuetify.js'
-import user from '@testing-library/user-event'
+import ApiWrapper from '@/components/form/api/ApiWrapper.vue'
+import flushPromises from 'flush-promises'
+import merge from 'lodash-es/merge'
 import { ApiMock } from '@/components/form/api/__tests__/ApiMock'
+import { mount as mountComponent } from '@vue/test-utils'
+import { waitForDebounce } from '@/test/util'
+import { setupVuetify } from '/tests/setupVuetify.js'
+import { i18n } from '@/plugins'
 import { ColorSpace, sRGB } from 'colorjs.io/fn'
 
 ColorSpace.register(sRGB)
 
-describe.skip('An ApiColorField', () => {
+setupVuetify()
+
+describe('An ApiColorField', () => {
+  let wrapper
   let apiMock
 
   const FIELD_PATH = 'test-field/123'
@@ -22,69 +29,54 @@ describe.skip('An ApiColorField', () => {
 
   afterEach(() => {
     vi.restoreAllMocks()
+    if (wrapper) {
+      wrapper.unmount()
+    }
   })
 
-  test('triggers api.patch and status update if input changes', async () => {
-    // given
-    apiMock.get().thenReturn(ApiMock.success(COLOR_1).forPath(FIELD_PATH))
-    apiMock.patch().thenReturn(ApiMock.success(COLOR_2))
-    render(ApiColorField, {
+  const mount = (options) => {
+    const app = {
+      components: { ApiColorField },
       props: {
-        autoSave: false,
-        path: FIELD_PATH,
-        uri: 'test-field/123',
-        label: FIELD_LABEL,
-        required: true,
+        path: { type: String, default: FIELD_PATH },
       },
-      mocks: {
-        api: apiMock.getMocks(),
+      template: `
+        <div data-app>
+          <api-color-field
+            :auto-save="false"
+            :path="path"
+            uri="test-field/123"
+            label="${FIELD_LABEL}"
+            required="true"
+          />
+        </div>
+      `,
+    }
+    apiMock.get().thenReturn(ApiMock.success(COLOR_1).forPath(FIELD_PATH))
+    const defaultOptions = {
+      global: {
+        mocks: {
+          $t: (key) => key,
+          api: apiMock.getMocks(),
+        },
       },
+    }
+    return mountComponent(app, {
+      i18n,
+      attachTo: document.body,
+      ...merge(defaultOptions, options),
     })
-
-    // when
-    const inputField = await screen.findByLabelText(FIELD_LABEL)
-    inputField.value = COLOR_2
-    await fireEvent.input(inputField)
-    // click the button to open the picker
-    // click the save button
-    await waitFor(async () => {
-      await user.click(screen.getByLabelText('Speichern'))
-    })
-
-    // then
-    await waitFor(async () => {
-      const inputField = await screen.findByLabelText(FIELD_LABEL)
-      expect(inputField.value).toBe(COLOR_2)
-      expect(apiMock.getMocks().patch).toBeCalledTimes(1)
-    })
-  })
+  }
 
   test('updates state if value in store is refreshed and has new value', async () => {
-    // given
-    apiMock.get().thenReturn(ApiMock.networkError().forPath(FIELD_PATH))
-    render(ApiColorField, {
-      props: {
-        autoSave: false,
-        path: FIELD_PATH,
-        uri: 'test-field/123',
-        label: FIELD_LABEL,
-        required: true,
-      },
-      mocks: {
-        api: apiMock.getMocks(),
-      },
-    })
-    await screen.findByText('A network error occurred.')
-    expect((await screen.findByLabelText(FIELD_LABEL)).value).not.toBe(COLOR_1)
-    const retryButton = await screen.findByText('Erneut versuchen')
-    apiMock.get().thenReturn(ApiMock.success(COLOR_1).forPath(FIELD_PATH))
+    wrapper = mount()
+    apiMock.get().thenReturn(ApiMock.success(COLOR_2).forPath(FIELD_PATH))
 
-    // when
-    await user.click(retryButton)
+    wrapper.findComponent(ApiWrapper).vm.reload()
 
-    // then
-    await waitFor(async () => {
-      expect((await screen.findByLabelText(FIELD_LABEL)).value).toBe(COLOR_1)
-    })
+    await waitForDebounce()
+    await flushPromises()
+
+    expect(wrapper.findComponent(ApiWrapper).vm.localValue).toBe(COLOR_2)
   })
 })

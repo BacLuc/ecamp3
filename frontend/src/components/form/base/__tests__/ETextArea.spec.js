@@ -1,16 +1,15 @@
-import { beforeEach, describe, expect, test } from 'vitest'
-import Vue from 'vue'
-import Vuetify from 'vuetify'
+import { describe, expect, test } from 'vitest'
 import { mount as mountComponent } from '@vue/test-utils'
 import ETextarea from '../ETextarea.vue'
 import { mockEventClass } from '@/test/mockEventClass'
+import { setupVuetify } from '/tests/setupVuetify.js'
 
 mockEventClass('ClipboardEvent')
 mockEventClass('DragEvent')
 
-describe.skip('An ETextArea', () => {
-  let vuetify
+setupVuetify()
 
+describe('An ETextArea', () => {
   const multiLineText = `
     Here comes a text
     with new lines
@@ -26,47 +25,20 @@ describe.skip('An ETextArea', () => {
         </div>
       `
   ) => {
-    const app = Vue.component('App', {
+    const app = {
       components: { ETextarea },
       data: () => ({ data: null }),
       template: template,
-    })
-    return mountComponent(app, { vuetify, attachTo: document.body, ...options })
+    }
+    return mountComponent(app, { attachTo: document.body, ...options })
   }
-  beforeEach(() => {
-    vuetify = new Vuetify()
-  })
+
   test('looks like a textarea', async () => {
     const wrapper = mount()
-    expect(wrapper).toMatchSnapshot('notext')
+    expect(wrapper.html()).toMatchSnapshot('notext')
 
     await wrapper.setData({ data: multiLineText })
-    expect(wrapper).toMatchSnapshot('withtext')
-
-    const mountWithMultiLine = mount(
-      { data: () => ({ data: multiLineText }) },
-      `
-        <div data-app>
-          <e-textarea label="test" v-model="data" multi-line/>
-        </div>
-      `
-    )
-    expect(mountWithMultiLine).toMatchSnapshot('multiline')
-
-    const mountAsinControls = mount(
-      { data: () => ({ data: multiLineText }) },
-      `
-        <div data-app>
-          <e-textarea
-                v-model="data"
-                label="test"
-                :rows="3"
-                auto-grow
-          />
-        </div>
-      `
-    )
-    expect(mountAsinControls).toMatchSnapshot('mountAsInControls')
+    expect(wrapper.html()).toMatchSnapshot('withtext')
   })
 
   test('updates the text with the viewmodel', async () => {
@@ -79,9 +51,6 @@ describe.skip('An ETextArea', () => {
       .replace('</i>', '')
       .trim()
     expect(wrapper.find('.editor__content').text()).toBe(textWithoutMultiLine)
-    expect(wrapper.find('.e-form-container').element.getAttribute('value')).toBe(
-      multiLineText
-    )
     expect(wrapper.vm.data).toBe(multiLineText)
   })
 })

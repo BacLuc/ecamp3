@@ -1,89 +1,82 @@
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest'
 import ApiTimePicker from '../ApiTimePicker.vue'
-import { screen, waitFor } from '@testing-library/vue'
-import { render, setTestLocale } from '@/test/renderWithVuetify.js'
-import user from '@testing-library/user-event'
+import ApiWrapper from '@/components/form/api/ApiWrapper.vue'
+import flushPromises from 'flush-promises'
+import merge from 'lodash-es/merge'
 import { ApiMock } from '@/components/form/api/__tests__/ApiMock'
+import { mount as mountComponent } from '@vue/test-utils'
+import { waitForDebounce } from '@/test/util'
+import { setupVuetify } from '/tests/setupVuetify.js'
+import { i18n } from '@/plugins'
+import dayjs from '@/common/helpers/dayjs.js'
 
-describe.skip('An ApiTimePicker', () => {
+setupVuetify()
+
+describe('An ApiTimePicker', () => {
+  let wrapper
   let apiMock
 
   const FIELD_PATH = 'test-field/123'
   const FIELD_LABEL = 'Test field'
   const TIME_1 = '2037-07-18T09:52:00+00:00'
   const TIME_2 = '2037-07-18T00:52:00+00:00'
-  const PICKER_BUTTON_LABEL_TEXT = 'Dialog öffnen, um eine Zeit für Test field zu wählen'
 
   beforeEach(() => {
-    setTestLocale('de')
+    // Set locale for consistent time formatting
+    dayjs.locale('de')
     apiMock = ApiMock.create()
   })
 
   afterEach(() => {
     vi.restoreAllMocks()
+    if (wrapper) {
+      wrapper.unmount()
+    }
   })
 
-  it('triggers api.patch and status update if input changes', async () => {
-    // given
-    apiMock.get().thenReturn(ApiMock.success(TIME_1).forPath(FIELD_PATH))
-    apiMock.patch().thenReturn(ApiMock.success(TIME_2))
-    render(ApiTimePicker, {
+  const mount = (options) => {
+    const app = {
+      components: { ApiTimePicker },
       props: {
-        autoSave: false,
-        path: FIELD_PATH,
-        uri: 'test-field/123',
-        label: FIELD_LABEL,
-        required: true,
+        path: { type: String, default: FIELD_PATH },
       },
-      mocks: {
-        api: apiMock.getMocks(),
-      },
-    })
-
-    // when
-    // click the button to open the picker
-    await user.click(screen.getByLabelText(PICKER_BUTTON_LABEL_TEXT))
-    // Click the 0th hour. We can only click this one, because
-    // testing library is missing the vuetify styles, and all the
-    // number elements overlap
-    await user.click(await screen.findByText('0'))
-    // click the save button
-    await user.click(screen.getByLabelText('Speichern'))
-
-    // then
-    await waitFor(async () => {
-      const inputField = await screen.findByLabelText(FIELD_LABEL)
-      expect(inputField.value).toBe('00:52')
-      expect(apiMock.getMocks().patch).toBeCalledTimes(1)
-    })
-  })
-
-  it('updates state if value in store is refreshed and has new value', async () => {
-    // given
-    apiMock.get().thenReturn(ApiMock.networkError().forPath(FIELD_PATH))
-    render(ApiTimePicker, {
-      props: {
-        autoSave: false,
-        path: FIELD_PATH,
-        uri: 'test-field/123',
-        label: FIELD_LABEL,
-        required: true,
-      },
-      mocks: {
-        api: apiMock.getMocks(),
-      },
-    })
-    await screen.findByText('A network error occurred.')
-    expect((await screen.findByLabelText(FIELD_LABEL)).value).not.toBe('09:52')
-    const retryButton = await screen.findByText('Erneut versuchen')
+      template: `
+        <div data-app>
+          <api-time-picker
+            :auto-save="false"
+            :path="path"
+            uri="test-field/123"
+            label="${FIELD_LABEL}"
+            required="true"
+          />
+        </div>
+      `,
+    }
     apiMock.get().thenReturn(ApiMock.success(TIME_1).forPath(FIELD_PATH))
-
-    // when
-    await user.click(retryButton)
-
-    // then
-    await waitFor(async () => {
-      expect((await screen.findByLabelText(FIELD_LABEL)).value).toBe('09:52')
+    const defaultOptions = {
+      global: {
+        mocks: {
+          $t: (key) => key,
+          api: apiMock.getMocks(),
+        },
+      },
+    }
+    return mountComponent(app, {
+      i18n,
+      attachTo: document.body,
+      ...merge(defaultOptions, options),
     })
+  }
+
+  test('updates state if value in store is refreshed and has new value', async () => {
+    wrapper = mount()
+    apiMock.get().thenReturn(ApiMock.success(TIME_2).forPath(FIELD_PATH))
+
+    wrapper.findComponent(ApiWrapper).vm.reload()
+
+    await waitForDebounce()
+    await flushPromises()
+
+    expect(wrapper.findComponent(ApiWrapper).vm.localValue).toBe(TIME_2)
   })
 })

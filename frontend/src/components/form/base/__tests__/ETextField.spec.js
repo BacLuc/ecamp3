@@ -1,16 +1,14 @@
-import { beforeEach, describe, expect, test } from 'vitest'
-import Vue from 'vue'
-import Vuetify from 'vuetify'
-
+import { describe, expect, test } from 'vitest'
 import { mount as mountComponent } from '@vue/test-utils'
 import ETextField from '../ETextField.vue'
 import { screen } from '@testing-library/vue'
+import { setupVuetify } from '/tests/setupVuetify.js'
 
-describe.skip('An ETextField', () => {
-  let vuetify
+setupVuetify()
 
+describe('An ETextField', () => {
   const mount = (options) => {
-    const app = Vue.component('App', {
+    const app = {
       components: { ETextField },
       data: function () {
         return {
@@ -24,37 +22,29 @@ describe.skip('An ETextField', () => {
           </e-text-field>
         </div>
       `,
-    })
-    return mountComponent(app, { vuetify, attachTo: document.body, ...options })
+    }
+    return mountComponent(app, { attachTo: document.body, ...options })
   }
-
-  beforeEach(() => {
-    vuetify = new Vuetify()
-  })
 
   test('looks like a textfield', async () => {
     const wrapper = mount()
-    expect(wrapper).toMatchSnapshot('empty')
+    expect(wrapper.html()).toMatchSnapshot('empty')
 
     await wrapper.setData({ data: 'MyText' })
-    expect(wrapper).toMatchSnapshot('with text')
+    expect(wrapper.html()).toMatchSnapshot('with text')
   })
 
   test('updates text when vModel changes', async () => {
     const wrapper = mount()
-    expect(wrapper.find('.e-form-container').element.getAttribute('value')).toBeNull()
+    expect(wrapper.find('input[type=text]').element.value).toBe('')
 
     const firstText = 'myText'
     await wrapper.setData({ data: firstText })
-    expect(wrapper.find('.e-form-container').element.getAttribute('value')).toBe(
-      firstText
-    )
+    expect(wrapper.find('input[type=text]').element.value).toBe(firstText)
 
     const secondText = 'myText2'
     await wrapper.setData({ data: secondText })
-    expect(wrapper.find('.e-form-container').element.getAttribute('value')).toBe(
-      secondText
-    )
+    expect(wrapper.find('input[type=text]').element.value).toBe(secondText)
   })
 
   test('updates vModel when value of input field changes', async () => {

@@ -2,56 +2,89 @@
 
 exports[`An ESwitch > looks like a switch > checked 1`] = `
 <div data-app>
-     <span>
-          <div class="v-input v-input--hide-details v-input--is-label-active v-input--is-dirty theme--light v-input--selection-controls v-input--switch v-input--switch--inset primary--text">
+     <div class="e-form-container"
+          name="test"
+          value="true">
+          <div class="v-input v-input--horizontal v-input--center-affix v-input--density-default v-theme--light v-locale--is-ltr v-input--dirty v-switch v-switch--inset">
+               <!---->
                <div class="v-input__control">
-                    <div class="v-input__slot">
-                         <div class="v-input--selection-controls__input">
-                              <input aria-checked="true"
-                                     aria-disabled="false"
-                                     id
-                                     role="switch"
-                                     type="checkbox"
-                                     value>
-                              <div class="v-input--selection-controls__ripple primary--text"></div>
-                              <div class="v-input--switch__track theme--light primary--text"></div>
-                              <div class="v-input--switch__thumb theme--light primary--text"><transition-stub mode="out-in"
-                                                    name="fab-transition"></transition-stub></div>
+                    <div class="v-selection-control v-selection-control--dirty v-selection-control--density-default">
+                         <div class="v-selection-control__wrapper text-primary">
+                              <div class="v-switch__track bg-primary">
+                                   <!---->
+                                   <!---->
+                              </div>
+                              <div class="v-selection-control__input">
+                                   <input aria-disabled="false"
+                                          aria-label="test"
+                                          checked
+                                          id
+                                          type="checkbox"
+                                          value="true">
+                                   <div class="v-switch__thumb">
+                                        <transition-stub appear="false"
+                                                         css="true"
+                                                         name="scale-transition"
+                                                         persisted="false">
+                                             <!---->
+                                        </transition-stub>
+                                   </div>
+                              </div>
                          </div>
-                         <label class="v-label theme--light"
-                                for
-                                style="left: 0px; right: auto; position: relative;">test</label>
+                         <label class="v-label v-label--clickable"
+                                for>
+                              <!---->
+                              test
+                         </label>
                     </div>
                </div>
+               <!---->
+               <!---->
           </div>
-     </span>
+     </div>
 </div>
 `;
 
 exports[`An ESwitch > looks like a switch > unchecked 1`] = `
 <div data-app>
-     <span>
-          <div class="v-input v-input--hide-details theme--light v-input--selection-controls v-input--switch v-input--switch--inset">
+     <div class="e-form-container"
+          name="test"
+          value="false">
+          <div class="v-input v-input--horizontal v-input--center-affix v-input--density-default v-theme--light v-locale--is-ltr v-input--dirty v-switch v-switch--inset">
+               <!---->
                <div class="v-input__control">
-                    <div class="v-input__slot">
-                         <div class="v-input--selection-controls__input">
-                              <input aria-checked="false"
-                                     aria-disabled="false"
-                                     id
-                                     role="switch"
-                                     type="checkbox"
-                                     value>
-                              <div class="v-input--selection-controls__ripple"></div>
-                              <div class="v-input--switch__track theme--light"></div>
-                              <div class="v-input--switch__thumb theme--light"><transition-stub mode="out-in"
-                                                    name="fab-transition"></transition-stub></div>
+                    <div class="v-selection-control v-selection-control--density-default">
+                         <div class="v-selection-control__wrapper">
+                              <div class="v-switch__track">
+                                   <!---->
+                                   <!---->
+                              </div>
+                              <div class="v-selection-control__input">
+                                   <input aria-disabled="false"
+                                          aria-label="test"
+                                          id
+                                          type="checkbox"
+                                          value="true">
+                                   <div class="v-switch__thumb">
+                                        <transition-stub appear="false"
+                                                         css="true"
+                                                         name="scale-transition"
+                                                         persisted="false">
+                                             <!---->
+                                        </transition-stub>
+                                   </div>
+                              </div>
                          </div>
-                         <label class="v-label theme--light"
-                                for
-                                style="left: 0px; right: auto; position: relative;">test</label>
+                         <label class="v-label v-label--clickable"
+                                for>
+                              <!---->
+                              test
+                         </label>
                     </div>
                </div>
+               <!---->
+               <!---->
           </div>
-     </span>
+     </div>
 </div>
 `;

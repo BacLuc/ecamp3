@@ -10,10 +10,11 @@ import {
   timeDurationShort,
 } from '../dateHelperUTCFormatted.js'
 
-const tcMock = (string, _, obj = {}) => {
+const tcMock = (string, obj = {}) => {
+  const template = tcMockString(string)
   return Object.entries(obj).reduce((previous, [key, value]) => {
-    return previous.replace(`{${key}}`, value)
-  }, tcMockString(string))
+    return previous.replace(`{${key}}`, String(value))
+  }, template)
 }
 
 const tcMockString = (string) => {
@@ -42,10 +43,12 @@ const tcMockString = (string) => {
       return '{days}d {minutes}min'
     case 'global.datetime.duration.hoursAndMinutes':
       return '{hours}h {minutes}min'
+    default:
+      return string
   }
 }
 
-describe.skip('timeDurationShort', function() {
+describe('timeDurationShort', function() {
   it.each([
     ['only day(s)', '1d', '2020-06-07T10:00:00.000Z', '2020-06-08T10:00:00.000Z'],
     ['only hour(s)', '1h', '2020-06-07T10:00:00.000Z', '2020-06-07T11:00:00.000Z'],

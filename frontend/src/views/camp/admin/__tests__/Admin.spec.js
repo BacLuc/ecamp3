@@ -5,7 +5,8 @@ import { render } from '@/test/renderWithVuetify.js'
 import Admin from '../Info.vue'
 import flushPromises from 'flush-promises'
 
-describe.skip('Admin view', () => { // Cannot run: depends on renderWithVuetify (Vue 2 API)
+// Cannot run: depends on renderWithVuetify (Vue 2 API) and $store/$i18n
+describe.skip('Admin view', () => {
   it('shows the danger zone when the user has a manager role', async () => {
     const camp = createCampWithRole('manager')
     const { getByText } = render(Admin, {
@@ -107,8 +108,8 @@ function createCampWithRole(role) {
         },
       ],
     }),
-    materialLists: () => {},
-    progressLabels: () => {},
+    materialLists: () => ({}),
+    progressLabels: () => ({}),
     _meta: { load: Promise.resolve() },
   }
 }

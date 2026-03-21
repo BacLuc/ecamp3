@@ -1,15 +1,13 @@
-import { beforeEach, describe, expect, test } from 'vitest'
-import Vue from 'vue'
-import Vuetify from 'vuetify'
-
+import { describe, expect, test } from 'vitest'
 import ETimeField from '@/components/form/base/ETimeField.vue'
 import { mount as mountComponent } from '@vue/test-utils'
+import { setupVuetify } from '/tests/setupVuetify.js'
 
-describe.skip('An ETimeField', () => {
-  let vuetify
+setupVuetify()
 
+describe('An ETimeField', () => {
   const mount = (options) => {
-    const app = Vue.component('App', {
+    const app = {
       components: { ETimeField },
       data: function () {
         return {
@@ -17,13 +15,9 @@ describe.skip('An ETimeField', () => {
         }
       },
       template: `<div data-app><e-time-field label="test" v-model="data"/></div>`,
-    })
-    return mountComponent(app, { vuetify, attachTo: document.body, ...options })
+    }
+    return mountComponent(app, { attachTo: document.body, ...options })
   }
-
-  beforeEach(() => {
-    vuetify = new Vuetify()
-  })
 
   test.each([
     ['8', '08:00'],

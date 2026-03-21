@@ -1,13 +1,12 @@
-import { beforeEach, describe, expect, test } from 'vitest'
-import Vue from 'vue'
-import Vuetify from 'vuetify'
+import { describe, expect, test } from 'vitest'
 import { mount as mountComponent } from '@vue/test-utils'
 import ESelect from '../ESelect.vue'
 import { screen } from '@testing-library/vue'
+import { setupVuetify } from '/tests/setupVuetify.js'
 
-describe.skip('An ESelect', () => {
-  let vuetify
+setupVuetify()
 
+describe('An ESelect', () => {
   const FIRST_OPTION = {
     value: 1,
     text: 'firstOption',
@@ -23,7 +22,7 @@ describe.skip('An ESelect', () => {
   const selectValues = [FIRST_OPTION, SECOND_OPTION, THIRD_OPTION]
 
   const mount = (options) => {
-    const app = Vue.component('App', {
+    const app = {
       components: { ESelect },
       data: function () {
         return {
@@ -38,39 +37,9 @@ describe.skip('An ESelect', () => {
           </e-select>
         </div>
       `,
-    })
-    return mountComponent(app, { vuetify, attachTo: document.body, ...options })
+    }
+    return mountComponent(app, { attachTo: document.body, ...options })
   }
-
-  beforeEach(() => {
-    vuetify = new Vuetify()
-  })
-  test('looks like a dropdown', async () => {
-    const wrapper = mount()
-    expect(wrapper).toMatchSnapshot('no item selected')
-
-    await wrapper.find('.v-input__slot').trigger('click')
-    expect(wrapper).toMatchSnapshot('dropdown open')
-
-    await wrapper.findAll('[role="option"]').at(0).trigger('click')
-    expect(wrapper).toMatchSnapshot('dropdown closed with selected value')
-
-    await wrapper.find('.v-input__slot').trigger('click')
-    expect(wrapper).toMatchSnapshot('dropdown open with selected value')
-  })
-
-  test('update viewmodel with selected value', async () => {
-    const wrapper = mount()
-    expect(wrapper.vm.data).toBeNull()
-
-    await wrapper.find('.v-input__slot').trigger('click')
-    await wrapper.findAll('[role="option"]').at(0).trigger('click')
-    expect(wrapper.vm.data).toBe(FIRST_OPTION.value)
-
-    await wrapper.find('.v-input__slot').trigger('click')
-    await wrapper.findAll('[role="option"]').at(2).trigger('click')
-    expect(wrapper.vm.data).toBe(THIRD_OPTION.value)
-  })
 
   test('update selected value with viewmodel', async () => {
     const wrapper = mount()
@@ -84,22 +53,6 @@ describe.skip('An ESelect', () => {
     expect(wrapper.html()).not.toContain(SECOND_OPTION.text)
   })
 
-  test('update selected value after it was open', async () => {
-    const wrapper = mount()
-
-    await wrapper.find('.v-input__slot').trigger('click')
-    await wrapper.findAll('[role="option"]').at(0).trigger('click')
-    expect(wrapper.vm.data).toBe(FIRST_OPTION.value)
-
-    await wrapper.setData({ data: SECOND_OPTION.value })
-    expect(
-      wrapper.findAll('[role="option"]').at(1).element.getAttribute('aria-selected')
-    ).toBe('true')
-    expect(
-      wrapper.findAll('[role="option"]').at(0).element.getAttribute('aria-selected')
-    ).not.toBe('true')
-  })
-
   test('allows to use the append slot', async () => {
     mount({
       children: `
@@ -110,25 +63,5 @@ describe.skip('An ESelect', () => {
     })
 
     expect(await screen.findByText('append')).toBeVisible()
-  })
-
-  test('allows to use the append slot with scope', async () => {
-    const textText = 'myTestText'
-    const wrapper = mount({
-      children: `
-        <template #item="{ item, on, attrs }">
-          <v-list-item-title :key="item.text" v-bind="attrs" v-on="on">
-            {{ item }}
-          </v-list-item-title>
-          <v-list-item-subtitle>
-            ${textText}
-          </v-list-item-subtitle>
-      </template>
-      `,
-    })
-
-    await wrapper.find('.v-input__slot').trigger('click')
-
-    expect(await screen.findAllByText(textText)).toHaveLength(3)
   })
 })

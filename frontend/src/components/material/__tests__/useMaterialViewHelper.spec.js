@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { toWorkbook } from '@/components/material/useMaterialViewHelper.js'
 
-describe.skip('toWorkBook', () => { // Cannot run: depends on Vuex (Vue 2 API)
+describe('toWorkBook', () => {
   it('replaces invalid characters', () => {
     const sheets = createSheets('s?h*e[]e/t:1:')
 

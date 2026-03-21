@@ -1,16 +1,14 @@
-import { beforeEach, describe, expect, test } from 'vitest'
-import Vue from 'vue'
-import Vuetify from 'vuetify'
-
-import EParseField from '@/components/form/base/EParseField.vue'
+import { describe, expect, test } from 'vitest'
 import { mount as mountComponent } from '@vue/test-utils'
+import EParseField from '../EParseField.vue'
 import { screen } from '@testing-library/vue'
+import { setupVuetify } from '/tests/setupVuetify.js'
 
-describe.skip('An EParseField', () => {
-  let vuetify
+setupVuetify()
 
+describe('An EParseField', () => {
   const mount = (options) => {
-    const app = Vue.component('App', {
+    const app = {
       components: { EParseField },
       data: function () {
         return {
@@ -32,20 +30,16 @@ describe.skip('An EParseField', () => {
           </e-parse-field>
         </div>
       `,
-    })
-    return mountComponent(app, { vuetify, attachTo: document.body, ...options })
+    }
+    return mountComponent(app, { attachTo: document.body, ...options })
   }
-
-  beforeEach(() => {
-    vuetify = new Vuetify()
-  })
 
   test('looks like a textfield', async () => {
     const wrapper = mount()
-    expect(wrapper).toMatchSnapshot('empty')
+    expect(wrapper.html()).toMatchSnapshot('empty')
 
     await wrapper.setData({ data: true })
-    expect(wrapper).toMatchSnapshot('with text')
+    expect(wrapper.html()).toMatchSnapshot('with text')
   })
 
   test('updates text when vModel changes', async () => {
