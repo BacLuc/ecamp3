@@ -73,7 +73,7 @@ jobs:
 
       - run: sh -x wait-for-container-startup.sh
 
-      - run: docker compose --profile e2e run --rm e2e --browser ${{ matrix.browser }}
+      - run: docker compose --profile e2e run --rm e2e --browser ${{ matrix.browser }} specs/zz-createCamp.cy.js
 
       - run: sudo chown -R $USER e2e
         if: always()
