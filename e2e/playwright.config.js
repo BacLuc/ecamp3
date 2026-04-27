@@ -36,6 +36,16 @@ export default defineConfig({
       testMatch: multipleBrowserTests,
     },
     {
+      name: 'pixel-7',
+      use: { ...devices['Pixel 7'] },
+      testMatch: multipleBrowserTests,
+    },
+    {
+      name: 'iphone-15',
+      use: { ...devices['iPhone 15'] },
+      testMatch: multipleBrowserTests,
+    },
+    {
       name: 'behavior-tests',
       use: { ...devices['Desktop Chrome'] },
       testMatch: ['9-behavior-tests/**/*'],
