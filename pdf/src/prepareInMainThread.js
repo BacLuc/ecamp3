@@ -101,12 +101,7 @@ export async function prepareInMainThread(config) {
             checklists.items.map((checklist) => checklist.checklistItems()._meta.load)
           )
         }),
-      config
-        .apiGet()
-        .checklistItems({
-          'checklist.camp': camp._meta.self,
-        })
-        .$loadItems(),
+      camp.checklistItems().$loadItems(),
     ]
   }
 

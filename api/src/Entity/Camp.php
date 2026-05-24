@@ -726,6 +726,19 @@ class Camp extends BaseEntity implements BelongsToCampInterface, CopyFromPrototy
         return $this->checklists->getValues();
     }
 
+    /**
+     * @return ChecklistItem[]
+     */
+    #[ApiProperty(
+        writable: false,
+        example: '"/camps/1a2b3c4d/checklist_items"',
+        uriTemplate: ChecklistItem::CAMP_SUBRESOURCE_URI_TEMPLATE
+    )]
+    #[Groups(['read'])]
+    public function getChecklistItems(): array {
+        return [];
+    }
+
     public function addChecklist(Checklist $checklist): self {
         if (!$this->checklists->contains($checklist)) {
             $this->checklists[] = $checklist;

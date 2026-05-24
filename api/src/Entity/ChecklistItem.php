@@ -74,6 +74,19 @@ use Symfony\Component\Validator\Constraints as Assert;
                 'filter_by_current_user' => false,
             ]
         ),
+        new GetCollection(
+            uriTemplate: self::CAMP_SUBRESOURCE_URI_TEMPLATE,
+            uriVariables: [
+                'campId' => new Link(
+                    fromClass: Camp::class,
+                    security: 'is_granted("CAMP_IS_PUBLIC", camp) or is_granted("CAMP_COLLABORATOR", camp)',
+                    securityObjectName: 'camp'
+                ),
+            ],
+            extraProperties: [
+                'filter_by_current_user' => false,
+            ]
+        ),
     ],
     normalizationContext: ['groups' => ['read']],
     denormalizationContext: ['groups' => ['write']],
@@ -84,6 +97,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\UniqueConstraint(name: 'checklistitem_checklistid_parentid_position_unique', columns: ['checklistid', 'parentid', 'position'])]
 class ChecklistItem extends BaseEntity implements BelongsToCampInterface, CopyFromPrototypeInterface, HasParentInterface {
     public const CHECKLIST_SUBRESOURCE_URI_TEMPLATE = '/checklists/{checklistId}/checklist_items{._format}';
+    public const CAMP_SUBRESOURCE_URI_TEMPLATE = '/camps/{campId}/checklist_items{._format}';
     public const MAX_NESTING_DEPTH = 3;
 
     /**

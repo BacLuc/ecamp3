@@ -16,7 +16,11 @@
             :disabled="layoutMode"
             v-bind="props"
           >
-            <v-skeleton-loader v-if="!itemsLoaded" class="px-4 pb-4" type="paragraph" />
+            <v-skeleton-loader
+              v-if="campChecklistItemsCollection._meta.loading"
+              class="px-4 pb-4"
+              type="paragraph"
+            />
             <v-list-item v-else-if="checkedItems.length === 0">
               <v-list-item-title>
                 {{ $t('global.button.edit') }}
@@ -109,18 +113,16 @@ export default {
       uncheckedItems: [],
       errorMessages: null,
       debouncedSave: () => null,
-      itemsLoaded: false,
       openChecklistPanels: [],
     }
   },
   computed: {
+    campChecklistItemsCollection() {
+      return this.camp?.checklistItems()
+    },
     campChecklistItems() {
-      if (!this.itemsLoaded) return []
-      return (
-        this.api.get().checklistItems({
-          'checklist.camp': this.camp?._meta.self,
-        }).items ?? []
-      )
+      if (this.campChecklistItemsCollection._meta.loading) return []
+      return this.campChecklistItemsCollection.items ?? []
     },
     selectionContentNode() {
       return this.campChecklistItems.filter((item) =>
@@ -139,7 +141,9 @@ export default {
           ?.filter((item) => item.checklist()._meta.self === checklist?._meta.self)
           .map((item) => ({
             item,
-            parents: this.itemsLoaded ? this.getParents(item) : [],
+            parents: !this.campChecklistItemsCollection._meta.loading
+              ? this.getParents(item)
+              : [],
           }))
           .sort((a, b) => {
             const aparents = [
@@ -191,15 +195,6 @@ export default {
       if (checklists.items.length === 1) {
         this.openChecklistPanels = [checklists.items[0]._meta.self]
       }
-
-      this.api
-        .get()
-        .checklistItems({
-          'checklist.camp': this.camp?._meta.self,
-        })
-        ._meta.load.then(() => {
-          this.itemsLoaded = true
-        })
     })
   },
   beforeUnmount() {

@@ -111,4 +111,62 @@ class ListChecklistItemsTest extends ECampApiTestCase {
 
         $this->assertResponseStatusCodeSame(404);
     }
+
+    public function testListChecklistItemsAsCampSubresourceIsAllowedForCollaborator() {
+        $camp = static::getFixture('camp1');
+        $response = static::createClientWithCredentials()->request('GET', '/camps/'.$camp->getId().'/checklist_items');
+        $this->assertResponseStatusCodeSame(200);
+        $this->assertJsonContains([
+            'totalItems' => 4,
+            '_links' => [
+                'items' => [],
+            ],
+            '_embedded' => [
+                'items' => [],
+            ],
+        ]);
+        $this->assertEqualsCanonicalizing([
+            ['href' => $this->getIriFor('checklistItem1_1_1')],
+            ['href' => $this->getIriFor('checklistItem1_1_2')],
+            ['href' => $this->getIriFor('checklistItem1_1_2_3')],
+            ['href' => $this->getIriFor('checklistItem1_1_2_3_4')],
+        ], $response->toArray()['_links']['items']);
+    }
+
+    public function testListChecklistItemsAsCampSubresourceIsDeniedForUnrelatedUser() {
+        $camp = static::getFixture('camp1');
+        static::createClientWithCredentials(['email' => static::$fixtures['user4unrelated']->getEmail()])
+            ->request('GET', '/camps/'.$camp->getId().'/checklist_items')
+        ;
+
+        $this->assertResponseStatusCodeSame(404);
+    }
+
+    public function testListChecklistItemsAsCampSubresourceIsDeniedForInactiveCollaborator() {
+        $camp = static::getFixture('camp1');
+        static::createClientWithCredentials(['email' => static::$fixtures['user5inactive']->getEmail()])
+            ->request('GET', '/camps/'.$camp->getId().'/checklist_items')
+        ;
+
+        $this->assertResponseStatusCodeSame(404);
+    }
+
+    public function testListChecklistItemsAsCampSubresourceIsAllowedForPrototypeCamp() {
+        $camp = static::getFixture('campPrototype');
+        $response = static::createClientWithCredentials()->request('GET', '/camps/'.$camp->getId().'/checklist_items');
+
+        $this->assertResponseStatusCodeSame(200);
+        $this->assertJsonContains([
+            'totalItems' => 1,
+            '_links' => [
+                'items' => [],
+            ],
+            '_embedded' => [
+                'items' => [],
+            ],
+        ]);
+        $this->assertEqualsCanonicalizing([
+            ['href' => $this->getIriFor('checklistItemCampPrototype_1_1')],
+        ], $response->toArray()['_links']['items']);
+    }
 }

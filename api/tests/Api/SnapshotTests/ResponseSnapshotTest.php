@@ -268,6 +268,7 @@ class ResponseSnapshotTest extends ECampApiTestCase {
     #[TestWith(['/camps', '/activity_progress_labels'], '/camps_{campId}_activity_progress_labels')]
     #[TestWith(['/camps', '/camp_collaborations'], '/camps_{campId}_camp_collaborations')]
     #[TestWith(['/camps', '/checklists'], '/camps_{campId}_checklists')]
+    #[TestWith(['/camps', '/checklist_items'], '/camps_{campId}_checklist_items')]
     #[TestWith(['/camps', '/categories'], '/camps_{campId}_categories')]
     #[TestWith(['/checklists', '/checklist_items'], '/checklists_{campId}_checklist_items')]
     #[TestWith(['/days', '/day_responsibles'], '/days_{campId}_day_responsibles')]

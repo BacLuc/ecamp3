@@ -4032,6 +4032,11 @@ components:
             $ref: '#/components/schemas/Category'
           readOnly: true
           type: array
+        checklistItems:
+          items:
+            $ref: '#/components/schemas/ChecklistItem'
+          readOnly: true
+          type: array
         checklists:
           items:
             $ref: '#/components/schemas/Checklist'
@@ -4360,6 +4365,11 @@ components:
             $ref: '#/components/schemas/Category-read'
           readOnly: true
           type: array
+        checklistItems:
+          items:
+            $ref: '#/components/schemas/ChecklistItem-read'
+          readOnly: true
+          type: array
         checklists:
           items:
             $ref: '#/components/schemas/Checklist-read'
@@ -4546,6 +4556,11 @@ components:
             $ref: '#/components/schemas/Category-read_Activity.ActivityProgressLabel_Activity.ActivityResponsibles_Activity.ScheduleEntries'
           readOnly: true
           type: array
+        checklistItems:
+          items:
+            $ref: '#/components/schemas/ChecklistItem-read_Activity.ActivityProgressLabel_Activity.ActivityResponsibles_Activity.ScheduleEntries'
+          readOnly: true
+          type: array
         checklists:
           items:
             $ref: '#/components/schemas/Checklist-read_Activity.ActivityProgressLabel_Activity.ActivityResponsibles_Activity.ScheduleEntries'
@@ -4730,6 +4745,11 @@ components:
         categories:
           items:
             $ref: '#/components/schemas/Category-read_Activity.Category_Activity.ActivityProgressLabel_Activity.ActivityResponsibles_Activity.ScheduleEntries_Activity.ContentNodes'
+          readOnly: true
+          type: array
+        checklistItems:
+          items:
+            $ref: '#/components/schemas/ChecklistItem-read_Activity.Category_Activity.ActivityProgressLabel_Activity.ActivityResponsibles_Activity.ScheduleEntries_Activity.ContentNodes'
           readOnly: true
           type: array
         checklists:
@@ -4922,6 +4942,11 @@ components:
             $ref: '#/components/schemas/Category-read_Camp.Periods_Period.Days_Camp.CampCollaborations_CampCollaboration.User'
           readOnly: true
           type: array
+        checklistItems:
+          items:
+            $ref: '#/components/schemas/ChecklistItem-read_Camp.Periods_Period.Days_Camp.CampCollaborations_CampCollaboration.User'
+          readOnly: true
+          type: array
         checklists:
           items:
             $ref: '#/components/schemas/Checklist-read_Camp.Periods_Period.Days_Camp.CampCollaborations_CampCollaboration.User'
@@ -5107,6 +5132,11 @@ components:
         categories:
           items:
             $ref: '#/components/schemas/Category-read_CampCollaboration.Camp_CampCollaboration.User'
+          readOnly: true
+          type: array
+        checklistItems:
+          items:
+            $ref: '#/components/schemas/ChecklistItem-read_CampCollaboration.Camp_CampCollaboration.User'
           readOnly: true
           type: array
         checklists:
@@ -5295,6 +5325,11 @@ components:
             $ref: '#/components/schemas/Category-read_CampCollaboration.User'
           readOnly: true
           type: array
+        checklistItems:
+          items:
+            $ref: '#/components/schemas/ChecklistItem-read_CampCollaboration.User'
+          readOnly: true
+          type: array
         checklists:
           items:
             $ref: '#/components/schemas/Checklist-read_CampCollaboration.User'
@@ -5479,6 +5514,11 @@ components:
         categories:
           items:
             $ref: '#/components/schemas/Category-read_Category.PreferredContentTypes'
+          readOnly: true
+          type: array
+        checklistItems:
+          items:
+            $ref: '#/components/schemas/ChecklistItem-read_Category.PreferredContentTypes'
           readOnly: true
           type: array
         checklists:
@@ -5667,6 +5707,11 @@ components:
             $ref: '#/components/schemas/Category-read_Category.PreferredContentTypes_Category.ContentNodes'
           readOnly: true
           type: array
+        checklistItems:
+          items:
+            $ref: '#/components/schemas/ChecklistItem-read_Category.PreferredContentTypes_Category.ContentNodes'
+          readOnly: true
+          type: array
         checklists:
           items:
             $ref: '#/components/schemas/Checklist-read_Category.PreferredContentTypes_Category.ContentNodes'
@@ -5851,6 +5896,11 @@ components:
         categories:
           items:
             $ref: '#/components/schemas/Category-read_Day.DayResponsibles'
+          readOnly: true
+          type: array
+        checklistItems:
+          items:
+            $ref: '#/components/schemas/ChecklistItem-read_Day.DayResponsibles'
           readOnly: true
           type: array
         checklists:
@@ -6039,6 +6089,11 @@ components:
             $ref: '#/components/schemas/Category-read_Period.Camp_Period.Days'
           readOnly: true
           type: array
+        checklistItems:
+          items:
+            $ref: '#/components/schemas/ChecklistItem-read_Period.Camp_Period.Days'
+          readOnly: true
+          type: array
         checklists:
           items:
             $ref: '#/components/schemas/Checklist-read_Period.Camp_Period.Days'
@@ -6223,6 +6278,11 @@ components:
         categories:
           items:
             $ref: '#/components/schemas/Category-read_ScheduleEntry.Activity'
+          readOnly: true
+          type: array
+        checklistItems:
+          items:
+            $ref: '#/components/schemas/ChecklistItem-read_ScheduleEntry.Activity'
           readOnly: true
           type: array
         checklists:
@@ -6774,6 +6834,11 @@ components:
             $ref: '#/components/schemas/Category.html-read'
           readOnly: true
           type: array
+        checklistItems:
+          items:
+            $ref: '#/components/schemas/ChecklistItem.html-read'
+          readOnly: true
+          type: array
         checklists:
           items:
             $ref: '#/components/schemas/Checklist.html-read'
@@ -6960,6 +7025,11 @@ components:
             $ref: '#/components/schemas/Category.html-read_Activity.ActivityProgressLabel_Activity.ActivityResponsibles_Activity.ScheduleEntries'
           readOnly: true
           type: array
+        checklistItems:
+          items:
+            $ref: '#/components/schemas/ChecklistItem.html-read_Activity.ActivityProgressLabel_Activity.ActivityResponsibles_Activity.ScheduleEntries'
+          readOnly: true
+          type: array
         checklists:
           items:
             $ref: '#/components/schemas/Checklist.html-read_Activity.ActivityProgressLabel_Activity.ActivityResponsibles_Activity.ScheduleEntries'
@@ -7144,6 +7214,11 @@ components:
         categories:
           items:
             $ref: '#/components/schemas/Category.html-read_Activity.Category_Activity.ActivityProgressLabel_Activity.ActivityResponsibles_Activity.ScheduleEntries_Activity.ContentNodes'
+          readOnly: true
+          type: array
+        checklistItems:
+          items:
+            $ref: '#/components/schemas/ChecklistItem.html-read_Activity.Category_Activity.ActivityProgressLabel_Activity.ActivityResponsibles_Activity.ScheduleEntries_Activity.ContentNodes'
           readOnly: true
           type: array
         checklists:
@@ -7336,6 +7411,11 @@ components:
             $ref: '#/components/schemas/Category.html-read_Camp.Periods_Period.Days_Camp.CampCollaborations_CampCollaboration.User'
           readOnly: true
           type: array
+        checklistItems:
+          items:
+            $ref: '#/components/schemas/ChecklistItem.html-read_Camp.Periods_Period.Days_Camp.CampCollaborations_CampCollaboration.User'
+          readOnly: true
+          type: array
         checklists:
           items:
             $ref: '#/components/schemas/Checklist.html-read_Camp.Periods_Period.Days_Camp.CampCollaborations_CampCollaboration.User'
@@ -7521,6 +7601,11 @@ components:
         categories:
           items:
             $ref: '#/components/schemas/Category.html-read_CampCollaboration.Camp_CampCollaboration.User'
+          readOnly: true
+          type: array
+        checklistItems:
+          items:
+            $ref: '#/components/schemas/ChecklistItem.html-read_CampCollaboration.Camp_CampCollaboration.User'
           readOnly: true
           type: array
         checklists:
@@ -7709,6 +7794,11 @@ components:
             $ref: '#/components/schemas/Category.html-read_CampCollaboration.User'
           readOnly: true
           type: array
+        checklistItems:
+          items:
+            $ref: '#/components/schemas/ChecklistItem.html-read_CampCollaboration.User'
+          readOnly: true
+          type: array
         checklists:
           items:
             $ref: '#/components/schemas/Checklist.html-read_CampCollaboration.User'
@@ -7893,6 +7983,11 @@ components:
         categories:
           items:
             $ref: '#/components/schemas/Category.html-read_Category.PreferredContentTypes'
+          readOnly: true
+          type: array
+        checklistItems:
+          items:
+            $ref: '#/components/schemas/ChecklistItem.html-read_Category.PreferredContentTypes'
           readOnly: true
           type: array
         checklists:
@@ -8081,6 +8176,11 @@ components:
             $ref: '#/components/schemas/Category.html-read_Category.PreferredContentTypes_Category.ContentNodes'
           readOnly: true
           type: array
+        checklistItems:
+          items:
+            $ref: '#/components/schemas/ChecklistItem.html-read_Category.PreferredContentTypes_Category.ContentNodes'
+          readOnly: true
+          type: array
         checklists:
           items:
             $ref: '#/components/schemas/Checklist.html-read_Category.PreferredContentTypes_Category.ContentNodes'
@@ -8265,6 +8365,11 @@ components:
         categories:
           items:
             $ref: '#/components/schemas/Category.html-read_Day.DayResponsibles'
+          readOnly: true
+          type: array
+        checklistItems:
+          items:
+            $ref: '#/components/schemas/ChecklistItem.html-read_Day.DayResponsibles'
           readOnly: true
           type: array
         checklists:
@@ -8453,6 +8558,11 @@ components:
             $ref: '#/components/schemas/Category.html-read_Period.Camp_Period.Days'
           readOnly: true
           type: array
+        checklistItems:
+          items:
+            $ref: '#/components/schemas/ChecklistItem.html-read_Period.Camp_Period.Days'
+          readOnly: true
+          type: array
         checklists:
           items:
             $ref: '#/components/schemas/Checklist.html-read_Period.Camp_Period.Days'
@@ -8639,6 +8749,11 @@ components:
             $ref: '#/components/schemas/Category.html-read_ScheduleEntry.Activity'
           readOnly: true
           type: array
+        checklistItems:
+          items:
+            $ref: '#/components/schemas/ChecklistItem.html-read_ScheduleEntry.Activity'
+          readOnly: true
+          type: array
         checklists:
           items:
             $ref: '#/components/schemas/Checklist.html-read_ScheduleEntry.Activity'
@@ -8799,6 +8914,8 @@ components:
                   properties: { data: { oneOf: [{ properties: { id: { format: iri-reference, type: string }, type: { type: string } }, type: object }, { type: 'null' }] } }
                 categories:
                   properties: { data: { items: { properties: { id: { format: iri-reference, type: string }, type: { type: string } }, type: object }, type: array } }
+                checklistItems:
+                  properties: { data: { items: { properties: { id: { format: iri-reference, type: string }, type: { type: string } }, type: object }, type: array } }
                 checklists:
                   properties: { data: { items: { properties: { id: { format: iri-reference, type: string }, type: { type: string } }, type: object }, type: array } }
                 creator:
@@ -8840,6 +8957,8 @@ components:
                 $ref: '#/components/schemas/Category.jsonapi'
               -
                 $ref: '#/components/schemas/Checklist.jsonapi'
+              -
+                $ref: '#/components/schemas/ChecklistItem.jsonapi'
               -
                 $ref: '#/components/schemas/MaterialItem.jsonapi'
               -
@@ -8964,6 +9083,11 @@ components:
         categories:
           items:
             $ref: '#/components/schemas/Category.jsonld-read'
+          readOnly: true
+          type: array
+        checklistItems:
+          items:
+            $ref: '#/components/schemas/ChecklistItem.jsonld-read'
           readOnly: true
           type: array
         checklists:
@@ -9160,6 +9284,11 @@ components:
             $ref: '#/components/schemas/Category.jsonld-read_Activity.ActivityProgressLabel_Activity.ActivityResponsibles_Activity.ScheduleEntries'
           readOnly: true
           type: array
+        checklistItems:
+          items:
+            $ref: '#/components/schemas/ChecklistItem.jsonld-read_Activity.ActivityProgressLabel_Activity.ActivityResponsibles_Activity.ScheduleEntries'
+          readOnly: true
+          type: array
         checklists:
           items:
             $ref: '#/components/schemas/Checklist.jsonld-read_Activity.ActivityProgressLabel_Activity.ActivityResponsibles_Activity.ScheduleEntries'
@@ -9354,6 +9483,11 @@ components:
             $ref: '#/components/schemas/Category.jsonld-read_Activity.Category_Activity.ActivityProgressLabel_Activity.ActivityResponsibles_Activity.ScheduleEntries_Activity.ContentNodes'
           readOnly: true
           type: array
+        checklistItems:
+          items:
+            $ref: '#/components/schemas/ChecklistItem.jsonld-read_Activity.Category_Activity.ActivityProgressLabel_Activity.ActivityResponsibles_Activity.ScheduleEntries_Activity.ContentNodes'
+          readOnly: true
+          type: array
         checklists:
           items:
             $ref: '#/components/schemas/Checklist.jsonld-read_Activity.Category_Activity.ActivityProgressLabel_Activity.ActivityResponsibles_Activity.ScheduleEntries_Activity.ContentNodes'
@@ -9542,6 +9676,11 @@ components:
         categories:
           items:
             $ref: '#/components/schemas/Category.jsonld-read_Camp.Periods_Period.Days_Camp.CampCollaborations_CampCollaboration.User'
+          readOnly: true
+          type: array
+        checklistItems:
+          items:
+            $ref: '#/components/schemas/ChecklistItem.jsonld-read_Camp.Periods_Period.Days_Camp.CampCollaborations_CampCollaboration.User'
           readOnly: true
           type: array
         checklists:
@@ -9739,6 +9878,11 @@ components:
             $ref: '#/components/schemas/Category.jsonld-read_CampCollaboration.Camp_CampCollaboration.User'
           readOnly: true
           type: array
+        checklistItems:
+          items:
+            $ref: '#/components/schemas/ChecklistItem.jsonld-read_CampCollaboration.Camp_CampCollaboration.User'
+          readOnly: true
+          type: array
         checklists:
           items:
             $ref: '#/components/schemas/Checklist.jsonld-read_CampCollaboration.Camp_CampCollaboration.User'
@@ -9931,6 +10075,11 @@ components:
         categories:
           items:
             $ref: '#/components/schemas/Category.jsonld-read_CampCollaboration.User'
+          readOnly: true
+          type: array
+        checklistItems:
+          items:
+            $ref: '#/components/schemas/ChecklistItem.jsonld-read_CampCollaboration.User'
           readOnly: true
           type: array
         checklists:
@@ -10126,6 +10275,11 @@ components:
             $ref: '#/components/schemas/Category.jsonld-read_Category.PreferredContentTypes'
           readOnly: true
           type: array
+        checklistItems:
+          items:
+            $ref: '#/components/schemas/ChecklistItem.jsonld-read_Category.PreferredContentTypes'
+          readOnly: true
+          type: array
         checklists:
           items:
             $ref: '#/components/schemas/Checklist.jsonld-read_Category.PreferredContentTypes'
@@ -10317,6 +10471,11 @@ components:
         categories:
           items:
             $ref: '#/components/schemas/Category.jsonld-read_Category.PreferredContentTypes_Category.ContentNodes'
+          readOnly: true
+          type: array
+        checklistItems:
+          items:
+            $ref: '#/components/schemas/ChecklistItem.jsonld-read_Category.PreferredContentTypes_Category.ContentNodes'
           readOnly: true
           type: array
         checklists:
@@ -10511,6 +10670,11 @@ components:
         categories:
           items:
             $ref: '#/components/schemas/Category.jsonld-read_Day.DayResponsibles'
+          readOnly: true
+          type: array
+        checklistItems:
+          items:
+            $ref: '#/components/schemas/ChecklistItem.jsonld-read_Day.DayResponsibles'
           readOnly: true
           type: array
         checklists:
@@ -10711,6 +10875,11 @@ components:
             $ref: '#/components/schemas/Category.jsonld-read_Period.Camp_Period.Days'
           readOnly: true
           type: array
+        checklistItems:
+          items:
+            $ref: '#/components/schemas/ChecklistItem.jsonld-read_Period.Camp_Period.Days'
+          readOnly: true
+          type: array
         checklists:
           items:
             $ref: '#/components/schemas/Checklist.jsonld-read_Period.Camp_Period.Days'
@@ -10903,6 +11072,11 @@ components:
         categories:
           items:
             $ref: '#/components/schemas/Category.jsonld-read_ScheduleEntry.Activity'
+          readOnly: true
+          type: array
+        checklistItems:
+          items:
+            $ref: '#/components/schemas/ChecklistItem.jsonld-read_ScheduleEntry.Activity'
           readOnly: true
           type: array
         checklists:
@@ -55371,7 +55545,7 @@ paths:
               schema:
                 allOf:
                   - { $ref: '#/components/schemas/JsonApiCollectionBaseSchemaNoPagination' }
-                  - { properties: { data: { items: { properties: { attributes: { $ref: '#/components/schemas/Camp' }, id: { type: string }, relationships: { properties: { activities: { properties: { data: { items: { properties: { id: { format: iri-reference, type: string }, type: { type: string } }, type: object }, type: array } } }, campCollaborations: { properties: { data: { items: { properties: { id: { format: iri-reference, type: string }, type: { type: string } }, type: object }, type: array } } }, campPrototype: { properties: { data: { oneOf: [{ properties: { id: { format: iri-reference, type: string }, type: { type: string } }, type: object }, { type: 'null' }] } } }, categories: { properties: { data: { items: { properties: { id: { format: iri-reference, type: string }, type: { type: string } }, type: object }, type: array } } }, checklists: { properties: { data: { items: { properties: { id: { format: iri-reference, type: string }, type: { type: string } }, type: object }, type: array } } }, creator: { properties: { data: { oneOf: [{ properties: { id: { format: iri-reference, type: string }, type: { type: string } }, type: object }, { type: 'null' }] } } }, materialItems: { properties: { data: { items: { properties: { id: { format: iri-reference, type: string }, type: { type: string } }, type: object }, type: array } } }, materialLists: { properties: { data: { items: { properties: { id: { format: iri-reference, type: string }, type: { type: string } }, type: object }, type: array } } }, periods: { properties: { data: { items: { properties: { id: { format: iri-reference, type: string }, type: { type: string } }, type: object }, type: array } } }, profiles: { properties: { data: { items: { properties: { id: { format: iri-reference, type: string }, type: { type: string } }, type: object }, type: array } } }, progressLabels: { properties: { data: { items: { properties: { id: { format: iri-reference, type: string }, type: { type: string } }, type: object }, type: array } } }, sharedBy: { properties: { data: { oneOf: [{ properties: { id: { format: iri-reference, type: string }, type: { type: string } }, type: object }, { type: 'null' }] } } } }, type: object }, type: { type: string } }, required: [id, type], type: object }, type: array } }, type: object }
+                  - { properties: { data: { items: { properties: { attributes: { $ref: '#/components/schemas/Camp' }, id: { type: string }, relationships: { properties: { activities: { properties: { data: { items: { properties: { id: { format: iri-reference, type: string }, type: { type: string } }, type: object }, type: array } } }, campCollaborations: { properties: { data: { items: { properties: { id: { format: iri-reference, type: string }, type: { type: string } }, type: object }, type: array } } }, campPrototype: { properties: { data: { oneOf: [{ properties: { id: { format: iri-reference, type: string }, type: { type: string } }, type: object }, { type: 'null' }] } } }, categories: { properties: { data: { items: { properties: { id: { format: iri-reference, type: string }, type: { type: string } }, type: object }, type: array } } }, checklistItems: { properties: { data: { items: { properties: { id: { format: iri-reference, type: string }, type: { type: string } }, type: object }, type: array } } }, checklists: { properties: { data: { items: { properties: { id: { format: iri-reference, type: string }, type: { type: string } }, type: object }, type: array } } }, creator: { properties: { data: { oneOf: [{ properties: { id: { format: iri-reference, type: string }, type: { type: string } }, type: object }, { type: 'null' }] } } }, materialItems: { properties: { data: { items: { properties: { id: { format: iri-reference, type: string }, type: { type: string } }, type: object }, type: array } } }, materialLists: { properties: { data: { items: { properties: { id: { format: iri-reference, type: string }, type: { type: string } }, type: object }, type: array } } }, periods: { properties: { data: { items: { properties: { id: { format: iri-reference, type: string }, type: { type: string } }, type: object }, type: array } } }, profiles: { properties: { data: { items: { properties: { id: { format: iri-reference, type: string }, type: { type: string } }, type: object }, type: array } } }, progressLabels: { properties: { data: { items: { properties: { id: { format: iri-reference, type: string }, type: { type: string } }, type: object }, type: array } } }, sharedBy: { properties: { data: { oneOf: [{ properties: { id: { format: iri-reference, type: string }, type: { type: string } }, type: object }, { type: 'null' }] } } } }, type: object }, type: { type: string } }, required: [id, type], type: object }, type: array } }, type: object }
                 description: 'Camp.jsonapi collection.'
             text/html:
               schema:
@@ -55833,6 +56007,123 @@ paths:
       summary: 'Retrieves the collection of Category resources.'
       tags:
         - Category
+  '/camps/{campId}/checklist_items':
+    get:
+      description: 'Retrieves the collection of ChecklistItem resources.'
+      operationId: api_camps_campIdchecklist_items_get_collection
+      parameters:
+        -
+          deprecated: false
+          description: ''
+          explode: false
+          in: query
+          name: checklist
+          required: false
+          schema:
+            type: string
+          style: form
+        -
+          deprecated: false
+          description: ''
+          explode: false
+          in: query
+          name: checklist.camp
+          required: false
+          schema:
+            type: string
+          style: form
+        -
+          deprecated: false
+          description: ''
+          explode: false
+          in: query
+          name: checklistNodes
+          required: false
+          schema:
+            type: string
+          style: form
+        -
+          deprecated: false
+          description: ''
+          explode: true
+          in: query
+          name: 'checklist.camp[]'
+          required: false
+          schema:
+            items:
+              type: string
+            type: array
+          style: form
+        -
+          deprecated: false
+          description: ''
+          explode: true
+          in: query
+          name: 'checklistNodes[]'
+          required: false
+          schema:
+            items:
+              type: string
+            type: array
+          style: form
+        -
+          deprecated: false
+          description: ''
+          explode: true
+          in: query
+          name: 'checklist[]'
+          required: false
+          schema:
+            items:
+              type: string
+            type: array
+          style: form
+        -
+          deprecated: false
+          description: 'Camp identifier'
+          explode: false
+          in: path
+          name: campId
+          required: true
+          schema:
+            type: string
+          style: simple
+      responses:
+        200:
+          content:
+            application/hal+json:
+              schema:
+                allOf:
+                  - { $ref: '#/components/schemas/HalCollectionBaseSchemaNoPagination' }
+                  - { properties: { _embedded: { additionalProperties: { items: { $ref: '#/components/schemas/ChecklistItem.jsonhal-read' }, type: array } } }, type: object }
+                description: 'ChecklistItem.jsonhal-read collection.'
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ChecklistItem-read'
+                type: array
+            application/ld+json:
+              schema:
+                allOf:
+                  - { $ref: '#/components/schemas/HydraCollectionBaseSchemaNoPagination' }
+                  - { properties: { member: { items: { $ref: '#/components/schemas/ChecklistItem.jsonld-read' }, type: array } }, required: [member], type: object }
+                description: 'ChecklistItem.jsonld-read collection.'
+                type: object
+            application/vnd.api+json:
+              schema:
+                allOf:
+                  - { $ref: '#/components/schemas/JsonApiCollectionBaseSchemaNoPagination' }
+                  - { properties: { data: { items: { properties: { attributes: { $ref: '#/components/schemas/ChecklistItem' }, id: { type: string }, relationships: { properties: { checklist: { properties: { data: { oneOf: [{ properties: { id: { format: iri-reference, type: string }, type: { type: string } }, type: object }, { type: 'null' }] } } }, checklistNodes: { properties: { data: { items: { properties: { id: { format: iri-reference, type: string }, type: { type: string } }, type: object }, type: array } } }, children: { properties: { data: { items: { properties: { id: { format: iri-reference, type: string }, type: { type: string } }, type: object }, type: array } } }, parent: { properties: { data: { oneOf: [{ properties: { id: { format: iri-reference, type: string }, type: { type: string } }, type: object }, { type: 'null' }] } } } }, type: object }, type: { type: string } }, required: [id, type], type: object }, type: array } }, type: object }
+                description: 'ChecklistItem.jsonapi collection.'
+            text/html:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ChecklistItem.html-read'
+                type: array
+          description: 'ChecklistItem collection'
+      summary: 'Retrieves the collection of ChecklistItem resources.'
+      tags:
+        - ChecklistItem
   '/camps/{campId}/checklists':
     get:
       description: 'Retrieves the collection of Checklist resources.'

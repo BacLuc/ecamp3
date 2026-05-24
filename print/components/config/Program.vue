@@ -38,12 +38,7 @@ const { data: periods, error } = await useAsyncData(
       props.camp.materialLists().$loadItems(),
       props.camp.campCollaborations().$loadItems(),
       props.camp.checklists().$loadItems(),
-      $api
-        .get()
-        .checklistItems({
-          'checklist.camp': props.camp._meta.self,
-        })
-        .$loadItems(),
+      props.camp.checklistItems().$loadItems(),
     ])
 
     return props.options.periods.map((periodUri) => {

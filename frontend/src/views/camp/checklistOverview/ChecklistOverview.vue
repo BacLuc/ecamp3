@@ -54,9 +54,8 @@ export default {
       handler(newVal, oldVal) {
         if (newVal._meta.self !== oldVal._meta.self) {
           this.loading = true
-          this.api
-            .get()
-            .checklistItems({ 'checklist.camp': this.camp._meta.self })
+          this.camp
+            .checklistItems()
             .$reload()
             .then(({ items }) => {
               this.processChecklistItems(items)
@@ -71,9 +70,8 @@ export default {
       this.camp.categories()._meta.load,
       this.camp.activities().$reload(),
       this.api.get().checklistNodes({ camp: this.camp._meta.self }).$reload(),
-      this.api
-        .get()
-        .checklistItems({ 'checklist.camp': this.camp._meta.self })
+      this.camp
+        .checklistItems()
         .$reload()
         .then(({ items }) => {
           this.processChecklistItems(items)

@@ -203,6 +203,9 @@
     "checklists": {
       "href": "/camps/5d28f99890bc/checklists"
     },
+    "checklistItems": {
+      "href": "/camps/5d28f99890bc/checklist_items"
+    },
     "sharedBy": null,
     "creator": {
       "href": "/users/9145944210a7"
@@ -22486,7 +22489,7 @@
       "load": "{}"
     }
   },
-  "/checklist_items?checklist.camp=%2Fcamps%2F5d28f99890bc": {
+  "/camps/5d28f99890bc/checklist_items": {
     "totalItems": 31,
     "items": [
       {
@@ -22584,7 +22587,7 @@
       }
     ],
     "_meta": {
-      "self": "/checklist_items?checklist.camp=%2Fcamps%2F5d28f99890bc",
+      "self": "/camps/5d28f99890bc/checklist_items",
       "loading": false,
       "reloading": false,
       "load": "{}"
