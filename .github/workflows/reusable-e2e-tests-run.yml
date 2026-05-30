@@ -37,6 +37,20 @@ jobs:
           name: e2e-tests-images
           path: /tmp
 
+      - name: Cache Docker images
+        uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5
+        id: cache-docker
+        with:
+          path: /tmp/docker-cache
+          key: ${{ runner.os }}-docker-images-${{ hashFiles('docker-compose.yml') }}
+
+      - name: Load cached Docker images
+        if: steps.cache-docker.outputs.cache-hit == 'true'
+        run: |
+          if [ -f /tmp/docker-cache/images.tar ]; then
+            docker load -i /tmp/docker-cache/images.tar
+          fi
+
       - name: Load images
         run: |
           docker load --input /tmp/ecamp3-dev-api.tar
@@ -104,6 +118,20 @@ jobs:
       # print docker container logs (good for debugging; can be disabled again later on)
       - run: docker compose logs --tail="all"
         if: always()
+
+      - name: Save Docker images to /tmp dir
+        if: steps.cache-docker.outputs.cache-hit != 'true'
+        run: |
+          mkdir -p /tmp/docker-cache
+          docker save $(docker compose -f docker-compose.yml --profile e2e config --images | grep -v "ecamp3-api") -o /tmp/docker-cache/images.tar
+
+      - name: Save cached images, even if workflow failed
+        if: steps.cache-docker.outputs.cache-hit != 'true'
+        uses: actions/cache/save@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
+        with:
+          path: |
+            /tmp/docker-cache
+          key: ${{ runner.os }}-docker-images-${{ hashFiles('docker-compose.yml') }}
 
   e2e-tests-merge-reports:
     name: 'Tests: Merge e2e reports'
