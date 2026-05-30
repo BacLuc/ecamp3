@@ -8,7 +8,6 @@ import { CampItem, PeriodItem } from '@/shared-types/ecamp'
 
 test.describe('Nuxt print test', () => {
   test.beforeEach(async ({ page, request }) => {
-    await loginAndSetCookie(page, request, 'test@example.com')
     await mockDateNow(page)
   })
 

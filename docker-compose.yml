@@ -106,7 +106,7 @@ services:
     command: varnishncsa
 
   pdf:
-    image: node:24.16.0
+    image: node:24.15.0
     container_name: 'ecamp3-pdf'
     stdin_open: true
     tty: true
