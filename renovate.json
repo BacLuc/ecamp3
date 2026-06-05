@@ -91,12 +91,7 @@
     },
     {
       "groupName": "playwright",
-      "matchPackageNames": ["@playwright/test", "mcr.microsoft.com/playwright"],
-      "automerge": false
-    },
-    {
-      "matchDepNames": ["mcr.microsoft.com/playwright"],
-      "versioning": "regex:^v(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)-(?<compatibility>\\w+)$"
+      "matchPackageNames": ["@playwright/test", "mcr.microsoft.com/playwright"]
     }
   ],
   "customManagers": [
