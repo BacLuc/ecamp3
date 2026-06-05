@@ -103,7 +103,7 @@
     "@vue/runtime-dom": "3.5.32",
     "@vue/server-renderer": "3.5.32",
     "@vue/shared": "3.5.32",
-    "@vue/test-utils": "2.4.6",
+    "@vue/test-utils": "2.4.10",
     "autoprefixer": "10.5.0",
     "babel-plugin-require-context-hook": "1.0.0",
     "eslint": "9.39.4",
