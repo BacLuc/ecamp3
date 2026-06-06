@@ -8,13 +8,9 @@ class IgnoreNativeBindingWarnMessagesPlugin {
   install(Vue) {
     const ignoreWarnMessage =
       'The .native modifier for v-on is only valid on components but it was used on'
-    Vue.config.warnHandler = function (msg, vm, trace) {
+    Vue.config.warnHandler = function (msg, _vm, trace) {
       // `trace` is the component hierarchy trace
-      if (msg.startsWith(ignoreWarnMessage)) {
-        msg = null
-        vm = null
-        trace = null
-      } else {
+      if (!msg.startsWith(ignoreWarnMessage)) {
         console.error(`[Vue warn]: ${msg}${trace}`)
       }
     }
