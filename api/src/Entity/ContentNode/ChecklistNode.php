@@ -59,7 +59,7 @@ class ChecklistNode extends ContentNode {
      */
     #[ApiProperty(example: '["/checklist_items/1a2b3c4d"]')]
     #[Groups(['read'])]
-    #[ORM\ManyToMany(targetEntity: ChecklistItem::class, inversedBy: 'checklistNodes')]
+    #[ORM\ManyToMany(targetEntity: ChecklistItem::class, inversedBy: 'checklistNodes', fetch: 'EAGER')]
     #[ORM\JoinTable(name: 'checklistnode_checklistitem')]
     #[ORM\JoinColumn(name: 'checklistnode_id', referencedColumnName: 'id', onDelete: 'CASCADE')]
     #[ORM\InverseJoinColumn(name: 'checklistitem_id', referencedColumnName: 'id', onDelete: 'RESTRICT')]

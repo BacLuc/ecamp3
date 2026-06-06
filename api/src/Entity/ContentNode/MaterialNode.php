@@ -55,7 +55,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class MaterialNode extends ContentNode {
     #[ApiProperty(readableLink: true, writableLink: false)]
     #[Groups(['read'])]
-    #[ORM\OneToMany(targetEntity: MaterialItem::class, mappedBy: 'materialNode', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: MaterialItem::class, mappedBy: 'materialNode', cascade: ['persist', 'remove'], orphanRemoval: true, fetch: 'EAGER')]
     #[ORM\OrderBy(['article' => 'ASC', 'createTime' => 'ASC'])]
     public Collection $materialItems;
 

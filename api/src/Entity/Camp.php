@@ -80,7 +80,7 @@ class Camp extends BaseEntity implements BelongsToCampInterface, CopyFromPrototy
     #[AssertContainsAtLeastOneManager(groups: ['update'])]
     #[SerializedName('campCollaborations')]
     #[Groups(['read'])]
-    #[ORM\OneToMany(targetEntity: CampCollaboration::class, mappedBy: 'camp', orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: CampCollaboration::class, mappedBy: 'camp', orphanRemoval: true, fetch: 'EAGER')]
     #[ORM\OrderBy(['status' => 'ASC', 'role' => 'ASC', 'createTime' => 'ASC'])]
     public Collection $collaborations;
 
@@ -104,7 +104,7 @@ class Camp extends BaseEntity implements BelongsToCampInterface, CopyFromPrototy
         example: [['description' => 'Hauptlager', 'start' => '2022-01-01', 'end' => '2022-01-08']]
     )]
     #[Groups(['read', 'create'])]
-    #[ORM\OneToMany(targetEntity: Period::class, mappedBy: 'camp', cascade: ['persist'], orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: Period::class, mappedBy: 'camp', cascade: ['persist'], orphanRemoval: true, fetch: 'EAGER')]
     #[ORM\OrderBy(['start' => 'ASC'])]
     public Collection $periods;
 
@@ -154,7 +154,7 @@ class Camp extends BaseEntity implements BelongsToCampInterface, CopyFromPrototy
      */
     #[ApiProperty(writable: false, example: '["/material_lists/1a2b3c4d"]')]
     #[Groups(['read'])]
-    #[ORM\OneToMany(targetEntity: MaterialList::class, mappedBy: 'camp', cascade: ['persist'], orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: MaterialList::class, mappedBy: 'camp', cascade: ['persist'], orphanRemoval: true, fetch: 'EAGER')]
     #[ORM\OrderBy(['name' => 'ASC', 'createTime' => 'ASC'])]
     public Collection $materialLists;
 
