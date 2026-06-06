@@ -35,7 +35,7 @@ const collectionXKeys =
   /* collection URI (for detecting addition of new schedule entries) */
   '/api/periods/7fa4564a5d5d/schedule_entries'
 
-test.describe('cache test: /periods/{periodId}/scheduleEntries', () => {
+test.describe('cache test: /periods/{periodId}/scheduleEntries', { tag: '@mature' }, () => {
   test.describe.configure({ mode: 'serial' })
 
   test('caches /periods/{periodId}/schedule_entries separately for each login', async () => {
