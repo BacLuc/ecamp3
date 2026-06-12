@@ -4,6 +4,7 @@
     :class="{
       'editor--editable': editable,
       'editor--link-cursor': hoverCursor,
+      'editor--comments': commentsActive,
     }"
   >
     <bubble-menu
@@ -19,6 +20,14 @@
           density="compact"
           color="transparent"
         >
+          <template v-if="commentsActive">
+            <TiptapToolbarButton
+              icon="mdi-comment-plus-outline"
+              :title="$t('components.comments.addComment')"
+              @click="addCommentOnSelection"
+            />
+            <v-divider vertical class="mx-1" />
+          </template>
           <TiptapToolbarButton
             icon="mdi-format-bold"
             :class="editor.isActive('bold') ? 'v-item--active v-btn--active' : ''"
@@ -138,6 +147,8 @@ import {
   AutoLinkDecoration,
   AutoLinkKey,
 } from '@/components/form/tiptap/AutoLinkDecoration.js'
+import { CommentMark, findSnippetRanges } from '@/components/form/tiptap/CommentMark.js'
+import { randomUuid } from '@/helpers/randomUuid.js'
 import { isTextSelection } from '@tiptap/core'
 
 function isSillyThingThatHappensWithTipTap(val) {
@@ -150,6 +161,12 @@ export default {
     TiptapToolbarButton,
     EditorContent,
     BubbleMenu,
+  },
+  inject: {
+    // Provided by the Comments panel (Comments.vue) when the comments feature is
+    // active. Absent (null) for editors outside an activity's comment context,
+    // e.g. the comment composer itself or plain richtext fields.
+    commentsController: { default: null },
   },
   props: {
     modelValue: {
@@ -167,6 +184,18 @@ export default {
     editable: {
       type: Boolean,
       default: true,
+    },
+    // Self IRI of the content node this editor edits. When set together with an
+    // injected commentsController, inline (anchored) commenting is enabled here.
+    commentContentNodeUri: {
+      type: String,
+      default: '',
+    },
+    // Move the cursor into this editor once it is mounted. Used by the comment
+    // composers so the user can start typing immediately (Google-Docs style).
+    autofocus: {
+      type: Boolean,
+      default: false,
     },
   },
   emits: ['tiptapUpdate', 'focus', 'blur'],
@@ -199,6 +228,17 @@ export default {
         ]
       )
     }
+    // The comment mark is registered unconditionally — also in editors outside a
+    // comments context, and in the comment composers themselves. An editor whose
+    // schema doesn't know the mark would silently drop every
+    // <span data-comment-id> from the content on its next save, destroying the
+    // anchors. The comment UI (bubble-menu button, click-to-focus, highlight
+    // styling) stays gated on commentsActive.
+    extensions.push(
+      CommentMark.configure({
+        onCommentClick: (commentId) => this.commentsController?.focusComment(commentId),
+      })
+    )
 
     return {
       hoverCursor: false,
@@ -206,6 +246,7 @@ export default {
         extensions: extensions,
         content: this.modelValue,
         onUpdate: this.onUpdate,
+        onSelectionUpdate: this.onSelectionUpdate,
         onFocus: (e) => this.$emit('focus', e),
         onBlur: (e) => this.$emit('blur', e),
         editable: this.editable,
@@ -263,22 +304,38 @@ export default {
     }
   },
   computed: {
-    html() {
-      // Replace some Tags, to be compatible with backend HTMLPurifier
-      return this.editor
-        .getHTML()
-        .replace(this.regex.emptyParagraph, '')
-        .replace(this.regex.lineBreak1, '<br />')
-        .replace(this.regex.lineBreak2, '<br />')
+    commentsActive() {
+      return !!this.commentContentNodeUri && !!this.commentsController
+    },
+    activeAnchorId() {
+      return this.commentsController?.activeAnchorId ?? null
+    },
+    highlightAnchorIds() {
+      return this.commentsController?.highlightAnchorIds ?? []
+    },
+    // Every anchorId that still has a comment (open or resolved) plus the pending
+    // draft. Comment marks whose id is not in this set are orphans (the comment
+    // was deleted, or a draft was abandoned) and get stripped from the text.
+    knownAnchorIds() {
+      return this.commentsController?.allAnchorIds ?? []
+    },
+    commentsLoaded() {
+      return this.commentsController?.commentsLoaded ?? false
     },
   },
   watch: {
     modelValue(val) {
       // Be careful to only use setContent when absolutely necessary, because it resets the user's cursor to the end
       // of the input field
-      if (val !== this.html && !isSillyThingThatHappensWithTipTap(val)) {
+      if (val !== this.html() && !isSillyThingThatHappensWithTipTap(val)) {
         // we do not want to trigger onUpdate when modelValue is updated from outside
         this.editor.commands.setContent(val, { emitUpdate: false })
+        this.$nextTick(() => {
+          this.applyActiveCommentStyling()
+          // Content replaced from outside (e.g. another user's save arriving) may
+          // have lost anchors — let re-anchoring repair what it can.
+          this.reconcileCommentMarks()
+        })
       }
     },
     editable() {
@@ -286,23 +343,226 @@ export default {
         editable: this.editable,
       })
     },
+    activeAnchorId() {
+      this.applyActiveCommentStyling()
+    },
+    highlightAnchorIds() {
+      this.applyActiveCommentStyling()
+    },
+    knownAnchorIds() {
+      this.reconcileCommentMarks()
+    },
+    commentsLoaded() {
+      this.reconcileCommentMarks()
+    },
   },
   mounted() {
     document.addEventListener('keydown', this.specialKeyListeners, { passive: true })
     document.addEventListener('keyup', this.specialKeyListeners, { passive: true })
     document.addEventListener('contextmenu', this.specialMenuListeners, { passive: true })
+    if (this.commentsActive) {
+      this.commentEditorApi = {
+        scrollToComment: this.scrollToComment,
+        removeCommentMark: this.removeCommentMark,
+        hasAnchor: this.hasAnchor,
+        findSnippetRanges: this.findSnippetRanges,
+        applyAnchor: this.applyAnchor,
+        applyAnchorToSelection: this.applyAnchorToSelection,
+        commitDraft: this.commitDraft,
+        cancelDraft: this.cancelDraft,
+      }
+      this.commentsController.registerEditor(
+        this.commentContentNodeUri,
+        this.commentEditorApi
+      )
+      this.applyActiveCommentStyling()
+      this.reconcileCommentMarks()
+    }
+    if (this.autofocus) {
+      // Wait a tick so the editor element is in the DOM (e.g. a freshly opened
+      // draft card) before placing the cursor at the end of any existing text.
+      this.$nextTick(() => this.editor.commands.focus('end'))
+    }
   },
   beforeUnmount() {
     document.removeEventListener('keydown', this.specialKeyListeners)
     document.removeEventListener('keyup', this.specialKeyListeners)
     document.removeEventListener('contextmenu', this.specialMenuListeners)
+    if (this.commentsActive && this.commentEditorApi) {
+      this.commentsController.unregisterEditor(
+        this.commentContentNodeUri,
+        this.commentEditorApi
+      )
+    }
   },
   methods: {
     focus() {
       this.editor.commands.focus()
     },
+    // The current editor HTML, cleaned up to match what the backend HTMLPurifier
+    // expects. This is intentionally a method, not a computed: TipTap mutates the
+    // editor outside Vue's reactivity, so a computed has no dependency that would
+    // invalidate it and ends up frozen at its first value — which silently
+    // truncated comment text to whatever it was on the first keystroke.
+    html() {
+      return this.editor
+        .getHTML()
+        .replace(this.regex.emptyParagraph, '')
+        .replace(this.regex.lineBreak1, '<br />')
+        .replace(this.regex.lineBreak2, '<br />')
+    },
+    // Lets the controller track which editor holds a text selection, so an
+    // orphaned thread can be manually re-anchored to it from the panel. The
+    // ProseMirror selection survives blur, so it is still valid when the user
+    // then clicks the re-anchor button on the card.
+    onSelectionUpdate() {
+      if (!this.commentsActive) {
+        return
+      }
+      const { from, to } = this.editor.state.selection
+      this.commentsController.reportSelection(
+        this.commentContentNodeUri,
+        this.commentEditorApi,
+        from !== to
+      )
+    },
     onUpdate() {
-      this.$emit('tiptapUpdate', this.html)
+      this.$emit('tiptapUpdate', this.html())
+      if (this.commentsActive) {
+        this.$nextTick(() => {
+          this.applyActiveCommentStyling()
+          // Heals delete-then-retype: once the snippet of an orphaned open thread
+          // reappears (uniquely), its mark is re-applied. Cheap when nothing is
+          // orphaned, thanks to the hasAnchor short-circuit.
+          this.reconcileCommentMarks()
+        })
+      }
+    },
+    addCommentOnSelection() {
+      const { state } = this.editor
+      const { from, to } = state.selection
+      if (from === to) {
+        return
+      }
+      const anchorId = randomUuid()
+      // Snapshot of the selected text: shown as a quote on the thread card and
+      // used to re-anchor the thread if its mark ever gets lost. Capped well
+      // below the backend's 255-char limit.
+      const anchorText = state.doc.textBetween(from, to, '\n').trim().substring(0, 250)
+      const started = this.commentsController.beginThread({
+        contentNodeUri: this.commentContentNodeUri,
+        anchorId,
+        anchorText,
+      })
+      // The highlight stays a local-only decoration until the comment is sent;
+      // nothing is persisted for a draft (beginThread can also refuse, when
+      // another draft with typed text is already open — then it gets focused).
+      if (started) {
+        this.editor.chain().startCommentDraft(anchorId).run()
+      }
+    },
+    scrollToComment(commentId) {
+      const el = this.$el.querySelector(`span[data-comment-id="${commentId}"]`)
+      el?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+    },
+    removeCommentMark(commentId) {
+      this.editor.commands.unsetCommentMarkById(commentId)
+    },
+    // Whether this editor's document currently contains a mark for the thread.
+    hasAnchor(commentId) {
+      let found = false
+      this.editor.state.doc.descendants((node) => {
+        if (found) {
+          return false
+        }
+        found = node.marks.some(
+          (mark) => mark.type.name === 'comment' && mark.attrs.commentId === commentId
+        )
+      })
+      return found
+    },
+    // {from, to} ranges where the snippet occurs in this editor (for re-anchoring).
+    findSnippetRanges(snippet) {
+      return findSnippetRanges(this.editor.state.doc, snippet)
+    },
+    // Re-apply a lost mark over the given range. Dispatches a transaction, so the
+    // healed anchor is persisted through the normal save flow.
+    applyAnchor(commentId, range) {
+      this.editor.commands.applyCommentMark(commentId, range.from, range.to)
+    },
+    // Manual re-anchoring: mark the current selection as the thread's new anchor.
+    // Returns the new anchorText snapshot, or null without a selection.
+    applyAnchorToSelection(commentId) {
+      const { state } = this.editor
+      const { from, to } = state.selection
+      if (from === to) {
+        return null
+      }
+      const anchorText = state.doc.textBetween(from, to, '\n').trim().substring(0, 250)
+      this.editor.commands.applyCommentMark(commentId, from, to)
+      return anchorText
+    },
+    commitDraft() {
+      return this.editor.commands.commitCommentDraft()
+    },
+    cancelDraft() {
+      return this.editor.commands.cancelCommentDraft()
+    },
+    // Strip comment-mark highlights that no longer correspond to a comment (a
+    // thread that was deleted while this editor was unmounted, or a mark restored
+    // by undo after its thread was gone), then give threads whose mark is missing
+    // a chance to re-anchor via their text snippet. We only do this once the
+    // comments have actually loaded, otherwise we'd wipe every (still-valid)
+    // highlight while the collection is empty.
+    reconcileCommentMarks() {
+      if (!this.commentsActive || !this.commentsLoaded) {
+        return
+      }
+      const known = new Set(this.knownAnchorIds)
+      const orphans = new Set()
+      this.editor.state.doc.descendants((node) => {
+        node.marks.forEach((mark) => {
+          const id = mark.attrs?.commentId
+          if (id && !known.has(id)) {
+            orphans.add(id)
+          }
+        })
+      })
+      orphans.forEach((id) => this.editor.commands.unsetCommentMarkById(id))
+      this.commentsController.reanchorContentNode(this.commentContentNodeUri)
+    },
+    applyActiveCommentStyling() {
+      if (!this.commentsActive) {
+        return
+      }
+      const activeId = this.activeAnchorId
+      const highlighted = this.highlightAnchorIds
+      // The highlight colour is set inline (rather than via CSS classes) because
+      // these spans live inside the scoped editor where :deep() state selectors
+      // don't reliably out-specify the base .comment-mark rule. Inline styles win
+      // unconditionally. The base .comment-mark CSS still provides the default
+      // (open) highlight when we clear the inline override.
+      this.$el.querySelectorAll('span[data-comment-id]').forEach((el) => {
+        const id = el.getAttribute('data-comment-id')
+        const isActive = id === activeId
+        const shouldHighlight = highlighted.includes(id)
+        if (isActive) {
+          el.style.backgroundColor = '#ffe066'
+          el.style.borderBottomColor = ''
+          el.style.cursor = ''
+        } else if (shouldHighlight) {
+          // Open thread: default highlight (clear inline overrides, base CSS wins).
+          el.style.backgroundColor = ''
+          el.style.borderBottomColor = ''
+          el.style.cursor = ''
+        } else {
+          // Resolved thread or orphaned mark: no permanent highlight. It only
+          // reappears while active (i.e. the user clicked the thread open).
+          el.style.backgroundColor = 'transparent'
+          el.style.borderBottomColor = 'transparent'
+          el.style.cursor = 'text'
+        }
+      })
     },
     specialKeyListeners(event) {
       this.hoverCursor = event.metaKey || event.ctrlKey
@@ -412,6 +672,21 @@ div.editor:deep(.editor__content .ProseMirror li p) {
 }
 div.editor:deep(.editor__content .ProseMirror li p:not(:last-child)) {
   margin-bottom: 0;
+}
+/* Default (open) highlight, only in editors that are part of a comments context
+   (elsewhere anchors stay invisible). The translucent background makes
+   overlapping threads stack into a darker highlight, Google-Docs style. Active
+   and resolved states are applied as inline styles in
+   applyActiveCommentStyling(); see the comment there for why. */
+.editor--comments:deep(.editor__content .ProseMirror .comment-mark) {
+  background-color: rgba(240, 192, 0, 0.25);
+  border-bottom: 2px solid rgba(240, 192, 0, 0.85);
+  cursor: pointer;
+  transition: background-color 0.15s ease-in-out;
+}
+/* A draft being composed looks like the active thread it is about to become. */
+.editor--comments:deep(.editor__content .ProseMirror .comment-mark--draft) {
+  background-color: #ffe066;
 }
 .editor.editor--editable {
   cursor: text;
