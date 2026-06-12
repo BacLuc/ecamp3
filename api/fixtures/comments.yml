@@ -17,6 +17,15 @@ App\Entity\Comment:
     textHtml: <sentence()>
     author: '@user1manager'
     orphanDescription: null
+  comment1anchored:
+    camp: '@camp1'
+    activity: '@activity1'
+    textHtml: <sentence()>
+    author: '@user1manager'
+    contentNode: '@columnLayout1'
+    anchorId: 7c0295a9-a4e6-4f4e-91a1-f0e0b3c9b81e
+    anchorText: 'some commented text'
+    orphanDescription: null
   comment1campPrototype:
     camp: '@campPrototype'
     activity: '@activity1campPrototype'

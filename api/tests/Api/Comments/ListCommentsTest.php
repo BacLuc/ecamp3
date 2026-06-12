@@ -26,7 +26,7 @@ class ListCommentsTest extends ECampApiTestCase {
 
         $this->assertResponseStatusCodeSame(200);
         $this->assertJsonContains([
-            'totalItems' => 5,
+            'totalItems' => 6,
             '_embedded' => [
                 'items' => [],
             ],
@@ -35,6 +35,7 @@ class ListCommentsTest extends ECampApiTestCase {
             ['href' => $this->getIriFor('comment1')],
             ['href' => $this->getIriFor('comment2')],
             ['href' => $this->getIriFor('comment3')],
+            ['href' => $this->getIriFor('comment1anchored')],
             ['href' => $this->getIriFor('comment1campPrototype')],
             ['href' => $this->getIriFor('comment1campShared')],
         ], $response->toArray()['_links']['items']);
@@ -53,7 +54,7 @@ class ListCommentsTest extends ECampApiTestCase {
                 'activity' => $this->getIriFor('activity1'),
             ],
             [
-                'author',
+                'author', 'parent', 'contentNode', 'anchorId',
             ],
             []
         )])->toArray();
@@ -61,9 +62,9 @@ class ListCommentsTest extends ECampApiTestCase {
         $response = $client->request('GET', '/comments');
         $items = $response->toArray()['_embedded']['items'];
 
-        $this->assertCount(6, $items);
+        $this->assertCount(7, $items);
         $this->assertGreaterThanOrEqual($items[0]['createTime'], $items[3]['createTime']);
-        $this->assertEquals($items[5]['createTime'], $lastComment['createTime']);
+        $this->assertEquals($items[6]['createTime'], $lastComment['createTime']);
     }
 
     public function testListCommentsFilteredByActivity() {
@@ -72,7 +73,7 @@ class ListCommentsTest extends ECampApiTestCase {
 
         $this->assertResponseStatusCodeSame(200);
         $this->assertJsonContains([
-            'totalItems' => 2,
+            'totalItems' => 3,
         ]);
     }
 
@@ -82,7 +83,7 @@ class ListCommentsTest extends ECampApiTestCase {
 
         $this->assertResponseStatusCodeSame(200);
         $this->assertJsonContains([
-            'totalItems' => 2,
+            'totalItems' => 3,
         ]);
     }
 

@@ -33,9 +33,9 @@ class DeleteCommentTest extends ECampApiTestCase {
         ]);
     }
 
-    public function testDeleteCommentIsDeniedForManagerInSameCamp() {
+    public function testDeleteCommentIsDeniedForNonAuthorMember() {
         $comment = static::getFixture('comment1');
-        static::createClientWithCredentials(['email' => static::$fixtures['user7manager']->getEmail()])
+        static::createClientWithCredentials(['email' => static::$fixtures['user2member']->getEmail()])
             ->request('DELETE', '/comments/'.$comment->getId())
         ;
 
@@ -44,6 +44,17 @@ class DeleteCommentTest extends ECampApiTestCase {
             'title' => 'An error occurred',
             'detail' => 'Access Denied.',
         ]);
+    }
+
+    public function testDeleteCommentIsAllowedForNonAuthorManagerInSameCamp() {
+        // camp managers may moderate, like a document owner in Google Docs
+        $comment = static::getFixture('comment1');
+        static::createClientWithCredentials(['email' => static::$fixtures['user7manager']->getEmail()])
+            ->request('DELETE', '/comments/'.$comment->getId())
+        ;
+
+        $this->assertResponseStatusCodeSame(204);
+        $this->assertNull($this->getEntityManager()->getRepository(Comment::class)->find($comment->getId()));
     }
 
     public function testDeleteCommentIsAllowedForAuthor() {

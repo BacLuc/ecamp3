@@ -164,6 +164,190 @@ class CreateCommentTest extends ECampApiTestCase {
         $this->assertJsonContains($this->getExampleReadPayload(['textHtml' => '<b>testText</b>']));
     }
 
+    public function testCreateAnchoredCommentIsAllowed() {
+        static::createClientWithCredentials()->request('POST', '/comments', ['json' => $this->getExampleWritePayload([
+            'contentNode' => $this->getIriFor('columnLayout1'),
+            'anchorId' => '7d68c4c2-db9e-465f-84ab-593c50989ad7',
+        ])]);
+
+        $this->assertResponseStatusCodeSame(201);
+        $this->assertJsonContains([
+            'anchorId' => '7d68c4c2-db9e-465f-84ab-593c50989ad7',
+            '_links' => ['contentNode' => ['href' => $this->getIriFor('columnLayout1')]],
+        ]);
+    }
+
+    public function testCreateAnchoredCommentRejectsContentNodeFromOtherCamp() {
+        $response = static::createClientWithCredentials()->request('POST', '/comments', ['json' => $this->getExampleWritePayload([
+            'contentNode' => $this->getIriFor('columnLayout1camp2'),
+            'anchorId' => '7d68c4c2-db9e-465f-84ab-593c50989ad7',
+        ])]);
+
+        $this->assertResponseStatusCodeSame(422);
+        // the same-activity validation fires as well, so only assert that the
+        // same-camp violation is among them
+        $this->assertStringContainsString(
+            'contentNode: Must belong to the same camp.',
+            $response->toArray(false)['detail']
+        );
+    }
+
+    public function testCreateAnchoredCommentRejectsContentNodeFromOtherActivity() {
+        // columnLayout3 belongs to activity2, which is in the same camp
+        static::createClientWithCredentials()->request('POST', '/comments', ['json' => $this->getExampleWritePayload([
+            'contentNode' => $this->getIriFor('columnLayout3'),
+            'anchorId' => '7d68c4c2-db9e-465f-84ab-593c50989ad7',
+        ])]);
+
+        $this->assertResponseStatusCodeSame(422);
+        $this->assertJsonContains([
+            'detail' => 'contentNode: The content node must belong to the same activity as the comment.',
+        ]);
+    }
+
+    public function testCreateAnchoredCommentRejectsAnchorIdWithoutContentNode() {
+        static::createClientWithCredentials()->request('POST', '/comments', ['json' => $this->getExampleWritePayload([
+            'anchorId' => '7d68c4c2-db9e-465f-84ab-593c50989ad7',
+        ])]);
+
+        $this->assertResponseStatusCodeSame(422);
+        $this->assertJsonContains([
+            'detail' => 'contentNode: contentNode and anchorId must be set together.',
+        ]);
+    }
+
+    public function testCreateAnchoredCommentRejectsContentNodeWithoutAnchorId() {
+        static::createClientWithCredentials()->request('POST', '/comments', ['json' => $this->getExampleWritePayload([
+            'contentNode' => $this->getIriFor('columnLayout1'),
+        ])]);
+
+        $this->assertResponseStatusCodeSame(422);
+        $this->assertJsonContains([
+            'detail' => 'contentNode: contentNode and anchorId must be set together.',
+        ]);
+    }
+
+    public function testCreateAnchoredCommentStoresAnchorText() {
+        static::createClientWithCredentials()->request('POST', '/comments', ['json' => $this->getExampleWritePayload([
+            'contentNode' => $this->getIriFor('columnLayout1'),
+            'anchorId' => '7d68c4c2-db9e-465f-84ab-593c50989ad7',
+            'anchorText' => 'the sentence that was commented on',
+        ])]);
+
+        $this->assertResponseStatusCodeSame(201);
+        $this->assertJsonContains([
+            'anchorText' => 'the sentence that was commented on',
+        ]);
+    }
+
+    public function testCreateCommentValidatesAnchorTextMaxLength() {
+        static::createClientWithCredentials()->request('POST', '/comments', ['json' => $this->getExampleWritePayload([
+            'contentNode' => $this->getIriFor('columnLayout1'),
+            'anchorId' => '7d68c4c2-db9e-465f-84ab-593c50989ad7',
+            'anchorText' => str_repeat('a', 256),
+        ])]);
+
+        $this->assertResponseStatusCodeSame(422);
+        $this->assertJsonContains([
+            'violations' => [
+                [
+                    'propertyPath' => 'anchorText',
+                    'message' => 'This value is too long. It should have 255 characters or less.',
+                ],
+            ],
+        ]);
+    }
+
+    public function testCreateCommentValidatesAnchorIdMaxLength() {
+        static::createClientWithCredentials()->request('POST', '/comments', ['json' => $this->getExampleWritePayload([
+            'contentNode' => $this->getIriFor('columnLayout1'),
+            'anchorId' => str_repeat('a', 37),
+        ])]);
+
+        $this->assertResponseStatusCodeSame(422);
+        $this->assertJsonContains([
+            'violations' => [
+                [
+                    'propertyPath' => 'anchorId',
+                    'message' => 'This value is too long. It should have 36 characters or less.',
+                ],
+            ],
+        ]);
+    }
+
+    public function testCreateReplyIsAllowed() {
+        static::createClientWithCredentials()->request('POST', '/comments', ['json' => $this->getExampleWritePayload([
+            'parent' => $this->getIriFor('comment1'),
+        ])]);
+
+        $this->assertResponseStatusCodeSame(201);
+        $this->assertJsonContains([
+            '_links' => ['parent' => ['href' => $this->getIriFor('comment1')]],
+        ]);
+    }
+
+    public function testCreateReplyRejectsParentFromOtherCamp() {
+        $response = static::createClientWithCredentials()->request('POST', '/comments', ['json' => $this->getExampleWritePayload([
+            'parent' => $this->getIriFor('comment1campShared'),
+        ])]);
+
+        $this->assertResponseStatusCodeSame(422);
+        // the same-activity validation fires as well, so only assert that the
+        // same-camp violation is among them
+        $this->assertStringContainsString(
+            'parent: Must belong to the same camp.',
+            $response->toArray(false)['detail']
+        );
+    }
+
+    public function testCreateReplyRejectsParentFromOtherActivity() {
+        // comment3 belongs to activity2, which is in the same camp
+        static::createClientWithCredentials()->request('POST', '/comments', ['json' => $this->getExampleWritePayload([
+            'parent' => $this->getIriFor('comment3'),
+        ])]);
+
+        $this->assertResponseStatusCodeSame(422);
+        $this->assertJsonContains([
+            'detail' => 'parent: A reply must belong to the same activity as its parent.',
+        ]);
+    }
+
+    public function testCreateReplyRejectsNestedReply() {
+        // threads are flat, like in Google Docs: replies always point at the root
+        $client = static::createClientWithCredentials();
+        // without this, the kernel reboot between the two requests would roll the
+        // database back and the created reply would not be visible to the second one
+        $client->disableReboot();
+        $reply = $client->request('POST', '/comments', ['json' => $this->getExampleWritePayload([
+            'parent' => $this->getIriFor('comment1'),
+        ])]);
+        $this->assertResponseStatusCodeSame(201);
+        $replyIri = $reply->toArray()['_links']['self']['href'];
+
+        $client->request('POST', '/comments', ['json' => $this->getExampleWritePayload([
+            'parent' => $replyIri,
+        ])]);
+
+        $this->assertResponseStatusCodeSame(422);
+        $this->assertJsonContains([
+            'detail' => 'parent: Replies cannot be nested. Reply to the root comment of the thread.',
+        ]);
+    }
+
+    public function testCreateReplyRejectsOwnAnchor() {
+        // replies inherit the anchor from the root comment of their thread
+        static::createClientWithCredentials()->request('POST', '/comments', ['json' => $this->getExampleWritePayload([
+            'parent' => $this->getIriFor('comment1'),
+            'contentNode' => $this->getIriFor('columnLayout1'),
+            'anchorId' => '7d68c4c2-db9e-465f-84ab-593c50989ad7',
+        ])]);
+
+        $this->assertResponseStatusCodeSame(422);
+        $this->assertJsonContains([
+            'detail' => 'parent: Replies inherit the anchor from the root comment and cannot carry their own.',
+        ]);
+    }
+
     #[\Override]
     public function getExampleWritePayload($attributes = [], $except = []) {
         return $this->getExamplePayload(
@@ -173,7 +357,9 @@ class CreateCommentTest extends ECampApiTestCase {
                 'camp' => $this->getIriFor('camp1'),
                 'activity' => $this->getIriFor('activity1'),
             ], $attributes),
-            ['author'],
+            // author is set by the processor; parent/contentNode/anchorId/anchorText
+            // are optional fields only used for replies and inline (anchored) comments.
+            ['author', 'parent', 'contentNode', 'anchorId', 'anchorText'],
             $except
         );
     }
@@ -183,7 +369,7 @@ class CreateCommentTest extends ECampApiTestCase {
             Comment::class,
             Get::class,
             $attributes,
-            ['camp', 'activity', 'author'],
+            ['camp', 'activity', 'author', 'parent', 'children', 'contentNode', 'anchorId', 'anchorText', 'resolvedAt', 'resolvedBy', 'editedAt'],
             $except
         );
     }
