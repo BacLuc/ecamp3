@@ -15,6 +15,7 @@ use App\InputFilter;
 use App\Repository\ContentNodeRepository;
 use App\State\ContentNodeCollectionProvider;
 use App\Util\ClassInfoTrait;
+use App\Util\CommentAnchors;
 use App\Util\EntityMap;
 use App\Util\JsonMergePatch;
 use App\Validator\AssertNoLoop;
@@ -270,7 +271,11 @@ abstract class ContentNode extends BaseEntity implements BelongsToCampInterface,
         $this->instanceName = $prototype->instanceName;
         $this->slot = $prototype->slot;
         $this->position = $prototype->position;
-        $this->data = $prototype->data; // At the moment this is fine here as we don't to change anything within the JSON for any of the content types. As soon as this changes, we need to remove this here and move to the specific entities
+        // Copying the JSON wholesale is fine for all content types; only inline-comment
+        // anchors must not travel along, because the comments they point to stay on the
+        // original. Stripping them is content-type agnostic (a walk over all strings),
+        // so it can live here. Anything type-specific would have to move to the entities.
+        $this->data = CommentAnchors::stripFromData($prototype->data);
 
         // deep copy children
         foreach ($prototype->getChildren() as $childPrototype) {
