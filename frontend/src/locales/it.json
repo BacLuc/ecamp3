@@ -1,5 +1,23 @@
 {
   "components": {
+    "comments": {
+      "addComment": "Aggiungi commento",
+      "inText": "Nel testo",
+      "placeholder": "Commento",
+      "reply": "Rispondi…",
+      "send": "Invia",
+      "resolve": "Risolvi",
+      "reopen": "Riapri",
+      "anchorRemoved": "Testo commentato rimosso",
+      "reanchor": "Riancora",
+      "reanchorHint": "Seleziona del testo nell'attività, poi clicca qui per riagganciare la discussione.",
+      "resolvedCount": "Risolti ({count})",
+      "resolvedBy": "Risolto da {name} · {date}",
+      "edited": "modificato",
+      "noComments": "Ancora nessun commento",
+      "deleteThreadWarning": "Eliminare questa discussione? Anche le risposte verranno eliminate.",
+      "deleteCommentWarning": "Eliminare questo commento?"
+    },
     "activity": {
       "content": {
         "columnLayout": {

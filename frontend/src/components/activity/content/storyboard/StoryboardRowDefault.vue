@@ -29,6 +29,7 @@
         :path="`data.sections[${itemKey}].column2Html`"
         rows="4"
         :disabled="layoutMode || disabled"
+        :comment-content-node-uri="apiUri"
       />
     </td>
     <td class="e-storyboard-row__responsible">
@@ -65,6 +66,11 @@ import DialogRemoveSection from './StoryboardDialogRemoveSection.vue'
 export default {
   name: 'StoryboardRowDefault',
   components: { DialogRemoveSection },
+  inject: {
+    // Provided by StoryboardSortable as the storyboard content node's self IRI;
+    // used to anchor inline comments to this storyboard node.
+    apiUri: { default: null },
+  },
   props: {
     isLastSection: { type: Boolean, required: true },
     itemKey: { type: String, required: true },

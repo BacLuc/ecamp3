@@ -6,6 +6,7 @@
       :placeholder="$t('contentNode.safetyConsiderations.name')"
       rows="2"
       :disabled="layoutMode || disabled"
+      :comment-content-node-uri="contentNode._meta.self"
       class="grow-v-slot"
     />
   </ContentNodeCard>

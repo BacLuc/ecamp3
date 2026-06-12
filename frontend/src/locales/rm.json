@@ -1,5 +1,23 @@
 {
   "components": {
+    "comments": {
+      "addComment": "Agiuntar in commentari",
+      "inText": "En il text",
+      "placeholder": "Commentari",
+      "reply": "Respunder…",
+      "send": "Trametter",
+      "resolve": "Terminà",
+      "reopen": "Avrir danovamain",
+      "anchorRemoved": "Text commentà allontanà",
+      "reanchor": "Ancrar danovamain",
+      "reanchorHint": "Tscherna text en l'activitad e clicca lura qua per reancrar il fil.",
+      "resolvedCount": "Terminads ({count})",
+      "resolvedBy": "Terminà da {name} · {date}",
+      "edited": "modifitgà",
+      "noComments": "Anc nagins commentaris",
+      "deleteThreadWarning": "Stizzar quest fil da commentaris? Las respostas vegnan era stizzadas.",
+      "deleteCommentWarning": "Stizzar quest commentari?"
+    },
     "activity": {
       "content": {
         "columnLayout": {

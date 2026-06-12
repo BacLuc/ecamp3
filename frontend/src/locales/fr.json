@@ -1,5 +1,23 @@
 {
   "components": {
+    "comments": {
+      "addComment": "Ajouter un commentaire",
+      "inText": "Dans le texte",
+      "placeholder": "Commentaire",
+      "reply": "Répondre…",
+      "send": "Envoyer",
+      "resolve": "Résoudre",
+      "reopen": "Rouvrir",
+      "anchorRemoved": "Texte commenté supprimé",
+      "reanchor": "Réancrer",
+      "reanchorHint": "Sélectionne du texte dans l'activité, puis clique ici pour y rattacher ce fil.",
+      "resolvedCount": "Résolus ({count})",
+      "resolvedBy": "Résolu par {name} · {date}",
+      "edited": "modifié",
+      "noComments": "Aucun commentaire pour l'instant",
+      "deleteThreadWarning": "Supprimer ce fil de commentaires ? Les réponses seront également supprimées.",
+      "deleteCommentWarning": "Supprimer ce commentaire ?"
+    },
     "activity": {
       "content": {
         "checklist": {

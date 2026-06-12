@@ -288,6 +288,24 @@
         "warningTextLeaveCamp": "Do you want to leave the camp '{camp}'?"
       }
     },
+    "comments": {
+      "addComment": "Add comment",
+      "inText": "In the text",
+      "placeholder": "Comment",
+      "reply": "Reply…",
+      "send": "Send",
+      "resolve": "Resolve",
+      "reopen": "Reopen",
+      "anchorRemoved": "Commented text removed",
+      "reanchor": "Re-anchor",
+      "reanchorHint": "Select text in the activity, then click here to re-attach this thread to it.",
+      "resolvedCount": "Resolved ({count})",
+      "resolvedBy": "Resolved by {name} · {date}",
+      "edited": "edited",
+      "noComments": "No comments yet",
+      "deleteThreadWarning": "Delete this comment thread? Replies will be deleted as well.",
+      "deleteCommentWarning": "Delete this comment?"
+    },
     "dashboard": {
       "selectFilter": {
         "clear": "Clear"

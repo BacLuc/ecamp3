@@ -288,6 +288,24 @@
         "warningTextLeaveCamp": "Möchtest du das Lager '{camp}' wirklich verlassen?"
       }
     },
+    "comments": {
+      "addComment": "Kommentar hinzufügen",
+      "inText": "Im Text",
+      "placeholder": "Kommentar",
+      "reply": "Antworten…",
+      "send": "Senden",
+      "resolve": "Erledigt",
+      "reopen": "Wieder öffnen",
+      "anchorRemoved": "Kommentierte Stelle entfernt",
+      "reanchor": "Neu verankern",
+      "reanchorHint": "Wähle Text in der Aktivität aus und klicke dann hier, um den Thread daran zu verankern.",
+      "resolvedCount": "Erledigt ({count})",
+      "resolvedBy": "Erledigt von {name} · {date}",
+      "edited": "bearbeitet",
+      "noComments": "Noch keine Kommentare",
+      "deleteThreadWarning": "Diesen Kommentar-Thread löschen? Antworten werden ebenfalls gelöscht.",
+      "deleteCommentWarning": "Diesen Kommentar löschen?"
+    },
     "dashboard": {
       "selectFilter": {
         "clear": "Zurücksetzen"
