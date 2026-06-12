@@ -8,6 +8,15 @@ exercise_html_purifier:
                 Core.Encoding: 'UTF-8'
                 # full configuration reference: http://htmlpurifier.org/live/configdoc/plain.html
 
+            # Allow the anchor for inline (Google-Docs-style) comments to survive
+            # sanitization. The mark is inert (no behaviour, no scripting) and is
+            # used by the frontend TipTap CommentMark extension to tie a comment
+            # thread to a range of rich text. XSS-relevant attributes are still
+            # stripped by HTMLPurifier as usual.
+            attributes:
+                span:
+                    data-comment-id: CDATA
+
 # Read the https://github.com/Exercise/HTMLPurifierBundle/blob/master/README.md file
 # to know how to whitelist elements
 
