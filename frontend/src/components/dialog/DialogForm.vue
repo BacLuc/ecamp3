@@ -113,9 +113,12 @@ export default {
     async doSubmit() {
       this.isSaving = true
       this.$emit('update:saving-override', true)
-      await this.submitAction()
-      this.isSaving = false
-      this.$emit('update:saving-override', false)
+      try {
+        await this.submitAction()
+      } finally {
+        this.isSaving = false
+        this.$emit('update:saving-override', false)
+      }
     },
     doCancel() {
       this.isSaving = false
