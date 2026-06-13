@@ -1,6 +1,6 @@
 <template>
   <ValidationField
-    v-slot="{ handleChange, errors: veeErrors }"
+    v-slot="{ handleChange, handleBlur, errors: veeErrors }"
     :name="veeId ?? path ?? validationLabel"
     :label="validationLabel"
     :vee-rules="veeRules"
@@ -20,6 +20,11 @@
           handleChange($event)
           $emit('update:modelValue', $event)
           $emit('input', $event)
+        }
+      "
+      @update:focused="
+        (focused) => {
+          if (!focused) handleBlur()
         }
       "
     >
