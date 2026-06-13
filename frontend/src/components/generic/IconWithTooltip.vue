@@ -1,20 +1,14 @@
 <template>
   <v-tooltip
     v-if="showIcon"
-    v-model="showTooltip"
     color="#333"
     location="bottom"
     max-width="300px"
+    :open-on-click="$vuetify.display.smAndDown"
+    :open-on-hover="$vuetify.display.mdAndUp"
   >
     <template #activator="{ props }">
-      <v-btn
-        :icon="icon"
-        class="tooltip-activator"
-        v-bind="props"
-        @click="click"
-        @mouseenter="mouseenter"
-        @mouseleave="mouseleave"
-      />
+      <v-btn :icon="icon" class="tooltip-activator" v-bind="props" />
     </template>
     <slot>
       {{ text }}
@@ -35,11 +29,6 @@ export default {
     text: { type: String, required: false, default: undefined },
     tooltipI18nKey: { type: String, required: false, default: undefined },
   },
-  data() {
-    return {
-      showTooltip: false,
-    }
-  },
   computed: {
     showIcon() {
       return (
@@ -47,21 +36,6 @@ export default {
         'default' in this.$slots ||
         this.$t(this.tooltipI18nKey) != this.tooltipI18nKey
       )
-    },
-  },
-  methods: {
-    click() {
-      if (this.$vuetify.display.xs) {
-        this.showTooltip = !this.showTooltip
-      }
-    },
-    mouseenter() {
-      if (!this.$vuetify.display.xs) {
-        this.showTooltip = true
-      }
-    },
-    mouseleave() {
-      this.showTooltip = false
     },
   },
 }
