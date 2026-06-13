@@ -8,6 +8,8 @@ security:
             algorithm: auto
         EmailVerification:
             algorithm: auto
+        ActivationKey:
+            algorithm: auto
 
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     # https://symfony.com/doc/current/security/user_providers.html#using-a-custom-query-to-load-the-user
@@ -71,6 +73,11 @@ when@test:
                 time_cost: 3 # Lowest possible value for argon
                 memory_cost: 10 # Lowest possible value for argon
             EmailVerification:
+                algorithm: auto
+                cost: 4 # Lowest possible value for bcrypt
+                time_cost: 3 # Lowest possible value for argon
+                memory_cost: 10 # Lowest possible value for argon
+            ActivationKey:
                 algorithm: auto
                 cost: 4 # Lowest possible value for bcrypt
                 time_cost: 3 # Lowest possible value for argon

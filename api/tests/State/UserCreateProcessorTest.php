@@ -12,8 +12,10 @@ use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use ReCaptcha\Response;
+use Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactoryInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasher;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\PasswordHasher\PasswordHasherInterface;
 
 /**
  * @internal
@@ -23,6 +25,7 @@ class UserCreateProcessorTest extends TestCase {
     private MockObject|Response $recaptchaResponse;
     private MockObject|UserPasswordHasherInterface $userPasswordHasher;
     private MailService|MockObject $mailService;
+    private MockObject|PasswordHasherInterface $activationKeyHasher;
     private User $user;
 
     /**
@@ -37,12 +40,16 @@ class UserCreateProcessorTest extends TestCase {
 
         $this->userPasswordHasher = $this->createMock(UserPasswordHasher::class);
         $this->mailService = $this->createMock(MailService::class);
+        $this->activationKeyHasher = $this->createMock(PasswordHasherInterface::class);
+        $pwHasherFactory = $this->createMock(PasswordHasherFactoryInterface::class);
+        $pwHasherFactory->method('getPasswordHasher')->willReturn($this->activationKeyHasher);
         $decoratedProcessor = $this->createStub(ProcessorInterface::class);
         $this->processor = new UserCreateProcessor(
             $decoratedProcessor,
             $recaptcha,
             $this->userPasswordHasher,
-            $this->mailService
+            $this->mailService,
+            $pwHasherFactory,
         );
     }
 
@@ -99,6 +106,7 @@ class UserCreateProcessorTest extends TestCase {
             ->method('isSuccess')
             ->willReturn(true)
         ;
+        $this->activationKeyHasher->method('hash')->willReturn('hashed activation key');
         $this->mailService->expects($this->once())->method('sendUserActivationMail');
 
         // when

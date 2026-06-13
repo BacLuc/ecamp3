@@ -14,6 +14,8 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactoryInterface;
+use Symfony\Component\PasswordHasher\PasswordHasherInterface;
 
 /**
  * @implements ProcessorInterface<UserActivation,null>
@@ -24,6 +26,7 @@ readonly class ResendActivationProcessor implements ProcessorInterface {
         private EntityManagerInterface $em,
         private UserRepository $userRepository,
         private MailService $mailService,
+        private PasswordHasherFactoryInterface $pwHasherFactory,
     ) {}
 
     /**
@@ -49,11 +52,15 @@ readonly class ResendActivationProcessor implements ProcessorInterface {
         }
 
         $user->activationKey = IdGenerator::generateRandomHexString(64);
-        $user->activationKeyHash = md5($user->activationKey);
+        $user->activationKeyHash = $this->getActivationKeyHasher()->hash($user->activationKey);
         $this->em->flush();
 
         $this->mailService->sendUserActivationMail($user, $user->activationKey);
 
         return null;
+    }
+
+    private function getActivationKeyHasher(): PasswordHasherInterface {
+        return $this->pwHasherFactory->getPasswordHasher('ActivationKey');
     }
 }

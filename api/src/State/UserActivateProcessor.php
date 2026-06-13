@@ -8,6 +8,8 @@ use App\Entity\User;
 use App\Service\ClaimInvitationService;
 use App\State\Util\AbstractPersistProcessor;
 use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactoryInterface;
+use Symfony\Component\PasswordHasher\PasswordHasherInterface;
 
 /**
  * @template-extends AbstractPersistProcessor<User>
@@ -16,6 +18,7 @@ class UserActivateProcessor extends AbstractPersistProcessor {
     public function __construct(
         ProcessorInterface $decorated,
         private readonly ClaimInvitationService $claimInvitationService,
+        private readonly PasswordHasherFactoryInterface $pwHasherFactory,
     ) {
         parent::__construct($decorated);
     }
@@ -25,7 +28,7 @@ class UserActivateProcessor extends AbstractPersistProcessor {
      */
     #[\Override]
     public function onBefore($data, Operation $operation, array $uriVariables = [], array $context = []): User {
-        if ($data->activationKeyHash === md5($data->activationKey)) {
+        if ($this->getActivationKeyHasher()->verify($data->activationKeyHash, $data->activationKey)) {
             $data->state = User::STATE_ACTIVATED;
             $data->activationKey = null;
             $data->activationKeyHash = null;
@@ -40,5 +43,9 @@ class UserActivateProcessor extends AbstractPersistProcessor {
         /** @var User $user */
         $user = $data;
         $this->claimInvitationService->claimInvitations($user, $user->getEmail());
+    }
+
+    private function getActivationKeyHasher(): PasswordHasherInterface {
+        return $this->pwHasherFactory->getPasswordHasher('ActivationKey');
     }
 }

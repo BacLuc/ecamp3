@@ -10,7 +10,9 @@ use App\Service\MailService;
 use App\State\Util\AbstractPersistProcessor;
 use App\Util\IdGenerator;
 use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactoryInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\PasswordHasher\PasswordHasherInterface;
 
 /**
  * @template-extends AbstractPersistProcessor<User>
@@ -20,7 +22,8 @@ class UserCreateProcessor extends AbstractPersistProcessor {
         ProcessorInterface $decorated,
         private readonly ReCaptchaWrapper $reCaptcha,
         private readonly UserPasswordHasherInterface $userPasswordHasher,
-        private readonly MailService $mailService
+        private readonly MailService $mailService,
+        private readonly PasswordHasherFactoryInterface $pwHasherFactory,
     ) {
         parent::__construct($decorated);
     }
@@ -41,7 +44,7 @@ class UserCreateProcessor extends AbstractPersistProcessor {
             $data->prepareForSerialization();
         }
         $data->activationKey = IdGenerator::generateRandomHexString(64);
-        $data->activationKeyHash = md5($data->activationKey);
+        $data->activationKeyHash = $this->getActivationKeyHasher()->hash($data->activationKey);
 
         return $data;
     }
@@ -51,5 +54,9 @@ class UserCreateProcessor extends AbstractPersistProcessor {
      */
     public function onAfter($data, Operation $operation, array $uriVariables = [], array $context = []): void {
         $this->mailService->sendUserActivationMail($data, $data->activationKey);
+    }
+
+    private function getActivationKeyHasher(): PasswordHasherInterface {
+        return $this->pwHasherFactory->getPasswordHasher('ActivationKey');
     }
 }

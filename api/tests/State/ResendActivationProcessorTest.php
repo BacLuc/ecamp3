@@ -16,6 +16,8 @@ use PHPUnit\Framework\MockObject\Exception;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use ReCaptcha\Response;
+use Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactoryInterface;
+use Symfony\Component\PasswordHasher\PasswordHasherInterface;
 
 use function PHPUnit\Framework\isNull;
 use function PHPUnit\Framework\logicalNot;
@@ -31,6 +33,7 @@ class ResendActivationProcessorTest extends TestCase {
     private MockObject|Response $recaptchaResponse;
     private MockObject|UserRepository $userRepository;
     private MailService|MockObject $mailService;
+    private MockObject|PasswordHasherInterface $activationKeyHasher;
 
     private ResendActivationProcessor $processor;
 
@@ -45,14 +48,19 @@ class ResendActivationProcessorTest extends TestCase {
         $entityManager = $this->createStub(EntityManager::class);
         $this->userRepository = $this->createMock(UserRepository::class);
         $this->mailService = $this->createMock(MailService::class);
+        $this->activationKeyHasher = $this->createMock(PasswordHasherInterface::class);
+        $pwHasherFactory = $this->createMock(PasswordHasherFactoryInterface::class);
+        $pwHasherFactory->method('getPasswordHasher')->willReturn($this->activationKeyHasher);
 
         $recaptcha->method('verify')->willReturn($this->recaptchaResponse);
+        $this->activationKeyHasher->method('hash')->willReturnCallback(md5(...));
 
         $this->processor = new ResendActivationProcessor(
             $recaptcha,
             $entityManager,
             $this->userRepository,
-            $this->mailService
+            $this->mailService,
+            $pwHasherFactory,
         );
     }
 
