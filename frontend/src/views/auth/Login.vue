@@ -211,11 +211,9 @@ export default {
     HorizontalRule,
     AuthContainer,
   },
-  beforeRouteEnter(to, from, next) {
+  beforeRouteEnter(to) {
     if (isLoggedIn()) {
-      next(to.query.redirect || '/')
-    } else {
-      next()
+      return to.query.redirect || '/'
     }
   },
   data() {
