@@ -14,7 +14,9 @@ use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use App\InputFilter;
 use App\Repository\ActivityRepository;
+use App\State\ActivityCollectionProvider;
 use App\State\ActivityCreateProcessor;
+use App\State\ActivityItemProvider;
 use App\State\ActivityRemoveProcessor;
 use App\Validator\AssertBelongsToSameCamp;
 use App\Validator\AssertLastCollectionItemIsNotDeleted;
@@ -33,7 +35,8 @@ use Symfony\Component\Validator\Constraints as Assert;
         new Get(
             normalizationContext: self::ITEM_NORMALIZATION_CONTEXT,
             security: 'is_granted("CAMP_COLLABORATOR", object) or
-                       is_granted("CAMP_IS_PUBLIC", object)'
+                       is_granted("CAMP_IS_PUBLIC", object)',
+            provider: ActivityItemProvider::class
         ),
         new Patch(
             normalizationContext: self::ITEM_NORMALIZATION_CONTEXT,
@@ -46,7 +49,8 @@ use Symfony\Component\Validator\Constraints as Assert;
         ),
         new GetCollection(
             normalizationContext: self::COLLECTION_NORMALIZATION_CONTEXT,
-            security: 'is_authenticated()'
+            security: 'is_authenticated()',
+            provider: ActivityCollectionProvider::class
         ),
         new GetCollection(
             uriTemplate: self::CAMP_SUBRESOURCE_URI_TEMPLATE,
@@ -62,7 +66,8 @@ use Symfony\Component\Validator\Constraints as Assert;
             security: 'is_fully_authenticated()',
             extraProperties: [
                 'filter_by_current_user' => false,
-            ]
+            ],
+            provider: ActivityCollectionProvider::class
         ),
         new Post(
             normalizationContext: self::ITEM_NORMALIZATION_CONTEXT,

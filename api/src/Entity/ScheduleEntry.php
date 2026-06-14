@@ -15,6 +15,7 @@ use ApiPlatform\Metadata\Post;
 use App\Doctrine\Filter\ExpressionDateTimeFilter;
 use App\HttpCache\CanGenerateTagsInterface;
 use App\Repository\ScheduleEntryRepository;
+use App\State\ScheduleEntryCollectionProvider;
 use App\Util\DateTimeUtil;
 use App\Validator\AssertBelongsToSameCamp;
 use App\Validator\ScheduleEntryPostGroupSequence;
@@ -44,7 +45,8 @@ use Symfony\Component\Validator\Constraints as Assert;
             validate: true
         ),
         new GetCollection(
-            security: 'is_authenticated()'
+            security: 'is_authenticated()',
+            provider: ScheduleEntryCollectionProvider::class
         ),
         new GetCollection(
             uriTemplate: self::PERIOD_SUBRESOURCE_URI_TEMPLATE,
@@ -59,7 +61,8 @@ use Symfony\Component\Validator\Constraints as Assert;
             security: 'is_fully_authenticated()',
             extraProperties: [
                 'filter_by_current_user' => false,
-            ]
+            ],
+            provider: ScheduleEntryCollectionProvider::class
         ),
         new Post(
             normalizationContext: self::ITEM_NORMALIZATION_CONTEXT,

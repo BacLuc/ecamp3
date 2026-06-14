@@ -12,6 +12,7 @@ use ApiPlatform\Metadata\Link;
 use App\HttpCache\CanGenerateTagsInterface;
 use App\Repository\DayRepository;
 use App\Serializer\Normalizer\RelatedCollectionLink;
+use App\State\DayItemProvider;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -30,7 +31,8 @@ use Symfony\Component\Serializer\Attribute\SerializedName;
         new Get(
             normalizationContext: self::ITEM_NORMALIZATION_CONTEXT,
             security: 'is_granted("CAMP_COLLABORATOR", object) or
-                       is_granted("CAMP_IS_PUBLIC", object)'
+                       is_granted("CAMP_IS_PUBLIC", object)',
+            provider: DayItemProvider::class
         ),
         new GetCollection(
             normalizationContext: self::COLLECTION_NORMALIZATION_CONTEXT,
