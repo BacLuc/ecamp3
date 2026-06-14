@@ -79,6 +79,7 @@ class Camp extends BaseEntity implements BelongsToCampInterface, CopyFromPrototy
 
     #[AssertContainsAtLeastOneManager(groups: ['update'])]
     #[SerializedName('campCollaborations')]
+    #[ApiProperty(writable: false, uriTemplate: CampCollaboration::CAMP_SUBRESOURCE_URI_TEMPLATE)]
     #[Groups(['read'])]
     #[ORM\OneToMany(targetEntity: CampCollaboration::class, mappedBy: 'camp', orphanRemoval: true)]
     #[ORM\OrderBy(['status' => 'ASC', 'role' => 'ASC', 'createTime' => 'ASC'])]
@@ -161,6 +162,8 @@ class Camp extends BaseEntity implements BelongsToCampInterface, CopyFromPrototy
     /**
      * List of MaterialItems that belong to this Camp.
      */
+    #[ApiProperty(writable: false, uriTemplate: MaterialItem::CAMP_SUBRESOURCE_URI_TEMPLATE)]
+    #[Groups(['read'])]
     #[ORM\OneToMany(targetEntity: MaterialItem::class, mappedBy: 'camp', cascade: ['persist'], orphanRemoval: true)]
     #[ORM\OrderBy(['article' => 'ASC', 'createTime' => 'ASC'])]
     public Collection $materialItems;
@@ -495,6 +498,36 @@ class Camp extends BaseEntity implements BelongsToCampInterface, CopyFromPrototy
     }
 
     /**
+     * All the content nodes that are part of this camp's programme.
+     *
+     * @return ContentNode[]
+     */
+    #[RelatedCollectionLink(ContentNode::class, ['camp' => 'camp'], uriTemplate: ContentNode::CAMP_SUBRESOURCE_URI_TEMPLATE, queryTemplate: '{?isRoot,period,contentType,page}')]
+    #[ApiProperty(
+        writable: false,
+        openapiContext: ['description' => 'All the content nodes that are part of this camp\'s programme.']
+    )]
+    #[Groups(['read'])]
+    public function getContentNodes(): array {
+        return [];
+    }
+
+    /**
+     * All the activity responsibles in this camp.
+     *
+     * @return ActivityResponsible[]
+     */
+    #[ApiProperty(
+        writable: false,
+        uriTemplate: ActivityResponsible::CAMP_SUBRESOURCE_URI_TEMPLATE,
+        openapiContext: ['description' => 'All the activity responsibles in this camp.']
+    )]
+    #[Groups(['read'])]
+    public function getActivityResponsibles(): array {
+        return [];
+    }
+
+    /**
      * The people working on planning and carrying out the camp. Only collaborators have access
      * to the camp's contents.
      *
@@ -696,6 +729,7 @@ class Camp extends BaseEntity implements BelongsToCampInterface, CopyFromPrototy
     /**
      * @return MaterialItem[]
      */
+    #[RelatedCollectionLink(MaterialItem::class, ['camp' => 'camp'], uriTemplate: MaterialItem::CAMP_SUBRESOURCE_URI_TEMPLATE, queryTemplate: '{?period,materialList,page}')]
     public function getMaterialItems(): array {
         return $this->materialItems->getValues();
     }

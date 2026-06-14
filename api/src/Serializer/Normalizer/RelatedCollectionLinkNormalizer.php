@@ -113,9 +113,19 @@ class RelatedCollectionLinkNormalizer implements NormalizerInterface, Serializer
             return $normalized_data;
         }
 
+        $resourceClass = $this->getObjectClass($data);
         foreach ($normalized_data['_links'] as $rel => $link) {
-            // Only consider array rels (i.e. OneToMany and ManyToMany)
+            // For links that already have an href, check if a queryTemplate annotation upgrades them to templated links
             if (isset($link['href'])) {
+                // @phpstan-ignore instanceof.alwaysTrue
+                $phpPropName = $this->nameConverter instanceof NameConverterInterface
+                    ? $this->nameConverter->denormalize($rel, $resourceClass, null, array_merge($context, ['groups' => ['read']]))
+                    : $rel;
+                $annotation = $this->getRelatedCollectionLinkAnnotation($resourceClass, $phpPropName);
+                if ($annotation && $annotation->getQueryTemplate()) {
+                    $normalized_data['_links'][$rel] = ['href' => $link['href'].$annotation->getQueryTemplate(), 'templated' => true];
+                }
+
                 continue;
             }
 
@@ -126,10 +136,11 @@ class RelatedCollectionLinkNormalizer implements NormalizerInterface, Serializer
                 continue;
             }
 
-            if (!$this->getRelatedCollectionHref($data, $rel, $context, $result)) {
+            $templated = false;
+            if (!$this->getRelatedCollectionHref($data, $rel, $context, $result, $templated)) {
                 continue;
             }
-            $normalized_data['_links'][$rel] = ['href' => $result];
+            $normalized_data['_links'][$rel] = $templated ? ['href' => $result, 'templated' => true] : ['href' => $result];
         }
 
         return $normalized_data;
@@ -145,7 +156,7 @@ class RelatedCollectionLinkNormalizer implements NormalizerInterface, Serializer
         }
     }
 
-    protected function getRelatedCollectionHref($object, $rel, array $context, &$href): bool {
+    protected function getRelatedCollectionHref($object, $rel, array $context, &$href, bool &$templated = false): bool {
         $resourceClass = $this->getObjectClass($object);
 
         // @phpstan-ignore instanceof.alwaysTrue
@@ -154,7 +165,61 @@ class RelatedCollectionLinkNormalizer implements NormalizerInterface, Serializer
         }
 
         if ($annotation = $this->getRelatedCollectionLinkAnnotation($resourceClass, $rel)) {
-            // If there is an explicit annotation, there is no need to inspect the Doctrine metadata
+            if ($annotation->getUriTemplate()) {
+                $relatedEntity = $annotation->getRelatedEntity();
+                $resourceMetadataCollection = $this->resourceMetadataCollectionFactory->create($relatedEntity);
+                $subresourceOperation = null;
+                foreach ($resourceMetadataCollection as $apiResource) {
+                    foreach ($apiResource->getOperations() ?? [] as $op) {
+                        if ($op instanceof GetCollection && $op->getUriTemplate() === $annotation->getUriTemplate()) {
+                            $subresourceOperation = $op;
+
+                            break 2;
+                        }
+                    }
+                }
+
+                if ($subresourceOperation) {
+                    $annotationParams = $annotation->getParams();
+                    $campPropertyPath = $annotationParams['camp'] ?? null;
+                    $camp = $campPropertyPath ? $this->propertyAccessor->getValue($object, $campPropertyPath) : null;
+
+                    if ($camp) {
+                        $uriVariables = $subresourceOperation->getUriVariables() ?? [];
+                        $routeParams = [];
+                        foreach ($uriVariables as $varName => $link) {
+                            $routeParams[$varName] = $camp->getId();
+                        }
+
+                        $baseUrl = $this->router->generate($subresourceOperation->getName(), $routeParams, UrlGeneratorInterface::ABS_PATH);
+
+                        $queryParams = [];
+                        foreach ($annotationParams as $key => $value) {
+                            if ('camp' !== $key) {
+                                if ('$this' === $value) {
+                                    $queryParams[$key] = $this->normalizeUriParam($object);
+                                } else {
+                                    $queryParams[$key] = $this->normalizeUriParam($this->propertyAccessor->getValue($object, $value));
+                                }
+                            }
+                        }
+
+                        if (!empty($queryParams)) {
+                            $baseUrl .= (str_contains($baseUrl, '?') ? '&' : '?').http_build_query($queryParams);
+                        }
+
+                        if ($annotation->getQueryTemplate()) {
+                            $baseUrl .= $annotation->getQueryTemplate();
+                            $templated = true;
+                        }
+
+                        $href = $baseUrl;
+
+                        return true;
+                    }
+                }
+            }
+
             $params = $this->extractUriParams($object, $annotation->getParams());
             [$uriTemplate] = $this->uriTemplateFactory->createFromResourceClass($annotation->getRelatedEntity());
 

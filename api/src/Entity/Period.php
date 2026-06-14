@@ -280,7 +280,7 @@ class Period extends BaseEntity implements BelongsToCampInterface {
      * @return ContentNode[]
      */
     #[ApiProperty(writable: false, example: '["/content_nodes/1a2b3c4d"]')]
-    #[RelatedCollectionLink(ContentNode::class, ['period' => '$this'])]
+    #[RelatedCollectionLink(ContentNode::class, ['camp' => 'camp', 'period' => '$this'], uriTemplate: ContentNode::CAMP_SUBRESOURCE_URI_TEMPLATE)]
     #[Groups(['read'])]
     public function getContentNodes(): array {
         return [];
@@ -303,7 +303,7 @@ class Period extends BaseEntity implements BelongsToCampInterface {
      * @return MaterialItem[]
      */
     #[ApiProperty(writable: false, example: '["/material_items/1a2b3c4d"]')]
-    #[RelatedCollectionLink(MaterialItem::class, ['period' => '$this'])]
+    #[RelatedCollectionLink(MaterialItem::class, ['camp' => 'camp', 'period' => '$this'], uriTemplate: MaterialItem::CAMP_SUBRESOURCE_URI_TEMPLATE)]
     #[Groups(['read'])]
     public function getMaterialItems(): array {
         return $this->materialItems->getValues();

@@ -48,7 +48,7 @@ trait HasRootContentNodeTrait {
     #[ApiProperty(example: '/content_nodes?root=%2Fcontent_node%2Fcolumn_layouts%2F1a2b3c4d')]
     #[SerializedName('contentNodes')]
     #[Groups(['read'])]
-    #[RelatedCollectionLink(ContentNode::class, ['root' => 'rootContentNode'])]
+    #[RelatedCollectionLink(ContentNode::class, ['camp' => 'camp', 'root' => 'rootContentNode'], uriTemplate: ContentNode::CAMP_SUBRESOURCE_URI_TEMPLATE)]
     public function getEmptyContentNodesForIriGeneration(): array {
         return [];
     }
