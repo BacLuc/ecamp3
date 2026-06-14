@@ -9,10 +9,10 @@ use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Link;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use App\Doctrine\Filter\MaterialItemPeriodFilter;
-use App\Entity\ContentNode\MaterialNode;
 use App\InputFilter;
 use App\Repository\MaterialItemRepository;
 use App\State\MaterialItemCollectionProvider;
@@ -47,6 +47,17 @@ use Symfony\Component\Validator\Constraints as Assert;
             security: 'is_authenticated()',
             provider: MaterialItemCollectionProvider::class
         ),
+        new GetCollection(
+            uriTemplate: '/camps/{campId}/material_items{._format}',
+            uriVariables: [
+                'campId' => new Link(
+                    toProperty: 'camp',
+                    fromClass: Camp::class,
+                    security: 'is_granted("CAMP_COLLABORATOR", camp) or is_granted("CAMP_IS_PUBLIC", camp)'
+                ),
+            ],
+            security: 'is_fully_authenticated()',
+        ),
         new Post(
             denormalizationContext: ['groups' => ['write', 'create']],
             securityPostDenormalize: 'is_granted("CAMP_MEMBER", object) or is_granted("CAMP_MANAGER", object) or (object.period === null and object.materialNode === null)',
@@ -60,6 +71,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ApiFilter(filterClass: MaterialItemPeriodFilter::class)]
 #[ORM\Entity(repositoryClass: MaterialItemRepository::class)]
 class MaterialItem extends BaseEntity implements BelongsToCampInterface, CopyFromPrototypeInterface {
+    public const CAMP_SUBRESOURCE_URI_TEMPLATE = '/camps/{campId}/material_items{._format}';
+
     /**
      * The Camp to which this item belongs.
      * Either Period or MaterialNode is always set. This reference is
