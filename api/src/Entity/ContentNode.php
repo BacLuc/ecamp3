@@ -7,6 +7,7 @@ use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Link;
 use App\Doctrine\Filter\ContentNodeCampFilter;
 use App\Doctrine\Filter\ContentNodeIsRootFilter;
 use App\Doctrine\Filter\ContentNodePeriodFilter;
@@ -42,6 +43,17 @@ use Symfony\Component\Validator\Constraints as Assert;
             security: 'is_authenticated()',
             provider: ContentNodeCollectionProvider::class
         ),
+        new GetCollection(
+            uriTemplate: self::CAMP_SUBRESOURCE_URI_TEMPLATE,
+            uriVariables: [
+                'campId' => new Link(
+                    fromClass: Camp::class,
+                    security: 'is_granted("CAMP_COLLABORATOR", campId) or is_granted("CAMP_IS_PUBLIC", campId)'
+                ),
+            ],
+            security: 'is_authenticated()',
+            provider: ContentNodeCollectionProvider::class
+        ),
     ],
     normalizationContext: ['groups' => ['read']],
     denormalizationContext: ['groups' => ['write']],
@@ -60,6 +72,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Index(columns: ['id'], options: ['where' => '((strategy)::text = \'checklistnode\'::text)'])]
 abstract class ContentNode extends BaseEntity implements BelongsToCampInterface, BelongsToContentNodeTreeInterface, CopyFromPrototypeInterface, HasParentInterface {
     use ClassInfoTrait;
+
+    public const CAMP_SUBRESOURCE_URI_TEMPLATE = '/camps/{campId}/content_nodes{._format}';
 
     /**
      * The content node that is the root of the content node tree. Refers to itself in case this

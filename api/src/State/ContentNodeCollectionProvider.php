@@ -19,6 +19,11 @@ class ContentNodeCollectionProvider implements ProviderInterface {
 
     public function provide(Operation $operation, array $uriVariables = [], array $context = []): array|object|null {
         $request = $this->requestStack->getCurrentRequest();
+
+        if (isset($uriVariables['campId'])) {
+            $request?->query->set('camp', '/camps/'.$uriVariables['campId']);
+        }
+
         $hasFilter = $request?->query->has('camp') || $request?->query->has('period') || $request?->query->has('root');
 
         if (!$hasFilter) {

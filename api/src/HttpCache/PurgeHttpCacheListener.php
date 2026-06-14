@@ -33,7 +33,6 @@ use Doctrine\ORM\Mapping\AssociationMapping;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\PersistentCollection;
 use FOS\HttpCacheBundle\CacheManager;
-use Symfony\Component\PropertyAccess\Exception\NoSuchPropertyException;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 
 /**
@@ -201,22 +200,10 @@ final readonly class PurgeHttpCacheListener {
         $oldIri = '';
 
         if ($this->canGenerateIri($operation, $entity)) {
-            try {
-                $iri = $this->iriConverter->getIriFromResource($entity, UrlGeneratorInterface::ABS_PATH, $operation);
-            } catch (NoSuchPropertyException $e) { // @phpstan-ignore catch.neverThrown
-                // NoSuchPropertyException is thrown for cases where uri parameters cannot determined automatically
-                // (for example for the folowing route '/content_node/checklist_nodes/{checklistNodeId}/checklist_items{._format}')
-                // if such routes should be cached, custom logic is needed to purge the correct IRIs
-            }
+            $iri = $this->iriConverter->getIriFromResource($entity, UrlGeneratorInterface::ABS_PATH, $operation);
         }
         if ($oldEntity && $this->canGenerateIri($operation, $oldEntity)) {
-            try {
-                $oldIri = $this->iriConverter->getIriFromResource($oldEntity, UrlGeneratorInterface::ABS_PATH, $operation);
-            } catch (NoSuchPropertyException $e) { // @phpstan-ignore catch.neverThrown
-                // NoSuchPropertyException is thrown for cases where uri parameters cannot determined automatically
-                // (for example for the folowing route '/content_node/checklist_nodes/{checklistNodeId}/checklist_items{._format}')
-                // if such routes should be cached, custom logic is needed to purge the correct IRIs
-            }
+            $oldIri = $this->iriConverter->getIriFromResource($oldEntity, UrlGeneratorInterface::ABS_PATH, $operation);
         }
         if ($iri !== $oldIri) {
             if ($iri) {
@@ -304,14 +291,13 @@ final readonly class PurgeHttpCacheListener {
 
     private function canGenerateIri(GetCollection $operation, object $entity) {
         if (is_iterable($operation->getUriVariables())) {
-            // UriVariable is Link, toProperty is set, fromClass is a entity
             foreach ($operation->getUriVariables() as $uriVariable) {
-                if (is_a($uriVariable, Link::class)
-                    && is_string($uriVariable->getToProperty())
-                    && is_a($uriVariable->getFromClass(), HasId::class, true)
-                ) {
-                    // value of toProperty is NULL; Read of its ID will throw Exception
-                    // -> invalid
+                if (is_a($uriVariable, Link::class) && is_a($uriVariable->getFromClass(), HasId::class, true)) {
+                    if (!is_string($uriVariable->getToProperty())) {
+                        // No toProperty means the URI variable cannot be resolved from the entity
+                        return false;
+                    }
+                    // value of toProperty is NULL; generating IRI would fail
                     if (null == $entity->{$uriVariable->getToProperty()}) {
                         return false;
                     }
