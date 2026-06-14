@@ -50,56 +50,77 @@ export { getPdfProperties } from './getPdfProperties'
 export async function expectCacheHeader(
   request: APIRequestContext,
   uri: string,
-  expectedHeader: string
+  expectedHeader: string,
+  params?: Record<string, string>
 ) {
+  const paramStr = params ? '?' + new URLSearchParams(params).toString() : ''
+
   await test.step(
-    `Check Header: ${expectedHeader}`,
+    `Check Header: ${expectedHeader} for ${uri}${paramStr}`,
     async () => {
-      const response = await request.get(`${API_ROOT_URL_CACHED}${uri}.jsonhal`)
+      const response = await apiGet(request, uri, params)
       expect(response.headers()['x-cache']).toBe(expectedHeader)
     },
     { box: true }
   )
 }
 
-export async function expectCacheHit(request: APIRequestContext, uri: string) {
+export async function expectCacheHit(
+  request: APIRequestContext,
+  uri: string,
+  params?: Record<string, string>
+) {
   await test.step(
-    'Expect Cache HIT',
+    params ? `Expect Cache HIT for ${uri}?...` : 'Expect Cache HIT',
     async () => {
-      await expectCacheHeader(request, uri, 'HIT')
+      await expectCacheHeader(request, uri, 'HIT', params)
     },
     { box: true }
   )
 }
 
-export async function expectCacheMiss(request: APIRequestContext, uri: string) {
+export async function expectCacheMiss(
+  request: APIRequestContext,
+  uri: string,
+  params?: Record<string, string>
+) {
   await test.step(
-    'Expect Cache MISS',
+    params ? `Expect Cache MISS for ${uri}?...` : 'Expect Cache MISS',
     async () => {
-      await expectCacheHeader(request, uri, 'MISS')
+      await expectCacheHeader(request, uri, 'MISS', params)
     },
     { box: true }
   )
 }
 
-export async function expectCachePass(request: APIRequestContext, uri: string) {
+export async function expectCachePass(
+  request: APIRequestContext,
+  uri: string,
+  params?: Record<string, string>
+) {
   await test.step(
-    'Expect Cache PASS',
+    params ? `Expect Cache PASS for ${uri}?...` : 'Expect Cache PASS',
     async () => {
-      await expectCacheHeader(request, uri, 'PASS')
+      await expectCacheHeader(request, uri, 'PASS', params)
     },
     { box: true }
   )
 }
 
-export async function waitForCacheMiss(request: APIRequestContext, uri: string) {
+export async function waitForCacheMiss(
+  request: APIRequestContext,
+  uri: string,
+  params?: Record<string, string>
+) {
+  const paramStr = params ? '?' + new URLSearchParams(params).toString() : ''
+
   await test.step(
-    `Wait for Cache MISS on ${uri}`,
+    `Wait for Cache MISS on ${uri}${paramStr}`,
     async () => {
       await expect
         .poll(
           async () => {
-            const response = await request.get(`${API_ROOT_URL_CACHED}${uri}.jsonhal`)
+            const response = await apiGet(request, uri, params)
             return response.headers()['x-cache']
           },
           { timeout: 10000 }
@@ -110,8 +131,22 @@ export async function waitForCacheMiss(request: APIRequestContext, uri: string) 
   )
 }
 
-export async function apiGet(request: APIRequestContext, uri: string) {
-  return await request.get(`${API_ROOT_URL_CACHED}${uri}.jsonhal`)
+export async function apiGet(
+  request: APIRequestContext,
+  uri: string,
+  params?: Record<string, string>
+) {
+  let url = `${API_ROOT_URL_CACHED}${uri}.jsonhal`
+  if (params && Object.keys(params).length > 0) {
+    const queryString = Object.entries(params)
+      .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
+      .join('&')
+    url += `?${queryString}`
+  }
+  const hasParams = params && Object.keys(params).length > 0
+  return await request.get(url, {
+    headers: hasParams ? { Accept: 'application/hal+json' } : {},
+  })
 }
 
 export async function apiPatch(

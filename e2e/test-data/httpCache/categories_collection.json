@@ -36,7 +36,7 @@
             "href": "/api/content_node/column_layouts/9d7b3a220fb4"
           },
           "contentNodes": {
-            "href": "/api/content_nodes?root=%2Fapi%2Fcontent_node%2Fcolumn_layouts%2F9d7b3a220fb4"
+            "href": "/api/camps/3c79b99ab424/content_nodes?root=%2Fapi%2Fcontent_node%2Fcolumn_layouts%2F9d7b3a220fb4"
           }
         },
         "_embedded": {
@@ -63,7 +63,7 @@
             "href": "/api/content_node/column_layouts/be9b6b7f23f6"
           },
           "contentNodes": {
-            "href": "/api/content_nodes?root=%2Fapi%2Fcontent_node%2Fcolumn_layouts%2Fbe9b6b7f23f6"
+            "href": "/api/camps/3c79b99ab424/content_nodes?root=%2Fapi%2Fcontent_node%2Fcolumn_layouts%2Fbe9b6b7f23f6"
           }
         },
         "_embedded": {
@@ -195,7 +195,7 @@
             "href": "/api/content_node/column_layouts/63cbc734fa04"
           },
           "contentNodes": {
-            "href": "/api/content_nodes?root=%2Fapi%2Fcontent_node%2Fcolumn_layouts%2F63cbc734fa04"
+            "href": "/api/camps/3c79b99ab424/content_nodes?root=%2Fapi%2Fcontent_node%2Fcolumn_layouts%2F63cbc734fa04"
           }
         },
         "_embedded": {
@@ -314,7 +314,7 @@
             "href": "/api/content_node/column_layouts/2cce9e17a368"
           },
           "contentNodes": {
-            "href": "/api/content_nodes?root=%2Fapi%2Fcontent_node%2Fcolumn_layouts%2F2cce9e17a368"
+            "href": "/api/camps/3c79b99ab424/content_nodes?root=%2Fapi%2Fcontent_node%2Fcolumn_layouts%2F2cce9e17a368"
           }
         },
         "_embedded": {

@@ -193,5 +193,56 @@ test.describe(
       await waitForCacheMiss(bipiApi, uri)
       await expectCacheHit(bipiApi, uri)
     })
+
+    test.describe('query parameter caching: ?activity= filter', () => {
+      test('caches /periods/{periodId}/schedule_entries?activity= separately from base collection', async () => {
+        const uri = `/api/periods/${skilagerPeriodId}/schedule_entries`
+        const activityParams = { activity: '/api/activities/a13fadc97610' }
+
+        const bipiApi = await getAuthContext(bipiUser)
+
+        // Warm up base collection
+        await expectCacheMiss(bipiApi, uri)
+        await expectCacheHit(bipiApi, uri)
+
+        // Activity-filtered request is a separate cache entry (MISS)
+        await expectCacheMiss(bipiApi, uri, activityParams)
+        await expectCacheHit(bipiApi, uri, activityParams)
+
+        // Base collection should still be a HIT (separate cache entry)
+        await expectCacheHit(bipiApi, uri)
+      })
+
+      test('invalidates /periods/{periodId}/schedule_entries?activity= on scheduleEntry patch', async () => {
+        const uri = `/api/periods/${grgrPeriodId}/schedule_entries`
+        const activityParams = { activity: '/api/activities/ffd08c52288c' }
+        const scheduleEntryId = '12f34c89ce11'
+
+        // bring data into defined state
+        const bipiApi = await getAuthContext(bipiUser)
+        await apiPatch(bipiApi, `/api/schedule_entries/${scheduleEntryId}`, {
+          start: '2026-05-10T16:00:00+00:00',
+        })
+
+        // warm up cache for both base and filtered requests
+        await apiGet(bipiApi, uri)
+        await expectCacheHit(bipiApi, uri)
+        await apiGet(bipiApi, uri, activityParams)
+        await expectCacheHit(bipiApi, uri, activityParams)
+
+        // touch scheduleEntry
+        await apiPatch(bipiApi, `/api/schedule_entries/${scheduleEntryId}`, {
+          start: '2026-05-10T17:00:00+00:00',
+        })
+
+        // both base and filtered caches should be invalidated
+        await waitForCacheMiss(bipiApi, uri)
+        await waitForCacheMiss(bipiApi, uri, activityParams)
+
+        // both should be cacheable again
+        await expectCacheHit(bipiApi, uri)
+        await expectCacheHit(bipiApi, uri, activityParams)
+      })
+    })
   }
 )

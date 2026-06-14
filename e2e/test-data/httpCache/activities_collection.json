@@ -33,7 +33,7 @@
             "href": "/api/activity_progress_labels/af92782262d7"
           },
           "activityResponsibles": {
-            "href": "/api/activity_responsibles?activity=%2Fapi%2Factivities%2Fa13fadc97610"
+            "href": "/api/camps/70ca971c992f/activity_responsibles?activity=%2Fapi%2Factivities%2Fa13fadc97610"
           },
           "comments": {
             "href": "/api/activities/a13fadc97610/comments"
@@ -42,7 +42,7 @@
             "href": "/api/content_node/column_layouts/160f007bd04f"
           },
           "contentNodes": {
-            "href": "/api/content_nodes?root=%2Fapi%2Fcontent_node%2Fcolumn_layouts%2F160f007bd04f"
+            "href": "/api/camps/70ca971c992f/content_nodes?root=%2Fapi%2Fcontent_node%2Fcolumn_layouts%2F160f007bd04f"
           }
         },
         "_embedded": {
@@ -189,13 +189,13 @@
             "href": "/api/activities/b29d387cc403/comments"
           },
           "activityResponsibles": {
-            "href": "/api/activity_responsibles?activity=%2Fapi%2Factivities%2Fb29d387cc403"
+            "href": "/api/camps/70ca971c992f/activity_responsibles?activity=%2Fapi%2Factivities%2Fb29d387cc403"
           },
           "rootContentNode": {
             "href": "/api/content_node/column_layouts/335448226d2a"
           },
           "contentNodes": {
-            "href": "/api/content_nodes?root=%2Fapi%2Fcontent_node%2Fcolumn_layouts%2F335448226d2a"
+            "href": "/api/camps/70ca971c992f/content_nodes?root=%2Fapi%2Fcontent_node%2Fcolumn_layouts%2F335448226d2a"
           }
         },
         "_embedded": {

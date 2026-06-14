@@ -214,7 +214,7 @@ test.describe('cache test: /camps/{campId}/activities', { tag: '@mature' }, () =
     // add new activity responsible
     const postRes = await apiPost(bipiApi, '/api/activity_responsibles', {
       activity: '/activities/ffd08c52288c',
-      campCollaboration: '/camp_collaborations/b0bdb7202a9d',
+      campCollaboration: '/camp_collaborations/c88fd78c90ea',
     })
     const body = await postRes.json()
     const newActivityResponsibleUri = body._links.self.href
