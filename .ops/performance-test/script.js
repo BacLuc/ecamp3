@@ -76,8 +76,21 @@ export default function() {
         const itemResponse = http.get(`${host}${itemUrl}.jsonhal`, { headers: addAuthorizationHeadersIfNecessary() })
         metricsMap.get(`${urlWithoutTemplate}/item`)?.add(itemResponse.timings.duration)
         if (urlWithoutTemplate.includes('/api/camps')) {
-          for (const [_, value] of Object.entries(JSON.parse(itemResponse.body)._links)) {
+          const campItemBody = JSON.parse(itemResponse.body);
+          for (const [_, value] of Object.entries(campItemBody._links)) {
             measureCampRelation(value);
+          }
+          // Also measure period sub-resources (days, schedule_entries)
+          const periodsHref = campItemBody._links?.periods?.href;
+          if (periodsHref) {
+            const periodsResponse = http.get(`${host}${periodsHref}`, { headers: addAuthorizationHeadersIfNecessary({ 'accept': 'application/hal+json' }) });
+            const periodItemUrl = JSON.parse(periodsResponse.body)?._embedded?.items[0]?._links?.self?.href;
+            if (periodItemUrl) {
+              const periodResponse = http.get(`${host}${periodItemUrl}`, { headers: addAuthorizationHeadersIfNecessary({ 'accept': 'application/hal+json' }) });
+              for (const [_, value] of Object.entries(JSON.parse(periodResponse.body)._links)) {
+                measureCampRelation(value);
+              }
+            }
           }
         }
       }
@@ -92,6 +105,7 @@ export default function() {
 }
 
 function measureCampRelation(value) {
+  if (!value?.href) { return; }
   const urlToMeasure = value.href
   const urlWithReplacedId = urlToMeasure.replace(/(\/|%2F)[0-9a-f]{6,}\/?/, "/{id}/");
   const url = `${host}${urlToMeasure}`;
@@ -269,10 +283,14 @@ function getCampRelations() {
     "/api/camps/{id}/categories",
     "/api/activity_progress_labels?camp=%2Fapi%2Fcamps/{id}/",
     "/api/activities?camp=%2Fapi%2Fcamps/{id}/",
+    "/api/camps/{id}/activities",
     "/api/material_lists?camp=%2Fapi%2Fcamps/{id}/",
     "/api/camps/{id}/checklists",
+    "/api/camps/{id}/activity_progress_labels",
     "/api/users/{id}",
-    "/api/profiles?user.collaborations.camp=%2Fapi%2Fcamps/{id}/"
+    "/api/profiles?user.collaborations.camp=%2Fapi%2Fcamps/{id}/",
+    "/api/periods/{id}/schedule_entries",
+    "/api/periods/{id}/days",
   ];
 }
 
