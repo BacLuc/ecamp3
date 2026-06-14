@@ -5,7 +5,6 @@ import { slugify } from '@/plugins/slugify.js'
 import { componentI18n } from '@/plugins/i18n/index.js'
 import dayjs from '@/common/helpers/dayjs.js'
 import { campShortTitle } from '@/common/helpers/campShortTitle.js'
-import { apiStore } from '@/plugins/store/index.js'
 import { materialListFromRoute } from '@/router.js'
 import shortScheduleEntryDescription from './shortScheduleEntryDescription.js'
 
@@ -135,7 +134,7 @@ export function useMaterialViewHelper(camp, list) {
     const materialList = computedList.value?._meta.self
     return camp.periods().items.map((period) => ({
       period,
-      materialItems: apiStore.get().materialItems({
+      materialItems: camp.materialItems({
         period: period._meta.self,
         materialList,
       }),
@@ -147,11 +146,9 @@ export function useMaterialViewHelper(camp, list) {
 
   onMounted(async () => {
     await Promise.all([
-      apiStore
-        .get()
+      camp
         .contentNodes({
           isRoot: 'true',
-          camp: camp._meta.self,
         })
         .$loadItems(),
       ...collection.value.map(({ materialItems }) => materialItems.$reload()),

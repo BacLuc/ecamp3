@@ -516,10 +516,8 @@ export default {
       if (!contentTypeMaterial) {
         throw new Error('Material content type not found')
       }
-      await this.api
-        .get()
+      await this.camp
         .contentNodes({
-          camp: this.camp._meta.self,
           contentType: contentTypeMaterial._meta.self,
         })
         .$loadItems()

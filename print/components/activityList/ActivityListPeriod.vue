@@ -51,8 +51,8 @@ const { data, error } = await useAsyncData(
     )
 
     const contentNodePromises = contentTypes.map((contentType) =>
-      $api
-        .get()
+      props.period
+        .camp()
         .contentNodes({
           period: props.period._meta.self,
           contentType: contentType._meta.self,

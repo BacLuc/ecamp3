@@ -48,15 +48,15 @@ const { data, error } = await useAsyncData(
     )
 
     const [contentNodes] = await Promise.all([
-      $api
-        .get()
+      props.period
+        .camp()
         .contentNodes({
           period: props.period._meta.self,
           contentType: contentType._meta.self,
         })
         .$loadItems(),
-      $api
-        .get()
+      props.period
+        .camp()
         .contentNodes({
           isRoot: 'true',
           period: props.period._meta.self,

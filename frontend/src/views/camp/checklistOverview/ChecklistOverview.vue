@@ -78,11 +78,9 @@ export default {
         .then(({ items }) => {
           this.processChecklistItems(items)
         }),
-      this.api
-        .get()
+      this.camp
         .contentNodes({
           isRoot: 'true',
-          camp: this.camp._meta.self,
         })
         .$loadItems(),
     ]).then(() => {

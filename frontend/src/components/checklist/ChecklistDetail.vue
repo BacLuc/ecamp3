@@ -117,11 +117,9 @@ export default {
     },
   },
   async mounted() {
-    await this.api
-      .get()
+    await this.camp
       .contentNodes({
         isRoot: 'true',
-        camp: this.camp._meta.self,
       })
       .$loadItems()
 

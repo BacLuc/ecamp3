@@ -36,7 +36,7 @@ export default {
       return []
     },
     periodStoryChapters() {
-      return this.api.get().contentNodes({
+      return this.period.camp().contentNodes({
         period: this.period._meta.self,
         contentType: this.contentTypeStorycontext._meta.self,
       })
@@ -77,8 +77,8 @@ export default {
         this.period.days().$loadItems(),
         this.period.camp().activities().$loadItems(),
         this.period.camp().categories().$loadItems(),
-        this.api
-          .get()
+        this.period
+          .camp()
           .contentNodes({
             isRoot: 'true',
             period: this.period._meta.self,
