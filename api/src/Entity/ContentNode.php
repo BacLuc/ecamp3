@@ -51,7 +51,7 @@ use Symfony\Component\Validator\Constraints as Assert;
                     security: 'is_granted("CAMP_COLLABORATOR", campId) or is_granted("CAMP_IS_PUBLIC", campId)'
                 ),
             ],
-            security: 'is_authenticated()',
+            security: 'is_fully_authenticated()',
             provider: ContentNodeCollectionProvider::class
         ),
     ],

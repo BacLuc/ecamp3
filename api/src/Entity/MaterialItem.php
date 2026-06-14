@@ -48,7 +48,7 @@ use Symfony\Component\Validator\Constraints as Assert;
             provider: MaterialItemCollectionProvider::class
         ),
         new GetCollection(
-            uriTemplate: '/camps/{campId}/material_items{._format}',
+            uriTemplate: self::CAMP_SUBRESOURCE_URI_TEMPLATE,
             uriVariables: [
                 'campId' => new Link(
                     toProperty: 'camp',

@@ -297,8 +297,9 @@ final readonly class PurgeHttpCacheListener {
                         // No toProperty means the URI variable cannot be resolved from the entity
                         return false;
                     }
-                    // value of toProperty is NULL; generating IRI would fail
-                    if (null == $entity->{$uriVariable->getToProperty()}) {
+                    // value of toProperty is NULL or a Collection; generating IRI would fail
+                    $value = $entity->{$uriVariable->getToProperty()};
+                    if (null == $value || is_iterable($value)) {
                         return false;
                     }
                 }
