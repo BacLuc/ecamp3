@@ -9,8 +9,10 @@ use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Link;
 use ApiPlatform\Metadata\Post;
 use App\Repository\ActivityResponsibleRepository;
+use App\State\ActivityResponsibleCampCollectionProvider;
 use App\Validator\AssertBelongsToSameCamp;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -31,6 +33,18 @@ use Symfony\Component\Validator\Constraints as Assert;
         new GetCollection(
             security: 'is_authenticated()'
         ),
+        new GetCollection(
+            uriTemplate: '/camps/{campId}/activity_responsibles{._format}',
+            uriVariables: [
+                'campId' => new Link(
+                    fromClass: Camp::class,
+                    security: 'is_granted("CAMP_COLLABORATOR", campId) or is_granted("CAMP_IS_PUBLIC", campId)'
+                ),
+            ],
+            normalizationContext: self::COLLECTION_NORMALIZATION_CONTEXT,
+            security: 'is_fully_authenticated()',
+            provider: ActivityResponsibleCampCollectionProvider::class,
+        ),
         new Post(
             securityPostDenormalize: 'is_granted("CAMP_MEMBER", object) or is_granted("CAMP_MANAGER", object) or object.activity === null'
         ), ],
@@ -45,6 +59,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: ActivityResponsibleRepository::class)]
 #[ORM\UniqueConstraint(name: 'activity_campCollaboration_unique', columns: ['activityId', 'campCollaborationId'])]
 class ActivityResponsible extends BaseEntity implements BelongsToCampInterface {
+    public const COLLECTION_NORMALIZATION_CONTEXT = ['groups' => ['read']];
+    public const CAMP_SUBRESOURCE_URI_TEMPLATE = '/camps/{campId}/activity_responsibles{._format}';
+
     /**
      * The activity that the person is responsible for.
      */
