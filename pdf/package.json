@@ -61,6 +61,7 @@
   },
   "overrides": {
     "lodash": "lodash-es",
-    "uri-js": "npm:uri-js-replace"
+    "uri-js": "npm:uri-js-replace",
+    "@babel/plugin-proposal-class-properties": "npm:@babel/plugin-transform-class-properties@^7"
   }
 }
