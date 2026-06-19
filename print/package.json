@@ -65,6 +65,8 @@
     "vue": "3.5.38"
   },
   "overrides": {
-    "uri-js": "npm:uri-js-replace"
+    "uri-js": "npm:uri-js-replace",
+    "vue-i18n": "^11",
+    "@intlify/shared": "^11"
   }
 }
