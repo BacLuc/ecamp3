@@ -138,7 +138,8 @@
     "vue-template-compiler": "2.7.16"
   },
   "overrides": {
-    "uri-js": "npm:uri-js-replace"
+    "uri-js": "npm:uri-js-replace",
+    "@babel/plugin-proposal-class-properties": "npm:@babel/plugin-transform-class-properties@^7"
   },
   "postcss": {
     "plugins": {
