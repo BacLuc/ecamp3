@@ -266,7 +266,7 @@ Displays a single scheduleEntry
                 <v-col>
                   <ActivityResponsibles
                     :activity="activity"
-                    :disabled="layoutMode || !isContributor"
+                    :disabled="layoutMode || !canEditResponsibles"
                   />
                 </v-col>
               </v-row>

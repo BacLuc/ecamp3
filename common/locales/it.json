@@ -103,6 +103,7 @@
     },
     "camp": {
       "collaborators": {
+        "contributor": "Aiutante",
         "guest": "Ospite",
         "invite": "Invita",
         "manager": "Amministrazione",

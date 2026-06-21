@@ -131,6 +131,12 @@ export default {
           icons: ['mdi-eye-outline', 'mdi-pencil-outline'],
         },
         {
+          value: 'contributor',
+          text: this.$t('entity.camp.collaborators.contributor'),
+          abilities: this.$t('global.collaborationAbilities.contributor'),
+          icons: ['mdi-eye-outline', 'mdi-pencil-outline'],
+        },
+        {
           value: 'guest',
           text: this.$t('entity.camp.collaborators.guest'),
           abilities: this.$t('global.collaborationAbilities.guest'),

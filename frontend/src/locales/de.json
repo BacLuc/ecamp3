@@ -453,7 +453,6 @@
         "pageNumbers": "Seitenzahlen",
         "fontSize": "Schriftgrösse",
         "fontSizes": {
-          "A3": "Kleinere Schrift (optimiert für A4 oder A3)",
           "A4": "Normale Schrift (optimiert für A4 oder A5)",
           "A5": "Grössere Schrift (optimiert für A6)"
         }
@@ -527,7 +526,6 @@
         "clearFilters": "Filter entfernen",
         "day": "Datum",
         "dayLabel": "Tag {dayNumber} ({date})",
-        "allMyActivities": "Alle meine Aktivitäten",
         "onlyMyActivities": "Nur meine Aktivitäten",
         "period": "Lagerabschnitt",
         "progressLabel": "Status",
@@ -604,6 +602,7 @@
     },
     "changeLanguage": "Sprache ändern",
     "collaborationAbilities": {
+      "contributor": "Lese- & Schreibrecht, kann keine Verantwortlichen ändern",
       "guest": "Nur Leserecht",
       "manager": "Vollständige Lageradministration, sowie Lese- & Schreibrecht",
       "member": "Lese- & Schreibrecht"

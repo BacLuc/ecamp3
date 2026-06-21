@@ -340,7 +340,6 @@
       "scheduleEntryFilters": {
         "category": "Categoria",
         "clearFilters": "Allontanar il filter",
-        "allMyActivities": "Tut mias activitads",
         "onlyMyActivities": "Mo mias activitads",
         "period": "Part dal champ",
         "progressLabel": "Status",
@@ -409,6 +408,7 @@
     },
     "changeLanguage": "Midar la lingua",
     "collaborationAbilities": {
+      "contributor": "Dretg da leger e scriver, na po betg midar ils responsabels",
       "guest": "Dretg mo per lectura",
       "manager": "Administraziun cumpletta dal champ, sco era dretg da leger e scriver",
       "member": "Dretg da leger e scriver"

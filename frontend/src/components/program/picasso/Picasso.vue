@@ -55,7 +55,11 @@ Listing all given activity schedule entries in a calendar view.
                     )
             }}
           </div>
-          <day-responsibles :date="date" :period="period" :readonly="!editable" />
+          <day-responsibles
+            :date="date"
+            :period="period"
+            :readonly="!editable || !canEditResponsibles"
+          />
         </slot>
       </template>
 
@@ -96,6 +100,11 @@ export default {
   components: {
     PicassoEntry,
     DayResponsibles,
+  },
+  // Provided by campRoleMixin further up the tree. Contributors may edit the program
+  // but are not allowed to change the day responsibles ("Verantwortliche").
+  inject: {
+    canEditResponsibles: { default: true },
   },
   props: {
     // period for which to show picasso

@@ -40,7 +40,7 @@
     <e-text-field v-if="!hideLocation" v-model="activity.location" path="location" />
 
     <FormScheduleEntryList
-      v-if="activity.scheduleEntries"
+      v-if="activity.scheduleEntries && !scheduleEntriesReadonly"
       :schedule-entries="activity.scheduleEntries"
       :current-schedule-entry="currentScheduleEntry"
       :period="period"
@@ -81,6 +81,12 @@ export default {
       default: false,
     },
     hideLocation: {
+      type: Boolean,
+      default: false,
+    },
+    // when true, the schedule entries ("Geplante Termine") section is hidden, because the
+    // current user is not allowed to change the timing of the activity
+    scheduleEntriesReadonly: {
       type: Boolean,
       default: false,
     },

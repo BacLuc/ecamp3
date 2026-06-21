@@ -36,7 +36,7 @@ use Symfony\Component\Validator\Constraints as Assert;
         ),
         new Patch(
             normalizationContext: self::ITEM_NORMALIZATION_CONTEXT,
-            security: 'is_granted("CAMP_MEMBER", object) or is_granted("CAMP_MANAGER", object)'
+            security: 'is_granted("CAMP_MANAGE_SCHEDULE_ENTRIES", object)'
         ),
         new Delete(
             security: 'is_granted("CAMP_MEMBER", object) or is_granted("CAMP_MANAGER", object)',

@@ -115,6 +115,7 @@
     },
     "camp": {
       "collaborators": {
+        "contributor": "Helper",
         "guest": "Guest",
         "invite": "Invite",
         "manager": "Administration",

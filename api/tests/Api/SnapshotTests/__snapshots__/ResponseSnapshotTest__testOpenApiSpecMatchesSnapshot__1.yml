@@ -10851,6 +10851,7 @@ components:
             The role that this person has in the camp. Depending on the role, the collaborator might have
             different access rights. There must always be at least one manager in a camp.
           enum:
+            - contributor
             - guest
             - manager
             - member
@@ -10922,6 +10923,7 @@ components:
             The role that this person has in the camp. Depending on the role, the collaborator might have
             different access rights. There must always be at least one manager in a camp.
           enum:
+            - contributor
             - guest
             - manager
             - member
@@ -10990,6 +10992,7 @@ components:
             The role that this person has in the camp. Depending on the role, the collaborator might have
             different access rights. There must always be at least one manager in a camp.
           enum:
+            - contributor
             - guest
             - manager
             - member
@@ -11058,6 +11061,7 @@ components:
             The role that this person has in the camp. Depending on the role, the collaborator might have
             different access rights. There must always be at least one manager in a camp.
           enum:
+            - contributor
             - guest
             - manager
             - member
@@ -11126,6 +11130,7 @@ components:
             The role that this person has in the camp. Depending on the role, the collaborator might have
             different access rights. There must always be at least one manager in a camp.
           enum:
+            - contributor
             - guest
             - manager
             - member
@@ -11199,6 +11204,7 @@ components:
             The role that this person has in the camp. Depending on the role, the collaborator might have
             different access rights. There must always be at least one manager in a camp.
           enum:
+            - contributor
             - guest
             - manager
             - member
@@ -11269,6 +11275,7 @@ components:
             The role that this person has in the camp. Depending on the role, the collaborator might have
             different access rights. There must always be at least one manager in a camp.
           enum:
+            - contributor
             - guest
             - manager
             - member
@@ -11338,6 +11345,7 @@ components:
             The role that this person has in the camp. Depending on the role, the collaborator might have
             different access rights. There must always be at least one manager in a camp.
           enum:
+            - contributor
             - guest
             - manager
             - member
@@ -11406,6 +11414,7 @@ components:
             The role that this person has in the camp. Depending on the role, the collaborator might have
             different access rights. There must always be at least one manager in a camp.
           enum:
+            - contributor
             - guest
             - manager
             - member
@@ -11474,6 +11483,7 @@ components:
             The role that this person has in the camp. Depending on the role, the collaborator might have
             different access rights. There must always be at least one manager in a camp.
           enum:
+            - contributor
             - guest
             - manager
             - member
@@ -11542,6 +11552,7 @@ components:
             The role that this person has in the camp. Depending on the role, the collaborator might have
             different access rights. There must always be at least one manager in a camp.
           enum:
+            - contributor
             - guest
             - manager
             - member
@@ -11610,6 +11621,7 @@ components:
             The role that this person has in the camp. Depending on the role, the collaborator might have
             different access rights. There must always be at least one manager in a camp.
           enum:
+            - contributor
             - guest
             - manager
             - member
@@ -11661,6 +11673,7 @@ components:
             The role that this person has in the camp. Depending on the role, the collaborator might have
             different access rights. There must always be at least one manager in a camp.
           enum:
+            - contributor
             - guest
             - manager
             - member
@@ -11706,6 +11719,7 @@ components:
             The role that this person has in the camp. Depending on the role, the collaborator might have
             different access rights. There must always be at least one manager in a camp.
           enum:
+            - contributor
             - guest
             - manager
             - member
@@ -11743,6 +11757,7 @@ components:
             The role that this person has in the camp. Depending on the role, the collaborator might have
             different access rights. There must always be at least one manager in a camp.
           enum:
+            - contributor
             - guest
             - manager
             - member
@@ -11803,6 +11818,7 @@ components:
             The role that this person has in the camp. Depending on the role, the collaborator might have
             different access rights. There must always be at least one manager in a camp.
           enum:
+            - contributor
             - guest
             - manager
             - member
@@ -11871,6 +11887,7 @@ components:
             The role that this person has in the camp. Depending on the role, the collaborator might have
             different access rights. There must always be at least one manager in a camp.
           enum:
+            - contributor
             - guest
             - manager
             - member
@@ -11939,6 +11956,7 @@ components:
             The role that this person has in the camp. Depending on the role, the collaborator might have
             different access rights. There must always be at least one manager in a camp.
           enum:
+            - contributor
             - guest
             - manager
             - member
@@ -12007,6 +12025,7 @@ components:
             The role that this person has in the camp. Depending on the role, the collaborator might have
             different access rights. There must always be at least one manager in a camp.
           enum:
+            - contributor
             - guest
             - manager
             - member
@@ -12080,6 +12099,7 @@ components:
             The role that this person has in the camp. Depending on the role, the collaborator might have
             different access rights. There must always be at least one manager in a camp.
           enum:
+            - contributor
             - guest
             - manager
             - member
@@ -12150,6 +12170,7 @@ components:
             The role that this person has in the camp. Depending on the role, the collaborator might have
             different access rights. There must always be at least one manager in a camp.
           enum:
+            - contributor
             - guest
             - manager
             - member
@@ -12219,6 +12240,7 @@ components:
             The role that this person has in the camp. Depending on the role, the collaborator might have
             different access rights. There must always be at least one manager in a camp.
           enum:
+            - contributor
             - guest
             - manager
             - member
@@ -12287,6 +12309,7 @@ components:
             The role that this person has in the camp. Depending on the role, the collaborator might have
             different access rights. There must always be at least one manager in a camp.
           enum:
+            - contributor
             - guest
             - manager
             - member
@@ -12355,6 +12378,7 @@ components:
             The role that this person has in the camp. Depending on the role, the collaborator might have
             different access rights. There must always be at least one manager in a camp.
           enum:
+            - contributor
             - guest
             - manager
             - member
@@ -12423,6 +12447,7 @@ components:
             The role that this person has in the camp. Depending on the role, the collaborator might have
             different access rights. There must always be at least one manager in a camp.
           enum:
+            - contributor
             - guest
             - manager
             - member
@@ -12491,6 +12516,7 @@ components:
             The role that this person has in the camp. Depending on the role, the collaborator might have
             different access rights. There must always be at least one manager in a camp.
           enum:
+            - contributor
             - guest
             - manager
             - member
@@ -12661,6 +12687,7 @@ components:
             The role that this person has in the camp. Depending on the role, the collaborator might have
             different access rights. There must always be at least one manager in a camp.
           enum:
+            - contributor
             - guest
             - manager
             - member
@@ -12734,6 +12761,7 @@ components:
             The role that this person has in the camp. Depending on the role, the collaborator might have
             different access rights. There must always be at least one manager in a camp.
           enum:
+            - contributor
             - guest
             - manager
             - member
@@ -12807,6 +12835,7 @@ components:
             The role that this person has in the camp. Depending on the role, the collaborator might have
             different access rights. There must always be at least one manager in a camp.
           enum:
+            - contributor
             - guest
             - manager
             - member
@@ -12869,6 +12898,7 @@ components:
                 The role that this person has in the camp. Depending on the role, the collaborator might have
                 different access rights. There must always be at least one manager in a camp.
               enum:
+                - contributor
                 - guest
                 - manager
                 - member
@@ -12956,6 +12986,7 @@ components:
             The role that this person has in the camp. Depending on the role, the collaborator might have
             different access rights. There must always be at least one manager in a camp.
           enum:
+            - contributor
             - guest
             - manager
             - member
@@ -13034,6 +13065,7 @@ components:
             The role that this person has in the camp. Depending on the role, the collaborator might have
             different access rights. There must always be at least one manager in a camp.
           enum:
+            - contributor
             - guest
             - manager
             - member
@@ -13101,6 +13133,7 @@ components:
                 The role that this person has in the camp. Depending on the role, the collaborator might have
                 different access rights. There must always be at least one manager in a camp.
               enum:
+                - contributor
                 - guest
                 - manager
                 - member
@@ -13173,6 +13206,7 @@ components:
                 The role that this person has in the camp. Depending on the role, the collaborator might have
                 different access rights. There must always be at least one manager in a camp.
               enum:
+                - contributor
                 - guest
                 - manager
                 - member
@@ -13256,6 +13290,7 @@ components:
             The role that this person has in the camp. Depending on the role, the collaborator might have
             different access rights. There must always be at least one manager in a camp.
           enum:
+            - contributor
             - guest
             - manager
             - member
@@ -13329,6 +13364,7 @@ components:
             The role that this person has in the camp. Depending on the role, the collaborator might have
             different access rights. There must always be at least one manager in a camp.
           enum:
+            - contributor
             - guest
             - manager
             - member
@@ -13402,6 +13438,7 @@ components:
             The role that this person has in the camp. Depending on the role, the collaborator might have
             different access rights. There must always be at least one manager in a camp.
           enum:
+            - contributor
             - guest
             - manager
             - member

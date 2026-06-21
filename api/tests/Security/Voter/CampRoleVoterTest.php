@@ -238,6 +238,65 @@ class CampRoleVoterTest extends TestCase {
         $this->assertSame(VoterInterface::ACCESS_GRANTED, $result);
     }
 
+    public function testGrantsMemberAccessToContributor() {
+        // given a contributor has the same read & write rights as a member
+        // when
+        $result = $this->voteForRole(CampCollaboration::ROLE_CONTRIBUTOR, 'CAMP_MEMBER');
+
+        // then
+        $this->assertSame(VoterInterface::ACCESS_GRANTED, $result);
+    }
+
+    public function testDeniesManageResponsiblesToContributor() {
+        // given a contributor must not change the responsibles ("Verantwortliche")
+        // when
+        $result = $this->voteForRole(CampCollaboration::ROLE_CONTRIBUTOR, 'CAMP_MANAGE_RESPONSIBLES');
+
+        // then
+        $this->assertSame(VoterInterface::ACCESS_DENIED, $result);
+    }
+
+    public function testGrantsManageResponsiblesToMember() {
+        // when
+        $result = $this->voteForRole(CampCollaboration::ROLE_MEMBER, 'CAMP_MANAGE_RESPONSIBLES');
+
+        // then
+        $this->assertSame(VoterInterface::ACCESS_GRANTED, $result);
+    }
+
+    public function testGrantsManageResponsiblesToManager() {
+        // when
+        $result = $this->voteForRole(CampCollaboration::ROLE_MANAGER, 'CAMP_MANAGE_RESPONSIBLES');
+
+        // then
+        $this->assertSame(VoterInterface::ACCESS_GRANTED, $result);
+    }
+
+    public function testDeniesManageScheduleEntriesToContributor() {
+        // given a contributor must not move activities around / change their time
+        // when
+        $result = $this->voteForRole(CampCollaboration::ROLE_CONTRIBUTOR, 'CAMP_MANAGE_SCHEDULE_ENTRIES');
+
+        // then
+        $this->assertSame(VoterInterface::ACCESS_DENIED, $result);
+    }
+
+    public function testGrantsManageScheduleEntriesToMember() {
+        // when
+        $result = $this->voteForRole(CampCollaboration::ROLE_MEMBER, 'CAMP_MANAGE_SCHEDULE_ENTRIES');
+
+        // then
+        $this->assertSame(VoterInterface::ACCESS_GRANTED, $result);
+    }
+
+    public function testGrantsManageScheduleEntriesToManager() {
+        // when
+        $result = $this->voteForRole(CampCollaboration::ROLE_MANAGER, 'CAMP_MANAGE_SCHEDULE_ENTRIES');
+
+        // then
+        $this->assertSame(VoterInterface::ACCESS_GRANTED, $result);
+    }
+
     public function testGrantsAccessViaBelongsToContentNodeTreeInterface() {
         // given
         $user = $this->createStub(User::class);
@@ -265,6 +324,24 @@ class CampRoleVoterTest extends TestCase {
 
         // then
         $this->assertSame(VoterInterface::ACCESS_GRANTED, $result);
+    }
+
+    private function voteForRole(string $role, string $attribute): int {
+        $user = $this->createStub(User::class);
+        $user->method('getId')->willReturn('idFromTest');
+        $collaborationUser = $this->createStub(User::class);
+        $collaborationUser->method('getId')->willReturn('idFromTest');
+        $this->token->method('getUser')->willReturn($user);
+        $collaboration = new CampCollaboration();
+        $collaboration->user = $collaborationUser;
+        $collaboration->status = CampCollaboration::STATUS_ESTABLISHED;
+        $collaboration->role = $role;
+        $camp = new Camp();
+        $camp->collaborations->add($collaboration);
+        $subject = $this->createStub(Period::class);
+        $subject->method('getCamp')->willReturn($camp);
+
+        return $this->voter->vote($this->token, $subject, [$attribute]);
     }
 }
 

@@ -60,6 +60,11 @@ export default {
         abilitiesTranslation: 'global.collaborationAbilities.member',
         icons: ['mdi-eye-outline', 'mdi-pencil-outline'],
       },
+      contributor: {
+        roleTranslation: 'entity.camp.collaborators.contributor',
+        abilitiesTranslation: 'global.collaborationAbilities.contributor',
+        icons: ['mdi-eye-outline', 'mdi-pencil-outline'],
+      },
       guest: {
         roleTranslation: 'entity.camp.collaborators.guest',
         abilitiesTranslation: 'global.collaborationAbilities.guest',

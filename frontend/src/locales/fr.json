@@ -521,7 +521,6 @@
         "clearFilters": "Effacer les filtres",
         "day": "Date",
         "dayLabel": "Jour {dayNumber} ({date})",
-        "allMyActivities": "Toutes mes activités",
         "onlyMyActivities": "Seulement mes activités",
         "period": "Période",
         "progressLabel": "Statut",
@@ -598,6 +597,7 @@
     },
     "changeLanguage": "Changer de langue",
     "collaborationAbilities": {
+      "contributor": "Lecture & écriture, sans modifier les responsables",
       "guest": "Lecture uniquement",
       "manager": "Lecture, écriture & administration du camp",
       "member": "Lecture & écriture"

@@ -40,7 +40,7 @@ Show all activity schedule entries of a single period.
         v-if="!isOutsider"
         v-model="editMode"
         :shake="showReminder"
-        :disabled-for-guest="!isContributor"
+        :disabled-for-guest="!canEditSchedule"
         class="mr-n1"
         @click="editMode = !editMode"
       />
@@ -54,7 +54,7 @@ Show all activity schedule entries of a single period.
           <LockUnlockListItem
             v-if="!isOutsider"
             v-model="editMode"
-            :disabled="!isContributor"
+            :disabled="!canEditSchedule"
             @click="editMode = !editMode"
           />
           <v-list-item

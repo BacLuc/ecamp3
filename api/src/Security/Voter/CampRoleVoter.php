@@ -21,8 +21,16 @@ class CampRoleVoter extends Voter {
 
     public const RULE_MAPPING = [
         'CAMP_GUEST' => [CampCollaboration::ROLE_GUEST],
-        'CAMP_MEMBER' => [CampCollaboration::ROLE_MEMBER],
+        // A contributor has the same read & write rights as a member, so it is granted
+        // wherever CAMP_MEMBER is required (e.g. editing activities, materials, schedule).
+        'CAMP_MEMBER' => [CampCollaboration::ROLE_MEMBER, CampCollaboration::ROLE_CONTRIBUTOR],
         'CAMP_MANAGER' => [CampCollaboration::ROLE_MANAGER],
+        // Changing who is responsible for an activity or day (the "Verantwortliche") is
+        // restricted to members and managers; contributors are intentionally excluded.
+        'CAMP_MANAGE_RESPONSIBLES' => [CampCollaboration::ROLE_MEMBER, CampCollaboration::ROLE_MANAGER],
+        // Changing the timing/position of a schedule entry (moving activities around in the
+        // schedule) is restricted to members and managers; contributors are excluded.
+        'CAMP_MANAGE_SCHEDULE_ENTRIES' => [CampCollaboration::ROLE_MEMBER, CampCollaboration::ROLE_MANAGER],
         'CAMP_COLLABORATOR' => CampCollaboration::VALID_ROLES,
     ];
 

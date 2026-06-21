@@ -22,6 +22,7 @@
       :current-schedule-entry="scheduleEntry"
       :period="period"
       :hide-location="hideHeaderFields"
+      :schedule-entries-readonly="!canEditSchedule"
     />
   </dialog-form>
 </template>
@@ -36,6 +37,11 @@ export default {
   name: 'DialogActivityEdit',
   components: { DialogForm, DialogActivityForm },
   extends: DialogBase,
+  // Provided by campRoleMixin. Contributors may edit the activity content but are not
+  // allowed to change the schedule entries' timing (moving activities around).
+  inject: {
+    canEditSchedule: { default: true },
+  },
   props: {
     scheduleEntry: { type: Object, required: true },
     hideHeaderFields: {
@@ -85,56 +91,62 @@ export default {
       this.error = null
       const _events = this._events
 
-      const promises = this.entityData.scheduleEntries.map((entry) => {
-        // deleted local entry: do nothing
-        if (!entry.self && entry.deleted) {
-          return Promise.resolve()
-        }
+      // Contributors may not change schedule entry timing, so skip all schedule entry
+      // create/update/delete requests and only update the activity content below.
+      const promises = !this.canEditSchedule
+        ? []
+        : this.entityData.scheduleEntries.map((entry) => {
+            // deleted local entry: do nothing
+            if (!entry.self && entry.deleted) {
+              return Promise.resolve()
+            }
 
-        // delete existing
-        if (entry.self && entry.deleted) {
-          return this.api.del(entry.self)
-        }
+            // delete existing
+            if (entry.self && entry.deleted) {
+              return this.api.del(entry.self)
+            }
 
-        // update existing
-        if (entry.self) {
-          return this.api
-            .patch(entry.self, {
-              period: entry.period()._meta.self,
-              start: entry.start,
-              end: entry.end,
-            })
-            .then((serverEntry) => {
-              entry.start = serverEntry.start
-              entry.end = serverEntry.end
-              entry.period = serverEntry.period
-            })
-            .catch(async (e) => {
-              // entry was deleted in the meantime
-              if (e.response.status === 404) {
-                if (entry.self === this.scheduleEntry._meta.self) {
-                  // redirect to first entry to not break UI
-                  this.$router.push(await firstActivityScheduleEntryRoute(this.activity))
-                }
-                entry.deleted = true
-                return Promise.resolve()
-              }
-              return Promise.reject(e)
-            })
-        }
+            // update existing
+            if (entry.self) {
+              return this.api
+                .patch(entry.self, {
+                  period: entry.period()._meta.self,
+                  start: entry.start,
+                  end: entry.end,
+                })
+                .then((serverEntry) => {
+                  entry.start = serverEntry.start
+                  entry.end = serverEntry.end
+                  entry.period = serverEntry.period
+                })
+                .catch(async (e) => {
+                  // entry was deleted in the meantime
+                  if (e.response.status === 404) {
+                    if (entry.self === this.scheduleEntry._meta.self) {
+                      // redirect to first entry to not break UI
+                      this.$router.push(
+                        await firstActivityScheduleEntryRoute(this.activity)
+                      )
+                    }
+                    entry.deleted = true
+                    return Promise.resolve()
+                  }
+                  return Promise.reject(e)
+                })
+            }
 
-        // else: create new entry
-        return this.scheduleEntries
-          .$post({
-            period: entry.period()._meta.self,
-            start: entry.start,
-            end: entry.end,
-            activity: this.activity._meta.self,
+            // else: create new entry
+            return this.scheduleEntries
+              .$post({
+                period: entry.period()._meta.self,
+                start: entry.start,
+                end: entry.end,
+                activity: this.activity._meta.self,
+              })
+              .then((data) => {
+                entry.self = data._meta.self
+              })
           })
-          .then((data) => {
-            entry.self = data._meta.self
-          })
-      })
 
       // patch activity entity
       const activityPayload = {

@@ -28,7 +28,7 @@ use Symfony\Component\Validator\Constraints as Assert;
                        is_granted("CAMP_IS_PUBLIC", object)'
         ),
         new Delete(
-            security: 'is_granted("CAMP_MEMBER", object) or is_granted("CAMP_MANAGER", object)'
+            security: 'is_granted("CAMP_MANAGE_RESPONSIBLES", object)'
         ),
         new GetCollection(
             security: 'is_authenticated()'
@@ -48,7 +48,7 @@ use Symfony\Component\Validator\Constraints as Assert;
             ]
         ),
         new Post(
-            securityPostDenormalize: 'is_granted("CAMP_MEMBER", object) or is_granted("CAMP_MANAGER", object) or object.day === null'
+            securityPostDenormalize: 'is_granted("CAMP_MANAGE_RESPONSIBLES", object) or object.day === null'
         ),
     ],
     normalizationContext: ['groups' => ['read']],

@@ -543,7 +543,7 @@ class DataGeneratorService {
             $collaboration = new CampCollaboration();
             $collaboration->camp = $camp;
             $collaboration->user = $collaborator;
-            $collaboration->role = $this->faker->randomElement(['member', 'guest']);
+            $collaboration->role = $this->faker->randomElement(['member', 'contributor', 'guest']);
             $collaboration->status = 'established';
             $collaboration->inviteEmail = $collaborator->profile->email;
             $this->entityManager->persist($collaboration);

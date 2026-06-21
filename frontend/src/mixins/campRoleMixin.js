@@ -6,10 +6,23 @@ export const campRoleMixin = {
       isManager: this.isManager,
       isMember: this.isMember,
       isOutsider: this.isOutsider,
+      canEditResponsibles: this.canEditResponsibles,
+      canEditSchedule: this.canEditSchedule,
     }
   },
   computed: {
+    // Has write access to the camp content (member, contributor or manager).
     isContributor() {
+      return this.isMember || this.isManager || this._campRole === 'contributor'
+    },
+    // Allowed to change who is responsible for an activity or day (the
+    // "Verantwortliche"). Contributors are intentionally excluded.
+    canEditResponsibles() {
+      return this.isMember || this.isManager
+    },
+    // Allowed to change the timing/position of schedule entries (moving activities
+    // around in the schedule). Contributors are intentionally excluded.
+    canEditSchedule() {
       return this.isMember || this.isManager
     },
     isGuest() {

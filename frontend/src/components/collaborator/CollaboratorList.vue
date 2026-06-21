@@ -25,7 +25,7 @@ import { sortBy } from 'lodash-es'
 import campCollaborationDisplayName from '@/common/helpers/campCollaborationDisplayName.js'
 import isOwnCampCollaboration from './isOwnCampCollaboration.js'
 
-const ROLE_ORDER = ['manager', 'member', 'guest']
+const ROLE_ORDER = ['manager', 'member', 'contributor', 'guest']
 
 export default {
   name: 'CollaboratorList',

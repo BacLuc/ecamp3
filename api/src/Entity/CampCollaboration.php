@@ -117,9 +117,16 @@ class CampCollaboration extends BaseEntity implements BelongsToCampInterface {
     public const ROLE_MEMBER = 'member';
     public const ROLE_MANAGER = 'manager';
 
+    /**
+     * Like a member (read & write camp content), but not allowed to change who is
+     * responsible for activities or days (the "Verantwortliche").
+     */
+    public const ROLE_CONTRIBUTOR = 'contributor';
+
     public const VALID_ROLES = [
         self::ROLE_GUEST,
         self::ROLE_MEMBER,
+        self::ROLE_CONTRIBUTOR,
         self::ROLE_MANAGER,
     ];
 
@@ -273,6 +280,11 @@ class CampCollaboration extends BaseEntity implements BelongsToCampInterface {
     #[ApiProperty(readable: false, writable: false)]
     public function isMember(): bool {
         return self::ROLE_MEMBER === $this->role;
+    }
+
+    #[ApiProperty(readable: false, writable: false)]
+    public function isContributor(): bool {
+        return self::ROLE_CONTRIBUTOR === $this->role;
     }
 
     #[ApiProperty(readable: false, writable: false)]

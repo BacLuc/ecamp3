@@ -65,7 +65,7 @@ class CampCollaborationUpdateProcessor extends AbstractPersistProcessor {
         if ($data->user->getId() !== $user->getId()) {
             return $data;
         }
-        if (in_array($previous->role, [CampCollaboration::ROLE_MANAGER, CampCollaboration::ROLE_MEMBER], true)) {
+        if (in_array($previous->role, [CampCollaboration::ROLE_MANAGER, CampCollaboration::ROLE_MEMBER, CampCollaboration::ROLE_CONTRIBUTOR], true)) {
             return $data;
         }
 
