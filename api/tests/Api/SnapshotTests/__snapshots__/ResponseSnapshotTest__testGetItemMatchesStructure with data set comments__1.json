@@ -9,20 +9,12 @@
         "camp": {
             "href": "escaped_value"
         },
-        "children": [],
-        "contentNode": "escaped_value",
-        "parent": "escaped_value",
-        "resolvedBy": "escaped_value",
         "self": {
             "href": "escaped_value"
         }
     },
-    "anchorId": "escaped_value",
-    "anchorText": "escaped_value",
     "createTime": "escaped_value",
-    "editedAt": "escaped_value",
     "id": "escaped_value",
     "orphanDescription": "escaped_value",
-    "resolvedAt": "escaped_value",
     "textHtml": "escaped_value"
 }

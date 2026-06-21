@@ -24830,6 +24830,40 @@ components:
         - camp
         - textHtml
       type: object
+    Comment-update.jsonMergePatch:
+      description: |-
+        A Comment someone left on an activity, to give feedback on the planned programme,
+        for notes which are only relevant during camp planning, or for other communication.
+      properties:
+        anchorText:
+          description: |-
+            A plain-text snapshot of the text this thread was anchored to, taken when the
+            comment was created. Shown as a quote in the comments panel and used to
+            re-anchor the thread when its mark got lost (e.g. through concurrent edits).
+          example: 'the sentence that was commented on'
+          maxLength: 255
+          type:
+            - 'null'
+            - string
+        contentNode:
+          anyOf:
+            - $ref: '#/components/schemas/ContentNode-update'
+            - type: 'null'
+        resolved:
+          description: |-
+            Virtual, write-only flag used to resolve (true) or reopen (false) a thread
+            via PATCH. The CommentUpdateProcessor translates it into resolvedAt/resolvedBy.
+          example: true
+          type:
+            - boolean
+            - 'null'
+          writeOnly: true
+        textHtml:
+          description: 'The actual comment.'
+          example: 'This activity is great!'
+          maxLength: 1024
+          type: string
+      type: object
     Comment.html-read:
       properties:
         activity:
@@ -26687,6 +26721,8 @@ components:
         - contentType
         - position
         - root
+      type: object
+    ContentNode-update:
       type: object
     ContentNode-write:
       properties:
@@ -55905,6 +55941,105 @@ paths:
           description: 'Not found'
           links: []
       summary: 'Retrieves a Comment resource.'
+      tags:
+        - Comment
+    patch:
+      description: 'Updates the Comment resource.'
+      operationId: api_comments_id_patch
+      parameters:
+        -
+          deprecated: false
+          description: 'Comment identifier'
+          explode: false
+          in: path
+          name: id
+          required: true
+          schema:
+            type: string
+          style: simple
+      requestBody:
+        content:
+          application/merge-patch+json:
+            schema:
+              $ref: '#/components/schemas/Comment-update.jsonMergePatch'
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/Comment-update.jsonMergePatch'
+        description: 'The updated Comment resource'
+        required: true
+      responses:
+        200:
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Comment.jsonhal-read'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Comment-read'
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Comment.jsonld-read'
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/Comment.jsonapi'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Comment.html-read'
+          description: 'Comment resource updated'
+          links: []
+        400:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error.jsonld'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 'Invalid input'
+          links: []
+        403:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error.jsonld'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Forbidden
+          links: []
+        404:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error.jsonld'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 'Not found'
+          links: []
+        422:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConstraintViolation'
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/ConstraintViolation.jsonld'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ConstraintViolation'
+          description: 'An error occurred'
+          links: []
+      summary: 'Updates the Comment resource.'
       tags:
         - Comment
   /content_node/checklist_nodes:
