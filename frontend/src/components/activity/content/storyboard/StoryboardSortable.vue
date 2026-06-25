@@ -21,6 +21,7 @@
         :is-last-section="isLastSection"
         :item-key="element"
         :layout-mode="layoutMode"
+        :show-materials="showMaterials"
         @delete="deleteItem"
         @move-down="moveDown"
         @move-up="moveUp"
@@ -32,6 +33,7 @@
         :is-last-section="isLastSection"
         :item-key="element"
         :layout-mode="layoutMode"
+        :show-materials="showMaterials"
         @delete="deleteItem"
         @move-down="moveDown"
         @move-up="moveUp"
@@ -65,6 +67,7 @@ export default {
     layoutMode: { type: Boolean, required: true },
     entity: { type: Object, required: true },
     variant: { type: String, required: true },
+    showMaterials: { type: Boolean, default: false },
   },
   emits: ['sort'],
   data() {

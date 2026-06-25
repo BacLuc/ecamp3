@@ -35,6 +35,7 @@ class StoryboardPersistProcessor extends ContentNodePersistProcessor {
                     'column1' => '',
                     'column2Html' => '',
                     'column3' => '',
+                    'column4' => '',
                     'position' => 0,
                 ],
             ]];
@@ -48,6 +49,7 @@ class StoryboardPersistProcessor extends ContentNodePersistProcessor {
             $section = $this->cleanTextFilter->applyTo($section, 'column1');
             $section = $this->cleanHTMLFilter->applyTo($section, 'column2Html');
             $section = $this->cleanTextFilter->applyTo($section, 'column3');
+            $section = $this->cleanTextFilter->applyTo($section, 'column4');
         }
 
         return $data;

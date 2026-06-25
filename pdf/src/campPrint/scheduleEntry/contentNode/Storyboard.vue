@@ -11,6 +11,9 @@
       <View class="storyboard-header-cell storyboard-column-3">
         <Text>{{ $tc('contentNode.storyboard.entity.section.fields.column3') }}</Text>
       </View>
+      <View v-if="materialsColumn" class="storyboard-header-cell storyboard-column-4">
+        <Text>{{ $tc('contentNode.storyboard.entity.section.fields.column4') }}</Text>
+      </View>
     </View>
     <View v-for="section in sections" class="storyboard-row">
       <View class="storyboard-cell storyboard-column-1">
@@ -21,6 +24,9 @@
       </View>
       <View class="storyboard-cell storyboard-column-3">
         <Text>{{ section.column3 }}</Text>
+      </View>
+      <View v-if="materialsColumn" class="storyboard-cell storyboard-column-4">
+        <Text>{{ section.column4 }}</Text>
       </View>
     </View>
   </View>
@@ -48,17 +54,22 @@ export default {
           column1: sections[key].column1,
           column2Html: sections[key].column2Html,
           column3: sections[key].column3,
+          column4: sections[key].column4 ?? '',
           position: sections[key].position,
         })),
         (section) => section.position
       )
+    },
+    materialsColumn() {
+      return this.contentNode.data.materialsColumn ?? false
     },
     anyContent() {
       return (
         this.sections.length &&
         (this.sections[0].column1.length ||
           !isEmptyHtml(this.sections[0].column2Html) ||
-          this.sections[0].column3.length)
+          this.sections[0].column3.length ||
+          this.sections[0].column4.length)
       )
     },
   },
@@ -101,6 +112,14 @@ export default {
   padding-horizontal: 2pt;
 }
 .storyboard-column-3 {
+  flex-basis: 40pt;
+  flex-shrink: 0;
+  flex-grow: 0;
+  border-left: 0.75pt solid #94A3B8;
+  padding-left: 2pt;
+  overflow: hidden;
+}
+.storyboard-column-4 {
   flex-basis: 40pt;
   flex-shrink: 0;
   flex-grow: 0;

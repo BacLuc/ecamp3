@@ -17,6 +17,7 @@
         "storyboard": {
           "controls": "Aktionen",
           "reorder": "Verschieben",
+          "showMaterials": "Materialspalte",
           "storyboardDialogRemoveSection": {
             "deleteWarning": "Möchtest du diesen Abschnitt wirklich löschen?",
             "title": "Wirklich löschen?"

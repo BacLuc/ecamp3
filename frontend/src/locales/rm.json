@@ -11,6 +11,7 @@
         "storyboard": {
           "controls": "Acziuns",
           "reorder": "Spustar",
+          "showMaterials": "Colonna da material",
           "storyboardDialogRemoveSection": {
             "deleteWarning": "Vuls ti propi stizzar questa part?",
             "title": "Propi stizzar?"

@@ -17,6 +17,7 @@
         "storyboard": {
           "controls": "Actions",
           "reorder": "Déplacer",
+          "showMaterials": "Colonne matériel",
           "storyboardDialogRemoveSection": {
             "deleteWarning": "Veux-tu vraiment supprimer cette ligne ?",
             "title": "Confirmer la suppression ?"

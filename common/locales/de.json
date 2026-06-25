@@ -83,7 +83,8 @@
           "fields": {
             "column1": "Zeit",
             "column2Html": "Programm",
-            "column3": "Verantwortlich"
+            "column3": "Verantwortlich",
+            "column4": "Material"
           },
           "name": "Programmpunkt | Programmpunkte"
         }

@@ -1,5 +1,9 @@
 <template>
-  <div role="row" class="e-storyboard-row e-storyboard-row--dense">
+  <div
+    role="row"
+    class="e-storyboard-row e-storyboard-row--dense"
+    :class="{ 'e-storyboard-row--has-materials': showMaterials }"
+  >
     <div v-if="!layoutMode" role="cell" class="e-storyboard-row__handle">
       <v-btn
         icon="mdi-drag"
@@ -28,6 +32,14 @@
         :label="$t('contentNode.storyboard.entity.section.fields.column3')"
         :single-line="false"
         :path="`data.sections[${itemKey}].column3`"
+        :disabled="layoutMode || disabled"
+      />
+    </div>
+    <div v-if="showMaterials" role="cell" class="e-storyboard-row__materials">
+      <api-text-field
+        :label="$t('contentNode.storyboard.entity.section.fields.column4')"
+        :single-line="false"
+        :path="`data.sections[${itemKey}].column4`"
         :disabled="layoutMode || disabled"
       />
     </div>
@@ -70,6 +82,7 @@ export default {
     itemKey: { type: String, required: true },
     layoutMode: { type: Boolean, required: true },
     disabled: { type: Boolean, default: false },
+    showMaterials: { type: Boolean, default: false },
   },
   emits: ['moveDown', 'moveUp', 'delete'],
 }
@@ -94,6 +107,13 @@ export default {
   grid-template-columns: min-content 1fr 1fr min-content;
   align-items: baseline;
 
+  &.e-storyboard-row--has-materials {
+    grid-template-areas:
+      'handle time responsible material controls'
+      'handle text text        text     controls';
+    grid-template-columns: min-content 1fr 1fr 1fr min-content;
+  }
+
   .e-storyboard-row__time {
     grid-area: time;
   }
@@ -104,6 +124,10 @@ export default {
 
   .e-storyboard-row__responsible {
     grid-area: responsible;
+  }
+
+  .e-storyboard-row__materials {
+    grid-area: material;
   }
 
   .e-storyboard-row__handle {

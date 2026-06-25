@@ -12,6 +12,9 @@
           <th class="column column3 header tw-w-1/12">
             {{ $t('contentNode.storyboard.entity.section.fields.column3') }}
           </th>
+          <th v-if="materialsColumn" class="column column4 header tw-w-1/12">
+            {{ $t('contentNode.storyboard.entity.section.fields.column4') }}
+          </th>
         </tr>
       </thead>
       <tbody class="tw-break-anywhere">
@@ -24,6 +27,9 @@
           </td>
           <td class="column column3">
             {{ section.column3 }}
+          </td>
+          <td v-if="materialsColumn" class="column column4">
+            {{ section.column4 }}
           </td>
         </tr>
       </tbody>
@@ -57,6 +63,9 @@ export default {
         (section1, section2) => section1.position - section2.position
       )
     },
+    materialsColumn() {
+      return this.contentNode.data.materialsColumn ?? false
+    },
   },
 }
 </script>
@@ -87,6 +96,11 @@ export default {
 }
 
 .column3 {
+  border-left: 1px solid rgb(148 163 184);
+  padding-left: 4px;
+}
+
+.column4 {
   border-left: 1px solid rgb(148 163 184);
   padding-left: 4px;
 }

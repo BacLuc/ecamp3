@@ -1,6 +1,21 @@
 <template>
   <ContentNodeCard v-resizeobserver.debounce="onResize" v-bind="$props">
     <template #outer>
+      <div
+        v-if="!layoutMode && !disabled"
+        class="e-storyboard-toolbar px-3 d-flex justify-end"
+      >
+        <v-switch
+          :model-value="materialsColumn"
+          :label="$t('components.activity.content.storyboard.showMaterials')"
+          color="primary"
+          density="compact"
+          hide-details
+          inset
+          :loading="isTogglingMaterials"
+          @update:model-value="setMaterialsColumn"
+        />
+      </div>
       <component
         :is="isDefaultVariant ? 'table' : 'div'"
         class="w-full"
@@ -25,6 +40,9 @@
             <th scope="col" class="text-left">
               {{ $t('contentNode.storyboard.entity.section.fields.column3') }}
             </th>
+            <th v-if="materialsColumn" scope="col" class="text-left">
+              {{ $t('contentNode.storyboard.entity.section.fields.column4') }}
+            </th>
             <th>
               <span class="d-sr-only">
                 {{ $t('components.activity.content.storyboard.controls') }}
@@ -38,13 +56,14 @@
           :items="sections"
           :layout-mode="layoutMode"
           :is-last-section="isLastSection"
+          :show-materials="materialsColumn"
           :variant="isDefaultVariant ? 'default' : 'dense'"
           @sort="updateSections"
         />
         <template v-if="!layoutMode && !disabled">
           <tfoot v-if="isDefaultVariant">
             <tr>
-              <td colspan="4">
+              <td :colspan="materialsColumn ? 5 : 4">
                 <v-btn
                   block
                   icon
@@ -124,10 +143,14 @@ export default {
   data() {
     return {
       isAdding: false,
+      isTogglingMaterials: false,
       clientWidth: 1000,
     }
   },
   computed: {
+    materialsColumn() {
+      return this.api.get(this.contentNode).data.materialsColumn ?? false
+    },
     sections() {
       const sections = this.api.get(this.contentNode).data.sections
 
@@ -169,6 +192,7 @@ export default {
                 column1: '',
                 column2Html: '',
                 column3: '',
+                column4: '',
                 position: Object.keys(this.sections).length + 1,
               },
             },
@@ -179,6 +203,20 @@ export default {
       }
 
       this.isAdding = false
+    },
+
+    async setMaterialsColumn(value) {
+      this.isTogglingMaterials = true
+      try {
+        await this.contentNode.$patch({
+          data: {
+            materialsColumn: !!value,
+          },
+        })
+      } catch (error) {
+        this.toast.error(errorToMultiLineToast(error))
+      }
+      this.isTogglingMaterials = false
     },
 
     async updateSections(payload) {

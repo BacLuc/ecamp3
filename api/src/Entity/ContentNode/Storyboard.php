@@ -66,6 +66,11 @@ class Storyboard extends ContentNode {
                 // 'minProperties' => 1,
                 'additionalProperties' => false,
             ],
+            // Whether the optional, dedicated "materials" column (column4) is shown.
+            // Absent or false keeps the classic three-column layout.
+            'materialsColumn' => [
+                'type' => 'boolean',
+            ],
         ],
         '$defs' => [
             'section' => [
@@ -80,6 +85,11 @@ class Storyboard extends ContentNode {
                         'type' => 'string',
                     ],
                     'column3' => [
+                        'type' => 'string',
+                    ],
+                    // Optional dedicated "materials" column. Optional for backward
+                    // compatibility with sections created before the column existed.
+                    'column4' => [
                         'type' => 'string',
                     ],
                     'position' => [

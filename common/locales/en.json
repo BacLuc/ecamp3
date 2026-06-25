@@ -83,7 +83,8 @@
           "fields": {
             "column1": "Time",
             "column2Html": "Program",
-            "column3": "Responsible"
+            "column3": "Responsible",
+            "column4": "Material"
           },
           "name": "Storyboard | Storyboards"
         }

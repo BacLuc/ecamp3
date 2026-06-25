@@ -44,6 +44,48 @@ class CreateStoryboardTest extends CreateContentNodeTestCase {
         ]]);
     }
 
+    public function testCreateStoryboardAcceptsMaterialsColumn() {
+        $response = $this->create($this->getExampleWritePayload(['data' => [
+            'materialsColumn' => true,
+            'sections' => [
+                'f5ee1e2a-af0a-4fa5-8f3f-b869ed184c5c' => [
+                    'column1' => 'testText',
+                    'column2Html' => 'testText',
+                    'column3' => 'testText',
+                    'column4' => " materialText\n\t",
+                    'position' => 99,
+                ],
+            ],
+        ]]));
+
+        $this->assertResponseStatusCodeSame(201);
+        $this->assertJsonContains(['data' => [
+            'materialsColumn' => true,
+            'sections' => [
+                'f5ee1e2a-af0a-4fa5-8f3f-b869ed184c5c' => [
+                    'column4' => ' materialText',
+                ],
+            ],
+        ]]);
+    }
+
+    public function testCreateStoryboardRejectsNonBooleanMaterialsColumn() {
+        $response = $this->create($this->getExampleWritePayload(['data' => [
+            'materialsColumn' => 'yes',
+            'sections' => [
+                'f5ee1e2a-af0a-4fa5-8f3f-b869ed184c5c' => [
+                    'column1' => '',
+                    'column2Html' => '',
+                    'column3' => '',
+                    'position' => 0,
+                ],
+            ],
+        ]]));
+
+        $this->assertResponseStatusCodeSame(422);
+        $this->assertJsonSchemaError($response, 'data');
+    }
+
     public function testCreateStoryboardAcceptsEmptyJson() {
         $response = $this->create($this->getExampleWritePayload(['data' => null]));
 

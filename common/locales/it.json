@@ -71,7 +71,8 @@
           "fields": {
             "column1": "Tempo",
             "column2Html": "Programma",
-            "column3": "Responsabile"
+            "column3": "Responsabile",
+            "column4": "Materiale"
           },
           "name": "Sezione del programma | Sezioni del programma"
         }

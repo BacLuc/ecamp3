@@ -83,7 +83,8 @@
           "fields": {
             "column1": "Heure",
             "column2Html": "Programme",
-            "column3": "Responsable"
+            "column3": "Responsable",
+            "column4": "Matériel"
           },
           "name": "Section du programme | Sections du programme"
         }

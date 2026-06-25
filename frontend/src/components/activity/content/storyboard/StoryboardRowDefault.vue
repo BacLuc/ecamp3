@@ -39,6 +39,14 @@
         :disabled="layoutMode || disabled"
       />
     </td>
+    <td v-if="showMaterials" class="e-storyboard-row__materials">
+      <api-text-field
+        :label="$t('contentNode.storyboard.entity.section.fields.column4')"
+        single-line
+        :path="`data.sections[${itemKey}].column4`"
+        :disabled="layoutMode || disabled"
+      />
+    </td>
     <td v-if="!layoutMode && !disabled" class="e-storyboard-row__controls">
       <dialog-remove-section @submit="$emit('delete', itemKey)">
         <template #activator="{ props }">
@@ -70,6 +78,7 @@ export default {
     itemKey: { type: String, required: true },
     layoutMode: { type: Boolean, required: true },
     disabled: { type: Boolean, default: false },
+    showMaterials: { type: Boolean, default: false },
   },
   emits: ['moveDown', 'moveUp', 'delete'],
 }
@@ -99,6 +108,12 @@ export default {
   }
 
   .e-storyboard-row__responsible {
+    width: 15%;
+    padding-right: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .e-storyboard-row__materials {
     width: 15%;
     padding-bottom: 0.5rem;
   }
