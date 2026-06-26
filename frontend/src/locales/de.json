@@ -18,7 +18,8 @@
           "controls": "Aktionen",
           "reorder": "Verschieben",
           "columnSettings": {
-            "title": "Spalten"
+            "title": "Spalten",
+            "parseTime": "Zeiten formatieren (HH:MM)"
           },
           "storyboardDialogRemoveSection": {
             "deleteWarning": "Möchtest du diesen Abschnitt wirklich löschen?",

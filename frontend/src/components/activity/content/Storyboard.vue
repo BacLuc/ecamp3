@@ -9,10 +9,12 @@
           :show-time="timeColumn"
           :show-responsible="responsibleColumn"
           :show-materials="materialsColumn"
+          :parse-time="parseTime"
           :loading="isTogglingColumns"
           @update:show-time="setColumn('timeColumn', $event)"
           @update:show-responsible="setColumn('responsibleColumn', $event)"
           @update:show-materials="setColumn('materialsColumn', $event)"
+          @update:parse-time="setColumn('parseTime', $event)"
         />
       </div>
       <component
@@ -58,6 +60,7 @@
           :show-time="timeColumn"
           :show-responsible="responsibleColumn"
           :show-materials="materialsColumn"
+          :parse-time="parseTime"
           :variant="isDefaultVariant ? 'default' : 'dense'"
           @sort="updateSections"
         />
@@ -159,6 +162,9 @@ export default {
     },
     materialsColumn() {
       return this.api.get(this.contentNode).data.materialsColumn ?? false
+    },
+    parseTime() {
+      return this.api.get(this.contentNode).data.parseTime ?? false
     },
     footerColspan() {
       // handle + program + controls are always present; the optional columns

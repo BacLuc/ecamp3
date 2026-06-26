@@ -78,6 +78,11 @@ class Storyboard extends ContentNode {
             'materialsColumn' => [
                 'type' => 'boolean',
             ],
+            // When enabled, recognised time values in the time column are
+            // normalized to HH:MM in the UI and outputs. Custom values are kept.
+            'parseTime' => [
+                'type' => 'boolean',
+            ],
         ],
         '$defs' => [
             'section' => [

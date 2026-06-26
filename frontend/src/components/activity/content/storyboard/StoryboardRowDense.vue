@@ -20,6 +20,7 @@
         :label="$t('contentNode.storyboard.entity.section.fields.column1')"
         :single-line="false"
         :path="`data.sections[${itemKey}].column1`"
+        :parse="parseTime ? formatStoryboardTime : null"
         :disabled="layoutMode || disabled"
       />
     </div>
@@ -69,6 +70,7 @@
 </template>
 <script>
 import DialogRemoveSection from './StoryboardDialogRemoveSection.vue'
+import { formatStoryboardTime } from '@/common/helpers/storyboardTime.js'
 
 export default {
   name: 'StoryboardRowDense',
@@ -81,6 +83,7 @@ export default {
     showTime: { type: Boolean, default: true },
     showResponsible: { type: Boolean, default: true },
     showMaterials: { type: Boolean, default: false },
+    parseTime: { type: Boolean, default: false },
   },
   emits: ['moveDown', 'moveUp', 'delete'],
   computed: {
@@ -107,6 +110,7 @@ export default {
       }
     },
   },
+  methods: { formatStoryboardTime },
 }
 </script>
 <style scoped lang="scss">

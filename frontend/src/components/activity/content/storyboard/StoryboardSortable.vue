@@ -24,6 +24,7 @@
         :show-time="showTime"
         :show-responsible="showResponsible"
         :show-materials="showMaterials"
+        :parse-time="parseTime"
         @delete="deleteItem"
         @move-down="moveDown"
         @move-up="moveUp"
@@ -38,6 +39,7 @@
         :show-time="showTime"
         :show-responsible="showResponsible"
         :show-materials="showMaterials"
+        :parse-time="parseTime"
         @delete="deleteItem"
         @move-down="moveDown"
         @move-up="moveUp"
@@ -74,6 +76,7 @@ export default {
     showTime: { type: Boolean, default: true },
     showResponsible: { type: Boolean, default: true },
     showMaterials: { type: Boolean, default: false },
+    parseTime: { type: Boolean, default: false },
   },
   emits: ['sort'],
   data() {

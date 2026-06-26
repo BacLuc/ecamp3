@@ -34,6 +34,10 @@ export default {
   name: 'ApiTextField',
   components: { ApiWrapper, ApiWrapperAppend },
   mixins: [apiPropsMixin],
+  props: {
+    /* optional transform applied to the value before saving back to the API */
+    parse: { type: Function, required: false, default: null },
+  },
   data() {
     return {}
   },

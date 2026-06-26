@@ -92,6 +92,23 @@ class CreateStoryboardTest extends CreateContentNodeTestCase {
         ]]);
     }
 
+    public function testCreateStoryboardAcceptsParseTimeFlag() {
+        $response = $this->create($this->getExampleWritePayload(['data' => [
+            'parseTime' => true,
+            'sections' => [
+                'f5ee1e2a-af0a-4fa5-8f3f-b869ed184c5c' => [
+                    'column1' => '9',
+                    'column2Html' => '',
+                    'column3' => '',
+                    'position' => 0,
+                ],
+            ],
+        ]]));
+
+        $this->assertResponseStatusCodeSame(201);
+        $this->assertJsonContains(['data' => ['parseTime' => true]]);
+    }
+
     public function testCreateStoryboardRejectsNonBooleanColumnFlag() {
         $response = $this->create($this->getExampleWritePayload(['data' => [
             'timeColumn' => 'nope',

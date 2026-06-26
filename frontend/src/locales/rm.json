@@ -12,7 +12,8 @@
           "controls": "Acziuns",
           "reorder": "Spustar",
           "columnSettings": {
-            "title": "Colonnas"
+            "title": "Colonnas",
+            "parseTime": "Formatar las uras (HH:MM)"
           },
           "storyboardDialogRemoveSection": {
             "deleteWarning": "Vuls ti propi stizzar questa part?",

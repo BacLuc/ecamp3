@@ -23,7 +23,7 @@
       <tbody class="tw-break-anywhere">
         <tr v-for="(section, key) in sections" :key="key">
           <td v-if="timeColumn" class="column column1 tw-tabular-nums tw-text-right">
-            {{ section.column1 }}
+            {{ displayTime(section.column1) }}
           </td>
           <td class="column column2" :class="{ 'tw-border-l-0 tw-pl-0': !timeColumn }">
             <rich-text :rich-text="section.column2Html" />
@@ -45,6 +45,7 @@ import RichText from '../../generic/RichText.vue'
 import ContentNodeContent from './ContentNodeContent.vue'
 import values from 'lodash-es/values.js'
 import { mdiScriptTextOutline } from '@mdi/js'
+import { formatStoryboardTime } from '@/common/helpers/storyboardTime.js'
 
 export default {
   components: {
@@ -74,6 +75,14 @@ export default {
     },
     materialsColumn() {
       return this.contentNode.data.materialsColumn ?? false
+    },
+    parseTime() {
+      return this.contentNode.data.parseTime ?? false
+    },
+  },
+  methods: {
+    displayTime(value) {
+      return this.parseTime ? formatStoryboardTime(value) : value
     },
   },
 }

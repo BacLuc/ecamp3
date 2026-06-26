@@ -58,6 +58,19 @@
           @update:model-value="$emit('update:showMaterials', !!$event)"
         />
       </v-list-item>
+      <v-divider />
+      <v-list-item>
+        <v-switch
+          :model-value="parseTime"
+          :label="$t('components.activity.content.storyboard.columnSettings.parseTime')"
+          :disabled="!showTime"
+          color="primary"
+          density="compact"
+          hide-details
+          inset
+          @update:model-value="$emit('update:parseTime', !!$event)"
+        />
+      </v-list-item>
     </v-list>
   </v-menu>
 </template>
@@ -68,8 +81,14 @@ export default {
     showTime: { type: Boolean, required: true },
     showResponsible: { type: Boolean, required: true },
     showMaterials: { type: Boolean, required: true },
+    parseTime: { type: Boolean, required: true },
     loading: { type: Boolean, default: false },
   },
-  emits: ['update:showTime', 'update:showResponsible', 'update:showMaterials'],
+  emits: [
+    'update:showTime',
+    'update:showResponsible',
+    'update:showMaterials',
+    'update:parseTime',
+  ],
 }
 </script>

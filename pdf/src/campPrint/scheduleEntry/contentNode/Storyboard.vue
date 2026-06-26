@@ -20,7 +20,7 @@
     </View>
     <View v-for="section in sections" class="storyboard-row">
       <View v-if="timeColumn" class="storyboard-cell storyboard-column-1">
-        <Text>{{ section.column1 }}</Text>
+        <Text>{{ displayTime(section.column1) }}</Text>
       </View>
       <View
         class="storyboard-cell storyboard-column-2"
@@ -43,6 +43,7 @@ import InstanceName from '../InstanceName.vue'
 import RichText from '../../RichText.vue'
 import sortBy from 'lodash-es/sortBy.js'
 import { isEmptyHtml } from '../../helpers.js'
+import { formatStoryboardTime } from '../../../../common/helpers/storyboardTime.js'
 
 export default {
   name: 'Storyboard',
@@ -75,6 +76,9 @@ export default {
     materialsColumn() {
       return this.contentNode.data.materialsColumn ?? false
     },
+    parseTime() {
+      return this.contentNode.data.parseTime ?? false
+    },
     anyContent() {
       return (
         this.sections.length &&
@@ -83,6 +87,11 @@ export default {
           this.sections[0].column3.length ||
           this.sections[0].column4.length)
       )
+    },
+  },
+  methods: {
+    displayTime(value) {
+      return this.parseTime ? formatStoryboardTime(value) : value
     },
   },
 }

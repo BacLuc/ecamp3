@@ -18,7 +18,8 @@
           "controls": "Controls",
           "reorder": "Reorder",
           "columnSettings": {
-            "title": "Columns"
+            "title": "Columns",
+            "parseTime": "Format times (HH:MM)"
           },
           "storyboardDialogRemoveSection": {
             "deleteWarning": "Do you really want to remove this section?",

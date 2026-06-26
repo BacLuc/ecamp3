@@ -15,7 +15,8 @@
           "controls": "Azioni",
           "reorder": "Spostare",
           "columnSettings": {
-            "title": "Colonne"
+            "title": "Colonne",
+            "parseTime": "Formatta gli orari (HH:MM)"
           },
           "storyboardDialogRemoveSection": {
             "deleteWarning": "Vuoi davvero rimuovere questa sezione?",
