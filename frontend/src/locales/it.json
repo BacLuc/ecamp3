@@ -18,6 +18,7 @@
             "title": "Colonne",
             "parseTime": "Formatta gli orari (HH:MM)"
           },
+          "filterResponsible": "Filtra per responsabile",
           "storyboardDialogRemoveSection": {
             "deleteWarning": "Vuoi davvero rimuovere questa sezione?",
             "title": "Cancellare davvero?"

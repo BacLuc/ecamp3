@@ -25,6 +25,7 @@
         :show-responsible="showResponsible"
         :show-materials="showMaterials"
         :parse-time="parseTime"
+        :dimmed="dimmedKeys.includes(element)"
         @delete="deleteItem"
         @move-down="moveDown"
         @move-up="moveUp"
@@ -40,6 +41,7 @@
         :show-responsible="showResponsible"
         :show-materials="showMaterials"
         :parse-time="parseTime"
+        :dimmed="dimmedKeys.includes(element)"
         @delete="deleteItem"
         @move-down="moveDown"
         @move-up="moveUp"
@@ -77,6 +79,7 @@ export default {
     showResponsible: { type: Boolean, default: true },
     showMaterials: { type: Boolean, default: false },
     parseTime: { type: Boolean, default: false },
+    dimmedKeys: { type: Array, default: () => [] },
   },
   emits: ['sort'],
   data() {

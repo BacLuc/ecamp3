@@ -2,10 +2,24 @@
   <ContentNodeCard v-resizeobserver.debounce="onResize" v-bind="$props">
     <template #outer>
       <div
-        v-if="!layoutMode && !disabled"
-        class="e-storyboard-toolbar px-3 d-flex justify-end"
+        v-if="!layoutMode && (responsibleColumn || !disabled)"
+        class="e-storyboard-toolbar px-3 d-flex align-center"
       >
+        <v-text-field
+          v-if="responsibleColumn"
+          v-model="responsibleFilter"
+          :label="$t('components.activity.content.storyboard.filterResponsible')"
+          prepend-inner-icon="mdi-account-search-outline"
+          density="compact"
+          variant="outlined"
+          hide-details
+          clearable
+          single-line
+          class="e-storyboard-filter flex-grow-0"
+        />
+        <v-spacer />
         <StoryboardColumnSettings
+          v-if="!disabled"
           :show-time="timeColumn"
           :show-responsible="responsibleColumn"
           :show-materials="materialsColumn"
@@ -61,6 +75,7 @@
           :show-responsible="responsibleColumn"
           :show-materials="materialsColumn"
           :parse-time="parseTime"
+          :dimmed-keys="dimmedKeys"
           :variant="isDefaultVariant ? 'default' : 'dense'"
           @sort="updateSections"
         />
@@ -150,6 +165,7 @@ export default {
     return {
       isAdding: false,
       isTogglingColumns: false,
+      responsibleFilter: '',
       clientWidth: 1000,
     }
   },
@@ -165,6 +181,19 @@ export default {
     },
     parseTime() {
       return this.api.get(this.contentNode).data.parseTime ?? false
+    },
+    // Keys of sections whose responsible column does not match the current
+    // filter; these are visually dimmed so matches are easy to spot. Empty
+    // filter dims nothing.
+    dimmedKeys() {
+      const filter = (this.responsibleFilter ?? '').trim().toLowerCase()
+      if (filter === '') {
+        return []
+      }
+      const sections = this.sections
+      return Object.keys(sections).filter(
+        (key) => !(sections[key].column3 ?? '').toLowerCase().includes(filter)
+      )
     },
     footerColspan() {
       // handle + program + controls are always present; the optional columns

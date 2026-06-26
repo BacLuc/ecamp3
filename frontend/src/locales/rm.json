@@ -15,6 +15,7 @@
             "title": "Colonnas",
             "parseTime": "Formatar las uras (HH:MM)"
           },
+          "filterResponsible": "Filtrar tenor responsabels",
           "storyboardDialogRemoveSection": {
             "deleteWarning": "Vuls ti propi stizzar questa part?",
             "title": "Propi stizzar?"

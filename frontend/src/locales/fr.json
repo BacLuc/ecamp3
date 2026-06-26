@@ -21,6 +21,7 @@
             "title": "Colonnes",
             "parseTime": "Formater les heures (HH:MM)"
           },
+          "filterResponsible": "Filtrer par responsable",
           "storyboardDialogRemoveSection": {
             "deleteWarning": "Veux-tu vraiment supprimer cette ligne ?",
             "title": "Confirmer la suppression ?"

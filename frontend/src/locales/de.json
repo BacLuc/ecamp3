@@ -21,6 +21,7 @@
             "title": "Spalten",
             "parseTime": "Zeiten formatieren (HH:MM)"
           },
+          "filterResponsible": "Nach Verantwortlichen filtern",
           "storyboardDialogRemoveSection": {
             "deleteWarning": "Möchtest du diesen Abschnitt wirklich löschen?",
             "title": "Wirklich löschen?"

@@ -1,5 +1,10 @@
 <template>
-  <div role="row" class="e-storyboard-row e-storyboard-row--dense" :style="gridStyle">
+  <div
+    role="row"
+    class="e-storyboard-row e-storyboard-row--dense"
+    :class="{ 'e-storyboard-row--dimmed': dimmed }"
+    :style="gridStyle"
+  >
     <div v-if="!layoutMode" role="cell" class="e-storyboard-row__handle">
       <v-btn
         icon="mdi-drag"
@@ -84,6 +89,7 @@ export default {
     showResponsible: { type: Boolean, default: true },
     showMaterials: { type: Boolean, default: false },
     parseTime: { type: Boolean, default: false },
+    dimmed: { type: Boolean, default: false },
   },
   emits: ['moveDown', 'moveUp', 'delete'],
   computed: {
@@ -120,6 +126,11 @@ export default {
   &:hover {
     color: #d32f2f !important;
   }
+}
+
+.e-storyboard-row--dimmed {
+  opacity: 0.35;
+  transition: opacity 0.2s ease;
 }
 
 .e-storyboard-row--dense {
