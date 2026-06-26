@@ -22,10 +22,6 @@
         icon="mdi-format-list-bulleted"
         @click="run((c) => c.toggleBulletList())"
       />
-      <v-spacer />
-      <v-btn size="small" variant="text" prepend-icon="mdi-plus" @click="addSection">
-        {{ $t('components.activity.content.storyboard.addSection') }}
-      </v-btn>
     </div>
     <editor-content
       v-if="editor"
@@ -38,7 +34,6 @@
 <script>
 import { Editor, EditorContent } from '@tiptap/vue-3'
 import Document from '@tiptap/extension-document'
-import Paragraph from '@tiptap/extension-paragraph'
 import Text from '@tiptap/extension-text'
 import BulletList from '@tiptap/extension-bullet-list'
 import OrderedList from '@tiptap/extension-ordered-list'
@@ -53,15 +48,11 @@ import Placeholder from '@tiptap/extension-placeholder'
 import { debounce } from 'lodash-es'
 import { useToast } from 'vue-toastification'
 import { errorToMultiLineToast } from '@/components/toast/toasts'
-import { StoryboardSection } from './tiptap/StoryboardSectionExtension.js'
+import { StoryboardParagraph } from './tiptap/StoryboardParagraph.js'
 import {
   sectionsToHtml,
   htmlToSections,
-  generateSectionId,
 } from '@/common/helpers/storyboardSerialization.js'
-
-// Document that only contains storyboard sections (continuous, paper-like).
-const StoryboardDocument = Document.extend({ content: 'storyboardSection+' })
 
 export default {
   name: 'StoryboardContinuousEditor',
@@ -91,16 +82,15 @@ export default {
   mounted() {
     const initial = Object.keys(this.sections).length
       ? sectionsToHtml(this.sections)
-      : `<div data-storyboard-section data-section-id="${generateSectionId()}"><p></p></div>`
+      : '<p></p>'
 
     this.debouncedSave = debounce(this.save, 800)
     this.editor = new Editor({
       editable: !this.disabled,
       content: initial,
       extensions: [
-        StoryboardDocument,
-        StoryboardSection,
-        Paragraph,
+        Document,
+        StoryboardParagraph,
         Text,
         Bold,
         Italic,
@@ -131,17 +121,6 @@ export default {
     run(commandFn) {
       commandFn(this.editor.chain().focus()).run()
     },
-    addSection() {
-      this.editor
-        .chain()
-        .focus('end')
-        .insertContentAt(this.editor.state.doc.content.size, {
-          type: 'storyboardSection',
-          attrs: { sectionId: generateSectionId() },
-          content: [{ type: 'paragraph' }],
-        })
-        .run()
-    },
     async save() {
       const newSections = htmlToSections(this.editor.getHTML())
 
@@ -170,6 +149,10 @@ export default {
 }
 .e-storyboard-continuous__content:deep(.ProseMirror p) {
   margin: 0;
+}
+// Hide the time gutter for paragraphs nested inside list items.
+.e-storyboard-continuous__content:deep(li .e-sb-para__time) {
+  display: none;
 }
 .e-storyboard-continuous__content:deep(.is-empty::before) {
   content: attr(data-placeholder);

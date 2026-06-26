@@ -1,15 +1,24 @@
-// Serialization between the storyboard API data structure and the HTML
-// representation used by the unified TipTap editor (idea #6).
+// Serialization between the storyboard API data structure and the HTML of the
+// unified TipTap editor (idea #6).
 //
-// The TipTap document is a sequence of "storyboard section" blocks. Each block
-// is rendered as a <div data-storyboard-section> whose data-attributes hold the
-// non-program columns (time/responsible/material/comment) and whose inner HTML
-// is the program content (column2Html). This keeps a single, continuous editing
-// surface while still serializing into the API's `sections` map.
+// The editor is a single continuous document of blocks (paragraphs, lists, …).
+// A time entered in the left gutter of a top-level paragraph starts a new
+// "section": that paragraph and every following block (until the next timed
+// paragraph) make up the section's program content. The first block always
+// starts a section, even without a time.
+//
+// The time (and the other per-section columns, preserved but not edited here)
+// live as data-attributes on the first paragraph of each section:
+//   <p data-section-id data-time data-responsible data-material data-comment>
+// so editor.getHTML() round-trips into the API `sections` map.
 
-export function generateSectionId() {
-  return generateId()
-}
+const META_ATTRIBUTES = [
+  'data-section-id',
+  'data-time',
+  'data-responsible',
+  'data-material',
+  'data-comment',
+]
 
 function generateId() {
   if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
@@ -23,12 +32,8 @@ function generateId() {
   })
 }
 
-function escapeAttribute(value) {
-  return String(value ?? '')
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
+export function generateSectionId() {
+  return generateId()
 }
 
 function sortedSectionEntries(sections) {
@@ -37,30 +42,55 @@ function sortedSectionEntries(sections) {
   )
 }
 
-/**
- * Convert the API `sections` map into the HTML the TipTap editor loads.
- */
-export function sectionsToHtml(sections) {
-  return sortedSectionEntries(sections)
-    .map(([id, section]) => {
-      const program = section.column2Html?.trim() ? section.column2Html : '<p></p>'
-      return (
-        `<div data-storyboard-section` +
-        ` data-section-id="${escapeAttribute(id)}"` +
-        ` data-time="${escapeAttribute(section.column1)}"` +
-        ` data-responsible="${escapeAttribute(section.column3)}"` +
-        ` data-material="${escapeAttribute(section.column4)}"` +
-        ` data-comment="${escapeAttribute(section.comment)}">` +
-        `${program}</div>`
-      )
-    })
-    .join('')
+function parseDocument(html) {
+  return new DOMParser().parseFromString(`<body>${html}</body>`, 'text/html')
 }
 
 /**
- * Parse the TipTap editor HTML back into an API `sections` map. Section ids are
- * preserved from the data-section-id attribute (or generated when missing), and
- * positions are derived from document order.
+ * Convert the API `sections` map into the HTML the TipTap editor loads. The
+ * section's metadata is attached to the first block of its program content.
+ */
+export function sectionsToHtml(sections) {
+  const doc = parseDocument('')
+  const container = doc.body
+
+  sortedSectionEntries(sections).forEach(([id, section]) => {
+    const fragment = doc.createElement('div')
+    fragment.innerHTML = section.column2Html?.trim() ? section.column2Html : '<p></p>'
+
+    let first = fragment.firstElementChild
+    if (!first) {
+      first = doc.createElement('p')
+      first.innerHTML = fragment.innerHTML
+      fragment.innerHTML = ''
+      fragment.appendChild(first)
+    }
+
+    first.setAttribute('data-section-id', id)
+    first.setAttribute('data-time', section.column1 ?? '')
+    if (section.column3) first.setAttribute('data-responsible', section.column3)
+    if (section.column4) first.setAttribute('data-material', section.column4)
+    if (section.comment) first.setAttribute('data-comment', section.comment)
+
+    while (fragment.firstChild) {
+      container.appendChild(fragment.firstChild)
+    }
+  })
+
+  return container.innerHTML
+}
+
+function cleanBlockHtml(element) {
+  const clone = element.cloneNode(true)
+  META_ATTRIBUTES.forEach((attribute) => clone.removeAttribute(attribute))
+  return clone.outerHTML
+}
+
+/**
+ * Parse the TipTap editor HTML back into an API `sections` map. A new section
+ * begins at the first block and at every top-level paragraph carrying a
+ * non-empty time; in-between blocks are appended to the current section's
+ * program. Section ids are preserved from data-section-id when present.
  *
  * @param {string} html
  * @param {(html: string) => Element[]} [parseElements] inject a parser in
@@ -69,21 +99,33 @@ export function sectionsToHtml(sections) {
 export function htmlToSections(html, parseElements = defaultParseElements) {
   const elements = parseElements(html)
   const sections = {}
-  elements.forEach((element, index) => {
-    const id = element.getAttribute('data-section-id') || generateId()
-    sections[id] = {
-      column1: element.getAttribute('data-time') ?? '',
-      column2Html: element.innerHTML ?? '',
-      column3: element.getAttribute('data-responsible') ?? '',
-      column4: element.getAttribute('data-material') ?? '',
-      comment: element.getAttribute('data-comment') ?? '',
-      position: index,
+  let current = null
+  let position = 0
+
+  elements.forEach((element) => {
+    const isParagraph = element.tagName === 'P'
+    const time = isParagraph ? element.getAttribute('data-time') || '' : ''
+    const startsNewSection = current === null || time !== ''
+
+    if (startsNewSection) {
+      const id = element.getAttribute('data-section-id') || generateId()
+      current = {
+        column1: time,
+        column2Html: '',
+        column3: isParagraph ? element.getAttribute('data-responsible') || '' : '',
+        column4: isParagraph ? element.getAttribute('data-material') || '' : '',
+        comment: isParagraph ? element.getAttribute('data-comment') || '' : '',
+        position: position++,
+      }
+      sections[id] = current
     }
+
+    current.column2Html += cleanBlockHtml(element)
   })
+
   return sections
 }
 
 function defaultParseElements(html) {
-  const doc = new DOMParser().parseFromString(`<div>${html}</div>`, 'text/html')
-  return Array.from(doc.querySelectorAll('[data-storyboard-section]'))
+  return Array.from(parseDocument(html).body.children)
 }

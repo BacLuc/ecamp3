@@ -117,63 +117,77 @@ test.describe('storyboard continuous editor', () => {
     await api.dispose()
   })
 
-  test('renders the section editor and persists edits', async ({ page }) => {
+  test('derives sections from times in continuous text', async ({ page }) => {
     await loginAndSetCookie(page, null, bipiUser)
     await page.goto(editUrl)
 
     const editor = page.locator('.e-storyboard-continuous')
     await expect(editor).toBeVisible()
-    await expect(page.locator('.e-sb-section')).toHaveCount(1)
-    const firstSection = page.locator('.e-sb-section').first()
-    await expect(firstSection).toBeVisible()
 
-    // Screenshot of an empty storyboard section.
-    await firstSection.screenshot({
-      path: `${SCREENSHOT_DIR}/storyboard-section-empty.png`,
-    })
+    // The editor starts as a single empty paragraph with a left time gutter,
+    // and there is no "add section" button: sections come from times.
+    await expect(page.locator('.e-sb-para--top')).toHaveCount(1)
+    const timeInputs = page.locator('.e-sb-para__time-input')
 
-    // The time column understands shorthand and normalizes it on blur.
-    const timeInput = firstSection.locator('.e-sb-section__input--time')
-    await timeInput.fill('9')
-    await timeInput.blur()
-    await expect(timeInput).toHaveValue('09:00')
+    await page
+      .locator('.e-sb-para--top')
+      .first()
+      .screenshot({
+        path: `${SCREENSHOT_DIR}/storyboard-section-empty.png`,
+      })
 
-    // The program content is edited as continuous rich text.
-    await firstSection.locator('.e-sb-section__program').click()
-    await page.keyboard.type('Welcome to camp')
+    // A time entered in the gutter is normalized on blur and starts a section.
+    await timeInputs.first().fill('9')
+    await timeInputs.first().blur()
+    await expect(timeInputs.first()).toHaveValue('09:00')
 
-    // The responsible is an inline field next to the program.
-    await firstSection.locator('.e-sb-section__input').last().fill('Alice')
+    // Write continuous text: two paragraphs that belong to the 09:00 section.
+    await page.locator('.e-sb-para__text').first().click()
+    await page.keyboard.type('Arrival and welcome')
 
-    await firstSection.screenshot({
-      path: `${SCREENSHOT_DIR}/storyboard-section-filled.png`,
-    })
+    await page
+      .locator('.e-sb-para--top')
+      .first()
+      .screenshot({
+        path: `${SCREENSHOT_DIR}/storyboard-section-filled.png`,
+      })
 
-    // Add a second section through the continuous editor toolbar.
-    await editor.getByRole('button', { name: /Abschnitt hinzufügen/i }).click()
-    await expect(page.locator('.e-sb-section')).toHaveCount(2)
+    await page.keyboard.press('Enter')
+    await page.keyboard.type('Still part of the morning')
+
+    // A third paragraph with its own time starts a second section.
+    await page.keyboard.press('Enter')
+    await page.keyboard.type('Lunch break')
+    await expect(page.locator('.e-sb-para--top')).toHaveCount(3)
+    await timeInputs.nth(2).fill('12')
+    await timeInputs.nth(2).blur()
+    await expect(timeInputs.nth(2)).toHaveValue('12:00')
 
     await editor.screenshot({
       path: `${SCREENSHOT_DIR}/storyboard-continuous-editor.png`,
     })
 
-    // The edits are serialized into the API `sections` structure (debounced).
+    // The component figured out which paragraphs belong to which time and
+    // serialized two sections into the API `sections` structure (debounced).
     await expect
       .poll(
         async () => {
           const data = await getStoryboardData(api, storyboardUri)
-          return Object.values(data.sections).map((section) => ({
-            column1: section.column1,
-            column2Html: section.column2Html,
-            column3: section.column3,
-          }))
+          return Object.values(data.sections)
+            .sort((a, b) => a.position - b.position)
+            .map((section) => ({
+              column1: section.column1,
+              column2Html: section.column2Html,
+            }))
         },
         { timeout: 10000 }
       )
-      .toContainEqual({
-        column1: '09:00',
-        column2Html: '<p>Welcome to camp</p>',
-        column3: 'Alice',
-      })
+      .toEqual([
+        {
+          column1: '09:00',
+          column2Html: '<p>Arrival and welcome</p><p>Still part of the morning</p>',
+        },
+        { column1: '12:00', column2Html: '<p>Lunch break</p>' },
+      ])
   })
 })
