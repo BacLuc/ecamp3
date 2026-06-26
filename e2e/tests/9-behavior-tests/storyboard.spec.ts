@@ -57,6 +57,27 @@ async function getStoryboardData(api: APIRequestContext, uri: string) {
   return (await (await api.get(`${ORIGIN}${uri}`, HAL)).json()).data as StoryboardData
 }
 
+// Build the edit URL of an activity identified by its exact title in a camp.
+async function findActivityEditUrl(
+  api: APIRequestContext,
+  campId: string,
+  title: string
+) {
+  const activities = await (
+    await api.get(`${API_ROOT_URL}/activities?camp=${campIri(campId)}`, HAL)
+  ).json()
+  const activity = activities._embedded.items.find(
+    (a: { title: string }) => a.title === title
+  )
+  const scheduleEntries = await (
+    await api.get(
+      `${API_ROOT_URL}/schedule_entries?activity=${encodeURIComponent(`/api/activities/${activity.id}`)}`,
+      HAL
+    )
+  ).json()
+  return `/camps/${campId}/x/program/activity/${activity.id}/${scheduleEntries._embedded.items[0].id}/x`
+}
+
 async function patchStoryboardData(
   api: APIRequestContext,
   uri: string,
@@ -189,5 +210,35 @@ test.describe('storyboard continuous editor', () => {
         },
         { column1: '12:00', column2Html: '<p>Lunch break</p>' },
       ])
+  })
+})
+
+test.describe('storyboard screenshot', () => {
+  let api: APIRequestContext
+  let editUrl: string
+
+  test.beforeAll(async () => {
+    api = await getAuthContext(bipiUser)
+    // The "LA Lagerbau" activity of the basiskurs camp has a fully populated
+    // storyboard; bipiUser is a manager there, so it opens in the editor.
+    editUrl = await findActivityEditUrl(api, basiskursCampId, 'LA Lagerbau')
+  })
+
+  test.afterAll(async () => {
+    await api.dispose()
+  })
+
+  test('captures the Lagerbau storyboard', async ({ page }) => {
+    await loginAndSetCookie(page, null, bipiUser)
+    await page.goto(editUrl)
+
+    const editor = page.locator('.e-storyboard-continuous')
+    await expect(editor).toBeVisible()
+    // A populated storyboard shows several timed sections in the left gutter.
+    await expect(page.locator('.e-sb-para--top').first()).toBeVisible()
+    expect(await page.locator('.e-sb-para--top').count()).toBeGreaterThanOrEqual(5)
+
+    await editor.scrollIntoViewIfNeeded()
+    await editor.screenshot({ path: `${SCREENSHOT_DIR}/lagerbau-storyboard.png` })
   })
 })
