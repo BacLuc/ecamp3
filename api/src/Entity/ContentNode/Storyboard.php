@@ -66,8 +66,15 @@ class Storyboard extends ContentNode {
                 // 'minProperties' => 1,
                 'additionalProperties' => false,
             ],
-            // Whether the optional, dedicated "materials" column (column4) is shown.
-            // Absent or false keeps the classic three-column layout.
+            // Column visibility flags. Absent means the default: time and
+            // responsible columns shown, materials column hidden. The program
+            // column (column2Html) is always shown and has no flag.
+            'timeColumn' => [
+                'type' => 'boolean',
+            ],
+            'responsibleColumn' => [
+                'type' => 'boolean',
+            ],
             'materialsColumn' => [
                 'type' => 'boolean',
             ],

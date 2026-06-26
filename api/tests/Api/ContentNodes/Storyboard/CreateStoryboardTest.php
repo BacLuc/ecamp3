@@ -69,6 +69,46 @@ class CreateStoryboardTest extends CreateContentNodeTestCase {
         ]]);
     }
 
+    public function testCreateStoryboardAcceptsColumnVisibilityFlags() {
+        $response = $this->create($this->getExampleWritePayload(['data' => [
+            'timeColumn' => false,
+            'responsibleColumn' => false,
+            'materialsColumn' => true,
+            'sections' => [
+                'f5ee1e2a-af0a-4fa5-8f3f-b869ed184c5c' => [
+                    'column1' => '',
+                    'column2Html' => '',
+                    'column3' => '',
+                    'position' => 0,
+                ],
+            ],
+        ]]));
+
+        $this->assertResponseStatusCodeSame(201);
+        $this->assertJsonContains(['data' => [
+            'timeColumn' => false,
+            'responsibleColumn' => false,
+            'materialsColumn' => true,
+        ]]);
+    }
+
+    public function testCreateStoryboardRejectsNonBooleanColumnFlag() {
+        $response = $this->create($this->getExampleWritePayload(['data' => [
+            'timeColumn' => 'nope',
+            'sections' => [
+                'f5ee1e2a-af0a-4fa5-8f3f-b869ed184c5c' => [
+                    'column1' => '',
+                    'column2Html' => '',
+                    'column3' => '',
+                    'position' => 0,
+                ],
+            ],
+        ]]));
+
+        $this->assertResponseStatusCodeSame(422);
+        $this->assertJsonSchemaError($response, 'data');
+    }
+
     public function testCreateStoryboardRejectsNonBooleanMaterialsColumn() {
         $response = $this->create($this->getExampleWritePayload(['data' => [
             'materialsColumn' => 'yes',

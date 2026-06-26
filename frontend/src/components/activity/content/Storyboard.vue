@@ -5,15 +5,14 @@
         v-if="!layoutMode && !disabled"
         class="e-storyboard-toolbar px-3 d-flex justify-end"
       >
-        <v-switch
-          :model-value="materialsColumn"
-          :label="$t('components.activity.content.storyboard.showMaterials')"
-          color="primary"
-          density="compact"
-          hide-details
-          inset
-          :loading="isTogglingMaterials"
-          @update:model-value="setMaterialsColumn"
+        <StoryboardColumnSettings
+          :show-time="timeColumn"
+          :show-responsible="responsibleColumn"
+          :show-materials="materialsColumn"
+          :loading="isTogglingColumns"
+          @update:show-time="setColumn('timeColumn', $event)"
+          @update:show-responsible="setColumn('responsibleColumn', $event)"
+          @update:show-materials="setColumn('materialsColumn', $event)"
         />
       </div>
       <component
@@ -31,13 +30,13 @@
                 {{ $t('components.activity.content.storyboard.reorder') }}
               </span>
             </th>
-            <th scope="col" class="text-left">
+            <th v-if="timeColumn" scope="col" class="text-left">
               {{ $t('contentNode.storyboard.entity.section.fields.column1') }}
             </th>
             <th scope="col" class="text-left">
               {{ $t('contentNode.storyboard.entity.section.fields.column2Html') }}
             </th>
-            <th scope="col" class="text-left">
+            <th v-if="responsibleColumn" scope="col" class="text-left">
               {{ $t('contentNode.storyboard.entity.section.fields.column3') }}
             </th>
             <th v-if="materialsColumn" scope="col" class="text-left">
@@ -56,6 +55,8 @@
           :items="sections"
           :layout-mode="layoutMode"
           :is-last-section="isLastSection"
+          :show-time="timeColumn"
+          :show-responsible="responsibleColumn"
           :show-materials="materialsColumn"
           :variant="isDefaultVariant ? 'default' : 'dense'"
           @sort="updateSections"
@@ -63,7 +64,7 @@
         <template v-if="!layoutMode && !disabled">
           <tfoot v-if="isDefaultVariant">
             <tr>
-              <td :colspan="materialsColumn ? 5 : 4">
+              <td :colspan="footerColspan">
                 <v-btn
                   block
                   icon
@@ -104,6 +105,7 @@ import { contentNodeMixin } from '@/mixins/contentNodeMixin.js'
 
 import { errorToMultiLineToast } from '@/components/toast/toasts'
 import StoryboardSortable from '@/components/activity/content/storyboard/StoryboardSortable.vue'
+import StoryboardColumnSettings from '@/components/activity/content/storyboard/StoryboardColumnSettings.vue'
 import { useToast } from 'vue-toastification'
 
 // This is a very poorly implemented polyfill for crypto.randomUUID
@@ -131,6 +133,7 @@ export default {
   components: {
     ContentNodeCard,
     StoryboardSortable,
+    StoryboardColumnSettings,
   },
   mixins: [contentNodeMixin],
   props: {
@@ -143,13 +146,29 @@ export default {
   data() {
     return {
       isAdding: false,
-      isTogglingMaterials: false,
+      isTogglingColumns: false,
       clientWidth: 1000,
     }
   },
   computed: {
+    timeColumn() {
+      return this.api.get(this.contentNode).data.timeColumn ?? true
+    },
+    responsibleColumn() {
+      return this.api.get(this.contentNode).data.responsibleColumn ?? true
+    },
     materialsColumn() {
       return this.api.get(this.contentNode).data.materialsColumn ?? false
+    },
+    footerColspan() {
+      // handle + program + controls are always present; the optional columns
+      // (time, responsible, material) add to the span when shown.
+      return (
+        3 +
+        (this.timeColumn ? 1 : 0) +
+        (this.responsibleColumn ? 1 : 0) +
+        (this.materialsColumn ? 1 : 0)
+      )
     },
     sections() {
       const sections = this.api.get(this.contentNode).data.sections
@@ -205,18 +224,18 @@ export default {
       this.isAdding = false
     },
 
-    async setMaterialsColumn(value) {
-      this.isTogglingMaterials = true
+    async setColumn(column, value) {
+      this.isTogglingColumns = true
       try {
         await this.contentNode.$patch({
           data: {
-            materialsColumn: !!value,
+            [column]: !!value,
           },
         })
       } catch (error) {
         this.toast.error(errorToMultiLineToast(error))
       }
-      this.isTogglingMaterials = false
+      this.isTogglingColumns = false
     },
 
     async updateSections(payload) {

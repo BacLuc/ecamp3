@@ -2,13 +2,16 @@
   <View class="content-node storyboard-container">
     <InstanceName :content-node="contentNode" />
     <View v-if="anyContent" class="storyboard-header-row">
-      <View class="storyboard-header-cell storyboard-column-1">
+      <View v-if="timeColumn" class="storyboard-header-cell storyboard-column-1">
         <Text>{{ $tc('contentNode.storyboard.entity.section.fields.column1') }}</Text>
       </View>
-      <View class="storyboard-header-cell storyboard-column-2">
+      <View
+        class="storyboard-header-cell storyboard-column-2"
+        :class="{ 'storyboard-no-left-border': !timeColumn }"
+      >
         <Text>{{ $tc('contentNode.storyboard.entity.section.fields.column2Html') }}</Text>
       </View>
-      <View class="storyboard-header-cell storyboard-column-3">
+      <View v-if="responsibleColumn" class="storyboard-header-cell storyboard-column-3">
         <Text>{{ $tc('contentNode.storyboard.entity.section.fields.column3') }}</Text>
       </View>
       <View v-if="materialsColumn" class="storyboard-header-cell storyboard-column-4">
@@ -16,13 +19,16 @@
       </View>
     </View>
     <View v-for="section in sections" class="storyboard-row">
-      <View class="storyboard-cell storyboard-column-1">
+      <View v-if="timeColumn" class="storyboard-cell storyboard-column-1">
         <Text>{{ section.column1 }}</Text>
       </View>
-      <View class="storyboard-cell storyboard-column-2">
+      <View
+        class="storyboard-cell storyboard-column-2"
+        :class="{ 'storyboard-no-left-border': !timeColumn }"
+      >
         <RichText :rich-text="section.column2Html" />
       </View>
-      <View class="storyboard-cell storyboard-column-3">
+      <View v-if="responsibleColumn" class="storyboard-cell storyboard-column-3">
         <Text>{{ section.column3 }}</Text>
       </View>
       <View v-if="materialsColumn" class="storyboard-cell storyboard-column-4">
@@ -59,6 +65,12 @@ export default {
         })),
         (section) => section.position
       )
+    },
+    timeColumn() {
+      return this.contentNode.data.timeColumn ?? true
+    },
+    responsibleColumn() {
+      return this.contentNode.data.responsibleColumn ?? true
     },
     materialsColumn() {
       return this.contentNode.data.materialsColumn ?? false
@@ -110,6 +122,10 @@ export default {
   flex-grow: 1;
   border-left: 0.75pt solid #94A3B8;
   padding-horizontal: 2pt;
+}
+.storyboard-no-left-border {
+  border-left: none;
+  padding-left: 0;
 }
 .storyboard-column-3 {
   flex-basis: 40pt;

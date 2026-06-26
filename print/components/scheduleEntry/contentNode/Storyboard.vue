@@ -3,13 +3,16 @@
     <table class="tw-w-full">
       <thead class="tw-break-after-avoid">
         <tr>
-          <th class="column column1 header tw-w-1/12 tw-text-left">
+          <th v-if="timeColumn" class="column column1 header tw-w-1/12 tw-text-left">
             {{ $t('contentNode.storyboard.entity.section.fields.column1') }}
           </th>
-          <th class="column column2 header tw-w-10/12">
+          <th
+            class="column column2 header tw-w-10/12"
+            :class="{ 'tw-border-l-0 tw-pl-0': !timeColumn }"
+          >
             {{ $t('contentNode.storyboard.entity.section.fields.column2Html') }}
           </th>
-          <th class="column column3 header tw-w-1/12">
+          <th v-if="responsibleColumn" class="column column3 header tw-w-1/12">
             {{ $t('contentNode.storyboard.entity.section.fields.column3') }}
           </th>
           <th v-if="materialsColumn" class="column column4 header tw-w-1/12">
@@ -19,13 +22,13 @@
       </thead>
       <tbody class="tw-break-anywhere">
         <tr v-for="(section, key) in sections" :key="key">
-          <td class="column column1 tw-tabular-nums tw-text-right">
+          <td v-if="timeColumn" class="column column1 tw-tabular-nums tw-text-right">
             {{ section.column1 }}
           </td>
-          <td class="column column2">
+          <td class="column column2" :class="{ 'tw-border-l-0 tw-pl-0': !timeColumn }">
             <rich-text :rich-text="section.column2Html" />
           </td>
-          <td class="column column3">
+          <td v-if="responsibleColumn" class="column column3">
             {{ section.column3 }}
           </td>
           <td v-if="materialsColumn" class="column column4">
@@ -62,6 +65,12 @@ export default {
       return [...sections].sort(
         (section1, section2) => section1.position - section2.position
       )
+    },
+    timeColumn() {
+      return this.contentNode.data.timeColumn ?? true
+    },
+    responsibleColumn() {
+      return this.contentNode.data.responsibleColumn ?? true
     },
     materialsColumn() {
       return this.contentNode.data.materialsColumn ?? false

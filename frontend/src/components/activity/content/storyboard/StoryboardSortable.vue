@@ -21,6 +21,8 @@
         :is-last-section="isLastSection"
         :item-key="element"
         :layout-mode="layoutMode"
+        :show-time="showTime"
+        :show-responsible="showResponsible"
         :show-materials="showMaterials"
         @delete="deleteItem"
         @move-down="moveDown"
@@ -33,6 +35,8 @@
         :is-last-section="isLastSection"
         :item-key="element"
         :layout-mode="layoutMode"
+        :show-time="showTime"
+        :show-responsible="showResponsible"
         :show-materials="showMaterials"
         @delete="deleteItem"
         @move-down="moveDown"
@@ -67,6 +71,8 @@ export default {
     layoutMode: { type: Boolean, required: true },
     entity: { type: Object, required: true },
     variant: { type: String, required: true },
+    showTime: { type: Boolean, default: true },
+    showResponsible: { type: Boolean, default: true },
     showMaterials: { type: Boolean, default: false },
   },
   emits: ['sort'],

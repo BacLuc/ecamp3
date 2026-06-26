@@ -17,7 +17,9 @@
         "storyboard": {
           "controls": "Controls",
           "reorder": "Reorder",
-          "showMaterials": "Material column",
+          "columnSettings": {
+            "title": "Columns"
+          },
           "storyboardDialogRemoveSection": {
             "deleteWarning": "Do you really want to remove this section?",
             "title": "Really delete?"

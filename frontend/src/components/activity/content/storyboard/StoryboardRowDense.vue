@@ -1,9 +1,5 @@
 <template>
-  <div
-    role="row"
-    class="e-storyboard-row e-storyboard-row--dense"
-    :class="{ 'e-storyboard-row--has-materials': showMaterials }"
-  >
+  <div role="row" class="e-storyboard-row e-storyboard-row--dense" :style="gridStyle">
     <div v-if="!layoutMode" role="cell" class="e-storyboard-row__handle">
       <v-btn
         icon="mdi-drag"
@@ -19,7 +15,7 @@
         <v-icon icon="mdi-drag" size="24" />
       </v-btn>
     </div>
-    <div role="cell" class="e-storyboard-row__time">
+    <div v-if="showTime" role="cell" class="e-storyboard-row__time">
       <api-text-field
         :label="$t('contentNode.storyboard.entity.section.fields.column1')"
         :single-line="false"
@@ -27,7 +23,7 @@
         :disabled="layoutMode || disabled"
       />
     </div>
-    <div role="cell" class="e-storyboard-row__responsible">
+    <div v-if="showResponsible" role="cell" class="e-storyboard-row__responsible">
       <api-text-field
         :label="$t('contentNode.storyboard.entity.section.fields.column3')"
         :single-line="false"
@@ -82,9 +78,35 @@ export default {
     itemKey: { type: String, required: true },
     layoutMode: { type: Boolean, required: true },
     disabled: { type: Boolean, default: false },
+    showTime: { type: Boolean, default: true },
+    showResponsible: { type: Boolean, default: true },
     showMaterials: { type: Boolean, default: false },
   },
   emits: ['moveDown', 'moveUp', 'delete'],
+  computed: {
+    // Builds the CSS grid template from the set of visible optional columns,
+    // so the dense layout adapts to any combination of time/responsible/material.
+    gridStyle() {
+      const columns = []
+      if (this.showTime) columns.push('time')
+      if (this.showResponsible) columns.push('responsible')
+      if (this.showMaterials) columns.push('material')
+
+      if (columns.length === 0) {
+        return {
+          gridTemplateAreas: '"handle text controls"',
+          gridTemplateColumns: 'min-content 1fr min-content',
+        }
+      }
+
+      const topRow = columns.join(' ')
+      const bottomRow = columns.map(() => 'text').join(' ')
+      return {
+        gridTemplateAreas: `"handle ${topRow} controls" "handle ${bottomRow} controls"`,
+        gridTemplateColumns: `min-content ${columns.map(() => '1fr').join(' ')} min-content`,
+      }
+    },
+  },
 }
 </script>
 <style scoped lang="scss">
@@ -101,18 +123,7 @@ export default {
   gap: 0.5rem;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
-  grid-template-areas:
-    'handle time responsible controls'
-    'handle text text        controls';
-  grid-template-columns: min-content 1fr 1fr min-content;
   align-items: baseline;
-
-  &.e-storyboard-row--has-materials {
-    grid-template-areas:
-      'handle time responsible material controls'
-      'handle text text        text     controls';
-    grid-template-columns: min-content 1fr 1fr 1fr min-content;
-  }
 
   .e-storyboard-row__time {
     grid-area: time;

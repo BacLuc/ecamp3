@@ -15,7 +15,7 @@
         <v-icon icon="mdi-drag" size="24" />
       </v-btn>
     </td>
-    <td class="e-storyboard-row__time">
+    <td v-if="showTime" class="e-storyboard-row__time">
       <api-text-field
         :label="$t('contentNode.storyboard.entity.section.fields.column1')"
         single-line
@@ -31,7 +31,7 @@
         :disabled="layoutMode || disabled"
       />
     </td>
-    <td class="e-storyboard-row__responsible">
+    <td v-if="showResponsible" class="e-storyboard-row__responsible">
       <api-text-field
         :label="$t('contentNode.storyboard.entity.section.fields.column3')"
         single-line
@@ -78,6 +78,8 @@ export default {
     itemKey: { type: String, required: true },
     layoutMode: { type: Boolean, required: true },
     disabled: { type: Boolean, default: false },
+    showTime: { type: Boolean, default: true },
+    showResponsible: { type: Boolean, default: true },
     showMaterials: { type: Boolean, default: false },
   },
   emits: ['moveDown', 'moveUp', 'delete'],
