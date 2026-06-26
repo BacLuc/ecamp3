@@ -22,6 +22,7 @@
             "parseTime": "Zeiten formatieren (HH:MM)"
           },
           "filterResponsible": "Nach Verantwortlichen filtern",
+          "toggleComment": "Kommentar",
           "storyboardDialogRemoveSection": {
             "deleteWarning": "Möchtest du diesen Abschnitt wirklich löschen?",
             "title": "Wirklich löschen?"

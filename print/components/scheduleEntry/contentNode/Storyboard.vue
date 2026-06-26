@@ -27,6 +27,7 @@
           </td>
           <td class="column column2" :class="{ 'tw-border-l-0 tw-pl-0': !timeColumn }">
             <rich-text :rich-text="section.column2Html" />
+            <div v-if="section.comment" class="comment">{{ section.comment }}</div>
           </td>
           <td v-if="responsibleColumn" class="column column3">
             {{ section.column3 }}
@@ -121,5 +122,11 @@ export default {
 .column4 {
   border-left: 1px solid rgb(148 163 184);
   padding-left: 4px;
+}
+
+.comment {
+  margin-top: 2px;
+  color: rgb(100 116 139);
+  font-style: italic;
 }
 </style>

@@ -22,6 +22,7 @@
             "parseTime": "Format times (HH:MM)"
           },
           "filterResponsible": "Filter by responsible",
+          "toggleComment": "Comment",
           "storyboardDialogRemoveSection": {
             "deleteWarning": "Do you really want to remove this section?",
             "title": "Really delete?"

@@ -84,7 +84,8 @@
             "column1": "Zeit",
             "column2Html": "Programm",
             "column3": "Verantwortlich",
-            "column4": "Material"
+            "column4": "Material",
+            "comment": "Kommentar"
           },
           "name": "Programmpunkt | Programmpunkte"
         }

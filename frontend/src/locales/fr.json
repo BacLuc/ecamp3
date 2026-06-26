@@ -22,6 +22,7 @@
             "parseTime": "Formater les heures (HH:MM)"
           },
           "filterResponsible": "Filtrer par responsable",
+          "toggleComment": "Commentaire",
           "storyboardDialogRemoveSection": {
             "deleteWarning": "Veux-tu vraiment supprimer cette ligne ?",
             "title": "Confirmer la suppression ?"

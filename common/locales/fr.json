@@ -84,7 +84,8 @@
             "column1": "Heure",
             "column2Html": "Programme",
             "column3": "Responsable",
-            "column4": "Matériel"
+            "column4": "Matériel",
+            "comment": "Commentaire"
           },
           "name": "Section du programme | Sections du programme"
         }

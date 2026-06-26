@@ -27,6 +27,7 @@
         :class="{ 'storyboard-no-left-border': !timeColumn }"
       >
         <RichText :rich-text="section.column2Html" />
+        <Text v-if="section.comment" class="storyboard-comment">{{ section.comment }}</Text>
       </View>
       <View v-if="responsibleColumn" class="storyboard-cell storyboard-column-3">
         <Text>{{ section.column3 }}</Text>
@@ -62,6 +63,7 @@ export default {
           column2Html: sections[key].column2Html,
           column3: sections[key].column3,
           column4: sections[key].column4 ?? '',
+          comment: sections[key].comment ?? '',
           position: sections[key].position,
         })),
         (section) => section.position
@@ -135,6 +137,11 @@ export default {
 .storyboard-no-left-border {
   border-left: none;
   padding-left: 0;
+}
+.storyboard-comment {
+  color: #64748B;
+  font-style: italic;
+  padding-top: 1pt;
 }
 .storyboard-column-3 {
   flex-basis: 40pt;

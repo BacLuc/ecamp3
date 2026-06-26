@@ -53,7 +53,30 @@
         :disabled="layoutMode || disabled"
       />
     </div>
+    <div v-if="showComment" role="cell" class="e-storyboard-row__comment">
+      <api-textarea
+        :label="$t('contentNode.storyboard.entity.section.fields.comment')"
+        :path="`data.sections[${itemKey}].comment`"
+        rows="2"
+        auto-grow
+        :disabled="layoutMode || disabled"
+      />
+    </div>
     <div v-if="!layoutMode && !disabled" role="cell" class="e-storyboard-row__controls">
+      <v-btn
+        variant="text"
+        size="small"
+        density="comfortable"
+        :color="showComment ? 'primary' : undefined"
+        :aria-label="$t('components.activity.content.storyboard.toggleComment')"
+        :title="$t('components.activity.content.storyboard.toggleComment')"
+        @click="toggleComment"
+      >
+        <v-icon
+          :icon="hasComment ? 'mdi-comment-text-outline' : 'mdi-comment-plus-outline'"
+          size="24"
+        />
+      </v-btn>
       <dialog-remove-section @submit="$emit('delete', itemKey)">
         <template #activator="{ props }">
           <v-btn
@@ -90,33 +113,48 @@ export default {
     showMaterials: { type: Boolean, default: false },
     parseTime: { type: Boolean, default: false },
     dimmed: { type: Boolean, default: false },
+    hasComment: { type: Boolean, default: false },
   },
   emits: ['moveDown', 'moveUp', 'delete'],
+  data() {
+    return { commentOpen: false }
+  },
   computed: {
-    // Builds the CSS grid template from the set of visible optional columns,
-    // so the dense layout adapts to any combination of time/responsible/material.
+    // A non-empty comment is always shown; the toggle is for opening an empty one.
+    showComment() {
+      return this.commentOpen || this.hasComment
+    },
+    // Builds the CSS grid template from the set of visible optional columns, so
+    // the dense layout adapts to any combination of time/responsible/material
+    // and grows an extra row for the comment when present.
     gridStyle() {
       const columns = []
       if (this.showTime) columns.push('time')
       if (this.showResponsible) columns.push('responsible')
       if (this.showMaterials) columns.push('material')
 
-      if (columns.length === 0) {
-        return {
-          gridTemplateAreas: '"handle text controls"',
-          gridTemplateColumns: 'min-content 1fr min-content',
-        }
+      const middle = columns.length > 0 ? columns : ['text']
+      const rows = []
+      if (columns.length > 0) {
+        rows.push(columns.join(' '))
+      }
+      rows.push(middle.map(() => 'text').join(' '))
+      if (this.showComment) {
+        rows.push(middle.map(() => 'comment').join(' '))
       }
 
-      const topRow = columns.join(' ')
-      const bottomRow = columns.map(() => 'text').join(' ')
       return {
-        gridTemplateAreas: `"handle ${topRow} controls" "handle ${bottomRow} controls"`,
-        gridTemplateColumns: `min-content ${columns.map(() => '1fr').join(' ')} min-content`,
+        gridTemplateAreas: rows.map((row) => `"handle ${row} controls"`).join(' '),
+        gridTemplateColumns: `min-content ${middle.map(() => '1fr').join(' ')} min-content`,
       }
     },
   },
-  methods: { formatStoryboardTime },
+  methods: {
+    formatStoryboardTime,
+    toggleComment() {
+      this.commentOpen = !this.commentOpen
+    },
+  },
 }
 </script>
 <style scoped lang="scss">
@@ -154,6 +192,10 @@ export default {
 
   .e-storyboard-row__materials {
     grid-area: material;
+  }
+
+  .e-storyboard-row__comment {
+    grid-area: comment;
   }
 
   .e-storyboard-row__handle {

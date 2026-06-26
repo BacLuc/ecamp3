@@ -16,6 +16,7 @@
             "parseTime": "Formatar las uras (HH:MM)"
           },
           "filterResponsible": "Filtrar tenor responsabels",
+          "toggleComment": "Commentar",
           "storyboardDialogRemoveSection": {
             "deleteWarning": "Vuls ti propi stizzar questa part?",
             "title": "Propi stizzar?"

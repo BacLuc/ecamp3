@@ -72,7 +72,8 @@
             "column1": "Tempo",
             "column2Html": "Programma",
             "column3": "Responsabile",
-            "column4": "Materiale"
+            "column4": "Materiale",
+            "comment": "Commento"
           },
           "name": "Sezione del programma | Sezioni del programma"
         }

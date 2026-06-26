@@ -34,6 +34,15 @@
         rows="4"
         :disabled="layoutMode || disabled"
       />
+      <api-textarea
+        v-if="showComment"
+        class="e-storyboard-row__comment mt-1"
+        :label="$t('contentNode.storyboard.entity.section.fields.comment')"
+        :path="`data.sections[${itemKey}].comment`"
+        rows="2"
+        auto-grow
+        :disabled="layoutMode || disabled"
+      />
     </td>
     <td v-if="showResponsible" class="e-storyboard-row__responsible">
       <api-text-field
@@ -52,22 +61,38 @@
       />
     </td>
     <td v-if="!layoutMode && !disabled" class="e-storyboard-row__controls">
-      <dialog-remove-section @submit="$emit('delete', itemKey)">
-        <template #activator="{ props }">
-          <v-btn
-            icon="mdi-delete-outline"
-            variant="text"
-            size="small"
-            density="comfortable"
-            class="e-storyboard-row__delete"
-            color="error"
-            :disabled="isLastSection"
-            v-bind="props"
-          >
-            <v-icon icon="mdi-delete-outline" size="24" />
-          </v-btn>
-        </template>
-      </dialog-remove-section>
+      <div class="d-flex flex-column align-center">
+        <v-btn
+          variant="text"
+          size="small"
+          density="comfortable"
+          :color="showComment ? 'primary' : undefined"
+          :aria-label="$t('components.activity.content.storyboard.toggleComment')"
+          :title="$t('components.activity.content.storyboard.toggleComment')"
+          @click="toggleComment"
+        >
+          <v-icon
+            :icon="hasComment ? 'mdi-comment-text-outline' : 'mdi-comment-plus-outline'"
+            size="24"
+          />
+        </v-btn>
+        <dialog-remove-section @submit="$emit('delete', itemKey)">
+          <template #activator="{ props }">
+            <v-btn
+              icon="mdi-delete-outline"
+              variant="text"
+              size="small"
+              density="comfortable"
+              class="e-storyboard-row__delete"
+              color="error"
+              :disabled="isLastSection"
+              v-bind="props"
+            >
+              <v-icon icon="mdi-delete-outline" size="24" />
+            </v-btn>
+          </template>
+        </dialog-remove-section>
+      </div>
     </td>
   </tr>
 </template>
@@ -88,9 +113,24 @@ export default {
     showMaterials: { type: Boolean, default: false },
     parseTime: { type: Boolean, default: false },
     dimmed: { type: Boolean, default: false },
+    hasComment: { type: Boolean, default: false },
   },
   emits: ['moveDown', 'moveUp', 'delete'],
-  methods: { formatStoryboardTime },
+  data() {
+    return { commentOpen: false }
+  },
+  computed: {
+    // A non-empty comment is always shown; the toggle is for opening an empty one.
+    showComment() {
+      return this.commentOpen || this.hasComment
+    },
+  },
+  methods: {
+    formatStoryboardTime,
+    toggleComment() {
+      this.commentOpen = !this.commentOpen
+    },
+  },
 }
 </script>
 <style scoped lang="scss">

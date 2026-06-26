@@ -104,6 +104,10 @@ class Storyboard extends ContentNode {
                     'column4' => [
                         'type' => 'string',
                     ],
+                    // Optional free-text comment/note anchored to this section.
+                    'comment' => [
+                        'type' => 'string',
+                    ],
                     'position' => [
                         'type' => 'integer',
                         'minimum' => 0,

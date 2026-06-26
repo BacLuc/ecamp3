@@ -69,6 +69,29 @@ class CreateStoryboardTest extends CreateContentNodeTestCase {
         ]]);
     }
 
+    public function testCreateStoryboardAcceptsSectionComment() {
+        $response = $this->create($this->getExampleWritePayload(['data' => [
+            'sections' => [
+                'f5ee1e2a-af0a-4fa5-8f3f-b869ed184c5c' => [
+                    'column1' => '',
+                    'column2Html' => '',
+                    'column3' => '',
+                    'comment' => " remember the rope\n\t",
+                    'position' => 0,
+                ],
+            ],
+        ]]));
+
+        $this->assertResponseStatusCodeSame(201);
+        $this->assertJsonContains(['data' => [
+            'sections' => [
+                'f5ee1e2a-af0a-4fa5-8f3f-b869ed184c5c' => [
+                    'comment' => ' remember the rope',
+                ],
+            ],
+        ]]);
+    }
+
     public function testCreateStoryboardAcceptsColumnVisibilityFlags() {
         $response = $this->create($this->getExampleWritePayload(['data' => [
             'timeColumn' => false,

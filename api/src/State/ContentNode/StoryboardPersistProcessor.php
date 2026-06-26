@@ -50,6 +50,7 @@ class StoryboardPersistProcessor extends ContentNodePersistProcessor {
             $section = $this->cleanHTMLFilter->applyTo($section, 'column2Html');
             $section = $this->cleanTextFilter->applyTo($section, 'column3');
             $section = $this->cleanTextFilter->applyTo($section, 'column4');
+            $section = $this->cleanTextFilter->applyTo($section, 'comment');
         }
 
         return $data;

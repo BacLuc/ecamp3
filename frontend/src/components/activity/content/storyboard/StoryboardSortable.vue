@@ -26,6 +26,7 @@
         :show-materials="showMaterials"
         :parse-time="parseTime"
         :dimmed="dimmedKeys.includes(element)"
+        :has-comment="hasComment(element)"
         @delete="deleteItem"
         @move-down="moveDown"
         @move-up="moveUp"
@@ -42,6 +43,7 @@
         :show-materials="showMaterials"
         :parse-time="parseTime"
         :dimmed="dimmedKeys.includes(element)"
+        :has-comment="hasComment(element)"
         @delete="deleteItem"
         @move-down="moveDown"
         @move-up="moveUp"
@@ -191,6 +193,11 @@ export default {
       })
 
       return payload
+    },
+
+    hasComment(key) {
+      const section = this.items[key]
+      return !!(section && section.comment)
     },
 
     itemKey(key) {
