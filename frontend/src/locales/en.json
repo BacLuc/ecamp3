@@ -17,6 +17,7 @@
         "storyboard": {
           "controls": "Controls",
           "reorder": "Reorder",
+          "addSection": "Add section",
           "columnSettings": {
             "title": "Columns",
             "parseTime": "Format times (HH:MM)"

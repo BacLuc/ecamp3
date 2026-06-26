@@ -17,6 +17,7 @@
         "storyboard": {
           "controls": "Actions",
           "reorder": "Déplacer",
+          "addSection": "Ajouter une section",
           "columnSettings": {
             "title": "Colonnes",
             "parseTime": "Formater les heures (HH:MM)"

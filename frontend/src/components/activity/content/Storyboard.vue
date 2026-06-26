@@ -1,8 +1,13 @@
 <template>
   <ContentNodeCard v-resizeobserver.debounce="onResize" v-bind="$props">
     <template #outer>
+      <StoryboardContinuousEditor
+        v-if="useContinuousEditor"
+        :content-node="contentNode"
+        :disabled="disabled"
+      />
       <div
-        v-if="!layoutMode && (responsibleColumn || !disabled)"
+        v-if="!useContinuousEditor && !layoutMode && (responsibleColumn || !disabled)"
         class="e-storyboard-toolbar px-3 d-flex align-center"
       >
         <v-text-field
@@ -33,6 +38,7 @@
       </div>
       <component
         :is="isDefaultVariant ? 'table' : 'div'"
+        v-if="!useContinuousEditor"
         class="w-full"
         :class="{
           'flex-grow-1': !isDefaultVariant,
@@ -124,6 +130,7 @@ import { contentNodeMixin } from '@/mixins/contentNodeMixin.js'
 import { errorToMultiLineToast } from '@/components/toast/toasts'
 import StoryboardSortable from '@/components/activity/content/storyboard/StoryboardSortable.vue'
 import StoryboardColumnSettings from '@/components/activity/content/storyboard/StoryboardColumnSettings.vue'
+import StoryboardContinuousEditor from '@/components/activity/content/storyboard/StoryboardContinuousEditor.vue'
 import { useToast } from 'vue-toastification'
 
 // This is a very poorly implemented polyfill for crypto.randomUUID
@@ -152,6 +159,7 @@ export default {
     ContentNodeCard,
     StoryboardSortable,
     StoryboardColumnSettings,
+    StoryboardContinuousEditor,
   },
   mixins: [contentNodeMixin],
   props: {
@@ -170,6 +178,11 @@ export default {
     }
   },
   computed: {
+    // Idea #6 prototype: the unified TipTap editor replaces the row-based table
+    // for interactive editing. Layout mode and read-only views keep the table.
+    useContinuousEditor() {
+      return !this.layoutMode && !this.disabled
+    },
     timeColumn() {
       return this.api.get(this.contentNode).data.timeColumn ?? true
     },

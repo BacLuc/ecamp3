@@ -17,6 +17,7 @@
         "storyboard": {
           "controls": "Aktionen",
           "reorder": "Verschieben",
+          "addSection": "Abschnitt hinzufügen",
           "columnSettings": {
             "title": "Spalten",
             "parseTime": "Zeiten formatieren (HH:MM)"

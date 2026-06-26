@@ -11,6 +11,7 @@
         "storyboard": {
           "controls": "Acziuns",
           "reorder": "Spustar",
+          "addSection": "Agiuntar ina secziun",
           "columnSettings": {
             "title": "Colonnas",
             "parseTime": "Formatar las uras (HH:MM)"
