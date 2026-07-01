@@ -39,3 +39,28 @@ test('ECheckbox toggles its boolean v-model', async ({ page }) => {
 
   await expect(page.getByTestId('form-test-model')).toHaveText('true')
 })
+
+test('ETimePicker updates its v-model when a time is entered', async ({ page }) => {
+  await page.goto(
+    formTestUrl('ETimePicker', {
+      props: { label: 'Start' },
+      value: '2024-01-15T09:30:00+00:00',
+    })
+  )
+
+  const subject = page.getByTestId('form-test-subject')
+  await expect(subject).toBeVisible()
+  await expect(page.getByTestId('form-test-model')).toHaveText(
+    JSON.stringify('2024-01-15T09:30:00+00:00')
+  )
+
+  // ETimePicker keeps the date part and only replaces the time of day. The
+  // parse is debounced, so the model updates shortly after leaving the field.
+  await subject.locator('input').fill('18:45')
+  await subject.locator('input').press('Tab')
+
+  await expect(page.getByTestId('form-test-model')).toHaveText(
+    JSON.stringify('2024-01-15T18:45:00+00:00'),
+    { timeout: 15000 }
+  )
+})
