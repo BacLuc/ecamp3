@@ -21,10 +21,26 @@ services:
       XDEBUG_MODE: ${XDEBUG_MODE:-off}
       # default port for Xdebug 3 is 9003
       # idekey=VSCODE if you are debugging with VSCode
-      XDEBUG_CONFIG: ${XDEBUG_CONFIG}
+      XDEBUG_CONFIG: ${XDEBUG_CONFIG:-}
       # This should correspond to the server declared in PHPStorm `Preferences | Languages & Frameworks | PHP | Servers`
       # Then PHPStorm will use the corresponding path mappings
       PHP_IDE_CONFIG: serverName=localhost
       PHP_MEMORY_LIMIT: ${PHP_MEMORY_LIMIT:-500M}
       PERFORMANCE_TEST_DEBUG_OUTPUT: ${PERFORMANCE_TEST_DEBUG_OUTPUT:-}
     user: ${USER_ID:-1000}
+
+  playwright-cli:
+    profiles:
+      - playwright-cli
+    build:
+      context: .agents/.ecamp/playwright-cli
+      dockerfile: Dockerfile
+    network_mode: host
+    user: ${USER_ID:-1000}
+    command: tail -f /dev/null
+    environment:
+      PLAYWRIGHT_DAEMON_SESSION_DIR: /tmp/playwright-cli-daemon
+      HOME: /tmp
+    volumes:
+      - ./:/workspace:delegated
+    working_dir: /workspace

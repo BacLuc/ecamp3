@@ -6,6 +6,11 @@ on:
       run-identifier:
         required: false
         type: string
+      grep-filter:
+        required: false
+        type: string
+        default: ''
+        description: 'Playwright --grep filter, e.g. "@mature". Empty means run all tests.'
 
 jobs:
   e2e-tests-run:
@@ -75,10 +80,11 @@ jobs:
       - run: sh -x wait-for-container-startup.sh
 
       - run: >
-          docker compose --profile e2e run 
-          -e CI=true 
-          -e PLAYWRIGHT_BLOB_OUTPUT_NAME=report-${{ matrix.browser }}${{ inputs.run-identifier != '' && format('-{0}', inputs.run-identifier) || '' }}.zip 
+          docker compose --profile e2e run
+          -e CI=true
+          -e PLAYWRIGHT_BLOB_OUTPUT_NAME=report-${{ matrix.browser }}${{ inputs.run-identifier != '' && format('-{0}', inputs.run-identifier) || '' }}.zip
           --rm e2e npx playwright test --project ${{ matrix.browser }}
+          ${{ inputs.grep-filter != '' && format('--grep "{0}"', inputs.grep-filter) || '' }}
 
       - run: sudo chown -R $USER e2e
         if: always()
@@ -114,7 +120,7 @@ jobs:
       - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
       - uses: actions/setup-node@v6
         with:
-          node-version: '24.16.0'
+          node-version: '24.18.0'
 
       - name: Install dependencies
         working-directory: e2e

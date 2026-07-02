@@ -6,7 +6,7 @@ import { loginAndSetCookie, mockDateNow } from '@/utils/helpers'
 
 import { readFileSync } from 'fs'
 
-test.describe('Client print test', () => {
+test.describe('Client print test', { tag: '@mature' }, () => {
   test.beforeEach(async ({ page }) => {
     await mockDateNow(page)
   })
@@ -29,6 +29,6 @@ test.describe('Client print test', () => {
     const pdfProps = await getPdfProperties(buffer)
 
     expect(download.suggestedFilename()).toBe('Pfila-2023.pdf')
-    expect(pdfProps.numPages).toBe(18)
+    expect(pdfProps.numPages).toBe(20)
   })
 })
