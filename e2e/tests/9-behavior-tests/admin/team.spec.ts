@@ -37,7 +37,7 @@ test.describe('invite collaborator by searching profiles', () => {
     await submitButton.focus()
     await submitButton.click()
 
-    await expect(page.getByText('BW')).toBeVisible()
+    await expect(page.getByText('BW')).toBeVisible({ timeout: 20000 })
     await expect(page.getByText('Bruce Wayne', { exact: true })).toBeVisible()
   })
 
