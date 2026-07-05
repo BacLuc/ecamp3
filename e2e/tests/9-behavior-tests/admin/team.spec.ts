@@ -17,29 +17,33 @@ test.describe('invite collaborator by searching profiles', () => {
     await expect(dialog).toBeVisible()
   })
 
-  test('finds a related profile by name and uses its email', async ({ page }) => {
-    const searchInput = page.locator('[data-testid="collaborator-invite-search"] input')
-    await searchInput.fill('Bruce')
+  test(
+    'finds a related profile by name and uses its email',
+    { tag: '@mature' },
+    async ({ page }) => {
+      const searchInput = page.locator('[data-testid="collaborator-invite-search"] input')
+      await searchInput.fill('Bruce')
 
-    const result = page
-      .getByTestId('collaborator-invite-result')
-      .filter({ hasText: bruceWayneEmail })
-    await expect(result).toBeVisible({ timeout: 10000 })
-    await expect(result).toContainText('Bruce Wayne')
+      const result = page
+        .getByTestId('collaborator-invite-result')
+        .filter({ hasText: bruceWayneEmail })
+      await expect(result).toBeVisible({ timeout: 10000 })
+      await expect(result).toContainText('Bruce Wayne')
 
-    await result.click()
+      await result.click()
 
-    await expect(searchInput).toHaveValue(bruceWayneEmail)
+      await expect(searchInput).toHaveValue(bruceWayneEmail)
 
-    await page.keyboard.press('Tab')
+      await page.keyboard.press('Tab')
 
-    const submitButton = dialog.locator('[type="submit"]')
-    await submitButton.focus()
-    await submitButton.click()
+      const submitButton = dialog.locator('[type="submit"]')
+      await submitButton.focus()
+      await submitButton.click()
 
-    await expect(page.getByText('BW')).toBeVisible({ timeout: 20000 })
-    await expect(page.getByText('Bruce Wayne', { exact: true })).toBeVisible()
-  })
+      await expect(page.getByText('BW')).toBeVisible({ timeout: 20000 })
+      await expect(page.getByText('Bruce Wayne', { exact: true })).toBeVisible()
+    }
+  )
 
   test('finds a related profile by part of the surname', async ({ page }) => {
     const searchInput = page.locator('[data-testid="collaborator-invite-search"] input')
