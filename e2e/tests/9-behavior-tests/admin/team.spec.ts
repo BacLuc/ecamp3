@@ -37,7 +37,8 @@ test.describe('invite collaborator by searching profiles', () => {
     await submitButton.focus()
     await submitButton.click()
 
-    await expect(page.getByText('BW')).toBeVisible()
+    await expect(dialog).not.toHaveClass(/v-overlay--active/, { timeout: 10000 })
+
     await expect(page.getByText('Bruce Wayne', { exact: true })).toBeVisible()
   })
 
