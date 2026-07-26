@@ -1,9 +1,16 @@
-import { Page } from '@playwright/test'
+import { expect, Locator, Page } from '@playwright/test'
 
-class CampInfo {
+export class CampInfo {
   constructor(
     private readonly _page: Page,
-    private
-  ) {
+    private readonly _titleField = _page.locator('[data-testid="title"] input')
+  ) {}
+
+  async loaded() {
+    await expect(this._titleField).toBeVisible()
+  }
+
+  get titleField(): Locator {
+    return this._titleField
   }
 }

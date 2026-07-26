@@ -1,6 +1,7 @@
 import { expect, Page } from '@playwright/test'
 import { boxedStep } from '@/utils/decorators/boxedStep'
 import { ESelect } from '@/utils/fixtures/components/eSelect'
+import { CampInfo } from '@/utils/fixtures/pageObjects/camp/admin/campInfo'
 
 export class CreateCampDialogStep2 {
   constructor(
@@ -28,6 +29,8 @@ export class CreateCampDialogStep2 {
   @boxedStep
   async submit() {
     await this._createCampButton.click()
-    return
+    const campInfo = new CampInfo(this._page)
+    await campInfo.loaded()
+    return campInfo
   }
 }

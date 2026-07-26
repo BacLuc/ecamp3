@@ -33,6 +33,8 @@ export class CampListPage {
   @boxedStep
   async openCreateCampDialog() {
     await this._createCampButton.click()
-    return new CreateCampDialogStep1(this._page)
+    const createCampDialogStep1 = new CreateCampDialogStep1(this._page)
+    await createCampDialogStep1.loaded()
+    return createCampDialogStep1
   }
 }

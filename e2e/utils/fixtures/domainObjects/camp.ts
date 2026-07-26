@@ -1,18 +1,19 @@
-import { expect, Locator, Page } from '@playwright/test'
+import { Page } from '@playwright/test'
 import { boxedStep } from '@/utils/decorators/boxedStep'
 import { LoginPage } from '@/utils/fixtures/pageObjects/loginPage'
 import { bipiUser } from '@/utils/constants'
+import { CampInfo } from '@/utils/fixtures/pageObjects/camp/admin/campInfo'
 
 type CampPrototype = 'empty' | string
 
 export type CampFixtureType = {
-  create: (prototype: CampPrototype) => Promise<Camp>
+  createCamp: (prototype: CampPrototype) => Promise<Camp>
 }
 
 export const campFixture = {
-  create: async (
+  createCamp: async (
     { page, runId }: { page: Page; runId: string },
-    use: (a: CampFixtureType['create']) => Promise<void>
+    use: (a: CampFixtureType['createCamp']) => Promise<void>
   ) => {
     await use((prototype) => new CreateCamp(page, prototype, runId).create())
   },
@@ -35,19 +36,35 @@ class CreateCamp {
     tomorrow.setDate(tomorrow.getDate() + 1)
     const in2Days = new Date()
     in2Days.setDate(in2Days.getDate() + 2)
+    const campTitle = `camp ${this._runId}`
 
-    const campListPage = await new LoginPage(this._page).loginToCampList(bipiUser)
-    await campListPage.createCampButton.click()
+    const loginPage = await new LoginPage(this._page).open()
+    const campListPage = await loginPage.loginToCampList(user)
+    const createCampDialogStep1 = await campListPage.openCreateCampDialog()
+    await createCampDialogStep1.fillForm(tomorrow, in2Days, campTitle)
 
-    return new Camp(this._page)
+    const createCampDialogStep2 = await createCampDialogStep1.next()
+    const campInfo = await createCampDialogStep2
+      .selectPrototype('Keine Vorlage')
+      .then((value) => value.submit())
+
+    return new Camp(this._page, '', campTitle, campInfo)
   }
 }
 
 export class Camp {
-  private readonly _page: Page
-  private readonly _campId: string
-  constructor(page: Page, campId: string) {
-    this._page = page
-    this._campId = campId
+  constructor(
+    private readonly _page: Page,
+    private readonly _campId: string,
+    private readonly _campTitle: string,
+    private readonly _campInfo: CampInfo
+  ) {}
+
+  get campTitle(): string {
+    return this._campTitle
+  }
+
+  get campInfo(): CampInfo {
+    return this._campInfo
   }
 }
