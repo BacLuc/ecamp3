@@ -16,20 +16,17 @@ export type LoginPageFixtureType = {
 }
 
 export class LoginPage {
-  private readonly _page: Page
-  private readonly _quickLoginButton: Locator
-  private readonly _emailField: Locator
-  private readonly _passwordField: Locator
-  private readonly _loginButton: Locator
-  constructor(page: Page) {
-    this._page = page
-    this._quickLoginButton = page.locator('[role="alert"] button:has-text("Login")')
-
-    const formLocator = page.locator('form')
-    this._emailField = formLocator.locator('input[name="email"]')
-    this._passwordField = formLocator.locator('input[name="password"]')
-    this._loginButton = formLocator.locator('button[type="submit"]')
-  }
+  constructor(
+    private readonly _page: Page,
+    private readonly _quickLoginButton = _page.locator(
+      '[role="alert"] button:has-text("Login")'
+    ),
+    private readonly _emailField = _page.locator('form').locator('input[name="email"]'),
+    private readonly _passwordField = _page
+      .locator('form')
+      .locator('input[name="password"]'),
+    private readonly _loginButton = _page.locator('form').locator('button[type="submit"]')
+  ) {}
 
   @boxedStep
   async open() {
@@ -43,7 +40,6 @@ export class LoginPage {
     await expect(this._emailField).toBeVisible()
     await expect(this._passwordField).toBeVisible()
     await expect(this._loginButton).toBeVisible()
-
     return this
   }
 

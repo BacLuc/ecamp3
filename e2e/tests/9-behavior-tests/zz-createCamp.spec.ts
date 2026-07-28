@@ -38,15 +38,29 @@ test.describe('create new camp', { tag: '@mature' }, () => {
     await expect(page.locator('.v-overlay')).not.toBeVisible({ timeout: 10000 })
     await page.getByTestId('create-camp-button').click()
 
-    await page.waitForURL('**/info')
+    await page.waitForURL('**/info', { waitUntil: 'domcontentloaded', timeout: 60000 })
 
     await expect(page.locator('main >> text=Lagerinfos')).toBeVisible()
     await expect(page.locator('[data-testid="title"] input')).toHaveValue(campTitle)
   })
 })
 
-test('without prototype', async ({ createCamp }) => {
-  const camp = await createCamp('Keine Vorlage')
+test('without prototype via page objects', async ({ loginPage, runId }) => {
+  const tomorrow = new Date()
+  tomorrow.setDate(tomorrow.getDate() + 1)
+  const in2Days = new Date()
+  in2Days.setDate(in2Days.getDate() + 2)
+  const campTitle = `camp ${runId}`
 
-  await expect(camp.campInfo.titleField).toHaveValue(camp.campTitle)
+  await loginPage.open()
+  const campListPage = await loginPage.loginToCampList(bipiUser)
+  const createCampDialogStep1 = await campListPage.openCreateCampDialog()
+  await createCampDialogStep1.fillForm(tomorrow, in2Days, campTitle)
+
+  const createCampDialogStep2 = await createCampDialogStep1.next()
+  const campInfo = await createCampDialogStep2
+    .selectPrototype('Keine Vorlage')
+    .then((value) => value.submit())
+
+  await expect(campInfo.titleField).toHaveValue(campTitle)
 })

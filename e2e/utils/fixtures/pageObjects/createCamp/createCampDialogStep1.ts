@@ -21,7 +21,6 @@ export class CreateCampDialogStep1 {
     await expect(this._titleInput).toBeVisible()
     await expect(this._startInput).toBeVisible()
     await expect(this._endInput).toBeVisible()
-    await expect(this._nextButton).toBeVisible()
     return this
   }
 

@@ -29,6 +29,10 @@ export class CreateCampDialogStep2 {
   @boxedStep
   async submit() {
     await this._createCampButton.click()
+    await this._page.waitForURL('**/admin/info', {
+      waitUntil: 'domcontentloaded',
+      timeout: 60000,
+    })
     const campInfo = new CampInfo(this._page)
     await campInfo.loaded()
     return campInfo

@@ -4,8 +4,8 @@ import { boxedStep } from '@/utils/decorators/boxedStep'
 export class ESelect {
   constructor(
     private readonly _locator: Locator,
-    private readonly _selectOpenLocator = _locator.locator('.v-overlay--active'),
-    private readonly _selectClosedLocator = _locator.locator('.v-overlay')
+    private readonly _selectOpenLocator = _locator.page().locator('.v-overlay--active'),
+    private readonly _selectClosedLocator = _locator.page().locator('.v-overlay')
   ) {}
 
   @boxedStep

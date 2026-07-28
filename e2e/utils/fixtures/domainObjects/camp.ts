@@ -3,6 +3,7 @@ import { boxedStep } from '@/utils/decorators/boxedStep'
 import { LoginPage } from '@/utils/fixtures/pageObjects/loginPage'
 import { bipiUser } from '@/utils/constants'
 import { CampInfo } from '@/utils/fixtures/pageObjects/camp/admin/campInfo'
+import { CampCategories } from '@/utils/fixtures/pageObjects/camp/admin/campCategories'
 
 type CampPrototype = 'empty' | string
 
@@ -48,7 +49,11 @@ class CreateCamp {
       .selectPrototype('Keine Vorlage')
       .then((value) => value.submit())
 
-    return new Camp(this._page, '', campTitle, campInfo)
+    const url = new URL(this._page.url())
+    const campIdMatch = url.pathname.match(/\/camps\/([^/]+)\//)
+    const campId = campIdMatch ? campIdMatch[1] : ''
+
+    return new Camp(this._page, campId, campTitle, campInfo)
   }
 }
 
@@ -60,11 +65,23 @@ export class Camp {
     private readonly _campInfo: CampInfo
   ) {}
 
+  get campId(): string {
+    return this._campId
+  }
+
   get campTitle(): string {
     return this._campTitle
   }
 
   get campInfo(): CampInfo {
     return this._campInfo
+  }
+
+  @boxedStep
+  async gotoCategories() {
+    await this._page.goto(`/camps/${this._campId}/admin/activity`)
+    const campCategories = new CampCategories(this._page)
+    await campCategories.loaded()
+    return campCategories
   }
 }

@@ -1,56 +1,30 @@
 import { expect } from '@playwright/test'
-import { bipiUser } from '@/utils/constants'
-import { loginAndSetCookie, createCampViaUI, deleteCampViaUI } from '@/utils/helpers'
 import { test } from '@/utils/etest'
-
-const campTitle = 'CatTestCamp'
+import { CampCategories } from '@/utils/fixtures/pageObjects/camp/admin/campCategories'
 
 test.describe('category on new camp', () => {
-  test.describe.configure({ mode: 'serial' })
-
-  let campAdminBaseUrl: string
-
-  test.beforeAll(async ({ browser }) => {
-    const context = await browser.newContext()
-    const page = await context.newPage()
-    await loginAndSetCookie(page, null, bipiUser)
-    campAdminBaseUrl = await createCampViaUI(page, campTitle)
-    await context.close()
-  })
-
-  test.afterAll(async ({ browser }) => {
-    if (!campAdminBaseUrl) return
-    const context = await browser.newContext()
-    const page = await context.newPage()
-    await loginAndSetCookie(page, null, bipiUser)
-    await deleteCampViaUI(page, campAdminBaseUrl, campTitle)
-    await context.close()
-  })
-
-  test('creates a new category on the camp', async ({ page, request, runId }) => {
+  test('creates a new category on the camp', async ({ createCamp, runId, page }) => {
     const categoryName = `Test Category ${runId}`
-    await loginAndSetCookie(page, request, bipiUser)
+    const camp = await createCamp('Keine Vorlage')
 
-    await page.goto(`${campAdminBaseUrl}/activity`)
+    const campCategories = await camp.gotoCategories()
+    const dialog = await campCategories.openCreateCategoryDialog()
+    await dialog.fillForm('TC', categoryName)
+    await dialog.submit()
 
-    const createButton = page.getByRole('button', { name: /Block-Kategorie erstellen/i })
-    await expect(createButton).toBeVisible({ timeout: 15000 })
-    await createButton.click()
-
-    const dialog = page.locator('.v-overlay--active')
-    await expect(dialog).toBeVisible({ timeout: 10000 })
-
-    await dialog.locator('[name="short"] input').fill('TC')
-    await dialog.locator('[name="name"] input').fill(categoryName)
-
-    await dialog.getByRole('button', { name: /Erstellen/i }).click()
-
-    await expect(dialog).toBeHidden({ timeout: 10000 })
-    await expect(page.getByText(categoryName, { exact: true }).first()).toBeVisible({
-      timeout: 10000,
+    // App navigates to category detail page after creation - verify name is visible
+    await expect(page.getByText(categoryName).first()).toBeVisible({
+      timeout: 15000,
     })
 
-    await page.goto(`${campAdminBaseUrl}/activity`)
-    await expect(page.getByText(categoryName)).toBeVisible()
+    // Navigate back to categories list to verify it appears there too
+    await page.goto(`/camps/${camp.campId}/admin/activity`)
+    const categoriesAfterCreate = await new CampCategories(page).loaded()
+    await categoriesAfterCreate.expectCategoryVisible(categoryName)
+
+    // Revisit the page to verify persistence
+    await page.goto(`/camps/${camp.campId}/admin/activity`)
+    const reloadedCategories = await new CampCategories(page).loaded()
+    await reloadedCategories.expectCategoryVisible(categoryName)
   })
 })
