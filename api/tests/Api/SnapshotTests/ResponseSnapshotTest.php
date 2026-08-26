@@ -171,6 +171,20 @@ class ResponseSnapshotTest extends ECampApiTestCase {
             [$client, '/material_items?camp=/camps/'.self::getFixtureFor('/camps')->getId()],
             [$client, '/comments?camp=/camps/'.self::getFixtureFor('/camps')->getId()],
             [$client, '/activities/'.self::getFixtureFor('/activities')->getId().'/comments'],
+            [$client, '/activities?camp=/camps/'.self::getFixtureFor('/camps')->getId()],
+            [$client, '/activity_progress_labels?camp=/camps/'.self::getFixtureFor('/camps')->getId()],
+            [$client, '/activity_responsibles?activity.camp=/camps/'.self::getFixtureFor('/camps')->getId()],
+            [$client, '/camp_collaborations?camp=/camps/'.self::getFixtureFor('/camps')->getId()],
+            [$client, '/camp_collaborations?activityResponsibles.activity=/activities/'.self::getFixtureFor('/activities')->getId()],
+            [$client, '/categories?camp=/camps/'.self::getFixtureFor('/camps')->getId()],
+            [$client, '/content_types?categories=/categories/'.self::getFixtureFor('/categories')->getId()],
+            [$client, '/day_responsibles?day.period=/periods/'.self::getFixtureFor('/periods')->getId()],
+            [$client, '/material_items?materialList=/material_lists/'.self::getFixtureFor('/material_lists')->getId()],
+            [$client, '/material_items?materialNode=/content_node/material_nodes/'.self::getFixture('materialNode1')->getId()],
+            [$client, '/material_items?period=/periods/'.self::getFixtureFor('/periods')->getId()],
+            [$client, '/material_lists?camp=/camps/'.self::getFixtureFor('/camps')->getId()],
+            [$client, '/profiles?user.collaboration.camp=/camps/'.self::getFixtureFor('/camps')->getId()],
+            [$client, '/schedule_entries?period=/periods/'.self::getFixtureFor('/periods')->getId()],
         ];
     }
 
