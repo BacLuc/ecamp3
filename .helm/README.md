@@ -27,6 +27,20 @@ if not exists and sets the jwt values.
 Then you have to set the values in [env.yaml](ecamp3/env.yaml which are not set to any value.
 (e.g. POSTGRES_URL).
 
+## Migration from ingress-nginx
+
+The deployment now uses the Traefik Gateway API. Before deploying this version,
+remove the old ingress-nginx release:
+
+```shell
+helm uninstall ecamp3-ingress --namespace ingress-nginx
+```
+
+In `env.yaml`, rename `INGRESS_ENABLED` to `GATEWAY_ENABLED` and
+`PRINT_INGRESS_READ_TIMEOUT_SECONDS` to
+`PRINT_GATEWAY_READ_TIMEOUT_SECONDS`. The legacy Ingress settings are no longer
+supported.
+
 ## Build images
 
 ```shell
