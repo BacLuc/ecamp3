@@ -33,6 +33,7 @@ class GenerateDataCommandTest extends ECampApiTestCase {
             'num-camps' => '1',
             '--activities-per-camp' => '10',
             '--add-user-to-camp' => $profile7Manager->email,
+            '--replace' => 'true',
         ]);
 
         $this->commandTester->assertCommandIsSuccessful();
@@ -45,8 +46,7 @@ class GenerateDataCommandTest extends ECampApiTestCase {
         $this->assertCount(10, $activities);
         $commentedActivityIds = array_unique(array_map(static fn (Comment $comment): string => $comment->activity->getId(), $comments));
         $this->assertCount(2, $commentedActivityIds);
-        $this->assertGreaterThanOrEqual(8, count($comments));
-        $this->assertLessThanOrEqual(20, count($comments));
+        $this->assertCount(17, $comments);
         $this->assertNotEmpty(array_filter($comments, static fn (Comment $comment): bool => '' !== trim((string) $comment->textHtml)));
 
         $commentsByActivity = [];
@@ -61,7 +61,7 @@ class GenerateDataCommandTest extends ECampApiTestCase {
             $this->assertLessThanOrEqual(10, count($activityComments));
             foreach ($activityComments as $index => $comment) {
                 if (isset($activityComments[$index + 1])) {
-                    $this->assertLessThanOrEqual($activityComments[$index + 1]->getCreateTime(), $comment->getCreateTime());
+                    $this->assertGreaterThanOrEqual($comment->getCreateTime(), $activityComments[$index + 1]->getCreateTime());
                     $this->assertNotSame($comment->author, $activityComments[$index + 1]->author);
                 }
             }
@@ -88,5 +88,25 @@ class GenerateDataCommandTest extends ECampApiTestCase {
         ]);
 
         $this->commandTester->assertCommandIsSuccessful();
+    }
+
+    public function testCommentsAreGeneratedForOneOrTwoActivities(): void {
+        /** @var Profile $profile7Manager */
+        $profile7Manager = static::getFixture('profile7manager');
+
+        foreach ([1, 2] as $activitiesPerCamp) {
+            $this->commandTester->execute([
+                'num-camps' => '1',
+                '--activities-per-camp' => (string) $activitiesPerCamp,
+                '--add-user-to-camp' => $profile7Manager->email,
+                '--replace' => 'true',
+            ]);
+
+            $this->commandTester->assertCommandIsSuccessful();
+            $camp = $this->getEntityManager()->getRepository(Camp::class)->findOneBy(['randomlyGenerated' => true], ['createTime' => 'DESC']);
+            $comments = $this->getEntityManager()->getRepository(Comment::class)->findBy(['camp' => $camp]);
+            $this->assertNotEmpty($comments);
+            $this->assertCount(1, array_unique(array_map(static fn (Comment $comment): string => $comment->activity->getId(), $comments)));
+        }
     }
 }

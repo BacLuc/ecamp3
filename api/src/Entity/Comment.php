@@ -123,4 +123,8 @@ class Comment extends BaseEntity implements BelongsToCampInterface {
     public function getCreateTime(): \DateTime {
         return $this->createTime;
     }
+
+    public function setCreateTime(\DateTime $createTime): void {
+        $this->createTime = $createTime;
+    }
 }

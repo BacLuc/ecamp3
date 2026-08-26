@@ -555,7 +555,10 @@ class DataGeneratorService {
     }
 
     private function createComments(Camp $camp, array $activities, User $owner): void {
-        $commentedActivities = $this->faker->randomElements($activities, (int) round(count($activities) * 0.2));
+        // Select the nearest whole number of activities, but always select one when activities exist.
+        $commentedActivityCount = max(1, (int) round(count($activities) * 0.2));
+        $commentedActivities = $this->faker->randomElements($activities, $commentedActivityCount);
+        $commentIndex = 0;
 
         foreach ($commentedActivities as $activity) {
             $commentCount = $this->faker->numberBetween(4, 10);
@@ -564,6 +567,7 @@ class DataGeneratorService {
                 $comment->camp = $camp;
                 $comment->activity = $activity;
                 $comment->author = 0 === $i % 2 ? $owner : $this->addUserToCamp;
+                $comment->setCreateTime(new \DateTime("2000-01-01 00:00:{$commentIndex}"));
                 $comment->textHtml = $this->faker->randomElement([
                     "Die {$activity->title} wirkt gut vorbereitet. Bitte ergänzt noch einen klaren Zeitrahmen für die einzelnen Schritte.",
                     "Gute Idee für den Lageralltag! Prüft vor Beginn am {$activity->location} nochmals die Sicherheit und das benötigte Material.",
@@ -573,6 +577,7 @@ class DataGeneratorService {
 
                 $this->entityManager->persist($comment);
                 ++$this->stats['comments'];
+                ++$commentIndex;
             }
             ++$this->stats['commentedActivities'];
         }
