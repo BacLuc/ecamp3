@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test'
 import { bipiUser } from '@/utils/constants'
 import { loginAndSetCookie } from '@/utils/helpers'
 
-const CAMP_CREATE_CHUNK = /.*CampCreate.*/
+const CAMP_CREATE_CHUNK_PATH = '/src/views/CampCreate.vue'
 
 test('reloads the page when a route chunk is missing after a deploy', async ({
   page,
@@ -24,7 +24,17 @@ test('reloads the page when a route chunk is missing after a deploy', async ({
   })
 
   let chunkRequestCount = 0
-  await page.route(CAMP_CREATE_CHUNK, async (route) => {
+  await page.route(/.*CampCreate.*/, async (route) => {
+    const request = route.request()
+    const url = new URL(request.url())
+    if (
+      request.resourceType() !== 'script' ||
+      url.pathname !== CAMP_CREATE_CHUNK_PATH ||
+      url.searchParams.has('vue')
+    ) {
+      await route.continue()
+      return
+    }
     chunkRequestCount += 1
     if (chunkRequestCount === 1) {
       await route.abort('failed')
