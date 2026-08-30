@@ -27,30 +27,34 @@ test.describe('category on new camp', () => {
     await context.close()
   })
 
-  test('creates a new category on the camp', async ({ page, request, runId }) => {
-    const categoryName = `Test Category ${runId}`
-    await loginAndSetCookie(page, request, bipiUser)
+  test(
+    'creates a new category on the camp',
+    { tag: '@mature' },
+    async ({ page, request, runId }) => {
+      const categoryName = `Test Category ${runId}`
+      await loginAndSetCookie(page, request, bipiUser)
 
-    await page.goto(`${campAdminBaseUrl}/activity`)
+      await page.goto(`${campAdminBaseUrl}/activity`)
 
-    const createButton = page.getByRole('button', { name: /Block-Kategorie erstellen/i })
-    await expect(createButton).toBeVisible({ timeout: 15000 })
-    await createButton.click()
+      const createButton = page.getByRole('button', { name: /Block-Kategorie erstellen/i })
+      await expect(createButton).toBeVisible({ timeout: 15000 })
+      await createButton.click()
 
-    const dialog = page.locator('.v-overlay--active')
-    await expect(dialog).toBeVisible({ timeout: 10000 })
+      const dialog = page.locator('.v-overlay--active')
+      await expect(dialog).toBeVisible({ timeout: 10000 })
 
-    await dialog.locator('[name="short"] input').fill('TC')
-    await dialog.locator('[name="name"] input').fill(categoryName)
+      await dialog.locator('[name="short"] input').fill('TC')
+      await dialog.locator('[name="name"] input').fill(categoryName)
 
-    await dialog.getByRole('button', { name: /Erstellen/i }).click()
+      await dialog.getByRole('button', { name: /Erstellen/i }).click()
 
-    await expect(dialog).toBeHidden({ timeout: 10000 })
-    await expect(page.getByText(categoryName, { exact: true }).first()).toBeVisible({
-      timeout: 10000,
-    })
+      await expect(dialog).toBeHidden({ timeout: 10000 })
+      await expect(page.getByText(categoryName, { exact: true }).first()).toBeVisible({
+        timeout: 10000,
+      })
 
-    await page.goto(`${campAdminBaseUrl}/activity`)
-    await expect(page.getByText(categoryName)).toBeVisible()
-  })
+      await page.goto(`${campAdminBaseUrl}/activity`)
+      await expect(page.getByText(categoryName)).toBeVisible()
+    }
+  )
 })
