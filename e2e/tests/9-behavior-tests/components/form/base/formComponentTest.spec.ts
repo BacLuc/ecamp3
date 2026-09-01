@@ -80,3 +80,11 @@ test('EParseField uses identity parsing by default', async ({ page }) => {
 
   await expect(page.getByTestId('form-test-model')).toHaveText('"parsed value"')
 })
+
+test('EColorField normalizes valid hex input', async ({ page }) => {
+  await page.goto(formTestUrl('EColorField'))
+
+  await page.getByTestId('form-test-subject').locator('input').fill('#aabbcc')
+
+  await expect(page.getByTestId('form-test-model')).toHaveText('"#AABBCC"')
+})
