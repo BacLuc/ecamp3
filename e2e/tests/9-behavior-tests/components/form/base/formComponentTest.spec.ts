@@ -107,3 +107,25 @@ test('ESelect selects a scalar item value', async ({ page }) => {
 
   await expect(page.getByTestId('form-test-model')).toHaveText('"second"')
 })
+
+test('EAutocomplete filters and selects a scalar item value', async ({ page }) => {
+  await page.goto(
+    formTestUrl('EAutocomplete', {
+      props: {
+        label: 'Search',
+        items: [
+          { text: 'First', value: 'first' },
+          { text: 'Second', value: 'second' },
+        ],
+      },
+    })
+  )
+
+  await page
+    .getByTestId('form-test-subject')
+    .getByRole('combobox', { name: 'Search' })
+    .fill('Sec')
+  await page.locator('.v-overlay--active').getByRole('option', { name: 'Second' }).click()
+
+  await expect(page.getByTestId('form-test-model')).toHaveText('"second"')
+})
