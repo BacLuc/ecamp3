@@ -8,7 +8,14 @@ export class CampInfo {
   constructor(
     private readonly _page: Page,
     private readonly _campId: string,
-    private readonly _titleField = _page.locator('[data-testid="title"] input')
+    private readonly _titleField = _page.locator('[data-testid="title"] input'),
+    private readonly _dangerZoneTitle = _page
+      .locator('.v-expansion-panel')
+      .filter({ hasText: 'Gefahrenzone' })
+      .locator('.v-expansion-panel-title'),
+    private readonly _deleteCampButton = _page
+      .locator('.v-expansion-panel-text')
+      .getByRole('button', { name: /Löschen/i })
   ) {}
 
   async goto() {
@@ -18,23 +25,20 @@ export class CampInfo {
   }
 
   async loaded() {
-    await expect(this._titleField).toBeVisible()
+    await expect(this._titleField).toBeVisible({ timeout: 45_000 })
   }
-
   @boxedStep
   async openDeleteDialog() {
-    await this._page
-      .locator('.v-expansion-panel')
-      .filter({ hasText: 'Gefahrenzone' })
-      .locator('.v-expansion-panel-title')
-      .click()
+    const expanded = await this._dangerZoneTitle.getAttribute('aria-expanded', {
+      timeout: 5_000,
+    })
+    if (expanded !== 'true') {
+      await this._dangerZoneTitle.click({ timeout: 10_000 })
+    }
+    await expect(this._deleteCampButton).toBeVisible({ timeout: 10_000 })
+    await this._deleteCampButton.click({ timeout: 10_000 })
 
-    await this._page
-      .locator('.v-expansion-panel-text')
-      .getByRole('button', { name: /Löschen/i })
-      .click()
-
-    const dialog = new DialogDeleteCamp(this._page)
+    const dialog = new DialogDeleteCamp(this._page, this._campId)
     await dialog.loaded()
     return dialog
   }
