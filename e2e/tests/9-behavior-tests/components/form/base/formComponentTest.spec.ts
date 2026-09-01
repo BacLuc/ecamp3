@@ -64,3 +64,11 @@ test('EPasswordField reflects typed input and reveals the password', async ({ pa
 
   await expect(input).toHaveAttribute('type', 'text')
 })
+
+test('ENumberField parses decimal input into its numeric v-model', async ({ page }) => {
+  await page.goto(formTestUrl('ENumberField'))
+
+  await page.getByTestId('form-test-subject').locator('input').fill('12.34')
+
+  await expect(page.getByTestId('form-test-model')).toHaveText('12.34')
+})
