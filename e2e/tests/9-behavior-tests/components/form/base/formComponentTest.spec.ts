@@ -49,3 +49,18 @@ test('ESwitch toggles its boolean v-model', async ({ page }) => {
 
   await expect(page.getByTestId('form-test-model')).toHaveText('true')
 })
+
+test('EPasswordField reflects typed input and reveals the password', async ({ page }) => {
+  await page.goto(formTestUrl('EPasswordField'))
+
+  const subject = page.getByTestId('form-test-subject')
+  const input = subject.locator('input')
+  await input.fill('secret')
+
+  await expect(page.getByTestId('form-test-model')).toHaveText('"secret"')
+  await expect(input).toHaveAttribute('type', 'password')
+
+  await subject.getByRole('button').click()
+
+  await expect(input).toHaveAttribute('type', 'text')
+})
