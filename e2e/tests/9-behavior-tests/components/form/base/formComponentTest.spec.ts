@@ -187,3 +187,15 @@ test('EDatePicker selects a date from its active overlay', async ({ page }) => {
 
   await expect(page.getByTestId('form-test-model')).toHaveText('"2026-01-20"')
 })
+
+test('ETimePicker updates the time while preserving the date', async ({ page }) => {
+  await page.goto(formTestUrl('ETimePicker', { value: '2026-01-15T09:00:00+00:00' }))
+
+  const input = page.getByTestId('form-test-subject').locator('input')
+  await input.fill('13:45')
+  await input.press('Tab')
+
+  await expect(page.getByTestId('form-test-model')).toHaveText(
+    '"2026-01-15T13:45:00+00:00"'
+  )
+})
