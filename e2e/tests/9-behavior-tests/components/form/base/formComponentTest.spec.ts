@@ -88,3 +88,22 @@ test('EColorField normalizes valid hex input', async ({ page }) => {
 
   await expect(page.getByTestId('form-test-model')).toHaveText('"#AABBCC"')
 })
+
+test('ESelect selects a scalar item value', async ({ page }) => {
+  await page.goto(
+    formTestUrl('ESelect', {
+      props: {
+        label: 'Choice',
+        items: [
+          { text: 'First', value: 'first' },
+          { text: 'Second', value: 'second' },
+        ],
+      },
+    })
+  )
+
+  await page.getByTestId('form-test-subject').getByRole('combobox').first().click()
+  await page.locator('.v-overlay--active').getByRole('option', { name: 'Second' }).click()
+
+  await expect(page.getByTestId('form-test-model')).toHaveText('"second"')
+})
