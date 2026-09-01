@@ -137,3 +137,22 @@ test('ETimeField normalizes permissive time input', async ({ page }) => {
 
   await expect(page.getByTestId('form-test-model')).toHaveText('"09:30"')
 })
+
+test('ETimeDropdown selects an exact item value', async ({ page }) => {
+  await page.goto(
+    formTestUrl('ETimeDropdown', {
+      value: '09:00',
+      props: {
+        items: [
+          { label: '09:00', value: '09:00', date: '2026-01-01T09:00:00Z' },
+          { label: '10:30', value: '10:30', date: '2026-01-01T10:30:00Z' },
+        ],
+      },
+    })
+  )
+
+  await page.getByTestId('form-test-subject').locator('input').click()
+  await page.locator('.v-overlay--active').getByText('10:30', { exact: true }).click()
+
+  await expect(page.getByTestId('form-test-model')).toHaveText('"10:30"')
+})
