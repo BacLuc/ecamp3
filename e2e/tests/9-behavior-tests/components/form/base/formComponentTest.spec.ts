@@ -16,6 +16,7 @@ test('lists the available form components', async ({ page }) => {
   const list = page.getByTestId('form-test-unknown')
   await expect(list).toContainText('ETextField')
   await expect(list).toContainText('ECheckbox')
+  await expect(list.getByRole('link', { name: 'EForm', exact: true })).toHaveCount(0)
 })
 
 test('ETextField reflects typed input in its v-model', async ({ page }) => {
@@ -168,9 +169,14 @@ test('ETextarea reflects editor input as HTML', async ({ page }) => {
 test('ERichtext reflects editor input as HTML', async ({ page }) => {
   await page.goto(formTestUrl('ERichtext'))
 
-  await page.getByTestId('form-test-subject').locator('.ProseMirror').fill('Rich text')
+  const editor = page.getByTestId('form-test-subject').locator('.ProseMirror')
+  await editor.pressSequentially('Rich text')
+  await editor.press('Control+a')
+  await editor.press('Control+b')
 
-  await expect(page.getByTestId('form-test-model')).toHaveText('"<p>Rich text</p>"')
+  await expect(page.getByTestId('form-test-model')).toHaveText(
+    '"<p><strong>Rich text</strong></p>"'
+  )
 })
 
 test('EDatePicker selects a date from its active overlay', async ({ page }) => {
