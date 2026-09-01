@@ -43,9 +43,10 @@
 <script>
 import EForm from '@/components/form/base/EForm.vue'
 
-const modules = import.meta.glob('../../components/form/base/E*.vue', {
-  eager: true,
-})
+const modules = import.meta.glob(
+  ['../../components/form/base/E*.vue', '!../../components/form/base/EForm.vue'],
+  { eager: true }
+)
 const registry = {}
 for (const path in modules) {
   const name = path.split('/').pop().replace('.vue', '')
