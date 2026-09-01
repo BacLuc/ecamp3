@@ -172,3 +172,18 @@ test('ERichtext reflects editor input as HTML', async ({ page }) => {
 
   await expect(page.getByTestId('form-test-model')).toHaveText('"<p>Rich text</p>"')
 })
+
+test('EDatePicker selects a date from its active overlay', async ({ page }) => {
+  await page.goto(formTestUrl('EDatePicker', { value: '2026-01-15' }))
+
+  await page
+    .getByTestId('form-test-subject')
+    .getByRole('button', { name: /Open dialog to select a date/ })
+    .click()
+  await page
+    .locator('.v-overlay--active')
+    .getByRole('button', { name: 'Tuesday, January 20, 2026' })
+    .click()
+
+  await expect(page.getByTestId('form-test-model')).toHaveText('"2026-01-20"')
+})
