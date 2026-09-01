@@ -216,8 +216,7 @@ test('EColorPicker selects a predefined swatch', async ({ page }) => {
   await page
     .locator('.v-overlay--active')
     .getByTestId('colorpicker')
-    .getByRole('button', { name: '•' })
-    .first()
+    .getByRole('button', { name: '#90B7E4' })
     .click()
 
   await expect(page.getByTestId('form-test-model')).toHaveText('"#90B7E4"')

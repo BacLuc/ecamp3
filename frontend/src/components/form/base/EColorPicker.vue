@@ -98,6 +98,7 @@ Displays a field as a color picker (can be used with v-model)
             v-for="swatch in swatchesWithReset"
             :key="swatch"
             :color="swatch"
+            :aria-label="swatch"
             @select-color="onSwatchSelect($event)"
           />
           <ColorSwatch
