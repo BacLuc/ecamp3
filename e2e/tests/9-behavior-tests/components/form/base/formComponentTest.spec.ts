@@ -164,3 +164,11 @@ test('ETextarea reflects editor input as HTML', async ({ page }) => {
 
   await expect(page.getByTestId('form-test-model')).toHaveText('"<p>Plain text</p>"')
 })
+
+test('ERichtext reflects editor input as HTML', async ({ page }) => {
+  await page.goto(formTestUrl('ERichtext'))
+
+  await page.getByTestId('form-test-subject').locator('.ProseMirror').fill('Rich text')
+
+  await expect(page.getByTestId('form-test-model')).toHaveText('"<p>Rich text</p>"')
+})
