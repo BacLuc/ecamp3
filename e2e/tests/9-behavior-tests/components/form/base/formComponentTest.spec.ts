@@ -129,3 +129,11 @@ test('EAutocomplete filters and selects a scalar item value', async ({ page }) =
 
   await expect(page.getByTestId('form-test-model')).toHaveText('"second"')
 })
+
+test('ETimeField normalizes permissive time input', async ({ page }) => {
+  await page.goto(formTestUrl('ETimeField'))
+
+  await page.getByTestId('form-test-subject').locator('input').fill('930')
+
+  await expect(page.getByTestId('form-test-model')).toHaveText('"09:30"')
+})
