@@ -199,3 +199,20 @@ test('ETimePicker updates the time while preserving the date', async ({ page }) 
     '"2026-01-15T13:45:00+00:00"'
   )
 })
+
+test('EColorPicker selects a predefined swatch', async ({ page }) => {
+  await page.goto(formTestUrl('EColorPicker', { value: '#1964B1' }))
+
+  await page
+    .getByTestId('form-test-subject')
+    .getByRole('button', { name: /Open dialog to select a color/ })
+    .click()
+  await page
+    .locator('.v-overlay--active')
+    .getByTestId('colorpicker')
+    .getByRole('button', { name: '•' })
+    .first()
+    .click()
+
+  await expect(page.getByTestId('form-test-model')).toHaveText('"#90B7E4"')
+})
