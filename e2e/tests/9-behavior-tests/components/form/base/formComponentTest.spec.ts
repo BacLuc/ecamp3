@@ -39,3 +39,13 @@ test('ECheckbox toggles its boolean v-model', async ({ page }) => {
 
   await expect(page.getByTestId('form-test-model')).toHaveText('true')
 })
+
+test('ESwitch toggles its boolean v-model', async ({ page }) => {
+  await page.goto(formTestUrl('ESwitch', { value: false }))
+
+  await expect(page.getByTestId('form-test-model')).toHaveText('false')
+
+  await page.getByTestId('form-test-subject').getByRole('checkbox').click()
+
+  await expect(page.getByTestId('form-test-model')).toHaveText('true')
+})
