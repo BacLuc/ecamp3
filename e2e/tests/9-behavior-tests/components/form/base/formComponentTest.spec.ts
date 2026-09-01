@@ -72,3 +72,11 @@ test('ENumberField parses decimal input into its numeric v-model', async ({ page
 
   await expect(page.getByTestId('form-test-model')).toHaveText('12.34')
 })
+
+test('EParseField uses identity parsing by default', async ({ page }) => {
+  await page.goto(formTestUrl('EParseField'))
+
+  await page.getByTestId('form-test-subject').locator('input').fill('parsed value')
+
+  await expect(page.getByTestId('form-test-model')).toHaveText('"parsed value"')
+})
