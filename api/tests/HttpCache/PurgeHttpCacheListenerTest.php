@@ -23,6 +23,7 @@ use ApiPlatform\Metadata\Resource\Factory\ResourceMetadataCollectionFactoryInter
 use ApiPlatform\Metadata\Resource\ResourceMetadataCollection;
 use ApiPlatform\Metadata\ResourceClassResolverInterface;
 use ApiPlatform\Metadata\UrlGeneratorInterface;
+use App\EventListener\RequestTransactionListener;
 use App\HttpCache\PurgeHttpCacheListener;
 use App\Tests\HttpCache\Entity\ContainNonResource;
 use App\Tests\HttpCache\Entity\Dummy;
@@ -38,11 +39,14 @@ use Doctrine\ORM\UnitOfWork;
 use FOS\HttpCacheBundle\CacheManager;
 use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
 use PHPUnit\Framework\TestCase;
+use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Bundle\MakerBundle\Doctrine\StaticReflectionService;
+use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\ResponseEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
+use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 use Symfony\Component\PropertyAccess\PropertyPathInterface;
 
@@ -55,7 +59,7 @@ use function PHPUnit\Framework\logicalAnd;
  *
  * @internal
  */
-class PurgeHttpCacheListenerTest extends TestCase {
+class PurgeHttpCacheListenerTest extends KernelTestCase {
     private CacheManager $cacheManagerProphecy;
     private ResourceClassResolverInterface $resourceClassResolverProphecy;
     private UnitOfWork $uowProphecy;
@@ -291,6 +295,33 @@ class PurgeHttpCacheListenerTest extends TestCase {
         );
 
         $listener->onKernelResponse($event);
+    }
+
+    public function testOnKernelResponseRunsAfterTransactionCommit(): void {
+        self::bootKernel();
+
+        /** @var EventDispatcher $eventDispatcher */
+        $eventDispatcher = self::getContainer()->get('event_dispatcher');
+        $listeners = $eventDispatcher->getListeners(KernelEvents::RESPONSE);
+
+        $transactionCommitPosition = null;
+        $cachePurgePosition = null;
+        foreach ($listeners as $position => $listener) {
+            if (!is_array($listener) || !is_object($listener[0])) {
+                continue;
+            }
+
+            if ($listener[0] instanceof RequestTransactionListener && 'commitTransaction' === $listener[1]) {
+                $transactionCommitPosition = $position;
+            }
+            if ($listener[0] instanceof PurgeHttpCacheListener && 'onKernelResponse' === $listener[1]) {
+                $cachePurgePosition = $position;
+            }
+        }
+
+        self::assertNotNull($transactionCommitPosition);
+        self::assertNotNull($cachePurgePosition);
+        self::assertLessThan($cachePurgePosition, $transactionCommitPosition);
     }
 
     #[AllowMockObjectsWithoutExpectations]
