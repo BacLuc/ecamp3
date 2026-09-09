@@ -51,6 +51,10 @@ test.describe('category on new camp', () => {
     })
 
     await page.goto(`${campAdminBaseUrl}/activity`)
-    await expect(page.getByText(categoryName)).toBeVisible()
+    await expect(
+      page.locator('.v-list-item').filter({
+        has: page.getByText(categoryName, { exact: true }),
+      }),
+    ).toBeVisible()
   })
 })

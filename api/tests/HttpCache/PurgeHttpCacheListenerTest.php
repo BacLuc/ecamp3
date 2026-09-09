@@ -39,6 +39,10 @@ use FOS\HttpCacheBundle\CacheManager;
 use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
 use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\MakerBundle\Doctrine\StaticReflectionService;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Event\ResponseEvent;
+use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 use Symfony\Component\PropertyAccess\PropertyPathInterface;
 
@@ -264,9 +268,29 @@ class PurgeHttpCacheListenerTest extends TestCase {
             em: $entityManager,
         );
         $listener->onFlush();
-        $listener->postFlush();
-
         assertThat($cacheManagerInvalidateTagsCalls, logicalAnd(containsEqual(['/dummies']), containsEqual(['/dummies/3']), containsEqual(['/dummies/4'])));
+    }
+
+    #[AllowMockObjectsWithoutExpectations]
+    public function testOnKernelResponseFlushesCache(): void {
+        $this->cacheManagerProphecy->expects($this->once())->method('flush')->willReturn(0);
+        $event = new ResponseEvent(
+            $this->createStub(HttpKernelInterface::class),
+            new Request(),
+            HttpKernelInterface::MAIN_REQUEST,
+            new Response(),
+        );
+
+        $listener = new PurgeHttpCacheListener(
+            iriConverter: $this->iriConverterProphecy,
+            resourceClassResolver: $this->resourceClassResolverProphecy,
+            propertyAccessor: $this->propertyAccessorProphecy,
+            resourceMetadataCollectionFactory: $this->metadataFactoryProphecy,
+            cacheManager: $this->cacheManagerProphecy,
+            em: $this->emProphecy,
+        );
+
+        $listener->onKernelResponse($event);
     }
 
     #[AllowMockObjectsWithoutExpectations]
@@ -341,7 +365,6 @@ class PurgeHttpCacheListenerTest extends TestCase {
             em: $emProphecy,
         );
         $listener->preUpdate($eventArgs);
-        $listener->postFlush();
     }
 
     #[AllowMockObjectsWithoutExpectations]
@@ -386,7 +409,6 @@ class PurgeHttpCacheListenerTest extends TestCase {
             em: $emProphecy,
         );
         $listener->preUpdate($eventArgs);
-        $listener->postFlush();
     }
 
     #[AllowMockObjectsWithoutExpectations]
@@ -560,7 +582,6 @@ class PurgeHttpCacheListenerTest extends TestCase {
             em: $em,
         );
         $listener->onFlush();
-        $listener->postFlush();
     }
 
     #[AllowMockObjectsWithoutExpectations]
@@ -610,7 +631,6 @@ class PurgeHttpCacheListenerTest extends TestCase {
             em: $em,
         );
         $listener->onFlush();
-        $listener->postFlush();
     }
 
     #[AllowMockObjectsWithoutExpectations]
@@ -660,6 +680,5 @@ class PurgeHttpCacheListenerTest extends TestCase {
             em: $this->emProphecy,
         );
         $listener->onFlush();
-        $listener->postFlush();
     }
 }

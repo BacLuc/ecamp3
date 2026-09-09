@@ -33,6 +33,7 @@ use Doctrine\ORM\Mapping\AssociationMapping;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\PersistentCollection;
 use FOS\HttpCacheBundle\CacheManager;
+use Symfony\Component\HttpKernel\Event\ResponseEvent;
 use Symfony\Component\PropertyAccess\Exception\NoSuchPropertyException;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 
@@ -111,10 +112,7 @@ final readonly class PurgeHttpCacheListener {
         }
     }
 
-    /**
-     * Purges tags collected during this request, and clears the tag list.
-     */
-    public function postFlush(): void {
+    public function onKernelResponse(ResponseEvent $event): void {
         $this->cacheManager->flush();
     }
 
