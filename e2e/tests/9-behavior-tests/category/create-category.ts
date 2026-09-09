@@ -46,13 +46,14 @@ test.describe('category on new camp', () => {
     await dialog.getByRole('button', { name: /Erstellen/i }).click()
 
     await expect(dialog).toBeHidden({ timeout: 10000 })
+    await page.goto(`${campAdminBaseUrl}/activity`)
+    await expect(createButton).toBeVisible({ timeout: 15000 })
+
     const categoryItem = page
       .locator('.ec-content-group')
-      .filter({
-        has: page.getByRole('heading', { name: 'Block-Kategorien', exact: true }),
-      })
+      .filter({ hasText: 'Block-Kategorien' })
       .locator('.v-list-item')
-      .filter({ has: page.getByText(categoryName, { exact: true }) })
+      .filter({ hasText: categoryName })
     await expect(categoryItem).toHaveCount(1)
     await expect(categoryItem).toBeVisible({
       timeout: 10000,
