@@ -31,7 +31,7 @@ test('reloads the page when a route chunk is missing after a deploy', async ({
     }
     chunkRequestCount += 1
     if (chunkRequestCount === 1) {
-      await route.fulfill({ status: 404, contentType: 'text/javascript', body: '' })
+      await route.abort('failed')
     } else {
       await route.continue()
     }
