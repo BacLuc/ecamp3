@@ -51,6 +51,6 @@ test.describe('category on new camp', () => {
     })
 
     await page.goto(`${campAdminBaseUrl}/activity`)
-    await expect(page.getByText(categoryName)).toBeVisible()
+    await expect(page.getByText(categoryName, { exact: true }).first()).toBeVisible()
   })
 })
