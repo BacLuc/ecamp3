@@ -51,9 +51,11 @@ test.describe('category on new camp', () => {
 
     const categoryItem = page
       .locator('.ec-content-group')
-      .filter({ hasText: 'Block-Kategorien' })
+      .filter({
+        has: page.getByRole('heading', { name: 'Block-Kategorien', exact: true }),
+      })
       .locator('.v-list-item')
-      .filter({ hasText: categoryName })
+      .filter({ has: page.getByText(categoryName, { exact: true }) })
     await expect(categoryItem).toHaveCount(1)
     await expect(categoryItem).toBeVisible({
       timeout: 10000,
