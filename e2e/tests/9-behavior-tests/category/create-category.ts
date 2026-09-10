@@ -47,6 +47,8 @@ test.describe('category on new camp', () => {
     await dialog.getByRole('button', { name: /Erstellen/i }).click()
 
     await expect(dialog).toBeHidden({ timeout: 10000 })
+    await page.goto(`${campAdminBaseUrl}/activity`)
+
     const categoryItem = page
       .locator('.ec-content-group')
       .filter({
@@ -55,10 +57,6 @@ test.describe('category on new camp', () => {
       .getByRole('link', {
         name: new RegExp(`^\\(1\\.[^)]*\\) TC: ${escapedName}$`),
       })
-    await expect(categoryItem).toHaveCount(1)
-    await expect(categoryItem).toBeVisible()
-
-    await page.goto(`${campAdminBaseUrl}/activity`)
     await expect(categoryItem).toHaveCount(1)
     await expect(categoryItem).toBeVisible()
   })
