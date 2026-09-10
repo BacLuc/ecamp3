@@ -53,10 +53,8 @@ test.describe('category on new camp', () => {
       .filter({
         has: page.getByRole('heading', { name: 'Block-Kategorien', exact: true }),
       })
-      .getByRole('link', {
-        name: categoryName,
-        exact: true,
-      })
+      .getByRole('link')
+      .filter({ hasText: categoryName })
     await expect(categoryItem).toHaveCount(1)
     await expect(categoryItem).toBeVisible()
   })
