@@ -29,6 +29,7 @@ test.describe('category on new camp', () => {
 
   test('creates a new category on the camp', async ({ page, request, runId }) => {
     const categoryName = `Test Category ${runId}`
+    const escapedName = categoryName.replace(/[\\^$.*+?()[\]{}|]/g, '\\$&')
     await loginAndSetCookie(page, request, bipiUser)
 
     await page.goto(`${campAdminBaseUrl}/activity`)
@@ -46,11 +47,19 @@ test.describe('category on new camp', () => {
     await dialog.getByRole('button', { name: /Erstellen/i }).click()
 
     await expect(dialog).toBeHidden({ timeout: 10000 })
-    await expect(page.getByText(categoryName, { exact: true }).first()).toBeVisible({
-      timeout: 10000,
-    })
+    const categoryItem = page
+      .locator('.ec-content-group')
+      .filter({
+        has: page.getByRole('heading', { name: 'Block-Kategorien', exact: true }),
+      })
+      .getByRole('link', {
+        name: new RegExp(`^\\(1\\.[^)]*\\) TC: ${escapedName}$`),
+      })
+    await expect(categoryItem).toHaveCount(1)
+    await expect(categoryItem).toBeVisible()
 
     await page.goto(`${campAdminBaseUrl}/activity`)
-    await expect(page.getByText(categoryName)).toBeVisible()
+    await expect(categoryItem).toHaveCount(1)
+    await expect(categoryItem).toBeVisible()
   })
 })
