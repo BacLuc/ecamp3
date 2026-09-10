@@ -55,7 +55,11 @@ test.describe('category on new camp', () => {
         has: page.getByRole('heading', { name: 'Block-Kategorien', exact: true }),
       })
       .locator('.v-list-item')
-      .filter({ has: page.getByText(categoryName, { exact: true }) })
+      .filter({
+        hasText: new RegExp(
+          `(?<!\\w)${categoryName.replace(/[\\^$.*+?()[\]{}|]/g, '\\$&')}(?!\\w)`
+        ),
+      })
     await expect(categoryItem).toHaveCount(1)
     await expect(categoryItem).toBeVisible({
       timeout: 10000,
