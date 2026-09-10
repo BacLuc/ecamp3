@@ -36,10 +36,10 @@ const collectionXKeys =
   /* collection URI (for detecting addition of new categories) */
   '/api/camps/3c79b99ab424/categories'
 
-test.describe('cache test: /camps/{campId}/categories', { tag: '@mature' }, () => {
+test.describe('cache test: /camps/{campId}/categories', () => {
   test.describe.configure({ mode: 'serial' })
 
-  test('caches /camps/{campId}/categories separately for each login', async () => {
+  test('caches /camps/{campId}/categories separately for each login', { tag: '@mature' }, async () => {
     const uri = `/api/camps/${grgrCampId}/categories`
 
     const bipiApi = await getAuthContext(bipiUser)
@@ -59,7 +59,7 @@ test.describe('cache test: /camps/{campId}/categories', { tag: '@mature' }, () =
     await expectCacheMiss(castorApi, uri)
   })
 
-  test('invalidates /camps/{campId}/categories for all users on category patch', async () => {
+  test('invalidates /camps/{campId}/categories for all users on category patch', { tag: '@mature' }, async () => {
     const uri = `/api/camps/${loremIpsumCampId}/categories`
 
     // bring data into defined state
@@ -89,7 +89,7 @@ test.describe('cache test: /camps/{campId}/categories', { tag: '@mature' }, () =
     await expectCacheMiss(bruceApi, uri)
   })
 
-  test('invalidates /camps/{campId}/categories for new category', async () => {
+  test('invalidates /camps/{campId}/categories for new category', { tag: '@mature' }, async () => {
     const uri = `/api/camps/${grgrCampId}/categories`
     const bipiApi = await getAuthContext(bipiUser)
 
@@ -120,8 +120,7 @@ test.describe('cache test: /camps/{campId}/categories', { tag: '@mature' }, () =
     await expectCacheHit(bipiApi, uri)
   })
 
-  // eslint-disable-next-line playwright/no-skipped-test
-  test.skip('invalidates cached data when user leaves a camp', async ({ browser }) => {
+  test('invalidates cached data when user leaves a camp', async ({ browser }) => {
     const castorContext = await browser.newContext()
     const bipiContext = await browser.newContext()
     const castorPage = await castorContext.newPage()
@@ -139,7 +138,7 @@ test.describe('cache test: /camps/{campId}/categories', { tag: '@mature' }, () =
 
     // deactivate Castor
     await bipiPage.goto(`/camps/${grgrCampId}/GRGR/admin/collaborators`)
-    await bipiPage.locator('.v-list-item__title', { hasText: 'Castor' }).click()
+    await bipiPage.locator('.v-list-item-title', { hasText: 'Castor' }).click()
     await bipiPage.getByRole('button', { name: 'Deaktivieren' }).first().click()
     await Promise.all([
       bipiPage.waitForResponse(
@@ -161,7 +160,7 @@ test.describe('cache test: /camps/{campId}/categories', { tag: '@mature' }, () =
     await apiDelete(bipiApi, '/mail/email/all')
 
     // invite Castor
-    await bipiPage.locator('.v-list-item__title', { hasText: 'Castor' }).click()
+    await bipiPage.locator('.v-list-item-title', { hasText: 'Castor' }).click()
     await Promise.all([
       bipiPage.waitForResponse(
         (res) =>
@@ -190,10 +189,11 @@ test.describe('cache test: /camps/{campId}/categories', { tag: '@mature' }, () =
         .click(),
     ])
     await newPage.goto('/camps')
+    await newPage.getByText('Alte Lager').click()
     await expect(newPage.locator('body')).toContainText('GRGR')
   })
 
-  test.describe('invalidates /camps/{campId}/categories', () => {
+  test.describe('invalidates /camps/{campId}/categories', { tag: '@mature' }, () => {
     // @ts-expect-error we can type this later
     let categoryBefore
     let bipiApi: APIRequestContext
@@ -227,7 +227,7 @@ test.describe('cache test: /camps/{campId}/categories', { tag: '@mature' }, () =
       expect(res.status()).toBe(200)
     })
 
-    test('when preferredContentTypes are removed', async () => {
+    test('when preferredContentTypes are removed', { tag: '@mature' }, async () => {
       const uri = `/api/camps/${grgrCampId}/categories`
 
       // warm up cache
@@ -244,7 +244,7 @@ test.describe('cache test: /camps/{campId}/categories', { tag: '@mature' }, () =
       await expectCacheHit(bipiApi, uri)
     })
 
-    test('when preferredContentType is added', async () => {
+    test('when preferredContentType is added', { tag: '@mature' }, async () => {
       const uri = `/api/camps/${grgrCampId}/categories`
 
       // warm up cache
