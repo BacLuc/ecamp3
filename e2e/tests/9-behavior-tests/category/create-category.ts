@@ -29,7 +29,6 @@ test.describe('category on new camp', () => {
 
   test('creates a new category on the camp', async ({ page, request, runId }) => {
     const categoryName = `Test Category ${runId}`
-    const escapedName = categoryName.replace(/[\\^$.*+?()[\]{}|]/g, '\\$&')
     await loginAndSetCookie(page, request, bipiUser)
 
     await page.goto(`${campAdminBaseUrl}/activity`)
@@ -55,7 +54,8 @@ test.describe('category on new camp', () => {
         has: page.getByRole('heading', { name: 'Block-Kategorien', exact: true }),
       })
       .getByRole('link', {
-        name: new RegExp(`^\\(1\\.[^)]*\\) TC: ${escapedName}$`),
+        name: categoryName,
+        exact: true,
       })
     await expect(categoryItem).toHaveCount(1)
     await expect(categoryItem).toBeVisible()
