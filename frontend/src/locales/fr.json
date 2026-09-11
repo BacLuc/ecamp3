@@ -262,6 +262,16 @@
       }
     },
     "collaborator": {
+      "collaboratorBulkCreate": {
+        "validationFailed": "Déjà dans le camp ou e-mail invalide:",
+        "emailsHint": "Entrer une adresse e-mail par ligne ou séparées par des virgules",
+        "emailsLabel": "Adresses e-mail",
+        "failedEmails": "Échec de l'invitation: {emails}",
+        "invite": "Envoyer les invitations",
+        "inviteCta": "Inviter plusieurs personnes",
+        "successCount": "{count} invitation(s) envoyée(s)",
+        "title": "Inviter plusieurs personnes"
+      },
       "collaboratorCreate": {
         "invite": "Envoyer l'invitation",
         "inviteCta": "Inviter",
@@ -521,6 +531,7 @@
         "clearFilters": "Effacer les filtres",
         "day": "Date",
         "dayLabel": "Jour {dayNumber} ({date})",
+        "allMyActivities": "Toutes mes activités",
         "onlyMyActivities": "Seulement mes activités",
         "period": "Période",
         "progressLabel": "Statut",
@@ -558,6 +569,14 @@
         "message": "Changement d'adresse e-mail ...",
         "success": "L'adresse e-mail a été modifiée avec succès.",
         "title": "Changement d'adresse e-mail"
+      },
+      "dialogChangePassword": {
+        "title": "Changer le mot de passe",
+        "currentPassword": "Mot de passe actuel",
+        "newPassword": "Nouveau mot de passe",
+        "newPasswordConfirmation": "Confirmer le nouveau mot de passe",
+        "success": "Votre mot de passe a été modifié avec succès.",
+        "error": "Une erreur est survenue."
       }
     }
   },
@@ -566,6 +585,7 @@
       "add": "Ajouter",
       "back": "Retour",
       "cancel": "Annuler",
+      "change": "Modifier",
       "close": "Fermer",
       "content": "Contenu",
       "continue": "Continuer",
@@ -577,6 +597,7 @@
       "edit": "Éditer",
       "editable": "Editable",
       "filter": "Filtrer",
+      "hidePassword": "Masquer le mot de passe",
       "lock": "Verrouiller",
       "login": "Se connecter",
       "logout": "Déconnexion",
@@ -590,6 +611,7 @@
       "saving": "En cours de sauvegarde",
       "search": "Rechercher",
       "share": "Partager",
+      "showPassword": "Afficher le mot de passe",
       "submit": "Envoyer",
       "tryagain": "Réessayer",
       "unlock": "Déverrouiller",
@@ -618,6 +640,12 @@
       },
       "help": "Aide",
       "news": "Actualités"
+    },
+    "newVersion": {
+      "title": "Une nouvelle version est disponible",
+      "description": "Cette fonctionnalité n’est pas disponible tant que vous n’avez pas installé la dernière version.",
+      "update": "Mettre à jour maintenant",
+      "updateLater": "Mettre à jour plus tard"
     },
     "serverError": {
       "409": "Oooops... Cette action a provoqué une erreur côté serveur.",
@@ -864,8 +892,9 @@
       "detail": "Hop là ! Tu t'es égaré...{br}Ce lien ne fonctionne malheureusement pas."
     },
     "profile": {
-      "changeEmail": "Changement",
-      "profile": "Profil"
+      "profile": "Profil",
+      "changePassword": "Changer",
+      "password": "Mot de passe"
     }
   }
 }

@@ -4,6 +4,11 @@ import { isAdmin, isLoggedIn } from '@/plugins/auth'
 import { apiStore } from '@/plugins/store'
 import { campShortTitle } from '@/common/helpers/campShortTitle'
 import { getEnv } from '@/environment.js'
+import {
+  clearChunkReloadGuard,
+  reloadOnChunkLoadError,
+} from '@/helpers/chunkLoadError.js'
+import * as Sentry from '@sentry/browser'
 
 const NavigationAuth = () => import('./views/auth/NavigationAuth.vue')
 const NavigationDefault = () => import('./views/NavigationDefault.vue')
@@ -26,6 +31,16 @@ const router = createRouter({
               default: () => import('./views/dev/Controls.vue'),
             },
             beforeEnter: requireAuth,
+          },
+          // Render a single form component selected via the URL, so form
+          // components can be driven and asserted on with Playwright.
+          // No auth required: the base components work without API/store.
+          {
+            path: '/form-test/:component?',
+            name: 'formTest',
+            components: {
+              default: () => import('./views/dev/FormComponentTest.vue'),
+            },
           },
         ]
       : []),
@@ -166,6 +181,7 @@ const router = createRouter({
     {
       path: '/profile',
       name: 'profile',
+      meta: { backMobile: true },
       components: {
         navigation: NavigationDefault,
         default: () => import('./views/Profile.vue'),
@@ -207,6 +223,7 @@ const router = createRouter({
     {
       path: '/camps/create',
       name: 'camps/create',
+      meta: { back: { name: 'camps' } },
       components: {
         navigation: NavigationDefault,
         default: () => import('./views/CampCreate.vue'),
@@ -315,6 +332,7 @@ const router = createRouter({
     {
       name: 'camp/material/all',
       path: '/camps/:campId/:campShortTitle?/material/all',
+      meta: { backMobile: true },
       components: {
         navigation: NavigationCamp,
         default: () => import('./views/camp/material/MaterialOverview.vue'),
@@ -332,6 +350,7 @@ const router = createRouter({
     {
       name: 'camp/material/unassigned',
       path: '/camps/:campId/:campShortTitle?/material/unassigned',
+      meta: { backMobile: true },
       components: {
         navigation: NavigationCamp,
         default: () => import('./views/camp/material/MaterialUnassigned.vue'),
@@ -349,6 +368,7 @@ const router = createRouter({
     {
       name: 'camp/overview/checklists/checklist',
       path: '/camps/:campId/:campShortTitle?/overview/checklists/:checklistId/:checklistName?',
+      meta: { backMobile: true },
       components: {
         navigation: NavigationCamp,
         default: () => import('./views/camp/checklistOverview/ChecklistOverview.vue'),
@@ -383,6 +403,7 @@ const router = createRouter({
     {
       name: 'camp/material/detail',
       path: '/camps/:campId/:campShortTitle?/material/:materialId/:materialName?',
+      meta: { backMobile: true },
       components: {
         navigation: NavigationCamp,
         default: () => import('./views/camp/material/MaterialDetail.vue'),
@@ -549,6 +570,14 @@ const router = createRouter({
       },
     },
   ],
+})
+router.onError((error, to) => {
+  Sentry.captureMessage('Chunk load failed after deployment')
+  reloadOnChunkLoadError(error, to)
+})
+
+router.afterEach(() => {
+  clearChunkReloadGuard()
 })
 
 export default router
@@ -755,6 +784,13 @@ export function periodFromRoute(route) {
   return apiStore.get().periods({ id: route.params.periodId })
 }
 
+export function activityFromRoute(route) {
+  if (!route.params.activityId) {
+    return undefined
+  }
+  return apiStore.get().activities({ id: route.params.activityId })
+}
+
 function categoryFromRoute(route) {
   if (!route.params.categoryId) {
     return undefined
@@ -891,6 +927,21 @@ export function scheduleEntryRoute(scheduleEntry, query = {}) {
       activityName: slugify(activity.title),
     },
     query,
+    state: activityBackState(camp.id),
+  }
+}
+
+function activityBackState(campId) {
+  const from = router.currentRoute.value
+  if (!from.matched.length) return {}
+
+  return {
+    activityBack:
+      from.name === 'camp/activity'
+        ? window.history.state?.activityBack
+        : from.params.campId === campId
+          ? from.fullPath
+          : null,
   }
 }
 
@@ -912,6 +963,7 @@ export async function firstActivityScheduleEntryRoute(activity, query = {}) {
       activityName: slugify(activity.title),
     },
     query,
+    state: activityBackState(camp.id),
   }
 }
 

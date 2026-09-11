@@ -262,9 +262,22 @@
       }
     },
     "collaborator": {
+      "collaboratorBulkCreate": {
+        "validationFailed": "Bereits im Team oder ungültige E-Mail-Adresse:",
+        "emailsHint": "Eine E-Mail-Adresse pro Zeile oder durch Kommas getrennt eingeben",
+        "emailsLabel": "E-Mail-Adressen",
+        "failedEmails": "Einladung fehlgeschlagen: {emails}",
+        "invite": "Einladungen verschicken",
+        "inviteCta": "Mehrere Personen einladen",
+        "successCount": "{count} Einladung(en) verschickt",
+        "title": "Mehrere Personen einladen"
+      },
       "collaboratorCreate": {
+        "emailLabel": "E-Mail-Adresse",
         "invite": "Einladung verschicken",
         "inviteCta": "Ins Team einladen",
+        "noResults": "Keine passenden Personen gefunden. Du kannst jede Person über ihre E-Mail-Adresse einladen.",
+        "searchHint": "Suche Personen aus gemeinsamen Lagern nach Name, Pfadiname oder E-Mail, oder gib eine neue E-Mail-Adresse ein.",
         "title": "Person einladen"
       },
       "collaboratorEdit": {
@@ -288,7 +301,32 @@
         "warningTextLeaveCamp": "Möchtest du das Lager '{camp}' wirklich verlassen?"
       }
     },
+    "comments": {
+      "commentCard": {
+        "campComment": "Ganzes Lager",
+        "deleteWarning": "Möchtest du deinen Kommentar wirklich löschen?",
+        "deleted": "(gelöscht)"
+      },
+      "commentComposer": {
+        "placeholder": "Kommentar schreiben"
+      },
+      "commentsList": {
+        "empty": "Noch keine Kommentare."
+      },
+      "commentsPanel": {
+        "activityCommentsElsewhere": "Ein weiterer Kommentar befindet sich bei einer einzelnen Aktivität. | {count} weitere Kommentare befinden sich bei einzelnen Aktivitäten.",
+        "commentsOnThisActivity": "Kommentare zu dieser Aktivität",
+        "title": "Kommentare"
+      },
+      "commentsToggleButton": {
+        "hide": "Kommentare ausblenden",
+        "show": "Kommentare anzeigen | Einen Kommentar anzeigen | {count} Kommentare anzeigen"
+      }
+    },
     "dashboard": {
+      "activityRow": {
+        "comments": "Keine Kommentare | Einen Kommentar anzeigen | {count} Kommentare anzeigen"
+      },
       "selectFilter": {
         "clear": "Zurücksetzen"
       }
@@ -527,6 +565,7 @@
         "clearFilters": "Filter entfernen",
         "day": "Datum",
         "dayLabel": "Tag {dayNumber} ({date})",
+        "allMyActivities": "Alle meine Aktivitäten",
         "onlyMyActivities": "Nur meine Aktivitäten",
         "period": "Lagerabschnitt",
         "progressLabel": "Status",
@@ -564,6 +603,14 @@
         "message": "E-Mail-Adresse wird geändert...",
         "success": "E-Mail-Adresse erfolgreich geändert.",
         "title": "E-Mail-Adresse wird geändert"
+      },
+      "dialogChangePassword": {
+        "title": "Passwort ändern",
+        "currentPassword": "Aktuelles Passwort",
+        "newPassword": "Neues Passwort",
+        "newPasswordConfirmation": "Neues Passwort bestätigen",
+        "success": "Dein Passwort wurde erfolgreich geändert.",
+        "error": "Es ist ein Fehler aufgetreten."
       }
     }
   },
@@ -572,6 +619,7 @@
       "add": "Hinzufügen",
       "back": "Zurück",
       "cancel": "Abbrechen",
+      "change": "Ändern",
       "close": "Schliessen",
       "content": "Inhalt",
       "continue": "Weiter",
@@ -583,6 +631,7 @@
       "edit": "Bearbeiten",
       "editable": "Bearbeitbar",
       "filter": "Filtern",
+      "hidePassword": "Passwort verbergen",
       "lock": "Sperren",
       "login": "Anmelden",
       "logout": "Ausloggen",
@@ -596,6 +645,7 @@
       "saving": "Speichert",
       "search": "Suchen",
       "share": "Freigeben",
+      "showPassword": "Passwort anzeigen",
       "submit": "Abschicken",
       "tryagain": "Erneut versuchen",
       "unlock": "Entsperren",
@@ -624,6 +674,12 @@
       },
       "help": "Hilfe",
       "news": "News"
+    },
+    "newVersion": {
+      "title": "Eine neue Version ist verfügbar",
+      "description": "Diese Funktion ist nicht verfügbar, bis du auf die neueste Version aktualisierst.",
+      "update": "Jetzt aktualisieren",
+      "updateLater": "Später aktualisieren"
     },
     "serverError": {
       "409": "Uuuups... Diese Aktion hat zu einem Fehler auf dem Server geführt.",
@@ -870,8 +926,9 @@
       "detail": "Hoppla. Du bist vom Weg abgekommen…{br}Dieser Link funktioniert leider nicht."
     },
     "profile": {
-      "changeEmail": "Ändern",
-      "profile": "Profil"
+      "profile": "Profil",
+      "changePassword": "Ändern",
+      "password": "Passwort"
     }
   }
 }

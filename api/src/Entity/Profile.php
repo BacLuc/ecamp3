@@ -9,6 +9,7 @@ use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Patch;
+use App\Doctrine\Filter\ProfileSearchFilter;
 use App\InputFilter;
 use App\Repository\ProfileRepository;
 use App\State\ProfileUpdateProcessor;
@@ -39,6 +40,7 @@ use Symfony\Component\Validator\Constraints as Assert;
     denormalizationContext: ['groups' => ['write']],
 )]
 #[ApiFilter(filterClass: SearchFilter::class, properties: ['user.collaborations.camp', 'user'])]
+#[ApiFilter(filterClass: ProfileSearchFilter::class)]
 #[ORM\Entity(repositoryClass: ProfileRepository::class)]
 #[ORM\Table(name: '`profile`')]
 class Profile extends BaseEntity {
@@ -49,8 +51,8 @@ class Profile extends BaseEntity {
     public const EXAMPLE_LANGUAGE = 'en';
 
     /**
-     * Unique email of the user.
-     * Can only be changed by setting the newEmail field, which triggers an email verification flow.
+     * Unique email of the user. Can only be changed by setting the newEmail field, which
+     * triggers an email verification flow.
      */
     #[InputFilter\Trim]
     #[Assert\NotBlank]
@@ -61,8 +63,7 @@ class Profile extends BaseEntity {
     public ?string $email = null;
 
     /**
-     * New email.
-     * If set, a verification email is sent to this email address.
+     * New email. If set, a verification email is sent to this email address.
      */
     #[InputFilter\Trim]
     #[Assert\Email]

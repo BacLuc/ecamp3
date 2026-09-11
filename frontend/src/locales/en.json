@@ -262,9 +262,22 @@
       }
     },
     "collaborator": {
+      "collaboratorBulkCreate": {
+        "validationFailed": "Already in camp or invalid email:",
+        "emailsHint": "Enter one email address per line, or separate with commas",
+        "emailsLabel": "Email addresses",
+        "failedEmails": "Failed to invite: {emails}",
+        "invite": "Send invitations",
+        "inviteCta": "Invite multiple people",
+        "successCount": "{count} invitation(s) sent",
+        "title": "Invite multiple people"
+      },
       "collaboratorCreate": {
+        "emailLabel": "Email address",
         "invite": "Send invitation",
         "inviteCta": "Invite to team",
+        "noResults": "No matching people found. You can invite anyone by typing their email address.",
+        "searchHint": "Search people you share a camp with by name, nickname or email, or type a new email address.",
         "title": "Invite people"
       },
       "collaboratorEdit": {
@@ -288,7 +301,32 @@
         "warningTextLeaveCamp": "Do you want to leave the camp '{camp}'?"
       }
     },
+    "comments": {
+      "commentCard": {
+        "campComment": "Whole camp",
+        "deleteWarning": "Do you really want to delete your comment?",
+        "deleted": "(deleted)"
+      },
+      "commentComposer": {
+        "placeholder": "Write a comment"
+      },
+      "commentsList": {
+        "empty": "No comments yet."
+      },
+      "commentsPanel": {
+        "activityCommentsElsewhere": "One more comment is on an individual activity. | {count} more comments are on individual activities.",
+        "commentsOnThisActivity": "Comments on this activity",
+        "title": "Comments"
+      },
+      "commentsToggleButton": {
+        "hide": "Hide comments",
+        "show": "Show comments | Show one comment | Show {count} comments"
+      }
+    },
     "dashboard": {
+      "activityRow": {
+        "comments": "No comments | Show one comment | Show {count} comments"
+      },
       "selectFilter": {
         "clear": "Clear"
       }
@@ -527,6 +565,7 @@
         "clearFilters": "Clear filters",
         "day": "Date",
         "dayLabel": "Day {dayNumber} ({date})",
+        "allMyActivities": "All my activities",
         "onlyMyActivities": "Only my activities",
         "period": "Period",
         "progressLabel": "State",
@@ -564,6 +603,14 @@
         "message": "Changing email address ...",
         "success": "Email address successfully changed.",
         "title": "Changing email address"
+      },
+      "dialogChangePassword": {
+        "title": "Change password",
+        "currentPassword": "Current password",
+        "newPassword": "New password",
+        "newPasswordConfirmation": "Confirm new password",
+        "success": "Your password has been changed successfully.",
+        "error": "An error has occurred."
       }
     }
   },
@@ -572,6 +619,7 @@
       "add": "Add",
       "back": "Back",
       "cancel": "Cancel",
+      "change": "Change",
       "close": "Close",
       "content": "Content",
       "continue": "Continue",
@@ -583,6 +631,7 @@
       "edit": "Edit",
       "editable": "Editable",
       "filter": "Filter",
+      "hidePassword": "Hide password",
       "lock": "Lock",
       "login": "Log in",
       "logout": "Logout",
@@ -596,6 +645,7 @@
       "saving": "Saving",
       "search": "Search",
       "share": "Share",
+      "showPassword": "Show password",
       "submit": "Submit",
       "tryagain": "Try again",
       "unlock": "Unlock",
@@ -624,6 +674,12 @@
       },
       "help": "Help",
       "news": "News"
+    },
+    "newVersion": {
+      "title": "A new version is available",
+      "description": "This feature is not available until you update to the latest version.",
+      "update": "Update now",
+      "updateLater": "Update later"
     },
     "serverError": {
       "409": "Uuuups... This action caused an server-side error.",
@@ -870,8 +926,9 @@
       "detail": "Oops. You've lost your way…{br}Unfortunately, this link does not work."
     },
     "profile": {
-      "changeEmail": "Change",
-      "profile": "Profile"
+      "profile": "Profile",
+      "changePassword": "Change",
+      "password": "Password"
     }
   }
 }

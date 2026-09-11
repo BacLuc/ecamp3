@@ -24,7 +24,7 @@ const collectionXKeys =
   /* collection URI (for detecting addition of new days) */
   '/api/periods/76be24bce434/days'
 
-test.describe('cache test: /periods/{periodId}/days', () => {
+test.describe('cache test: /periods/{periodId}/days', { tag: '@mature' }, () => {
   test.describe.configure({ mode: 'serial' })
 
   test('caches /periods/{periodId}/days separately for each login', async () => {
@@ -58,8 +58,8 @@ test.describe('cache test: /periods/{periodId}/days', () => {
 
     // move period start date
     await apiPatch(bipiApi, `/api/periods/${grgrPeriodId}`, {
-      start: '2026-05-09',
-      end: '2026-05-12',
+      start: '2036-05-09',
+      end: '2036-05-12',
       moveScheduleEntries: true,
     })
 
@@ -69,8 +69,8 @@ test.describe('cache test: /periods/{periodId}/days', () => {
 
     // move period start date
     await apiPatch(bipiApi, `/api/periods/${grgrPeriodId}`, {
-      start: '2026-05-10',
-      end: '2026-05-13',
+      start: '2036-05-10',
+      end: '2036-05-13',
       moveScheduleEntries: true,
     })
 

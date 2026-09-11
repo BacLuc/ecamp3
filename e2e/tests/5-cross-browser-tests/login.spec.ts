@@ -1,11 +1,6 @@
 import { test, expect } from '@playwright/test'
-import { mockDateNow } from '@/utils/helpers'
 
-test.describe('Login test', () => {
-  test.beforeEach(async ({ page }) => {
-    await mockDateNow(page)
-  })
-
+test.describe('Login test', { tag: '@mature' }, () => {
   test('displays the login page', async ({ page }) => {
     await page.goto('/')
     await expect(page.locator('body')).toContainText('Login')

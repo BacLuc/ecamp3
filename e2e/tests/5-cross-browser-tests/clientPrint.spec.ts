@@ -2,18 +2,17 @@
 
 import { test, expect } from '@playwright/test'
 import { getPdfProperties } from '@/utils/getPdfProperties'
-import { loginAndSetCookie, mockDateNow } from '@/utils/helpers'
+import { loginAndSetCookie } from '@/utils/helpers'
 
 import { readFileSync } from 'fs'
 
-test.describe('Client print test', () => {
-  test.beforeEach(async ({ page }) => {
-    await mockDateNow(page)
+test.describe('Client print test', { tag: '@mature' }, () => {
+  test.beforeEach(async ({ page, request }) => {
+    await loginAndSetCookie(page, request, 'test@example.com')
   })
 
-  test('downloads PDF', async ({ page, request }) => {
+  test('downloads PDF', async ({ page }) => {
     await page.goto('/')
-    await loginAndSetCookie(page, request, 'test@example.com')
     await page.waitForURL('/camps')
 
     await page.locator('a:has-text("GRGR")').click()
@@ -29,6 +28,6 @@ test.describe('Client print test', () => {
     const pdfProps = await getPdfProperties(buffer)
 
     expect(download.suggestedFilename()).toBe('Pfila-2023.pdf')
-    expect(pdfProps.numPages).toBe(18)
+    expect(pdfProps.numPages).toBe(20)
   })
 })

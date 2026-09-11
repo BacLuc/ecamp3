@@ -3,13 +3,12 @@
 import { readFileSync } from 'fs'
 import { expect, test } from '@playwright/test'
 import { getPdfProperties } from '@/utils/getPdfProperties'
-import { loginAndSetCookie, mockDateNow } from '@/utils/helpers'
+import { loginAndSetCookie } from '@/utils/helpers'
 import { CampItem, PeriodItem } from '@/shared-types/ecamp'
 
-test.describe('Nuxt print test', () => {
+test.describe('Nuxt print test', { tag: '@mature' }, () => {
   test.beforeEach(async ({ page, request }) => {
     await loginAndSetCookie(page, request, 'test@example.com')
-    await mockDateNow(page)
   })
 
   test('shows print preview', async ({ page }) => {
@@ -95,16 +94,18 @@ test.describe('Nuxt print test', () => {
       const pdfProps = await getPdfProperties(buffer)
 
       expect(download.suggestedFilename()).toBe('Pfila-2023.pdf')
-      expect(pdfProps.numPages).toBe(25)
+      expect(pdfProps.numPages).toBe(26)
     })
 
-    // eslint-disable-next-line playwright/no-skipped-test
-    test.skip('for picasso', async ({ page }) => {
+    test('for picasso', async ({ page }) => {
       await page.locator('a:has-text("Programm")').click()
       await page.locator('[data-testid="campprogram-menu"]').click()
 
       const downloadPromise = page.waitForEvent('download')
-      await page.locator('listitem:has-text("PDF herunterladen (Layout #1)")').click()
+      await page
+        .locator('.v-list-item')
+        .filter({ hasText: 'PDF herunterladen (Layout #1)' })
+        .click()
       const download = await downloadPromise
 
       const path = await download.path()
