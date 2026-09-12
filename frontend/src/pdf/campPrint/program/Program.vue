@@ -50,6 +50,7 @@ export default {
               filterMatchScheduleEntry(scheduleEntry, this.content.options.filter)
             ).length
         })
+        .sort((a, b) => new Date(a.start) - new Date(b.start))
     },
   },
 }
