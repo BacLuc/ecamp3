@@ -29,10 +29,8 @@ export async function loginAndSetCookie(
   await page.goto('/')
   await page.locator('[type="email"]').fill(user)
   await page.locator('[type="password"]').fill(password)
-  await Promise.all([
-    page.locator('[type="submit"]').click(),
-    page.waitForURL('/camps', { timeout: 60000 }),
-  ])
+  await page.locator('[type="submit"]').click()
+  await expect(page).toHaveURL((url) => url.pathname === '/camps')
 }
 
 export async function getAuthContext(user: string): Promise<APIRequestContext> {
