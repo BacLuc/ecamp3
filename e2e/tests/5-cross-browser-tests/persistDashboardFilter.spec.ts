@@ -95,8 +95,33 @@ test.describe('The filters in the dashboard', { tag: '@mature' }, () => {
 })
 
 async function clickOnItemWithLabel(page: Page, label: string) {
-  await page
+  const item = page
     .getByRole('listitem')
     .filter({ has: page.getByText(label, { exact: true }) })
-    .click()
+
+  // Wait for the menu containing this item to finish its opening transition:
+  // VMenu's VDialogTransition keeps pointer-events:none on .v-overlay__content
+  // until the enter animation completes.
+  const overlay = item.locator(
+    'xpath=ancestor::*[contains(@class, "v-overlay__content")]'
+  )
+  await expect(overlay).toHaveCSS('pointer-events', 'auto')
+
+  // Scroll the item into view *before* the click so the click itself does not
+  // trigger a scroll. A scroll during the click makes VMenu's reposition
+  // strategy move the menu (rAF-deferred), so the click can dispatch from a
+  // stale bounding box and land in the app bar.
+  await item.scrollIntoViewIfNeeded()
+
+  // Wait for the menu to stop moving (scroll reposition settles).
+  let prev = ''
+  for (let i = 0; i < 20; i++) {
+    const box = await item.boundingBox()
+    const key = box ? `${Math.round(box.x)},${Math.round(box.y)}` : ''
+    if (key && key === prev) break
+    prev = key
+    await page.waitForTimeout(50)
+  }
+
+  await item.click()
 }
