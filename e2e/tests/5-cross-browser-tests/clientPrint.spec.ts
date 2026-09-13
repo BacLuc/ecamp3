@@ -13,14 +13,27 @@ test.describe('Client print test', { tag: '@mature' }, () => {
 
   test('downloads PDF', async ({ page }) => {
     await page.goto('/')
-    await page.waitForURL('/camps')
+    await expect(page).toHaveURL((url) => url.pathname === '/camps')
 
-    await page.locator('a:has-text("GRGR")').click()
-    await page.locator('a:has-text("Admin")').click()
-    await page.locator('a:has-text("Drucken")').click()
+    const campLink = page.getByRole('link', { name: 'GRGR' })
+    await expect(campLink).toBeVisible()
+    await campLink.click()
 
+    const adminLink = page.getByRole('link', { name: 'Admin' })
+    await expect(adminLink).toBeVisible()
+    await adminLink.click()
+
+    const printLink = page.getByRole('link', { name: 'Drucken' })
+    await expect(printLink).toBeVisible()
+    await printLink.click()
+
+    const downloadButton = page.getByRole('button', {
+      name: 'PDF herunterladen (Layout #2)',
+    })
+    await expect(downloadButton).toBeVisible()
+    await expect(downloadButton).toBeEnabled()
     const downloadPromise = page.waitForEvent('download')
-    await page.locator('button:has-text("PDF herunterladen (Layout #2)")').click()
+    await downloadButton.click()
     const download = await downloadPromise
 
     const path = await download.path()
