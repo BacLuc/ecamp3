@@ -29,10 +29,8 @@ export async function loginAndSetCookie(
   await page.goto('/')
   await page.locator('[type="email"]').fill(user)
   await page.locator('[type="password"]').fill(password)
-  await Promise.all([
-    page.locator('[type="submit"]').click(),
-    page.waitForURL('/camps', { timeout: 60000 }),
-  ])
+  await page.locator('[type="submit"]').click()
+  await expect(page).toHaveURL((url) => url.pathname === '/camps')
 }
 
 export async function getAuthContext(user: string): Promise<APIRequestContext> {
@@ -176,7 +174,9 @@ export async function createCampViaUI(page: Page, campTitle: string): Promise<st
   await expect(page.locator('.v-overlay')).not.toBeVisible({ timeout: 10000 })
 
   await page.getByTestId('create-camp-button').click()
-  await page.waitForURL('**/admin/info', { timeout: 30000 })
+  await expect(page).toHaveURL((url) => url.pathname.endsWith('/admin/info'), {
+    timeout: 30000,
+  })
 
   return page.url().replace(/\/info$/, '')
 }
@@ -206,5 +206,5 @@ export async function deleteCampViaUI(
     .getByRole('button', { name: /Löschen/i })
     .click()
 
-  await page.waitForURL(/\/camps$/, { timeout: 15000 })
+  await expect(page).toHaveURL((url) => url.pathname === '/camps', { timeout: 15000 })
 }
