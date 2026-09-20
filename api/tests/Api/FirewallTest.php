@@ -45,16 +45,16 @@ class FirewallTest extends ECampApiTestCase {
         assertThat($collector->getQueryCount(), equalTo(3));
     }
 
-    public function testRefreshEndpointIsHandledByAuthenticator(): void {
-        $response = self::createBasicClient()->request('POST', '/token/refresh');
-
-        assertThat($response->getStatusCode(), equalTo(401));
-    }
-
     public static function getProtectedEndpoints(): array {
         $protectedEndpoints = array_filter(self::getEndPoints(), self::isProtectedByFirewall(...));
 
         return ParametrizedTestHelper::asParameterTestSets($protectedEndpoints);
+    }
+
+    public function testRefreshEndpointIsHandledByAuthenticator(): void {
+        $response = self::createBasicClient()->request('POST', '/token/refresh');
+
+        assertThat($response->getStatusCode(), equalTo(401));
     }
 
     /**
