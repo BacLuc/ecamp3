@@ -51,6 +51,12 @@ class FirewallTest extends ECampApiTestCase {
         return ParametrizedTestHelper::asParameterTestSets($protectedEndpoints);
     }
 
+    public function testRefreshEndpointIsHandledByAuthenticator(): void {
+        $response = self::createBasicClient()->request('POST', '/token/refresh');
+
+        assertThat($response->getStatusCode(), equalTo(401));
+    }
+
     /**
      * @throws ClientExceptionInterface
      * @throws DecodingExceptionInterface
