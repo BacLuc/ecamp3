@@ -32,12 +32,7 @@ sub vcl_recv {
   }
 
   # exclude any format other than HAL
-  if (req.url !~ "\.jsonhal$" && req.http.Accept !~ "application/hal\+json"){
-    return(pass);
-  }
-
-  # exclude any request with query parameters, until cache handling of query params is properly implemented
-  if (req.url ~ "\?"){
+  if (req.url !~ "\.jsonhal(\?|$)" && req.http.Accept !~ "application/hal\+json"){
     return(pass);
   }
 

@@ -12,6 +12,7 @@ test.describe('cache test: /content-types', { tag: '@mature' }, () => {
 
   test('caches collection separately for each login', async () => {
     const uri = '/api/content_types'
+    const queryUri = `${uri}?page=1`
 
     const bipiApi = await getAuthContext(bipiUser)
 
@@ -24,6 +25,8 @@ test.describe('cache test: /content-types', { tag: '@mature' }, () => {
 
     // second request is a cache hit
     await expectCacheHit(bipiApi, uri)
+    await expectCacheMiss(bipiApi, queryUri)
+    await expectCacheHit(bipiApi, queryUri)
 
     // request with a new user is a cache miss
     const castorApi = await getAuthContext(castorUser)

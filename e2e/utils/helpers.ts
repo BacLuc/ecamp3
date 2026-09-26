@@ -9,6 +9,14 @@ export const API_ROOT_URL = process.env.API_ROOT_URL || 'http://localhost:3000/a
 export const API_ROOT_URL_CACHED =
   process.env.API_ROOT_URL_CACHED || 'http://localhost:3004'
 
+// Inserts the `.jsonhal` format before the query string, so that a uri with
+// query params stays a valid HAL request (e.g. `/activities?x=1` ->
+// `/activities.jsonhal?x=1`).
+function cachedUrl(uri: string): string {
+  const [path, query] = uri.split('?')
+  return `${API_ROOT_URL_CACHED}${path}.jsonhal${query ? `?${query}` : ''}`
+}
+
 export async function login(
   request: APIRequestContext,
   identifier: string,
@@ -55,7 +63,7 @@ export async function expectCacheHeader(
   await test.step(
     `Check Header: ${expectedHeader}`,
     async () => {
-      const response = await request.get(`${API_ROOT_URL_CACHED}${uri}.jsonhal`)
+      const response = await request.get(cachedUrl(uri))
       expect(response.headers()['x-cache']).toBe(expectedHeader)
     },
     { box: true }
@@ -99,7 +107,7 @@ export async function waitForCacheMiss(request: APIRequestContext, uri: string) 
       await expect
         .poll(
           async () => {
-            const response = await request.get(`${API_ROOT_URL_CACHED}${uri}.jsonhal`)
+            const response = await request.get(cachedUrl(uri))
             return response.headers()['x-cache']
           },
           { timeout: 10000 }
@@ -111,7 +119,7 @@ export async function waitForCacheMiss(request: APIRequestContext, uri: string) 
 }
 
 export async function apiGet(request: APIRequestContext, uri: string) {
-  return await request.get(`${API_ROOT_URL_CACHED}${uri}.jsonhal`)
+  return await request.get(cachedUrl(uri))
 }
 
 export async function apiPatch(
@@ -119,7 +127,7 @@ export async function apiPatch(
   uri: string,
   body: Record<string, unknown>
 ) {
-  return await request.patch(`${API_ROOT_URL_CACHED}${uri}.jsonhal`, {
+  return await request.patch(cachedUrl(uri), {
     data: body,
     headers: {
       'Content-Type': 'application/merge-patch+json',
@@ -132,7 +140,7 @@ export async function apiPost(
   uri: string,
   body: Record<string, unknown>
 ) {
-  return await request.post(`${API_ROOT_URL_CACHED}${uri}.jsonhal`, {
+  return await request.post(cachedUrl(uri), {
     data: body,
     headers: {
       'Content-Type': 'application/hal+json',
@@ -141,7 +149,7 @@ export async function apiPost(
 }
 
 export async function apiDelete(request: APIRequestContext, uri: string) {
-  return await request.delete(`${API_ROOT_URL_CACHED}${uri}.jsonhal`)
+  return await request.delete(cachedUrl(uri))
 }
 
 export async function createCampViaUI(page: Page, campTitle: string): Promise<string> {

@@ -93,12 +93,15 @@ test.describe(
 
     test('invalidates /periods/{periodId}/schedule_entries for new scheduleEntry', async () => {
       const uri = `/api/periods/${grgrPeriodId}/schedule_entries`
+      const filteredUri = `${uri}?period=%2Fperiods%2F${skilagerPeriodId}&page=1`
 
       const bipiApi = await getAuthContext(bipiUser)
 
       // warm up cache
       await apiGet(bipiApi, uri)
       await expectCacheHit(bipiApi, uri)
+      await expectCacheMiss(bipiApi, filteredUri)
+      await expectCacheHit(bipiApi, filteredUri)
 
       // add new scheduleEntry to period
       const postRes = await apiPost(bipiApi, '/api/schedule_entries', {
@@ -113,6 +116,8 @@ test.describe(
       // ensure cache was invalidated
       await waitForCacheMiss(bipiApi, uri)
       await expectCacheHit(bipiApi, uri)
+      await waitForCacheMiss(bipiApi, filteredUri)
+      await expectCacheHit(bipiApi, filteredUri)
 
       // delete newly created scheduleEntry
       await apiDelete(bipiApi, newScheduleEntryUri)
@@ -120,6 +125,8 @@ test.describe(
       // ensure cache was invalidated
       await waitForCacheMiss(bipiApi, uri)
       await expectCacheHit(bipiApi, uri)
+      await waitForCacheMiss(bipiApi, filteredUri)
+      await expectCacheHit(bipiApi, filteredUri)
     })
 
     test('invalidates /periods/{periodId}/schedule_entries when moving a schedule entry to another period', async () => {

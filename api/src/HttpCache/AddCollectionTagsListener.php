@@ -52,6 +52,11 @@ final class AddCollectionTagsListener {
             }
 
             $this->responseTagger->addTags([$iri]);
+
+            $uri = $request->getUri();
+            if (str_contains($uri, '?')) {
+                $this->responseTagger->addTags([$iri.'?']);
+            }
         }
     }
 }

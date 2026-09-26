@@ -31,6 +31,18 @@ class CacheRegexTest extends KernelTestCase {
         assertMatchesRegularExpression($this->cacheRegex, $url);
     }
 
+    #[TestWith(data: ['/content_types?name=Checklist'], name: '/content_types?name=Checklist')]
+    #[TestWith(data: ['/camps/25a82475e0b7/categories?camp=camps/25a82475e0b7'], name: '/camps/25a82475e0b7/categories?camp=camps/25a82475e0b7')]
+    #[TestWith(data: ['/periods/25a82475e0b7/schedule_entries?start[before]=2031-01-25'], name: '/periods/25a82475e0b7/schedule_entries?x=1')]
+    #[TestWith(data: ['/camps/25a82475e0b7/activities?camp=%2Fcamps%2F25a82475e0b7&order[id]=asc'], name: '/camps/25a82475e0b7/activities?camp=%2Fcamps%2F25a82475e0b7&order[id]=asc')]
+    #[TestWith(data: ['/camps/25a82475e0b7/checklists?camp=camps/25a82475e0b7'], name: '/camps/25a82475e0b7/checklists?camp=camps/25a82475e0b7')]
+    #[TestWith(data: ['/activities/25a82475e0b7?camp=camps/25a82475e0b7'], name: '/activities/25a82475e0b7?camp=camps/25a82475e0b7')]
+    #[TestWith(data: ['/periods/25a82475e0b7/days?period.camp=camps/25a82475e0b7'], name: '/periods/25a82475e0b7/days?period.camp=camps/25a82475e0b7')]
+    #[TestWith(data: ['/camps/25a82475e0b7/categories/c53dd7917e63?camp=camps/25a82475e0b7'], name: '/camps/25a82475e0b7/categories/c53dd7917e63?camp=camps/25a82475e0b7')]
+    public function testIncludesUrlsWithQueryParams(string $url) {
+        assertMatchesRegularExpression($this->cacheRegex, $url);
+    }
+
     #[TestWith(data: ['/camps/25a82475e0b7/categories/c53dd7917e63'], name: '/camps/25a82475e0b7/categories/c53dd7917e63')]
     public function testAlsoIncludesUrls(string $url) {
         assertMatchesRegularExpression($this->cacheRegex, $url);

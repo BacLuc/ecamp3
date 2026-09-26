@@ -45,6 +45,7 @@ test.describe('cache test: /camps/checklists', { tag: '@mature' }, () => {
 
   test('invalidates /camp/{campId}/checklists on checklist patch', async () => {
     const uri = `/api/camps/${basiskursCampId}/checklists`
+    const filteredUri = `${uri}?isPrototype=true&page=1`
 
     // bring data into defined state
     const bipiApi = await getAuthContext(bipiUser)
@@ -55,6 +56,8 @@ test.describe('cache test: /camps/checklists', { tag: '@mature' }, () => {
     // warm up cache
     await apiGet(bipiApi, uri)
     await expectCacheHit(bipiApi, uri)
+    await expectCacheMiss(bipiApi, filteredUri)
+    await expectCacheHit(bipiApi, filteredUri)
 
     // touch checklist
     await apiPatch(bipiApi, '/api/checklists/ebbd0c61eb85', {
@@ -64,6 +67,8 @@ test.describe('cache test: /camps/checklists', { tag: '@mature' }, () => {
     // ensure cache was invalidated
     await waitForCacheMiss(bipiApi, uri)
     await expectCacheHit(bipiApi, uri)
+    await waitForCacheMiss(bipiApi, filteredUri)
+    await expectCacheHit(bipiApi, filteredUri)
   })
 
   test.describe('invalidates /camp/{campId}/checklists for new checklist', () => {

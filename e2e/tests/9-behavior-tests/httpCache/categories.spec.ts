@@ -6,6 +6,7 @@ import {
   felicitySmoakUser,
   grgrCampId,
   loremIpsumCampId,
+  skilagerCampId,
 } from '@/utils/constants'
 import {
   loginAndSetCookie,
@@ -61,6 +62,7 @@ test.describe('cache test: /camps/{campId}/categories', { tag: '@mature' }, () =
 
   test('invalidates /camps/{campId}/categories for all users on category patch', async () => {
     const uri = `/api/camps/${loremIpsumCampId}/categories`
+    const filteredUri = `${uri}?camp=%2Fcamps%2F${skilagerCampId}&page=1`
 
     // bring data into defined state
     const bruceApi = await getAuthContext(bruceWayneUser)
@@ -72,6 +74,8 @@ test.describe('cache test: /camps/{campId}/categories', { tag: '@mature' }, () =
     // warm up cache (bruce)
     await apiGet(bruceApi, uri)
     await expectCacheHit(bruceApi, uri)
+    await expectCacheMiss(bruceApi, filteredUri)
+    await expectCacheHit(bruceApi, filteredUri)
 
     // warm up cache (felicity)
     await apiGet(felicityApi, uri)
@@ -85,6 +89,8 @@ test.describe('cache test: /camps/{campId}/categories', { tag: '@mature' }, () =
     // ensure cache was invalidated
     await waitForCacheMiss(felicityApi, uri)
     await expectCacheHit(felicityApi, uri)
+    await waitForCacheMiss(felicityApi, filteredUri)
+    await expectCacheHit(felicityApi, filteredUri)
 
     await expectCacheMiss(bruceApi, uri)
   })
