@@ -15,7 +15,6 @@ use ApiPlatform\Metadata\Post;
 use App\Entity\ContentNode\ChecklistNode;
 use App\InputFilter;
 use App\Repository\ChecklistItemRepository;
-use App\State\ChecklistItemCollectionProvider;
 use App\Util\EntityMap;
 use App\Validator\AssertNoLoop;
 use App\Validator\ChecklistItem\AssertBelongsToSameChecklist;
@@ -51,7 +50,9 @@ use Symfony\Component\Validator\Constraints as Assert;
         ),
         new GetCollection(
             security: 'is_authenticated()',
-            provider: ChecklistItemCollectionProvider::class
+            extraProperties: [
+                'scoping_filters' => ['checklist', 'checklist.camp'],
+            ]
         ),
         new Post(
             denormalizationContext: ['groups' => ['write', 'create']],
@@ -168,8 +169,8 @@ class ChecklistItem extends BaseEntity implements BelongsToCampInterface, CopyFr
     public ?string $text = null;
 
     /**
-     * A whole number used for ordering multiple checklist items that are in the same parent.
-     * The API does not guarantee the uniqueness of parent+position.
+     * A whole number used for ordering multiple checklist items that are in the same
+     * parent. The API does not guarantee the uniqueness of parent+position.
      */
     #[ApiProperty(example: '0')]
     #[Gedmo\SortablePosition]

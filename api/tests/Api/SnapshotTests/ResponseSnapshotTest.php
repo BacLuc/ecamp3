@@ -83,6 +83,10 @@ class ResponseSnapshotTest extends ECampApiTestCase {
     #[DataProvider('getCollectionEndpoints')]
     #[DataProvider('getCollectionEndpointsFiltered')]
     public function testGetCollectionMatchesStructure(Client $client, string $endpoint) {
+        if (!str_contains($endpoint, '?')) {
+            $endpoint .= self::scopingFilterFor($endpoint);
+        }
+
         $response = $client->request('GET', $endpoint);
 
         assertThat($response->getStatusCode(), equalTo(200));
@@ -169,6 +173,8 @@ class ResponseSnapshotTest extends ECampApiTestCase {
             [$client, '/content_node/storyboards?camp=/camps/'.self::getFixtureFor('/camps')->getId()],
             [$client, '/checklist_items?checklist=/checklists/'.self::getFixtureFor('/checklists')->getId()],
             [$client, '/material_items?camp=/camps/'.self::getFixtureFor('/camps')->getId()],
+            [$client, '/comments?camp=/camps/'.self::getFixtureFor('/camps')->getId()],
+            [$client, '/activities/'.self::getFixtureFor('/activities')->getId().'/comments'],
         ];
     }
 
@@ -281,6 +287,10 @@ class ResponseSnapshotTest extends ECampApiTestCase {
 
         assertThat($response->getStatusCode(), equalTo(200));
         $this->assertMatchesEscapedResponseSnapshot($response);
+    }
+
+    private static function scopingFilterFor(string $collectionEndpoint): string {
+        return CollectionScopingFilterMap::get($collectionEndpoint, FixtureStore::getFixtures());
     }
 
     private static function getFixtureFor(string $collectionEndpoint) {

@@ -1,10 +1,9 @@
 import { test, expect, type Page } from '@playwright/test'
-import { loginAndSetCookie, mockDateNow } from '@/utils/helpers'
+import { loginAndSetCookie } from '@/utils/helpers'
 
-test.describe('The filters in the dashboard', () => {
+test.describe('The filters in the dashboard', { tag: '@mature' }, () => {
   test.beforeEach(async ({ page, request }) => {
     await loginAndSetCookie(page, request, 'test@example.com')
-    await mockDateNow(page)
     await page.goto('/camps')
     await page.getByRole('link', { name: 'GRGR' }).click()
     await expect(page.getByRole('link', { name: 'Hauptlager' })).toBeVisible()
@@ -96,8 +95,16 @@ test.describe('The filters in the dashboard', () => {
 })
 
 async function clickOnItemWithLabel(page: Page, label: string) {
-  await page
+  const item = page
     .getByRole('listitem')
     .filter({ has: page.getByText(label, { exact: true }) })
-    .click()
+
+  const overlay = item.locator(
+    'xpath=ancestor::*[contains(@class, "v-overlay__content")]'
+  )
+  await expect(overlay).toHaveCSS('pointer-events', 'auto')
+
+  await item.scrollIntoViewIfNeeded()
+
+  await item.click()
 }

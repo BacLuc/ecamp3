@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\ApiResource;
@@ -12,6 +11,7 @@ use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use App\Doctrine\Filter\CampCollaboratorFilter;
+use App\Doctrine\Filter\IsTrueFilter;
 use App\InputFilter;
 use App\Repository\CampRepository;
 use App\Serializer\Normalizer\RelatedCollectionLink;
@@ -49,7 +49,10 @@ use Symfony\Component\Validator\Constraints as Assert;
             processor: CampRemoveProcessor::class,
         ),
         new GetCollection(
-            security: 'is_authenticated()'
+            security: 'is_authenticated()',
+            extraProperties: [
+                'scoping_filters' => ['campCollaborator', 'isPrototype'],
+            ]
         ),
         new Post(
             normalizationContext: self::ITEM_NORMALIZATION_CONTEXT,
@@ -63,7 +66,7 @@ use Symfony\Component\Validator\Constraints as Assert;
     denormalizationContext: ['groups' => ['write']],
     forceEager: false,
 )]
-#[ApiFilter(filterClass: SearchFilter::class, properties: ['isPrototype'])]
+#[ApiFilter(filterClass: IsTrueFilter::class, properties: ['isPrototype'])]
 #[ApiFilter(filterClass: CampCollaboratorFilter::class)]
 #[ORM\Entity(repositoryClass: CampRepository::class)]
 #[ORM\Index(columns: ['isPrototype'])]
@@ -92,9 +95,10 @@ class Camp extends BaseEntity implements BelongsToCampInterface, CopyFromPrototy
     public Collection $userCamps;
 
     /**
-     * The time periods of the camp, there must be at least one. Periods in a camp may not overlap.
-     * When creating a camp, the initial periods may be specified as nested payload, but updating,
-     * adding or removing periods later should be done through the period endpoints.
+     * The time periods of the camp, there must be at least one. Periods in a camp may not
+     * overlap. When creating a camp, the initial periods may be specified as nested payload,
+     * but updating, adding or removing periods later should be done through the period
+     * endpoints.
      */
     #[Assert\Valid]
     #[Assert\Count(min: 1, groups: ['create'])]
@@ -166,8 +170,7 @@ class Camp extends BaseEntity implements BelongsToCampInterface, CopyFromPrototy
     public Collection $materialItems;
 
     /**
-     * List of all Checklists of this Camp.
-     * Each Checklist is a List of ChecklistItems.
+     * List of all Checklists of this Camp. Each Checklist is a List of ChecklistItems.
      */
     #[ApiProperty(writable: false, uriTemplate: Checklist::CAMP_SUBRESOURCE_URI_TEMPLATE)]
     #[Groups(['read'])]
@@ -190,8 +193,8 @@ class Camp extends BaseEntity implements BelongsToCampInterface, CopyFromPrototy
     public ?string $campPrototypeId = null;
 
     /**
-     * The prototype camp that will be used as a template to create this camp.
-     * Only the ID will be persisted.
+     * The prototype camp that will be used as a template to create this camp. Only the ID
+     * will be persisted.
      */
     #[ApiProperty(readable: false, example: '/camps/1a2b3c4d')]
     #[Groups(['create'])]
@@ -334,11 +337,9 @@ class Camp extends BaseEntity implements BelongsToCampInterface, CopyFromPrototy
     public ?string $addressCity = null;
 
     /**
-     * The name of the organization which plans and carries out the camp.
-     * Organisator (Name der Jugendorganisation)
-     * Organisateur (nom de l’organisation de jeunesse)
-     * Organizzatore (nome dell’organizzazione giovanile)
-     * This field is required on picassos of Y+S camps.
+     * The name of the organization which plans and carries out the camp, required on
+     * picassos of Y+S camps: Organisator (Name der Jugendorganisation) / Organisateur (nom
+     * de l’organisation de jeunesse) / Organizzatore (nome dell’organizzazione giovanile).
      */
     #[InputFilter\Trim]
     #[InputFilter\CleanText]
@@ -349,11 +350,11 @@ class Camp extends BaseEntity implements BelongsToCampInterface, CopyFromPrototy
     public ?string $organizer = null;
 
     /**
-     * Rough categorization of the camp (house, tent, traveling, summer, autumn).
-     * Lagerart (Haus-, Zelt-, Unterwegslager, Sommer-, Herbstlager)
-     * Forme de camp (camp sous toit, camp sous tente, camp itinérant, camp d’été, camp d’automne)
-     * Tipo di campo (campo sotto tetto, in tenda, itinerante, estivo, autunnale)
-     * This field is required on picassos of Y+S camps.
+     * Rough categorization of the camp (house, tent, traveling, summer, autumn), required
+     * on picassos of Y+S camps: Lagerart (Haus-, Zelt-, Unterwegslager, Sommer-,
+     * Herbstlager) / Forme de camp (camp sous toit, camp sous tente, camp itinérant, camp
+     * d’été, camp d’automne) / Tipo di campo (campo sotto tetto, in tenda, itinerante,
+     * estivo, autunnale).
      */
     #[InputFilter\Trim]
     #[InputFilter\CleanText]
@@ -364,11 +365,8 @@ class Camp extends BaseEntity implements BelongsToCampInterface, CopyFromPrototy
     public ?string $kind = null;
 
     /**
-     * The name of the Y+S coach who is in charge of the camp.
-     * Name des J+S-Coachs
-     * Nom du coach J+S
-     * Nome del coach G+S
-     * This field is required on picassos of Y+S camps.
+     * The name of the Y+S coach who is in charge of the camp, required on picassos of Y+S
+     * camps: Name des J+S-Coachs / Nom du coach J+S / Nome del coach G+S.
      */
     #[InputFilter\Trim]
     #[InputFilter\CleanText]
@@ -379,11 +377,8 @@ class Camp extends BaseEntity implements BelongsToCampInterface, CopyFromPrototy
     public ?string $coachName = null;
 
     /**
-     * The official course number, identifying this course.
-     * Kursnummer
-     * Le numéro du cours
-     * Numero di corso
-     * This field is required on picassos of youth organization courses.
+     * The official course number, identifying this course, required on picassos of youth
+     * organization courses: Kursnummer / Le numéro du cours / Numero di corso.
      */
     #[InputFilter\Trim]
     #[InputFilter\CleanText]
@@ -394,11 +389,10 @@ class Camp extends BaseEntity implements BelongsToCampInterface, CopyFromPrototy
     public ?string $courseNumber = null;
 
     /**
-     * The official name for the type of this course.
-     * Kursbezeichnung (bei J+S Kurs: J+S Bezeichnung)
-     * Description (cours de base, d’animation, etc.)
-     * Nome del corso (in caso di corso G+S: tipo di corso G+S)
-     * This field is required on picassos of youth organization courses.
+     * The official name for the type of this course, required on picassos of youth
+     * organization courses: Kursbezeichnung (bei J+S Kurs: J+S Bezeichnung) / Description
+     * (cours de base, d’animation, etc.) / Nome del corso (in caso di corso G+S: tipo di
+     * corso G+S).
      */
     #[InputFilter\Trim]
     #[InputFilter\CleanText]
@@ -409,11 +403,9 @@ class Camp extends BaseEntity implements BelongsToCampInterface, CopyFromPrototy
     public ?string $courseKind = null;
 
     /**
-     * The name of the training advisor who is in charge of the course.
-     * Bürgerlicher Name von LKB
-     * Le nom d’origine du CàF
-     * Cognome e nome (non totem) del CaF
-     * This field is required on picassos of youth organization courses.
+     * The name of the training advisor who is in charge of the course, required on picassos
+     * of youth organization courses: Bürgerlicher Name von LKB / Le nom d’origine du CàF /
+     * Cognome e nome (non totem) del CaF.
      */
     #[InputFilter\Trim]
     #[InputFilter\CleanText]
@@ -424,11 +416,9 @@ class Camp extends BaseEntity implements BelongsToCampInterface, CopyFromPrototy
     public ?string $trainingAdvisorName = null;
 
     /**
-     * Whether the Y+S logo should be printed on the picasso of this camp.
-     * J+S-Logo (bei J+S-Kurs)
-     * Le logo J+S (pour des cours J+S)
-     * Logo G+S (solamente per corsi G+S)
-     * The logo is required for Y+S courses.
+     * Whether the Y+S logo should be printed on the picasso of this camp, required for Y+S
+     * courses: J+S-Logo (bei J+S-Kurs) / Le logo J+S (pour des cours J+S) / Logo G+S
+     * (solamente per corsi G+S).
      */
     #[ApiProperty(default: null, example: true)]
     #[Groups(['read', 'write'])]

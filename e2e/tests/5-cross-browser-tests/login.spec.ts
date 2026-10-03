@@ -1,11 +1,6 @@
 import { test, expect } from '@playwright/test'
-import { mockDateNow } from '@/utils/helpers'
 
-test.describe('Login test', () => {
-  test.beforeEach(async ({ page }) => {
-    await mockDateNow(page)
-  })
-
+test.describe('Login test', { tag: '@mature' }, () => {
   test('displays the login page', async ({ page }) => {
     await page.goto('/')
     await expect(page.locator('body')).toContainText('Login')
@@ -20,13 +15,11 @@ test.describe('Login test', () => {
 
     await page.locator('[type="email"]').fill('test@example.com')
     await page.locator('[type="password"]').fill('test')
-    await Promise.all([
-      page.locator('[type="submit"]').click(),
-      page.waitForURL('/camps', { timeout: 60000 }),
-    ])
+    await page.locator('[type="submit"]').click()
 
-    await expect(page.locator('body')).toContainText('Meine Lager')
-    await expect(page.locator('body')).toContainText('GRGR')
-    await expect(page.locator('body')).toContainText('Harry Potter Lager')
+    await expect(page).toHaveURL((url) => url.pathname === '/camps')
+    await expect(page.getByRole('heading', { name: 'Meine Lager' })).toBeVisible()
+    await expect(page.getByText('GRGR', { exact: true })).toBeVisible()
+    await expect(page.getByText('Harry Potter Lager', { exact: true })).toBeVisible()
   })
 })

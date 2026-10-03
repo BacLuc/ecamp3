@@ -1,6 +1,7 @@
-import { test, expect } from '@playwright/test'
+import { expect } from '@playwright/test'
 import { bipiUser } from '@/utils/constants'
-import { loginAndSetCookie, mockDateNow } from '@/utils/helpers'
+import { loginAndSetCookie } from '@/utils/helpers'
+import { test } from '@/utils/etest'
 
 const tomorrow = new Date()
 tomorrow.setDate(tomorrow.getDate() + 1)
@@ -10,11 +11,7 @@ in2Days.setDate(in2Days.getDate() + 2)
 
 const campTitle = 'title'
 
-test.describe('create new camp', () => {
-  test.beforeEach(async ({ page }) => {
-    await mockDateNow(page)
-  })
-
+test.describe('create new camp', { tag: '@mature' }, () => {
   test('without prototype', async ({ page, request }) => {
     await loginAndSetCookie(page, request, bipiUser)
     await expect(page.locator('body')).toContainText('GRGR')
@@ -41,9 +38,19 @@ test.describe('create new camp', () => {
     await expect(page.locator('.v-overlay')).not.toBeVisible({ timeout: 10000 })
     await page.getByTestId('create-camp-button').click()
 
-    await page.waitForURL('**/info')
+    await page.waitForURL('**')
+    await expect(page).toHaveURL((url) => url.pathname.endsWith('/info'))
 
     await expect(page.locator('main >> text=Lagerinfos')).toBeVisible()
     await expect(page.locator('[data-testid="title"] input')).toHaveValue(campTitle)
   })
+})
+
+test('without prototype via page objects', async ({ createCamp }) => {
+  const camp = await createCamp('Keine Vorlage')
+  const campInfo = camp.campInfo
+
+  await campInfo.goto()
+
+  await expect(camp.campInfo.titleField).toHaveValue(camp.campTitle)
 })

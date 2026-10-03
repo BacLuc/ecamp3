@@ -1,11 +1,14 @@
 # AGENTS.md
 
+The default branch of this project is `devel` branch of the `ecamp/ecamp3` repository. Base new work on it.
+
 ## Dev environment tips
 
 Before you do anything, start the dev environment:
 
 ```bash
 docker compose up -d
+docker compose --profile=playwright-cli up -d
 ```
 
 ### Key Directories
@@ -14,8 +17,8 @@ docker compose up -d
 - `/frontend/` Main Vue 3 frontend served by Vite.
 - `/frontend-old/` Legacy Vue 2 frontend; NEVER CHANGE THIS.
 - `/common/` Shared JavaScript utilities, ESLint rules, and locale files used by the Node-based apps.
-- `/pdf/` Client-side PDF rendering package used by the frontends.
-- `/print/` Nuxt-based print backend.
+- `/frontend/src/pdf/` Client-side PDF rendering code used by the frontend.
+- `/print/` Separate, Nuxt-based print backend.
 - `/e2e/` Playwright end-to-end tests.
 - `/.helm/` Helm chart and Kubernetes deployment configuration.
 - `/.ops/` Operational tooling such as performance tests.
@@ -80,19 +83,8 @@ NEVER CHANGE THIS
 ## /common directory
 
 Shared code and locale files are mounted into the Node-based services.
-When changing shared code, run checks for every affected consumer, commonly `frontend`, `pdf` or `print`.
+When changing shared code, run checks for every affected consumer, commonly `frontend`, or `print`.
 When changing shared locale files, also consider the `/translation` instructions.
-
-## /pdf directory
-
-Client-side PDF rendering package. The Docker service name is `pdf`.
-
-```bash
-docker compose exec pdf npm run lint:check
-docker compose exec pdf npm run lint
-docker compose exec pdf npm run test:unit
-docker compose exec pdf npm run build
-```
 
 ## /print directory
 
@@ -109,6 +101,27 @@ docker compose exec print npm run build
 
 Playwright end-to-end tests. The service uses the `e2e` Docker profile, so start it when needed.
 See [README.md](e2e/README.md)
+
+## Playwright CLI service
+
+The `playwright-cli` Docker service provides Playwright browser automation.
+It uses `network_mode: host` so URLs like `http://localhost:3000` work the same as on the host.
+The container stays running so the playwright-cli session daemon persists across commands.
+
+```bash
+docker compose exec playwright-cli playwright-cli open http://localhost:3000
+docker compose exec playwright-cli playwright-cli snapshot
+docker compose exec playwright-cli playwright-cli close
+```
+
+For one-shot scripts, use `exec` against the running container:
+
+```bash
+docker compose exec playwright-cli node /workspace/.playwright-cli/my-script.js
+```
+
+Screenshots and snapshots are saved to `.playwright-cli/`.
+Find the skill here: [skills](.agents/skills).
 
 ## Infrastructure and operations
 
